@@ -21,7 +21,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 * @license		http://creativecommons.org/licenses/by/3.0
 */
-class EXT_Model extends CI_Model {
+class SAT_Model extends CI_Model {
 
 	// the database group name to load
 	private $database = 'DATABASE_GROUP';

@@ -1,0 +1,3 @@
+[submodule "application/libraries/common"]
+	path = application/libraries/common
+	url = git://github.com/AeroCross/ci-common

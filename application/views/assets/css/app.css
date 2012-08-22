@@ -2,6 +2,8 @@
 /* Base Styles ---------------------------- */
 /* ---------------------------------------- */
 
+/* ---------------------------------------- */
+/* Text ----------------------------------- */
 .text-center {text-align: center;}
 .text-left {text-align: left;}
 .text-right {text-align: right;}
@@ -15,9 +17,28 @@ p, ul, ol, li, small, input, form, a {
 	font-family: 'Source Sans Pro';
 }
 
+/* ---------------------------------------- */
+/* Links ---------------------------------- */
 a.brand { /* until there's a logo */
 	font-weight: 200;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ---------------------------------------- */
+/* Forms ----------------------------------- */
+
+.form-actions {
+	border-top: none;
+	background: #fff;
+}
+
+/* ---------------------------------------- */
+/* login ---------------------------------- */
+/* ---------------------------------------- */
+
+.login-form {
+	position: relative;
+	top: 200px;
 }
 
 /* ---------------------------------------- */

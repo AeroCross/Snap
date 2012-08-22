@@ -1,8 +1,45 @@
+<div class="navbar navbar-static-top">
+
+	<div class="navbar-inner">
+
+		<div class="container">
+
+			<?php echo anchor('#', 'SAT', array('class' => 'brand')); ?>
+
+			<ul class="nav">
+
+				<li><?php echo anchor('#', 'Acerca'); ?></li>
+				<li><?php echo anchor('#', 'Soporte'); ?></li>
+
+			</ul>
+
+			<?php echo form_open('login', array('class' => 'navbar-form pull-right')); ?>
+
+				<input type="text" class="span2" name="username" placeholder="Usuario" />
+				<input type="text" class="span2" name="password" placeholder="Contraseña" />
+				<input type="submit" class="btn" value="Iniciar Sesión" />
+
+			<?php echo form_close(); ?>
+
+		</div>
+
+	</div>
+
+</div>
+
 <div class="container-fluid">
+
+	<div class="hero-unit">
+
+		<h1>Soporte Profesional en Línea</h1>
+
+		<p>Soporte técnico, académico, y administrativo personalizado a toda hora para nuestros clientes.</p>
+
+	</div>
 
 	<div class="page-header">
 
-		<h1>Lorem Ipsum <small>dolor sit amet</small></h1>
+		<h1>Bienvenido.</h1>
 
 	</div>
 
@@ -16,7 +53,11 @@
 
 		<div class="span3">
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<h4>¿Sin usuario?</h4>
+
+			<p>A todos nuestros clientes, al contratar nuestros servicios, se les concede el beneficio de utilizar SAT. Se le enviará un correo electrónico con la información de usuario.</p>
+
+			<p>Si no ha recibido esta información, <?php echo safe_mailto('', 'hágalo saber'); ?> y le enviaremos su información.</p>
 
 		</div>
 

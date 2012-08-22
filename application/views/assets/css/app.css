@@ -2,6 +2,36 @@
 /* Base Styles ---------------------------- */
 /* ---------------------------------------- */
 
-.text-center {
-	text-align: center;
+.text-center {text-align: center;}
+.text-left {text-align: left;}
+.text-right {text-align: right;}
+.text-justify {text-align: justify}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Telex';	
+}
+
+p, ul, ol, li, small, input, form, a {
+	font-family: 'Source Sans Pro';
+}
+
+a.brand { /* until there's a logo */
+	font-weight: 200;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ---------------------------------------- */
+/* Hacks ---------------------------------- */
+/* ---------------------------------------- */
+
+/* since we're using Google Fonts, form buttons aren't aligned */
+.navbar-form a.btn {
+	position: relative;
+	top: -1px;
+}
+
+/* icons aren't aligned as well */
+i {
+	position: relative;
+	top: 2px;
 }

@@ -75,16 +75,16 @@ class SAV_Controller extends CI_Controller {
 
 				// set the path to check for an existing layout
 				} elseif (file_exists(APPPATH . 'views/layouts/' . strtolower(get_class($this) . '.php'))) {
-					$layout = 'layouts/' . strtolower(get_class($this));
+					$layout = strtolower(get_class($this));
 
 				// if all else fails, set the main layout
 				} else {
-					$layout = 'layouts/default';
+					$layout = 'default';
 				}
 
 				// if the layout is going to be called
-				if ($this->layout === TRUE) {
-					$this->load->view($layout, $this->data);
+				if (is_string($layout) AND !empty($layout)) {
+					$this->load->view('layouts/' . $layout, $this->data);
 
 				// if not, echo directly to output for ajax calls, file handling, etc.
 				} else {
@@ -104,5 +104,5 @@ class SAV_Controller extends CI_Controller {
 	}
 }
 
-/* End of file EXT_Controller.php */
-/* Location: ./application/core/EXT_Controller.php */
+/* End of file SAV_Controller.php */
+/* Location: ./application/core/SAV_Controller.php */

@@ -133,7 +133,7 @@ $config['enable_hooks'] = FALSE;
 | http://codeigniter.com/user_guide/general/creating_libraries.html
 |
 */
-$config['subclass_prefix'] = 'SAT_';
+$config['subclass_prefix'] = 'SAV_';
 
 
 /*

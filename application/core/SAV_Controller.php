@@ -25,7 +25,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 * @license		http://creativecommons.org/licenses/by/3.0
 */
-class SAT_Controller extends CI_Controller {
+class SAV_Controller extends CI_Controller {
 
 	// the data to be passed around views and controllers
 	public $data;

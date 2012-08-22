@@ -6,7 +6,7 @@
 * @package		SAT
 * @subpackage	Controllers
 */
-class Login extends SAT_Controller {
+class Login extends SAV_Controller {
 
 	/**
 	* Displays the main site and the login form.

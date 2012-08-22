@@ -18,7 +18,8 @@
 				</div>
 
 			</div>
-
+			<!-- end username -->
+			
 			<!-- password -->
 			<div class="control-group">
 
@@ -31,6 +32,7 @@
 				</div>
 
 			</div>
+			<!-- end password -->
 
 			<!-- submit -->
 			<div class="form-actions">
@@ -38,8 +40,10 @@
 				<input type="submit" class="btn btn-primary" value="Iniciar Sesión" />
 
 			</div>
+			<!-- end submit -->
 
 		</fieldset>
+		<!-- end fieldset -->
 
 	<?php echo form_close(); ?>
 

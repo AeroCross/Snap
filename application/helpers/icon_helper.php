@@ -3,7 +3,9 @@
 /**
 * Inserts a Font Awesome icon.
 *
-* @param	string - the name of the icon
+* @param	string	- the name of the icon
+* @param	int		- size of the icon
+* @param	array	- attributes for the icon
 * @return	string - the markup for the icon
 */
 function icon($name, $size = 24, $attributes = array()) {

@@ -10,9 +10,12 @@
 * @param	array	- attributes for the icon
 * @return	string - the markup for the icon
 */
-function icon($name, $size = 24, $attributes = array()) {
+function icon($name, $size = NULL, $attributes = array()) {
 	$attr	= '';
-	$class 	= 'icon icon-' . $name;
+	$class 	= 'icon-' . $name;
+	if ($size != NULL) {
+		$size = ' style="font-size: ' . $size . 'px"';
+	}
 
 	if (is_array($attributes) AND !empty($attributes)) {
 		foreach ($attributes as $key => $attribute) {
@@ -24,7 +27,7 @@ function icon($name, $size = 24, $attributes = array()) {
 		}
 	}
 
-	return '<i class="' . $class . '" ' . $attr . ' style="font-size: ' . $size . 'px"></i>';
+	return '<i class="' . $class . '" ' . $attr . $size . '></i>';
 }
 
 /* End of file icon.php */

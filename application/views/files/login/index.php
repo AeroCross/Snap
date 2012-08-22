@@ -32,6 +32,7 @@
 
 			</div>
 
+			<!-- submit -->
 			<div class="form-actions">
 
 				<input type="submit" class="btn btn-primary" value="Iniciar Sesión" />

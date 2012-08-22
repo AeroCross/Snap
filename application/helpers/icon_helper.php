@@ -1,10 +1,12 @@
 <?php
 
 /**
-* Inserts a Font Awesome icon.
+* Inserts an icon.
+*
+* This works with Glyphicons (bundled with Bootstrap) and Font Awesome icons.
 *
 * @param	string	- the name of the icon
-* @param	int		- size of the icon
+* @param	int		- size of the icon (only for Font Awesome)
 * @param	array	- attributes for the icon
 * @return	string - the markup for the icon
 */

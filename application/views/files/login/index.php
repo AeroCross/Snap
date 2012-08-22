@@ -4,11 +4,12 @@
 
 		<div class="container">
 
-			<?php echo anchor('#', 'SAT', array('class' => 'brand')); ?>
+			<?php echo anchor('#', 'SAV', array('class' => 'brand')); ?>
 
 			<ul class="nav">
 
-				<li><?php echo anchor('#', 'Acerca'); ?></li>
+				<li><?php echo anchor('#', 'Guía de Usuario'); ?></li>
+				<li><?php echo anchor('#', 'Preguntas Frecuentes'); ?></li>
 				<li><?php echo anchor('#', 'Soporte'); ?></li>
 
 			</ul>
@@ -49,7 +50,7 @@
 
 			<h4>¿Sin usuario?</h4>
 
-			<p>A todos nuestros clientes, al contratar nuestros servicios, se les concede el beneficio de utilizar SAT. Se le enviará un correo electrónico con la información de usuario.</p>
+			<p>A todos nuestros clientes, al contratar nuestros servicios, se les concede el beneficio de utilizar SAV. Se le enviará un correo electrónico con la información de usuario.</p>
 
 			<p>Si no ha recibido esta información, <?php echo safe_mailto('', 'hágalo saber'); ?> y le enviaremos su información.</p>
 

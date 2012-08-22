@@ -28,7 +28,7 @@
 
 </div>
 
-<div class="container-fluid">
+<div class="container">
 
 	<div class="page-header text-center">
 
@@ -36,7 +36,7 @@
 
 	</div>
 
-	<div class="row-fluid">
+	<div class="row">
 
 		<div class="span9">
 

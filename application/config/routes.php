@@ -64,8 +64,8 @@
 |
 */
 
-$route['default_controller'] = 'login';
-$route['404_override'] = 'login';
+$route['default_controller'] = 'site';
+$route['404_override'] = '';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

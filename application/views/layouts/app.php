@@ -24,7 +24,8 @@
 
 				</li>
 
-				<li><?php echo anchor('support', 'Soporte'); ?></li>
+				<li><?php echo anchor('#', 'Consultas'); ?></li>
+				<li><?php echo anchor('#', 'Soporte'); ?></li>
 
 			</ul>
 

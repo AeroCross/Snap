@@ -1,5 +1,26 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Codeigniter Core Loader Extension
+*
+* Adds methods for loading and instantiating new objects.
+*
+* NOTICE OF LICENSE
+*
+* Licensed under the Creative Commons Attribution 3.0 Unported License.
+*
+* This source file is subject to the Creative Commons Attribution 3.0 Unported License
+* that is available through http://creativecommons.org/licenses/by/3.0/legalcode. It is
+* released to the public domain via http://github.com/AeroCross/ci-core-extensions.
+*
+* You are free to share, modify, and profit from this source file as long as
+* there is attribution to the author and this Notice of License is not removed.
+*
+* @package		Codeigniter
+* @subpackage	Core Extensions
+* @author		Mario Cuba <mario@mariocuba.net>
+* @license		http://creativecommons.org/licenses/by/3.0
+*/
 class SAV_Loader extends CI_Loader {
 
 	/**

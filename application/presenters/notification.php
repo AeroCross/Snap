@@ -53,7 +53,7 @@ class NotificationPresenter extends Presenter {
 		}
 
 		// form the notification
-		$start	= '<div class="alert fade in alert-' . $type . $class '">';
+		$start	= '<div class="alert fade in alert-' . $type . $class . '">';
 		$close	= '<a class="close" data-dismiss="alert" href="#">&times;</a>';
 		$end	= '</div>';
 

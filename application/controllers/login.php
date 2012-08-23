@@ -86,7 +86,7 @@ class Login extends SAV_Controller {
 		}
 
 		// user found and password correct — login
-		$userdata	= $this->sav_user->data()->username($username)->get();
+		$userdata	= $this->sav_user->data('firstname, lastname, username, email')->username($username)->get();
 		$name		= $userdata->firstname . ' ' . $userdata->lastname;
 		$email		= $userdata->email;
 		$key		= hash('sha1', $userdata->firstname . '+' . $userdata->lastname . '+' . $userdata->username . '+' . $userdata->email);

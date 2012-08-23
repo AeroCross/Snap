@@ -8,6 +8,12 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 */
 class Login extends SAV_Controller {
+	public function __construct() {
+		parent::__construct();
+
+		// load the notification presenter
+		$this->load->presenter('notification');
+	}
 	public function index() {
 		$this->layout = 'login';
 	}

@@ -89,11 +89,13 @@ class Login extends SAV_Controller {
 		$userdata	= $this->sav_user->data('firstname, lastname, username, email')->username($username)->get();
 		$name		= $userdata->firstname . ' ' . $userdata->lastname;
 		$email		= $userdata->email;
-		$key		= hash('sha1', $userdata->firstname . '+' . $userdata->lastname . '+' . $userdata->username . '+' . $userdata->email);
+		$key		= $this->init->generateLoginKey($userdata);
 		
-		$this->session->set_userdata('logged', $key);
+		// set session variables
+		$this->session->set_userdata('key', $key);
 		$this->session->set_userdata('name', $name);
 		$this->session->set_userdata('email', $email);
+		$this->session->set_userdata('username', $userdata->username);
 
 		// redirect
 		redirect('dashboard');

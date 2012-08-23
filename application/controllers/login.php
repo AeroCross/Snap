@@ -15,6 +15,14 @@ class Login extends SAV_Controller {
 		$this->load->presenter('notification');
 	}
 	
+	/**
+	* Shows the login form.
+	*
+	* If there's a session, the method will redirect to where
+	* the user should be.
+	*
+	* @access	public
+	*/
 	public function index() {
 		$this->layout = 'login';
 
@@ -23,7 +31,16 @@ class Login extends SAV_Controller {
 		}
 	}
 
-	public function _login() {
+	/**
+	* Logs in an user.
+	*
+	* This method uses $_POST data. $username and $password must
+	* be provided so the user can be logged in.
+	*
+	* @access	private
+	* @return	array	- a notification, if failed. Redirects if the user logs in
+	*/
+	private function _login() {
 		$this->load->library('form_validation');
 
 		// all fields required
@@ -45,6 +62,7 @@ class Login extends SAV_Controller {
 
 		$this->load->model('sav_user');
 
+		// if the user doesn't exists, exit
 		if ($this->sav_user->login($username, $password) === FALSE) {
 			return array(
 				'status'	=> 'login_failed',
@@ -52,15 +70,9 @@ class Login extends SAV_Controller {
 				'message'	=> 'Intente nuevamente.',
 				'type'		=> 'warning'
 			);
-
-		// logged in
-		} else {
-			return array(
-				'status'	=> 'logged_in',
-				'message'	=> 'Sesión iniciada.',
-				'type'		=> 'success'
-			);
 		}
+
+		
 	}
 }
 

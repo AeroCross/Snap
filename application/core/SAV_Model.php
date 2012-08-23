@@ -24,7 +24,7 @@
 class SAV_Model extends CI_Model {
 
 	// the database group name to load
-	private $database = 'DATABASE_GROUP';
+	private $database = SAV_DATABASE;
 
 	/**
 	* The class constructor.

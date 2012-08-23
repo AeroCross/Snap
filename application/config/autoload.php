@@ -78,7 +78,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('common/resource', 'debug/kint');
+$autoload['libraries'] = array('common/resource', 'debug/kint', 'session');
 
 
 /*

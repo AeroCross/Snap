@@ -72,7 +72,22 @@ class Login extends SAV_Controller {
 			);
 		}
 
+		// user found and password correct — login
+		$userdata	= $this->sav_user->data()->username($username)->get();
+		$name		= $userdata->firstname . ' ' . $userdata->lastname;
+		$email		= $userdata->email;
+		$key		= hash('sha1', $userdata->firstname . '+' . $userdata->lastname . '+' . $userdata->username . '+' . $userdata->email);
 		
+		$this->session->set_userdata('logged', $key);
+		$this->session->set_userdata('name', $name);
+		$this->session->set_userdata('email', $email);
+
+		// redirect
+		return array(
+			'status'	=> 'logged_in',
+			'message'	=> 'Sesión iniciada.',
+			'type'		=> 'success'
+		);
 	}
 }
 

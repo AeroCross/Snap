@@ -26,6 +26,19 @@ class Login extends SAV_Controller {
 	public function index() {
 		$this->layout = 'login';
 
+		// flashdata passed? display notification
+		if ($this->session->flashdata('logout') != FALSE) {
+			// regenerate the notification data
+			$notification = unserialize($this->session->flashdata('notification'));
+
+			// create the notification
+			$this->presenter->notification->create($notification);
+
+			// destroy the session
+			$this->session->sess_destroy();
+		}
+
+		// tried to login? display results (if any)
 		if ($this->input->post() != FALSE) {
 			$this->presenter->notification->create($this->_login());
 		}

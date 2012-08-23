@@ -23,14 +23,15 @@ class NotificationPresenter extends Presenter {
 	*/
 	public function create($data) {
 
+		// if it's not an array, there's nothing to do here
+		if (!is_array($data)) {
+			return FALSE;
+		}
+
 		// initialize
 		$class		= '';
 		$message	= '';
 		$title		= '';
-
-		if (!is_array($data)) {
-			return FALSE;
-		}
 
 		// fetch the data
 		foreach($data as $key => $d) {

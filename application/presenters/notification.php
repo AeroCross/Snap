@@ -24,6 +24,18 @@ class NotificationPresenter extends Presenter {
 	public function create() {
 		
 	}
+
+	/**
+	* Shows the selected notification.
+	*
+	* @param	int		- the notification to show
+	* @param	bool	- return as text (TRUE) or echo the notification (FALSE)
+	* @return	mixed	- the notification or the echo
+	* @access	public
+	*/
+	public function show() {
+		
+	}
 }
 
 /* End of file notification.php */

@@ -96,12 +96,7 @@ class Login extends SAV_Controller {
 		$this->session->set_userdata('email', $email);
 
 		// redirect
-		return array(
-			'status'	=> 'logged_in',
-			'title'		=> 'Sesión iniciada',
-			'message'	=> 'como ' . $this->session->userdata('name') . ' (' . safe_mailto($this->session->userdata('email')) . ')',
-			'type'		=> 'success'
-		);
+		redirect('dashboard');
 	}
 }
 

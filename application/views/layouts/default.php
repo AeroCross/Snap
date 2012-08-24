@@ -2,7 +2,7 @@
 <?php  $this->load->view('assets/inc/header'); ?>
 
 <!-- navbar -->
-<div class="navbar navbar-static-top">
+<div class="navbar navbar-static-top navbar-inverse">
 
 	<div class="navbar-inner">
 
@@ -13,6 +13,7 @@
 			<ul class="nav">
 
 				<li class="dropdown">
+					
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nueva <b class="caret"></b></a>
 
 					<ul class="dropdown-menu">

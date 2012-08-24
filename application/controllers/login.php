@@ -8,8 +8,12 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 */
 class Login extends SAV_Controller {
-
 	
+	/**
+	* The class constructor.
+	*
+	* @access	public
+	*/
 	public function __construct() {
 		parent::__construct();
 

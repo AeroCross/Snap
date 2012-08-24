@@ -18,13 +18,21 @@
 
 			</ul>
 
-			<?php echo form_open('login', array('class' => 'navbar-form pull-right')); ?>
+			<?php if ($this->init->hasSession()): ?>
 
-				<input type="text" class="span2" name="username" placeholder="Usuario" />
-				<input type="text" class="span2" name="password" placeholder="Contraseña" />
-				<button class="btn" id="login-submit"><?php echo icon('signin'); ?> Iniciar Sesión</button>
+				<p class="navbar-text pull-right">Sesión iniciada como <strong><?php echo $this->session->userdata('name'); ?></strong> &mdash; <?php echo anchor('dashboard', 'ir a area de cliente'); ?> | <?php echo anchor('logout', 'salir'); ?></p>
 
-			<?php echo form_close(); ?>
+			<?php else: ?>
+
+				<?php echo form_open('login', array('class' => 'navbar-form pull-right')); ?>
+
+					<input type="text" class="span2" name="username" placeholder="Usuario" />
+					<input type="text" class="span2" name="password" placeholder="Contraseña" />
+					<button class="btn" id="login-submit"><?php echo icon('signin'); ?> Iniciar Sesión</button>
+
+				<?php echo form_close(); ?>
+
+			<?php endif; ?>
 
 		</div>
 

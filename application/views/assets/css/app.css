@@ -13,7 +13,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: 'Telex';	
 }
 
-p, ul, ol, li, small, input, form, a, button {
+p, ul, ol, li, small, input, select, option, form, a, button {
 	font-family: 'Source Sans Pro';
 }
 

@@ -30,12 +30,14 @@ class Login extends SAV_Controller {
 		if ($this->session->flashdata('notification') != FALSE) {
 			// regenerate the notification data
 			$notification = unserialize($this->session->flashdata('notification'));
-			
+
 			// create the notification
 			$this->presenter->notification->create($notification);
 
-			// destroy the session
-			$this->session->sess_destroy();
+			// destroy the session, if there was a logout
+			if ($this->session->flashdata('logout') != FALSE) {
+				$this->session->sess_destroy();
+			}
 		}
 
 		// tried to login? display results (if any)

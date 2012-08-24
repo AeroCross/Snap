@@ -12,7 +12,7 @@
 class FormPresenter extends Presenter {
 
 	// prevent overloading
-	private $ci;
+	private $sav;
 
 	/**
 	* The class constructor.
@@ -53,6 +53,16 @@ class FormPresenter extends Presenter {
 		}
 
 		return $result;
+	}
+
+	/**
+	* Creates options for the departments.
+	*
+	* @access	public
+	*/
+	public function departments() {
+		$this->sav->load->model('sav_department');
+		return $this->_createOptions($this->sav->sav_department->getDepartments(), 'id', 'name');
 	}
 }
 

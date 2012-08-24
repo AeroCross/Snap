@@ -22,9 +22,7 @@
 
 						<select name="department" id="department">
 
-							<option value=""></option>
-							<option value="1">Soporte Técnico</option>
-							<option value="2">Administración</option>
+							<?php echo $this->presenter->form->departments(); ?>
 
 						</select>
 

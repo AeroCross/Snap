@@ -30,6 +30,7 @@ class Tickets extends SAV_Controller {
  	* @access	public
  	*/
 	public function add() {
+		$this->load->presenter('form');
 		$this->view = 'files/tickets/add';
 	}
 }

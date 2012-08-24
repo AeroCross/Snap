@@ -27,10 +27,10 @@ class Login extends SAV_Controller {
 		$this->layout = 'login';
 
 		// flashdata passed? display notification
-		if ($this->session->flashdata('logout') != FALSE) {
+		if ($this->session->flashdata('notification') != FALSE) {
 			// regenerate the notification data
 			$notification = unserialize($this->session->flashdata('notification'));
-
+			
 			// create the notification
 			$this->presenter->notification->create($notification);
 

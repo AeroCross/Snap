@@ -27,7 +27,7 @@
 				<?php echo form_open('login', array('class' => 'navbar-form pull-right')); ?>
 
 					<input type="text" class="span2" name="username" placeholder="Usuario" />
-					<input type="text" class="span2" name="password" placeholder="Contraseña" />
+					<input type="password" class="span2" name="password" placeholder="Contraseña" />
 					<button class="btn" id="login-submit"><?php echo icon('signin'); ?> Iniciar Sesión</button>
 
 				<?php echo form_close(); ?>

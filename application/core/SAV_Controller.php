@@ -60,7 +60,7 @@ class SAV_Controller extends CI_Controller {
 			}
 
 		// not the login, not logging out and not the site - check session
-		} elseif (!$this->init->hasSession() AND $this->uri->segment(1) !== 'site') {
+		} elseif (!$this->init->hasSession() AND $this->uri->segment(1) !== 'site' AND $this->uri->segment(1) !== NULL) {
 			$notification = serialize(array(
 				'status'	=> 'not_logged_in',
 				'message'	=> 'No ha iniciado sesión.',

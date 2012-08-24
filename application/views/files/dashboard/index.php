@@ -6,7 +6,7 @@
 
 	</div>
 
-	<p>No tiene consultas recientes &mdash; <?php echo anchor('#', 'Cree una nueva consulta'); ?>.</p>
+	<p>No tiene consultas recientes &mdash; <?php echo anchor('tickets/add', 'Cree una nueva consulta'); ?>.</p>
 
 	<div class="row">
 
@@ -17,7 +17,7 @@
 
 				<legend>Consultas</legend>
 
-				<p><?php echo anchor('#', 'Nueva Consulta', array('class' => 'btn btn-large btn-block btn-primary')); ?></p>
+				<p><?php echo anchor('tickets/add', 'Nueva Consulta', array('class' => 'btn btn-large btn-block btn-primary')); ?></p>
 
 				<p>Una <strong>consulta</strong> es una solicitud de soporte, una pregunta o un problema que presente. Si su caso es:</p>
 
@@ -30,7 +30,7 @@
 
 				</ul>
 
-				<p>Entonces cree una <?php echo anchor('#', 'nueva consulta'); ?>.</p>
+				<p>Entonces cree una <?php echo anchor('ticket/add', 'nueva consulta'); ?>.</p>
 
 				<p><span class="label label-info">Nota</span> Si usted ya tiene una consulta abierta sobre lo que va a reportar, ingrese a ella y actualize su consulta, para poder ofrecerle un mejor servicio.</p>
 

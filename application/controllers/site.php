@@ -9,6 +9,18 @@
 class Site extends SAV_Controller {
 
 	/**
+	* The class constructor.
+	*
+	* @access	public
+	*/
+	public function __construct() {
+		parent::__construct();
+
+		// set the site layout
+		$this->layout = 'site';
+	}
+
+	/**
 	* Displays the main site and the login form.
 	*
 	* @access	public

@@ -73,6 +73,17 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 define('SHOW_DEBUG_BACKTRACE', TRUE);
 
+/*
+|--------------------------------------------------------------------------
+| Database Constants
+|--------------------------------------------------------------------------
+|
+| These values are used to connect to the database and load models.
+|
+*/
+define('SAV_DATABASE', 'sav');
+define('SAV_USERNAME', 'sav');
+define('SAV_PASSWORD', 'sav');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

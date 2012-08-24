@@ -21,8 +21,47 @@ class NotificationPresenter extends Presenter {
 	* @return	bool	- TRUE if the notification was created, FALSE otherwise
 	* @access	public
 	*/
-	public function create() {
-		
+	public function create($data) {
+
+		// if it's not an array, there's nothing to do here
+		if (!is_array($data)) {
+			return FALSE;
+		}
+
+		// initialize
+		$class		= '';
+		$message	= '';
+		$title		= '';
+
+		// fetch the data
+		foreach($data as $key => $d) {
+				switch ($key) {
+					case 'block':	$class		.= ' alert-block'; 	break;
+					case 'class':	$class		.= $d;				break;
+					case 'type':	$type		= $d;				break;
+					case 'message':	$message	= $d;				break;
+					case 'title': 	$title 		= $d;				break;
+				}
+			}
+
+		// properly configure title
+		if (isset($title)) {
+			if (isset($data['block'])) {
+				$message = '<h4>' . $title . '</h4> ' . $message;
+			} else {
+				$message = '<strong>' . $title . '</strong> ' . $message;	
+			}
+		}
+
+		// form the notification
+		$start	= '<div class="alert fade in alert-' . $type . $class . '">';
+		$close	= '<a class="close" data-dismiss="alert" href="#">&times;</a>';
+		$end	= '</div>';
+
+		$this->notifications[] = $start . $close . $message . $end;
+
+		// all good
+		return TRUE;
 	}
 
 	/**
@@ -33,8 +72,34 @@ class NotificationPresenter extends Presenter {
 	* @return	mixed	- the notification or the echo
 	* @access	public
 	*/
-	public function show() {
-		
+	public function show($notification = NULL, $return = FALSE) {
+
+		// no notifications, return nothing
+		if (empty($this->notifications)) {
+			return NULL;
+		}
+
+		// no notification selected — get the last one
+		if ($notification === NULL) {
+			$notification = count($this->notifications) - 1;
+
+		// notification selected with proper numbering
+		} elseif (is_numeric($notification)) {
+			(int) $notification = (int) $notification - 1;
+
+		// erroneous parameter
+		} else {
+			show_error('Parameter <strong>$notification</strong> must be an integer.');
+		}
+
+		// return if selected
+		if ($return === TRUE) {
+			return $this->notifications[$notification];
+
+		// echo the result
+		} else {
+			echo $this->notifications[$notification];
+		}
 	}
 }
 

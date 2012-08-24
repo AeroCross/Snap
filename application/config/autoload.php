@@ -78,7 +78,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('common/resource', 'debug/kint');
+$autoload['libraries'] = array('init', 'common/resource', 'debug/kint', 'session');
 
 
 /*
@@ -136,6 +136,18 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Presenters
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	require_once APPPATH . 'presenters/presenter.php';
+|
+*/
+
+require_once APPPATH . 'presenters/presenter.php';
 
 
 /* End of file autoload.php */

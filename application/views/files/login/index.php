@@ -6,6 +6,9 @@
 
 			<legend>Iniciar Sesión</legend>
 
+			<!-- notifications -->
+			<?php $this->presenter->notification->show(); ?>
+
 			<!-- username -->
 			<div class="control-group">
 

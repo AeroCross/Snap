@@ -109,7 +109,7 @@
 
 		</ul>
 
-		<p><strong>Soporte Técnico</strong> se encargará de su sitio web, servidor o de su aula virtual y todo lo que esto involucra. En cambio, la <strong>Administración</strong> se encargará de costos, logística y desarrollo del aula virtual y sus contenidos.</p>
+		<p>Asegúrese de elegir correctamente el departamento para su situación &mdash; esto agilizará su tiempo de respuesta.</p>
 
 		<br />
 

@@ -39,7 +39,7 @@
 					<div class="controls">
 
 						<input type="text" name="subject" id="subject" value="" />
-						<p class="help-block">Describa brevemente su consulta</p>
+						<p class="help-block">Describa brevemente su consulta.</p>
 
 					</div>
 
@@ -54,7 +54,7 @@
 					<div class="controls">
 
 						<textarea name="content" id="content" rows="5"></textarea>
-						<p class="help-block">Detalle la situación que presenta</p>
+						<p class="help-block">Detalle la situación que presenta.</p>
 
 					</div>
 
@@ -64,12 +64,12 @@
 				<!-- carbon copy -->
 				<div class="control-group">
 
-					<label for="cc" class="control-label">Copia a</label>
+					<label for="cc" class="control-label">Enviar copia a</label>
 
 					<div class="controls">
 
 						<input type="text" name="cc" id="cc" value="" />
-						<p class="help-block">Solo un correo electrónico</p>
+						<p class="help-block">Solo un correo electrónico.</p>
 
 					</div>
 

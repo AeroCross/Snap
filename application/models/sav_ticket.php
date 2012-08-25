@@ -43,13 +43,58 @@ class Sav_ticket extends SAV_Model {
 		// get the insert ID
 		$id = $this->cdb->insert_id();
 		
+		// inserted? send an email to department members
 		if ($id > 0) {
-			return $id;
+			$this->load->library('email');
+			$this->load->model('sav_setting');
+			$this->load->model('sav_department');
+
+			// set variables of form
+			$department = $data['department'];
+			$content	= $data['content'];
+			$subject	= $data['subject'];
+
+			// fetches the info of all department members, to send emails
+			$members = $this->sav_department->getDepartmentMembers($department);
+
+			// no members related to that department, insert and leave returning ticket #
+			if(empty($members)) {
+				return $id;
+			}
+
+			// set the emails to send
+			foreach($members as $member) {
+				$emails[] = $member->email;
+			}
+
+			// initialize email preferences
+			$this->init->email();
+
+			// set email preferences
+			$smtp_user = $this->sav_setting->getSetting('smtp_user');
+			$this->email->to($smtp_user);
+			$this->email->from($smtp_user);
+
+			// actual message
+			$this->email->bcc($emails);
+			$this->email->subject('Ticket #' . $id . ': ' . $subject);
+			$this->email->message($content);
+
+			// all good - return ticket number
+			if ($this->email->send()) {
+				return $id;
+
+			// couldn't send email
+			} else {
+				return FALSE;
+			}
+
+		// no insertion
 		} else {
 			return FALSE;
 		}
 	}
 }
 
-/* End of file model.php */
-/* Location: ./application/models/model.php */
+/* End of file sav_ticket.php */
+/* Location: ./application/models/sav_ticket.php */

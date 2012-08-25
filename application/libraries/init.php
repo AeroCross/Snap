@@ -72,4 +72,39 @@ class Init {
 			return FALSE;
 		}
 	}
+
+	/**
+	* Initializes email settings.
+	*
+	* @access	public
+	*/
+	public function email() {
+		$this->app->load->library('email');
+		$this->app->load->model('sav_setting');
+		
+		// settings to fetch
+		$settings = array(
+			'smtp_host',
+			'smtp_port',
+			'smtp_user',
+			'smtp_pass',
+			'smtp_crypto',
+		);
+		
+		$settings = $this->app->sav_setting->getSettings($settings);
+		
+		$email = array(
+			'smtp_host'		=> $settings->smtp_host,
+			'smtp_port'		=> $settings->smtp_port,
+			'smtp_user'		=> $settings->smtp_user,
+			'smtp_pass'		=> $settings->smtp_pass,
+			'smtp_crypto'	=> $settings->smtp_crypto,
+			'protocol'		=> 'smtp',
+			'mailtype'		=> 'html',
+			'crlf'			=> '\r\n',
+			'newline'		=> '\r\n',
+		);
+
+		$this->app->email->initialize($email);
+	}
 }

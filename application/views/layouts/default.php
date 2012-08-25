@@ -8,7 +8,7 @@
 
 		<div class="container">
 
-			<?php echo anchor('#', 'SAV', array('class' => 'brand')); ?>
+			<?php echo anchor('dashboard', 'SAV', array('class' => 'brand')); ?>
 
 			<ul class="nav">
 

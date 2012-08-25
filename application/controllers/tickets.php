@@ -19,8 +19,9 @@ class Tickets extends SAV_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		// load the notification presenter
+		// load resources
 		$this->load->presenter('notification');
+		$this->load->model('sav_ticket');
 	}
 
 	public function index() {
@@ -41,6 +42,20 @@ class Tickets extends SAV_Controller {
 
 		$this->load->presenter('form');
 		$this->view = 'files/tickets/add';
+	}
+
+	/**
+ 	* Viws details of a ticket.
+ 	*
+ 	* @access	public
+ 	*/
+	public function view($ticket) {
+		$this->load->model('sav_user');
+		$this->data->reporter	= new StdClass;
+		$this->data->ticket		= new StdClass;
+
+		$this->data->ticket		= $this->sav_ticket->getTicket($ticket);
+		$this->data->reporter	= $this->sav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
 	}
 
  	/**

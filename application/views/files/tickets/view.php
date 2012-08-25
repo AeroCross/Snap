@@ -12,7 +12,7 @@
 			
 		<ul>
 			<li><strong>Hecha por:</strong> <?php echo safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname); ?></li>
-			<li><strong>Estatus:</strong> <?php echo $ticket->status; ?></li>
+			<li><strong>Estatus:</strong> <?php echo status($ticket->status); ?></li>
 		</ul>
 
 	</div>

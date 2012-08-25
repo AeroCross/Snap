@@ -50,6 +50,7 @@ class Tickets extends SAV_Controller {
  	* @access	public
  	*/
 	public function view($ticket) {
+		$this->load->helper('parser');
 		$this->load->model('sav_user');
 		$this->load->model('sav_message');
 

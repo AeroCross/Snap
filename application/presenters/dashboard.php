@@ -29,9 +29,10 @@ class DashboardPresenter {
 	* @return string	- the table with the tickets or a feedback message
 	*/
 	public function latestTickets() {
-		// load the neccesary models
+		// load the neccesary code
 		$this->app->load->model('sav_ticket');
 		$this->app->load->model('sav_department');
+		$this->app->load->helper('parser');
 
 		// fetch necessary information
 		$id			= $this->app->session->userdata('id');
@@ -53,7 +54,7 @@ class DashboardPresenter {
 				$ticket->subject,
 				$ticket->date_created,
 				$this->app->sav_department->getDepartment($ticket->department)->name,
-				$ticket->status
+				status($ticket->status)
 			);
 		}
 

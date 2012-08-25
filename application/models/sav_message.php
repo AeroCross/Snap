@@ -22,7 +22,21 @@ class Sav_message extends SAV_Model {
 	public function __construct() {
 		parent::__construct();
 	}
-	
+
+	/**
+	* Fetches a messages from a thread.
+	*
+	* @param	int		- the message id
+	* @return	object	- the message data
+	* @access	public
+	*/ 
+	public function getMessage($message_id) {
+		$this->cdb->select('*')
+		->where('id', $message_id);
+
+		return $this->cdb->get($this->_table)->row();
+	}	
+
 	/**
 	* Fetches all messages from a thread.
 	*
@@ -56,10 +70,15 @@ class Sav_message extends SAV_Model {
 
 		// proceed with the insert
 		$this->cdb->insert($this->_table);
-
-		if ($this->cdb->insert_id() > 0) {
+		$id = $this->cdb->insert_id(); 
+		if ($id > 0) {
 			// correct status
 			$this->sav_ticket->updateStatus($ticket_id, $status);
+
+			// correct modification date
+			$date = $this->sav_message->getMessage($id)->date;
+			$this->sav_ticket->updateModificationDate($ticket_id, $date);
+
 			return TRUE;
 		} else {
 			return FALSE;

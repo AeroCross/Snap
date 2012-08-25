@@ -9,10 +9,13 @@
 	<!-- form container -->
 	<div class="span6">
 
-		<?php echo form_open('tickets/process', array('class' => 'form-horizontal')); ?>
+		<?php echo form_open('tickets/add', array('class' => 'form-horizontal')); ?>
 
 			<fieldset>
 
+				<!-- notification -->
+				<?php echo $this->presenter->notification->show(); ?>
+				
 				<!-- department -->
 				<div class="control-group">
 

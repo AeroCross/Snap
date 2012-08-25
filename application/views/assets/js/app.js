@@ -1,11 +1,12 @@
 jQuery(document).ready(function() {
 
 	// initialize alerts
-	jQUery('.alert').alert();
+	jQuery('.alert').alert();
 	
 	// submit login form when clicked
-	jQuery('#login-submit').on('click', function() {
-		jQuery(this).parent('form').submit();
+	jQuery('.submit').on('click', function(e) {
+		e.preventDefault();
+		jQuery(this).parents('form').submit();
 	});
 	
 });

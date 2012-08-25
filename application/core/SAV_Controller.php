@@ -37,42 +37,6 @@ class SAV_Controller extends CI_Controller {
 
 		// required to suppress strict errors
 		$this->data	= new StdClass;
-		$this->load->presenter('notification');
-
-		// check if there's a session in the login controller
-		if ($this->uri->segment(1) === 'login') {
-
-			$logout = $this->session->flashdata('logout');
-
-			// session found - redirecting into the app
-			if ($this->init->hasSession() AND empty($logout)) {
-				redirect('dashboard');
-
-			// no session found
-			} else {
-				$notification = serialize(array(
-					'status'	=> 'not_logged_in',
-					'message'	=> 'No ha iniciado sesión.',
-					'type'		=> 'error'
-				));
-
-				$this->presenter->notification->create($notification);
-			}
-
-		// not the login, not logging out and not the site - check session
-		} elseif (!$this->init->hasSession() AND $this->uri->segment(1) !== 'site' AND $this->uri->segment(1) !== NULL) {
-			$notification = serialize(array(
-				'status'	=> 'not_logged_in',
-				'message'	=> 'No ha iniciado sesión.',
-				'type'		=> 'error'
-			));
-
-			$this->session->set_flashdata('notification', $notification);
-
-			// redirect
-			redirect('login');
-		}
-
 	}
 
 	/**

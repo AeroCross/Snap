@@ -2,7 +2,7 @@
 <?php  $this->load->view('assets/inc/header'); ?>
 
 <!-- navbar -->
-<div class="navbar navbar-static-top navbar-inverse">
+<div class="navbar navbar-static-top">
 
 	<div class="navbar-inner">
 
@@ -41,7 +41,11 @@
 <!-- content -->
 <div class="container">
 
-	<?php echo $yield; ?>
+	<div class="row">
+
+		<?php echo $yield; ?>
+
+	</div>
 
 </div>
 

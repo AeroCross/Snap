@@ -1,10 +1,12 @@
 <div class="page-header">
 
-	<h4>Últimas consultas</h4>
+	<h4>Últimas consultas <small><?php echo anchor('#', '(ver todas)'); ?></small></h4>
 
 </div>
 
-<p>No tiene consultas recientes &mdash; <?php echo anchor('tickets/add', 'Cree una nueva consulta'); ?>.</p>
+<?php echo $this->presenter->dashboard->latestTickets();?>
+
+<br />
 
 <div class="row">
 

@@ -27,7 +27,7 @@ class Dashboard extends SAV_Controller {
  	* @access	public
  	*/
 	public function index() {
-
+		$this->load->presenter('dashboard');
 	}
 }
 

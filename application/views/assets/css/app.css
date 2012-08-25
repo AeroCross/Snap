@@ -17,6 +17,12 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea {
 	font-family: 'Source Sans Pro';
 }
 
+span.label {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: none;
+	font-size: 10px;
+}
+
 /* ---------------------------------------- */
 /* Links ---------------------------------- */
 a.brand { /* until there's a logo */

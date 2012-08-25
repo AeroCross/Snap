@@ -95,6 +95,14 @@ class Sav_ticket extends SAV_Model {
 		}
 	}
 
+	/**
+	* Fetches the latest $amount of tickets from $reported
+	*
+	* @param	int		- the amount of tickets to fetch
+	* @param	int		- the id of the reporter
+	* @return	object	- the data
+	* @access	public
+	*/
 	public function getLatestTickets($amount = 5, $reported = NULL) {
 		$this->cdb->select('id, subject, content, date_created, status, department');
 
@@ -107,6 +115,19 @@ class Sav_ticket extends SAV_Model {
 		$this->cdb->limit($amount)->order_by('id', 'desc');
 
 		return $this->cdb->get($this->_table)->result();
+	}
+
+	/**
+	* Gets the information of a single ticket
+	*
+	* @param	int		- the ticket id
+	* @return	object	- the ticket data 
+	*/
+	public function getTicket($id) {
+		$this->cdb->select('*')
+		->where('id', $id);
+
+		return $this->cdb->get($this->_table)->row();
 	}
 }
 

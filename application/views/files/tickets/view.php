@@ -7,23 +7,39 @@
 <!-- ticket status -->
 <div class="row">
 
-	<!-- reporter -->
+	<!-- info -->
 	<div class="span3">
 			
 		<ul>
+		
 			<li><strong>Hecha por:</strong> <?php echo safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname); ?></li>
 			<li><strong>Estatus:</strong> <?php echo status($ticket->status); ?></li>
+		
 		</ul>
 
 	</div>
 
-	<!-- ticket -->
-	<div class="span6">
+	<div class="span3">
+		
 		<ul>
+		
 			<li><strong>Aperturada:</strong> <?php echo $ticket->date_created; ?></li>
-			<li><strong>Última modificación:</strong> <?php echo $ticket->date_modified; ?></li>
+			<li><strong>Modificada:</strong> <?php echo $ticket->date_modified; ?></li>
+		
 		</ul>
+
 	</div>
+
+	<div class="span3">
+		
+		<ul>
+		
+			<li><strong>Departamento:</strong> <?php echo $this->sav_department->getDepartment($ticket->department)->name; ?></li>
+		
+		</ul>
+
+	</div>
+	<!-- end info -->
 
 </div>
 <!-- end ticket status -->
@@ -33,6 +49,9 @@
 	<h4>Detalles de la Consulta</h4>
 
 </div>
+
+<!-- notification -->
+<?php echo $this->presenter->notification->show(); ?>
 
 <!-- first message -->
 <div class="row">
@@ -94,7 +113,7 @@
 <!-- reopen -->
 <div class="row">
 
-	<?php echo form_open('message/add', array('class' => 'form-horizontal')); ?>
+	<?php echo form_open('tickets/view/' . $ticket->id, array('class' => 'form-horizontal')); ?>
 
 		<!-- form -->
 		<div class="span12">
@@ -138,6 +157,7 @@
 			<div class="form-actions">
 
 				<input type="submit" class="btn btn-primary" value="Enviar" />
+				<input type="hidden" name="ticket_id" value="<?php echo $ticket->id; ?>" />
 
 			</div>
 			<!-- end actions -->

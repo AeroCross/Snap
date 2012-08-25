@@ -94,6 +94,20 @@ class Sav_ticket extends SAV_Model {
 			return FALSE;
 		}
 	}
+
+	public function getLatestTickets($amount = 5, $reported = NULL) {
+		$this->cdb->select('id, subject, content, date_created, status, department');
+
+		// not selecting from someone in specific
+		if (!empty($reported)) {
+			$this->cdb->where('reported_by', $reported);
+		}
+
+		// limit the results
+		$this->cdb->limit($amount);
+
+		return $this->cdb->get($this->_table)->result();
+	}
 }
 
 /* End of file sav_ticket.php */

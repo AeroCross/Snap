@@ -157,6 +157,9 @@
 			<div class="form-actions">
 
 				<input type="submit" class="btn btn-primary" value="Enviar" />
+				<?php echo anchor('dashboard', 'Regresar', array('class' => 'btn')); ?>
+
+				<!-- extra info -->
 				<input type="hidden" name="ticket_id" value="<?php echo $ticket->id; ?>" />
 
 			</div>

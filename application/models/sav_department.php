@@ -33,7 +33,7 @@ class Sav_department extends SAV_Model {
 	public function getDepartment($id) {
 		$this->cdb
 		->select('*')
-		->where('id', $$id);
+		->where('id', $id);
 
 		return $this->cdb->get($this->_table)->row();
 	}

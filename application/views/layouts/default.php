@@ -13,12 +13,12 @@
 			<ul class="nav">
 
 				<li class="dropdown">
-					
+
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nueva <b class="caret"></b></a>
 
 					<ul class="dropdown-menu">
 
-						<li><?php echo anchor('#', 'Consulta'); ?></li>
+						<li><?php echo anchor('tickets/add', 'Consulta'); ?></li>
 						<li><?php echo anchor('#', 'Solicitud de Servicio'); ?></li>
 
 					</ul>

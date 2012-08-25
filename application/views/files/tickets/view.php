@@ -58,6 +58,32 @@
 <!-- end first message -->
 
 <!-- other messages here -->
+<?php foreach($messages as $message): ?>
+<?php $user = $this->sav_user->data('firstname, lastname, email')->id($message->user_id)->get(); ?>
+
+<div class="row">
+
+	<div class="span3">
+
+		<ul>
+
+			<li><?php echo $user->firstname . ' ' . $user->lastname; ?></li>
+			<li><?php echo $message->date; ?></li>
+
+		</ul>
+
+	</div>
+
+	<div class="span8 well">
+
+		<p><?php echo $message->content; ?></p>
+
+	</div>
+
+</div>
+
+<?php endforeach; ?>
+<!-- other messages here -->
 
 <div class="page-header">
 	

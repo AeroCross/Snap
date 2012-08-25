@@ -51,11 +51,15 @@ class Tickets extends SAV_Controller {
  	*/
 	public function view($ticket) {
 		$this->load->model('sav_user');
+		$this->load->model('sav_message');
+
+		$this->data->messages	= new StdClass;
 		$this->data->reporter	= new StdClass;
 		$this->data->ticket		= new StdClass;
 
 		$this->data->ticket		= $this->sav_ticket->getTicket($ticket);
 		$this->data->reporter	= $this->sav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
+		$this->data->messages	= $this->sav_message->getMessages($ticket);
 	}
 
  	/**

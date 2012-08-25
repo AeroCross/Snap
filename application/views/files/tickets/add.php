@@ -61,21 +61,6 @@
 				</div>
 				<!-- end content -->
 
-				<!-- carbon copy -->
-				<div class="control-group">
-
-					<label for="cc" class="control-label">Enviar copia a</label>
-
-					<div class="controls">
-
-						<input type="text" name="cc" id="cc" value="" />
-						<p class="help-block">Solo un correo electrónico.</p>
-
-					</div>
-
-				</div>
-				<!-- end title -->
-
 				<div class="form-actions">
 
 					<?php echo anchor('dashboard', icon('plus') . ' Nueva Consulta', array('class' => 'btn btn-primary submit')); ?>

@@ -143,6 +143,20 @@ class Sav_ticket extends SAV_Model {
 
 		return $this->cdb->update($this->_table);
 	}
+
+	/**
+	* Updates the modification date of a ticket.
+	*
+	* @param	int		- the ticket id
+	* @param	string	- the date
+	* @return	object	- the result
+	*/
+	public function updateModificationDate($ticket_id, $date) {
+		$this->cdb->set('date_modified', $date)
+		->where('id', $ticket_id);
+
+		return $this->cdb->update($this->_table);
+	}
 }
 
 /* End of file sav_ticket.php */

@@ -20,8 +20,10 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 
 .label {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-weight: normal;
+	font-weight: bold;
 	font-size: 10px;
+	position: relative;
+	top: -1px;
 }
 
 .highlight {color: #999}

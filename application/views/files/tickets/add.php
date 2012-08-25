@@ -9,7 +9,7 @@
 	<!-- form container -->
 	<div class="span6">
 
-		<?php echo form_open('ticket/process', array('class' => 'form-horizontal')); ?>
+		<?php echo form_open('tickets/process', array('class' => 'form-horizontal')); ?>
 
 			<fieldset>
 
@@ -63,8 +63,9 @@
 
 				<div class="form-actions">
 
-					<?php echo anchor('dashboard', icon('plus') . ' Nueva Consulta', array('class' => 'btn btn-primary submit')); ?>
+					<?php echo anchor('#', icon('plus') . ' Nueva Consulta', array('class' => 'btn btn-primary submit')); ?>
 					<?php echo anchor('dashboard', 'Regresar', array('class' => 'btn')); ?>
+					<input type="submit" class="hide" value="" />
 
 				</div>
 

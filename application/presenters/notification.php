@@ -9,7 +9,7 @@
 * @subpackage	Presenters
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class NotificationPresenter extends Presenter {
+class NotificationPresenter {
 
 	// stored notifications
 	private $notifications = array();

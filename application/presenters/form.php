@@ -9,7 +9,7 @@
 * @subpackage	Presenters
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class FormPresenter extends Presenter {
+class FormPresenter {
 
 	// prevent overloading
 	private $sav;

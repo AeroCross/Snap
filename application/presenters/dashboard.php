@@ -49,7 +49,7 @@ class DashboardPresenter {
 
 		foreach ($tickets as $ticket) {
 			$this->app->table->add_row(
-				$ticket->id,
+				anchor('tickets/view/' . $ticket->id, $ticket->id),
 				$ticket->subject,
 				$ticket->date_created,
 				$this->app->sav_department->getDepartment($ticket->department)->name,

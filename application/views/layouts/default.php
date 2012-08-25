@@ -8,7 +8,7 @@
 
 		<div class="container">
 
-			<?php echo anchor('dashboard', 'SAV', array('class' => 'brand')); ?>
+			<?php echo anchor('dashboard', icon('globe', 28), array('class' => 'brand')); ?>
 
 			<ul class="nav">
 

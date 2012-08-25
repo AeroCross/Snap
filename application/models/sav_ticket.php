@@ -103,8 +103,8 @@ class Sav_ticket extends SAV_Model {
 			$this->cdb->where('reported_by', $reported);
 		}
 
-		// limit the results
-		$this->cdb->limit($amount);
+		// limit and order the results
+		$this->cdb->limit($amount)->order_by('id', 'desc');
 
 		return $this->cdb->get($this->_table)->result();
 	}

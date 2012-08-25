@@ -58,12 +58,12 @@ class Sav_department extends SAV_Model {
 	* @return	object	- the data from the members
 	* @access	public
 	*/ 
-	public function getDepartmentMembers($id) {
+	public function getDepartmentMembers($department_id) {
 		$this->cdb
 		->select('user.id, user.firstname, user.lastname, user.email, user.username')
 		->from('user')
 		->join('department_member', 'department_member.user_id = user.id')
-		->where('department_member.department_id', $id);
+		->where('department_member.department_id', $department_id);
 
 		return $this->cdb->get()->result();
 	}

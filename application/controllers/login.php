@@ -94,12 +94,13 @@ class Login extends SAV_Controller {
 		}
 
 		// user found and password correct — login
-		$userdata	= $this->sav_user->data('firstname, lastname, username, email')->username($username)->get();
+		$userdata	= $this->sav_user->data('id, firstname, lastname, username, email')->username($username)->get();
 		$name		= $userdata->firstname . ' ' . $userdata->lastname;
 		$email		= $userdata->email;
 		$key		= $this->init->generateLoginKey($userdata);
 		
 		// set session variables
+		$this->session->set_userdata('id', $userdata->id);
 		$this->session->set_userdata('key', $key);
 		$this->session->set_userdata('name', $name);
 		$this->session->set_userdata('email', $email);

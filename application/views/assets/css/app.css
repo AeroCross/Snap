@@ -9,8 +9,9 @@
 .text-right {text-align: right;}
 .text-justify {text-align: justify}
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'Telex';	
+h1, h2, h3, h4, h5, h6, legend, a.brand {
+	font-family: 'Arvo';	
+	font-weight: normal;
 }
 
 p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr {
@@ -21,13 +22,6 @@ span.label {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: none;
 	font-size: 10px;
-}
-
-/* ---------------------------------------- */
-/* Links ---------------------------------- */
-a.brand { /* until there's a logo */
-	font-weight: 200;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* ---------------------------------------- */

@@ -37,6 +37,34 @@ class Sav_message extends SAV_Model {
 
 		return $this->cdb->get($this->_table)->result();
 	}
+
+	/**
+	* Add a new message to a ticket.
+	*
+	* @access	public
+	*/
+	public function addMessage($ticket_id, $content, $status = 'open') {
+
+		$data = array(
+			'user_id'	=> $this->session->userdata('id'),
+			'ticket_id' => $ticket_id,
+			'content'	=> $content,
+		);
+
+		$this->cdb->set($data);
+		$this->cdb->set('date', 'NOW()', FALSE);
+
+		// proceed with the insert
+		$this->cdb->insert($this->_table);
+
+		if ($this->cdb->insert_id() > 0) {
+			// correct status
+			$this->sav_ticket->updateStatus($ticket_id, $status);
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file sav_message.php */

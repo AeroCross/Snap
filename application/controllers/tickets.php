@@ -22,6 +22,9 @@ class Tickets extends SAV_Controller {
 		// load resources
 		$this->load->presenter('notification');
 		$this->load->model('sav_ticket');
+
+		// store the post array
+		$this->post = $this->input->post();
 	}
 
 	public function index() {
@@ -34,7 +37,6 @@ class Tickets extends SAV_Controller {
  	* @access	public
  	*/
 	public function add() {
-
 		// if a ticket was tried to be registered
 		if ($this->input->post() != FALSE) {
 			$this->presenter->notification->create($this->_process());
@@ -50,9 +52,15 @@ class Tickets extends SAV_Controller {
  	* @access	public
  	*/
 	public function view($ticket) {
+		// if a message was sent, process it
+		if (!empty($this->post)) {
+			$this->presenter->notification->create($this->_addMessage());
+		}
+
 		$this->load->helper('parser');
 		$this->load->model('sav_user');
 		$this->load->model('sav_message');
+		$this->load->model('sav_department');
 
 		$this->data->messages	= new StdClass;
 		$this->data->reporter	= new StdClass;
@@ -83,9 +91,9 @@ class Tickets extends SAV_Controller {
 	/**
  	* Processes a new ticket.
  	*
- 	* @access	public
+ 	* @access	private
  	*/
-	public function _process() {
+	private function _process() {
 
 		$data = array(
 			'department'	=> $this->input->post('department'),
@@ -105,6 +113,69 @@ class Tickets extends SAV_Controller {
 			return array(
 				'status'	=> 'failed',
 				'message'	=> 'Error al intentar ingresar la consulta.',
+				'type'		=> 'error'
+			);
+		}
+	}
+
+	/**
+ 	* Updates a ticket.
+ 	*
+ 	* @access	private
+ 	*/
+	private function _addMessage() {
+		// load the message model to process data
+		$this->load->model('sav_message');
+
+		// prepare
+		$ticket_id 	= $this->input->post('ticket_id');
+		$content	= $this->input->post('content');
+		$status		= $this->input->post('status');
+
+		// check for correct status
+		if (empty($status)) {
+			$status = 'open';
+		}
+
+		// notify the department when the ticket is updated
+		if ($this->sav_message->addMessage($ticket_id, $content, $status)) {
+			// get the ticket data
+			$ticket = $this->sav_ticket->getTicket($ticket_id);
+
+			// check who shall receive the emails
+			$this->load->model('sav_setting');
+			$this->load->model('sav_department');
+			$members = $this->sav_department->getDepartmentMembers($ticket->department);
+
+			foreach($members as $member) {
+				$bcc[] = $member->email;
+			}
+			
+			// load the email library
+			$this->load->library('email');
+			$this->init->email();
+
+			$smtp_user = $this->sav_setting->getSetting('smtp_user');
+			$this->email->to($smtp_user);
+			$this->email->from($smtp_user);
+			$this->email->bcc($bcc);
+			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
+			$this->email->message($content);
+
+			// if message was sent, notify
+			$this->email->send();
+
+			return array(
+				'status'	=> 'sent',
+				'message'	=> 'Su consulta ha sido actualizada y el departamento ha sido notificado.',
+				'type'		=> 'success'
+			);
+
+		// error happened - couldn't insert the message
+		} else {
+			return array(
+				'status'	=> 'not_inserted',
+				'message'	=> 'Error al enviar su mensaje. Contacte a soporte técnico e intente más tarde.',
 				'type'		=> 'error'
 			);
 		}

@@ -129,6 +129,20 @@ class Sav_ticket extends SAV_Model {
 
 		return $this->cdb->get($this->_table)->row();
 	}
+
+	/**
+	* Updates the status of a ticket.
+	*
+	* @param	int		- the ticket id
+	* @param	string	- the status (open or closed)
+	* @return	object	- the result
+	*/
+	public function updateStatus($ticket_id, $status) {
+		$this->cdb->set('status', $status)
+		->where('id', $ticket_id);
+
+		return $this->cdb->update($this->_table);
+	}
 }
 
 /* End of file sav_ticket.php */

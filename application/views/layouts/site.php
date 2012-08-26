@@ -1,4 +1,3 @@
-<!-- header -->
 <?php  $this->load->view('assets/inc/header'); ?>
 
 <!-- navbar -->

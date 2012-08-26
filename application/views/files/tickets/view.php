@@ -69,7 +69,7 @@
 
 	<div class="span8 well">
 
-		<p><?php echo $ticket->content; ?></p>
+		<p><?php echo nl2br($ticket->content); ?></p>
 
 	</div>
 
@@ -95,7 +95,7 @@
 
 	<div class="span8 well">
 
-		<p><?php echo $message->content; ?></p>
+		<p><?php echo nl2br($message->content); ?></p>
 
 	</div>
 

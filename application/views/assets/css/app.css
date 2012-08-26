@@ -48,7 +48,7 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 .footer .container {
 	margin-top: 30px;
 	border-top: 1px solid #E5E5E5;
-	padding: 30px 50px;
+	padding: 30px 50px 0;
 	font-size: 12px;
 }
 

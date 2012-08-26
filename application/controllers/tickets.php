@@ -46,6 +46,38 @@ class Tickets extends SAV_Controller {
 		$this->view = 'files/tickets/add';
 	}
 
+ 	/**
+ 	* Shows all tickets from a user.
+ 	*
+ 	* @access	public
+ 	*/
+	public function all() {
+		// fetch all the tickets from this user
+		$tickets = $this->sav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->getAll();
+
+		// load the neccessary code
+		$this->load->model('sav_department');
+		$this->load->helper('parser');
+
+		// format the table
+		$this->load->library('table');
+		$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus', 'Tiempo estimado');
+
+		foreach($tickets as $ticket) {
+			$this->table->add_row(
+				anchor('tickets/view/' . $ticket->id, $ticket->id),
+				$ticket->subject,
+				$this->sav_department->getDepartment($ticket->department)->name,
+				$ticket->date_created,
+				$ticket->date_modified,
+				status($ticket->status),
+				$ticket->eta
+			);
+		}
+
+		$this->data->tickets = $this->table->generate();
+	}
+
 	/**
  	* Viws details of a ticket.
  	*
@@ -153,7 +185,7 @@ class Tickets extends SAV_Controller {
 				'type'		=> 'warning',
 			);
 		}
-		
+
 		// load the message model to process data
 		$this->load->model('sav_message');
 

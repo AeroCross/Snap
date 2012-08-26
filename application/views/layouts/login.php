@@ -6,4 +6,4 @@
 
 </div>
 
-<?php $this->load->view('assets/inc/footer'); ?>
+<?php $this->load->view('assets/inc/footer-login'); ?>

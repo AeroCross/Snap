@@ -90,20 +90,22 @@ class SAV_Controller extends CI_Controller {
 
 			call_user_func_array(array($this, $method), $parameters);
 
-			// set the path to the view files
-			$view		= strtolower('files/' . get_class($this));	
-
-			// check if there's a subfolder in views
-			if ($this->uri->segment(1) !== strtolower(get_class($this))) {
-				$view	= strtolower('files/' . $this->uri->segment(1) . '/' . get_class($this));
-			}
-
-			// complete the view
-			$view .= '/' . $method;
-
 			// does a specific view needs to be loaded?
 			if (is_string($this->view) && !empty($this->view)) {
 				$view = $this->view;
+
+			// it doesn't - calculate the folder
+			} else {
+				// set the path to the view files
+				$view		= strtolower('files/' . get_class($this));	
+
+				// check if there's a subfolder in views
+				if ($this->uri->segment(1) !== strtolower(get_class($this))) {
+					$view	= strtolower('files/' . $this->uri->segment(1) . '/' . get_class($this));
+				}
+
+				// complete the view
+				$view .= '/' . $method;
 			}
 
 			// autoload the view

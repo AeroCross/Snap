@@ -25,7 +25,7 @@
 
 				</li>
 
-				<li><?php echo anchor('#', 'Consultas'); ?></li>
+				<li><?php echo anchor('tickets/all', 'Consultas'); ?></li>
 				<li><?php echo anchor('#', 'Soporte'); ?></li>
 
 			</ul>

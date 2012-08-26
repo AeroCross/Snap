@@ -94,7 +94,21 @@ class Tickets extends SAV_Controller {
  	* @access	private
  	*/
 	private function _process() {
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('department', 'Departamento', 'required');
+		$this->form_validation->set_rules('subject', 'Asunto', 'required');
+		$this->form_validation->set_rules('content', 'Contenido', 'required');
 
+		// all fields are required
+		if (!$this->form_validation->run()) {
+			return array(
+				'status'	=> 'required',
+				'message'	=> 'Todos los campos son requeridos.',
+				'type'		=> 'warning'
+			);
+		}
+
+		// fetch the data
 		$data = array(
 			'department'	=> $this->input->post('department'),
 			'subject'		=> $this->input->post('subject'),
@@ -102,6 +116,8 @@ class Tickets extends SAV_Controller {
 		);
 		
 		$this->load->model('sav_ticket');
+
+		// add the new ticket and return the id
 		$id = $this->sav_ticket->addTicket($data);
 
 		if (!empty($id)) {

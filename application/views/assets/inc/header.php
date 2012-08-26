@@ -17,8 +17,8 @@
 
 	<!-- scripts -->
 	<script src="<?php echo $this->resource->js('jquery.js'); ?>"></script>
-	<script src="<?php echo $this->resource->js('bootstrap.js'); ?>" /></script>
-	<script src="<?php echo $this->resource->js('app.js'); ?>" /></script>
+	<script src="<?php echo $this->resource->js('bootstrap.js'); ?>"></script>
+	<script src="<?php echo $this->resource->js('app.js'); ?>"></script>
 
 </head>
 

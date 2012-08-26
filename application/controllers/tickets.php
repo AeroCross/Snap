@@ -140,6 +140,20 @@ class Tickets extends SAV_Controller {
  	* @access	private
  	*/
 	private function _addMessage() {
+		// check if the data is complete
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('ticket_id', 'ID de Consulta', 'required');
+		$this->form_validation->set_rules('content', 'Mensaje', 'required');
+
+		// message is required
+		if (!$this->form_validation->run()) {
+			return array(
+				'status'	=> 'required',
+				'message'	=> 'Necesita ingresar un mensaje para actualizar su consulta.',
+				'type'		=> 'warning',
+			);
+		}
+		
 		// load the message model to process data
 		$this->load->model('sav_message');
 

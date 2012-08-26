@@ -82,6 +82,7 @@ class SAV_Controller extends CI_Controller {
 	* @param	string	- the methods and variables
 	*/
 	public function _remap($method, $parameters) {
+
 		if (method_exists($this, $method)) {
 
 			// $this 	- the controller name (as in the class definition)
@@ -90,7 +91,15 @@ class SAV_Controller extends CI_Controller {
 			call_user_func_array(array($this, $method), $parameters);
 
 			// set the path to the view files
-			$view = strtolower('files/' . get_class($this)) . '/' . $method;
+			$view		= strtolower('files/' . get_class($this));	
+
+			// check if there's a subfolder in views
+			if ($this->uri->segment(1) !== strtolower(get_class($this))) {
+				$view	= strtolower('files/' . $this->uri->segment(1) . '/' . get_class($this));
+			}
+
+			// complete the view
+			$view .= '/' . $method;
 
 			// does a specific view needs to be loaded?
 			if (is_string($this->view) && !empty($this->view)) {
@@ -99,7 +108,7 @@ class SAV_Controller extends CI_Controller {
 
 			// autoload the view
 			if ($this->view !== FALSE) {
-				$this->data->yield = $this->load->view($view, $this->data, TRUE);
+				$this->data->content = $this->load->view($view, $this->data, TRUE);
 
 				// check if there's a custom layout
 				if (is_string($this->layout) AND !empty($this->layout)) {
@@ -120,7 +129,7 @@ class SAV_Controller extends CI_Controller {
 
 				// if not, echo directly to output for ajax calls, file handling, etc.
 				} else {
-					echo $this->data->yield;
+					echo $this->data->content;
 				}
 			}
 

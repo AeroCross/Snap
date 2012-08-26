@@ -45,7 +45,7 @@
 
 	<div class="row">
 
-		<?php echo $yield; ?>
+		<?php echo $content; ?>
 
 	</div>
 

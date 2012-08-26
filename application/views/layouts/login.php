@@ -2,7 +2,7 @@
 
 <div class="container login-form">
 
-	<?php echo $yield; ?>
+	<?php echo $content; ?>
 
 </div>
 

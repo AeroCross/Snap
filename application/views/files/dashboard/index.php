@@ -1,6 +1,6 @@
 <div class="page-header">
 
-	<h4>Últimas consultas <small><?php echo anchor('#', '(ver todas)'); ?></small></h4>
+	<h4>Últimas consultas <small><?php echo anchor('tickets/all', '(ver todas)'); ?></small></h4>
 
 </div>
 
@@ -73,7 +73,7 @@
 
 			<legend>Listados</legend>
 
-			<p><?php echo anchor('#', 'Ver Listado', array('class' => 'btn btn-large btn-block btn-primary')); ?></p>
+			<p><?php echo anchor('tickets/all', 'Ver Listado', array('class' => 'btn btn-large btn-block btn-primary')); ?></p>
 
 			<p>En el <strong>listado de consultas</strong> podrá hacer seguimiento de las solicitudes y las consultas que ha hecho con nosotros, además de actualizarlas. Si necesita:</p>
 
@@ -85,7 +85,7 @@
 	
 			</ul>
 
-			<p>Entonces ingrese al <?php echo anchor('#', 'listado de consultas'); ?>.</p>
+			<p>Entonces ingrese al <?php echo anchor('tickets/all', 'listado de consultas'); ?>.</p>
 
 		</fieldset>
 

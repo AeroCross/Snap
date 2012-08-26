@@ -9,7 +9,7 @@
 <div class="row">
 
 	<!-- form container -->
-	<div class="span6">
+	<div class="span8">
 
 		<?php echo form_open('tickets/add', array('class' => 'form-horizontal')); ?>
 
@@ -58,7 +58,7 @@
 
 					<div class="controls">
 
-						<textarea name="content" id="content" rows="5"></textarea>
+						<textarea name="content" id="content" rows="15" class="span5"></textarea>
 						<p class="help-block">Detalle la situación que presenta.</p>
 
 					</div>
@@ -82,7 +82,7 @@
 	<!-- end form container-->
 
 	<!-- form help -->
-	<div class="span6">
+	<div class="span4">
 
 		<h4>Información</h4>
 

@@ -176,7 +176,7 @@ class Tickets extends SAV_Controller {
 			$this->email->from($smtp_user);
 			$this->email->bcc($bcc);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
-			$this->email->message($content);
+			$this->email->message(nl2br($content));
 
 			// if message was sent, notify
 			$this->email->send();

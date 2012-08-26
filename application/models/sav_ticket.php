@@ -78,7 +78,7 @@ class Sav_ticket extends SAV_Model {
 			// actual message
 			$this->email->bcc($emails);
 			$this->email->subject('Ticket #' . $id . ': ' . $subject);
-			$this->email->message($content);
+			$this->email->message(nl2br($content));
 
 			// all good - return ticket number
 			if ($this->email->send()) {

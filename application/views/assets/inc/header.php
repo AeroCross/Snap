@@ -4,7 +4,7 @@
 <head>
 
 	<meta charset="utf-8" />
-	<title>SAV &mdash; Sistema de Asistencia Virtual</title>
+	<title><?php echo $title; ?> » Sistema Automatizado de Asistencia Virtual</title>
 
 	<!-- fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700|Arvo' rel='stylesheet' type='text/css'>

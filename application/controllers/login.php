@@ -19,6 +19,9 @@ class Login extends SAV_Controller {
 
 		// load the notification presenter
 		$this->load->presenter('notification');
+
+		// set the title
+		$this->data->title = 'Iniciar Sesión';
 	}
 	
 	/**

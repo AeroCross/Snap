@@ -19,6 +19,9 @@ class Tickets extends SAV_Controller {
 	public function __construct() {
 		parent::__construct();
 
+		// set the title
+		$this->data->title = 'Consultas';
+		
 		// load resources
 		$this->load->presenter('notification');
 		$this->load->model('sav_ticket');

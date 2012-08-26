@@ -18,6 +18,9 @@ class Site extends SAV_Controller {
 
 		// set the site layout
 		$this->layout = 'site';
+
+		// set the title
+		$this->data->title = 'Bienvenido';
 	}
 
 	/**

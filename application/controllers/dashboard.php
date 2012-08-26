@@ -19,6 +19,8 @@ class Dashboard extends SAV_Controller {
 	public function __construct() {
 		parent::__construct();
 		
+		// set the page title
+		$this->data->title = 'Escritorio';
 	}
 	
  	/**

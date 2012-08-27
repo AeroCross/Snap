@@ -25,7 +25,29 @@
 				</li>
 
 				<li><?php echo anchor('tickets/all', 'Consultas'); ?></li>
-				<li><?php echo anchor('#', 'Soporte'); ?></li>
+				
+				<?php if ($this->sav_user->currentRole('support')): ?>
+
+					<li class="dropdown">
+
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+
+							<li class="nav-header">Consultas</li>
+							<li><?php echo anchor('#', 'Listado de Consultas'); ?></li>
+							<li class="divider"></li>
+							<li class="nav-header">Configuración</li>
+							<li><?php echo anchor('#', 'Opciones Generales'); ?></li>
+
+						</ul>
+
+					</li>
+
+				<?php endif; ?>
+
+				<li class="divider-vertical"></li>
+				<li><?php echo anchor('#', icon('wrench') . ' Reportar un Problema'); ?></li>
 
 			</ul>
 

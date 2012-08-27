@@ -94,6 +94,14 @@ class Tickets extends SAV_Controller {
  	* @access	public
  	*/
 	public function view($ticket) {
+		// first, check if the ticket belongs to the user
+		$this->data->ticket		= new StdClass;
+		$this->data->ticket		= $this->sav_ticket->getTicket($ticket);
+
+		if ($this->data->ticket->reported_by != $this->session->userdata('id')) {
+			redirect('dashboard');
+		}
+
 		// if a message was sent, process it
 		if (!empty($this->post)) {
 			$this->presenter->notification->create($this->_addMessage());
@@ -106,9 +114,9 @@ class Tickets extends SAV_Controller {
 
 		$this->data->messages	= new StdClass;
 		$this->data->reporter	= new StdClass;
-		$this->data->ticket		= new StdClass;
 
-		$this->data->ticket		= $this->sav_ticket->getTicket($ticket);
+
+
 		$this->data->reporter	= $this->sav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
 		$this->data->messages	= $this->sav_message->getMessages($ticket);
 	}

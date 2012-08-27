@@ -59,15 +59,16 @@ class Sav_user extends SAV_Model {
 		}
 
 		switch ($role) {
-			case 'admin': 	$role = 1; break;
-			case 'support':	$role = 2; break;
-			case 'user':	$role = 3; break;
+			case 'admin': 	$role = array(1); break;
+			case 'support':	$role = array(1, 2); break;
+			case 'user':	$role = array(1, 2, 3); break;
 			default:		return NULL; break;
 		}
 
 		$this->cdb->select('role_id')
 		->where('user_id', $current_user)
-		->where('role_id', $role);
+		->where_in('role_id', $role);
+		
 
 		$sql = $this->cdb->get('role_assignment');
 

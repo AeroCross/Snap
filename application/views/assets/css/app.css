@@ -33,6 +33,18 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 .highlight-error {color: #B94A48;}
 .highlight-inverse {color: #333;}
 
+.banner {
+	background: url('../img/bg.png');
+	width: 100%; 
+	margin: 0 0 20px; 
+	text-align: center;
+	padding: 20px 0;
+	border-bottom: 1px solid #E3E3E3;
+}
+
+.banner h1 {
+	margin-top: 0;
+}
 
 /* ---------------------------------------- */
 /* Forms ----------------------------------- */

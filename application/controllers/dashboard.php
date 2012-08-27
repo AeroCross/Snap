@@ -33,5 +33,5 @@ class Dashboard extends SAV_Controller {
 	}
 }
 
-/* End of file controller.php */
-/* Location: ./application/controllers/controller.php */
+/* End of file dashboard.php */
+/* Location: ./application/controllers/dashboard.php */

@@ -262,5 +262,5 @@ class Tickets extends SAV_Controller {
 	}
 }
 
-/* End of file controller.php */
-/* Location: ./application/controllers/controller.php */
+/* End of file tickets.php */
+/* Location: ./application/controllers/tickets.php */

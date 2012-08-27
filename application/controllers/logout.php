@@ -43,5 +43,5 @@ class Logout extends SAV_Controller {
 	}
 }
 
-/* End of file controller.php */
-/* Location: ./application/controllers/controller.php */
+/* End of file logout.php */
+/* Location: ./application/controllers/logout.php */

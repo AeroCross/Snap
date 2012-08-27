@@ -1,10 +1,11 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
 * Shows the informational website for the app.
 *
 * @package		SAV
 * @subpackage	Controllers
+* @author		Mario Cuba <mario@mariocuba.net>
 */
 class Site extends SAV_Controller {
 

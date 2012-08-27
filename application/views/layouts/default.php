@@ -36,9 +36,14 @@
 
 							<li class="nav-header">Consultas</li>
 							<li><?php echo anchor('#', 'Listado de Consultas'); ?></li>
-							<li class="divider"></li>
-							<li class="nav-header">Configuración</li>
-							<li><?php echo anchor('#', 'Opciones Generales'); ?></li>
+
+							<?php if ($this->sav_user->currentRole('admin')): ?>
+							
+								<li class="divider"></li>
+								<li class="nav-header">Configuración</li>
+								<li><?php echo anchor('#', 'Opciones Generales'); ?></li>
+
+							<?php endif; ?>
 
 						</ul>
 

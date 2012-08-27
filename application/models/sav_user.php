@@ -45,13 +45,16 @@ class Sav_user extends SAV_Model {
 	}
 
 	/**
-	* Checks for the user's current role.
+	* Checks permissions of an user.
+	*
+	* This will allow the calculation of the role hierarchy - if an user is
+	* a certain role, then all of the remaining roles can (or can't) do something.
 	*
 	* @param	int		- the role to check (1 admin, 2 support, 3 user)
 	* @return	bool	- TRUE if the paramater matches the role, FALSE if not, NULL if there's not a session
 	* @access	public
 	*/
-	public function currentRole($role = NULL) {
+	public function permission($role = NULL) {
 		$current_user = $this->session->userdata('id');
 
 		if (empty($current_user)) {

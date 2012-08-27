@@ -26,7 +26,7 @@
 
 				<li><?php echo anchor('tickets/all', 'Consultas'); ?></li>
 				
-				<?php if ($this->sav_user->currentRole('support')): ?>
+				<?php if ($this->sav_user->permission('support')): ?>
 
 					<li class="dropdown">
 
@@ -37,7 +37,7 @@
 							<li class="nav-header">Consultas</li>
 							<li><?php echo anchor('#', 'Listado de Consultas'); ?></li>
 
-							<?php if ($this->sav_user->currentRole('admin')): ?>
+							<?php if ($this->sav_user->permission('admin')): ?>
 							
 								<li class="divider"></li>
 								<li class="nav-header">Configuración</li>

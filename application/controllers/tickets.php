@@ -58,27 +58,34 @@ class Tickets extends SAV_Controller {
 		// fetch all the tickets from this user
 		$tickets = $this->sav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->getAll();
 
-		// load the neccessary code
-		$this->load->model('sav_department');
-		$this->load->helper('parser');
+		if (count($tickets) !== 0) {
+			// load the neccessary code
+			$this->load->model('sav_department');
+			$this->load->helper('parser');
 
-		// format the table
-		$this->load->library('table');
-		$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus', 'Tiempo estimado');
+			// format the table
+			$this->load->library('table');
+			$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus', 'Tiempo estimado');
 
-		foreach($tickets as $ticket) {
-			$this->table->add_row(
-				anchor('tickets/view/' . $ticket->id, $ticket->id),
-				$ticket->subject,
-				$this->sav_department->getDepartment($ticket->department)->name,
-				$ticket->date_created,
-				$ticket->date_modified,
-				status($ticket->status),
-				$ticket->eta
-			);
+			foreach($tickets as $ticket) {
+				$this->table->add_row(
+					anchor('tickets/view/' . $ticket->id, $ticket->id),
+					$ticket->subject,
+					$this->sav_department->getDepartment($ticket->department)->name,
+					$ticket->date_created,
+					$ticket->date_modified,
+					status($ticket->status),
+					$ticket->eta
+				);
+			}
+
+			$this->data->tickets = $this->table->generate();
+
+		// no tickets
+		} else {
+			$this->data->tickets = '<p>No tiene consultas &mdash; ' . anchor('tickets/add', 'Cree una nueva consulta') . '.';
 		}
 
-		$this->data->tickets = $this->table->generate();
 	}
 
 	/**

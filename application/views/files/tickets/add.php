@@ -104,7 +104,7 @@
 
 		<h4>¿Ha reportado este problema antes?</h4>
 
-		<p>Si es la continuación a una consulta previamente abierta, o desea agregar más información, <?php echo anchor('#', 'vea el listado'); ?> y dirijase a su consulta para poder brindarle un mejor servicio.</p>
+		<p>Si es la continuación a una consulta previamente abierta, o desea agregar más información, <?php echo anchor('tickets/all', 'vea el listado'); ?> y dirijase a su consulta para poder brindarle un mejor servicio.</p>
 
 	</div>
 	<!-- end form help -->

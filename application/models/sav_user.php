@@ -43,7 +43,41 @@ class Sav_user extends SAV_Model {
 			return FALSE;
 		}
 	}
+
+	/**
+	* Checks for the user's current role.
+	*
+	* @param	int		- the role to check (1 admin, 2 support, 3 user)
+	* @return	bool	- TRUE if the paramater matches the role, FALSE if not, NULL if there's not a session
+	* @access	public
+	*/
+	public function currentRole($role = NULL) {
+		$current_user = $this->session->userdata('id');
+
+		if (empty($current_user)) {
+			return NULL;
+		}
+
+		switch ($role) {
+			case 'admin': 	$role = 1; break;
+			case 'support':	$role = 2; break;
+			case 'user':	$role = 3; break;
+			default:		return NULL; break;
+		}
+
+		$this->cdb->select('role_id')
+		->where('user_id', $current_user)
+		->where('role_id', $role);
+
+		$sql = $this->cdb->get('role_assignment');
+
+		if ($sql->num_rows() === 1) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }
 
-/* End of file model.php */
-/* Location: ./application/models/model.php */
+/* End of file sav_user.php */
+/* Location: ./application/models/sav_user.php */

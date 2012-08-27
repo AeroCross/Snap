@@ -38,27 +38,33 @@ class DashboardPresenter {
 		$id			= $this->app->session->userdata('id');
 		$tickets	= $this->app->sav_ticket->getLatestTickets(5, $id);
 
-		// configure table generation
-		$this->app->load->library('table');
-		$this->app->table->set_heading(
-			'Consulta',
-			'Asunto',
-			'Creada',
-			'Departamento',
-			'Estatus'
-		);
-
-		foreach ($tickets as $ticket) {
-			$this->app->table->add_row(
-				anchor('tickets/view/' . $ticket->id, $ticket->id),
-				$ticket->subject,
-				$ticket->date_created,
-				$this->app->sav_department->getDepartment($ticket->department)->name,
-				status($ticket->status)
+		if (count($tickets) !== 0) {
+			// configure table generation
+			$this->app->load->library('table');
+			$this->app->table->set_heading(
+				'Consulta',
+				'Asunto',
+				'Creada',
+				'Departamento',
+				'Estatus'
 			);
-		}
 
-		$table = $this->app->table->generate();
+			foreach ($tickets as $ticket) {
+				$this->app->table->add_row(
+					anchor('tickets/view/' . $ticket->id, $ticket->id),
+					$ticket->subject,
+					$ticket->date_created,
+					$this->app->sav_department->getDepartment($ticket->department)->name,
+					status($ticket->status)
+				);
+			}
+
+			$table = $this->app->table->generate();
+
+		// no tickets, return nothing
+		} else {
+			$table = NULL;
+		}
 
 		if (!empty($table)) {
 			return $table;

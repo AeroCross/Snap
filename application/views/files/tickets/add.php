@@ -1,5 +1,3 @@
-
-
 <div class="page-header">
 
 	<h4>Nueva Consulta</h4>

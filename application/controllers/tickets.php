@@ -85,7 +85,6 @@ class Tickets extends EXT_Controller {
 		} else {
 			$this->data->tickets = '<p>No tiene consultas &mdash; ' . anchor('tickets/add', 'Cree una nueva consulta') . '.';
 		}
-
 	}
 
 	/**

@@ -35,7 +35,7 @@
 						<ul class="dropdown-menu">
 
 							<li class="nav-header">Consultas</li>
-							<li><?php echo anchor('#', 'Listado de Consultas'); ?></li>
+							<li><?php echo anchor('admin/tickets/all', 'Listado de Consultas'); ?></li>
 
 							<?php if ($this->saav_user->permission('admin')): ?>
 							
@@ -67,11 +67,7 @@
 <!-- content -->
 <div class="container">
 
-	<div class="row">
-
-		<?php echo $content; ?>
-
-	</div>
+	<?php echo $content; ?>
 
 </div>
 

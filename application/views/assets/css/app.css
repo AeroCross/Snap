@@ -48,7 +48,6 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 
 /* ---------------------------------------- */
 /* Forms ----------------------------------- */
-
 .form-actions {
 	border-top: none;
 	background: #fff;
@@ -57,24 +56,22 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 /* ---------------------------------------- */
 /* Footer --------------------------------- */
 /* ---------------------------------------- */
-.footer .container {
-	margin-top: 30px;
+.footer {
 	border-top: 1px solid #E5E5E5;
-	padding: 30px 50px 0;
+	margin: 30px 0 0 0;
+	padding: 30px 0 0 0;
 	font-size: 12px;
+	position: relative;
 }
 
-.footer-logo {
-	float: right;
-	position: relative;
+.footer .logo {
+	position: absolute;
 	right: 0;
-	top: -20px;
 }
 
 /* ---------------------------------------- */
 /* login ---------------------------------- */
 /* ---------------------------------------- */
-
 .login-form {
 	position: relative;
 	top: 200px;

@@ -1,19 +1,24 @@
-<footer class="footer">
+<div class="container-fluid">
 
-	<div class="container">
+	<footer class="row-fluid footer">
 
-		<figure class="footer-logo">
+		<div class="span6">
 
-			<img src="<?php echo $this->resource->img('idv-logo.png'); ?>" alt="" width="48" height="48" />
+			<strong>SAAV</strong> versión <strong>0.1</strong> &mdash; Sistema Automatizado de Asistencia Virtual<br />
+			Coyright 2012 &copy; <?php echo anchor('http://ingenium-dv.com', 'Ingenium: Desarrollo Virtual'); ?> &mdash; Todos los derechos reservados
 
-		</figure>
+		</div>
 
-		<strong>SAAV</strong> versión <strong>0.1</strong> &mdash; Sistema Automatizado de Asistencia Virtual<br />
-		Coyright 2012 &copy; <?php echo anchor('http://ingenium-dv.com', 'Ingenium: Desarrollo Virtual'); ?> &mdash; Todos los derechos reservados
+		<div class="span6">
 
-	</div>
+			<img src="<?php echo $this->resource->img('idv-logo.png'); ?>" alt="" width="48" height="48" class="logo" />
 
-</footer>
+		</div>
+
+	</footer>
+
+</div>
 
 </body>
+
 </html>

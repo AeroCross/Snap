@@ -18,7 +18,7 @@
 	<div class="btn-group pagination-centered">
 
 		<?php echo anchor('tickets/add', icon('plus-sign') . ' Otra Consulta', array('class' => 'btn')); ?>
-		<?php echo anchor('#', icon('list-ul') . ' Ir al Listado', array('class' => 'btn')); ?>
+		<?php echo anchor('tickets/all', icon('list-ul') . ' Ir al Listado', array('class' => 'btn')); ?>
 		<?php echo anchor('dashboard', icon('home') . ' Ir al Inicio', array('class' => 'btn')); ?>
 
 	</div>

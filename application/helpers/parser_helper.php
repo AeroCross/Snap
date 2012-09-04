@@ -4,12 +4,12 @@ function status($status) {
 	switch ($status) {
 		case 'open': 
 			$status		= 'Abierta';
-			$highlight	= 'success';
+			$highlight	= 'warning';
 		break;
 
 		case 'closed':
 			$status		= 'Cerrada';
-			$highlight	= 'error';
+			$highlight	= 'success';
 		break;
 	}
 

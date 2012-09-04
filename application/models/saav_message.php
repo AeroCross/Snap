@@ -5,11 +5,11 @@
 *
 * Handles the messages inside tickets and request threads.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Models
 * @author		Mario Cuba <mario@mariocuba.net>
 */ 
-class Sav_message extends SAV_Model {
+class Saav_message extends EXT_Model {
 
 	// the table used in the model
 	public $_table = 'message';
@@ -73,11 +73,11 @@ class Sav_message extends SAV_Model {
 		$id = $this->cdb->insert_id(); 
 		if ($id > 0) {
 			// correct status
-			$this->sav_ticket->updateStatus($ticket_id, $status);
+			$this->saav_ticket->updateStatus($ticket_id, $status);
 
 			// correct modification date
-			$date = $this->sav_message->getMessage($id)->date;
-			$this->sav_ticket->updateModificationDate($ticket_id, $date);
+			$date = $this->saav_message->getMessage($id)->date;
+			$this->saav_ticket->updateModificationDate($ticket_id, $date);
 
 			return TRUE;
 		} else {
@@ -86,5 +86,5 @@ class Sav_message extends SAV_Model {
 	}
 }
 
-/* End of file sav_message.php */
-/* Location: ./application/models/sav_message.php */
+/* End of file saav_message.php */
+/* Location: ./application/models/saav_message.php */

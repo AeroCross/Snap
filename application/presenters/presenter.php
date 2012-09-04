@@ -9,7 +9,7 @@
 * Original concept by Jamie Rumbelow <jamie@jamierumbelow.com>, found in 
 * the "Codeigniter Handbook", Vol. 1. (@see http://http://codeigniterhandbook.com/)
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Presenters
 * @author		Mario Cuba <mario@mariocuba.net>
 */

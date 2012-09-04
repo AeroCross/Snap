@@ -25,7 +25,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 * @license		http://creativecommons.org/licenses/by/3.0
 */
-class SAV_Controller extends CI_Controller {
+class EXT_Controller extends CI_Controller {
 
 	// the data to be passed around views and controllers
 	public $data;
@@ -147,5 +147,5 @@ class SAV_Controller extends CI_Controller {
 	}
 }
 
-/* End of file SAV_Controller.php */
-/* Location: ./application/core/SAV_Controller.php */
+/* End of file EXT_Controller.php */
+/* Location: ./application/core/EXT_Controller.php */

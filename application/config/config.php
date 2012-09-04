@@ -133,7 +133,7 @@ $config['enable_hooks'] = FALSE;
 | http://codeigniter.com/user_guide/general/creating_libraries.html
 |
 */
-$config['subclass_prefix'] = 'SAV_';
+$config['subclass_prefix'] = 'EXT_';
 
 
 /*
@@ -279,7 +279,7 @@ $config['encryption_key'] = 'gGk)U}C@NN)~;r`:*]0q5{%>Zl/V.Qkv';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'sav_session';
+$config['sess_cookie_name']		= 'saav_session';
 $config['sess_table_name']		= 'session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= TRUE;
@@ -333,8 +333,8 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
 $config['csrf_protection']		= FALSE;
-$config['csrf_token_name']		= 'sav_csrf_t';
-$config['csrf_cookie_name']		= 'sav_csrf_c';
+$config['csrf_token_name']		= 'saav_csrf_t';
+$config['csrf_cookie_name']		= 'saav_csrf_c';
 $config['csrf_expire']			= 7200;
 $config['csrf_regenerate']		= TRUE;
 $config['csrf_exclude_uris']	= array();

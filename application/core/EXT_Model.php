@@ -21,10 +21,10 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 * @license		http://creativecommons.org/licenses/by/3.0
 */
-class SAV_Model extends CI_Model {
+class EXT_Model extends CI_Model {
 
 	// the database group name to load
-	private $database = SAV_DATABASE;
+	private $database = SAAV_DATABASE;
 
 	/**
 	* The class constructor.

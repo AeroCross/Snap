@@ -5,11 +5,11 @@
 *
 * Handles settings insertions and retrievals.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Models
 * @author		Mario Cuba <mario@mariocuba.net>
 */ 
-class Sav_setting extends SAV_Model {
+class Saav_setting extends EXT_Model {
 
 	// the table used in the model
 	public $_table = 'setting';
@@ -56,5 +56,5 @@ class Sav_setting extends SAV_Model {
 	}
 }
 
-/* End of file sav_settings.php */
-/* Location: ./application/models/sav_settings.php */
+/* End of file saav_settings.php */
+/* Location: ./application/models/saav_settings.php */

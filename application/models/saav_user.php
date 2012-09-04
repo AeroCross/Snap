@@ -5,11 +5,11 @@
 *
 * Handles user creation, modification, login, etc.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Models
 * @author		Mario Cuba <mario@mariocuba.net>
 */ 
-class Sav_user extends SAV_Model {
+class Saav_user extends EXT_Model {
 
 	// the table used in the model
 	public $_table = 'user';
@@ -83,5 +83,5 @@ class Sav_user extends SAV_Model {
 	}
 }
 
-/* End of file sav_user.php */
-/* Location: ./application/models/sav_user.php */
+/* End of file saav_user.php */
+/* Location: ./application/models/saav_user.php */

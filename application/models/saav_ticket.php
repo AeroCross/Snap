@@ -5,11 +5,11 @@
 *
 * Handles ticket CRUD methods.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Models
 * @author		Mario Cuba <mario@mariocuba.net>
 */ 
-class Sav_ticket extends SAV_Model {
+class Saav_ticket extends EXT_Model {
 
 	// the table used in the model
 	public $_table = 'ticket';
@@ -46,8 +46,8 @@ class Sav_ticket extends SAV_Model {
 		// inserted? send an email to department members
 		if ($id > 0) {
 			$this->load->library('email');
-			$this->load->model('sav_setting');
-			$this->load->model('sav_department');
+			$this->load->model('saav_setting');
+			$this->load->model('saav_department');
 
 			// set variables of form
 			$department = $data['department'];
@@ -55,7 +55,7 @@ class Sav_ticket extends SAV_Model {
 			$subject	= $data['subject'];
 
 			// fetches the info of all department members, to send emails
-			$members = $this->sav_department->getDepartmentMembers($department);
+			$members = $this->saav_department->getDepartmentMembers($department);
 
 			// no members related to that department, insert and leave returning ticket #
 			if(empty($members)) {
@@ -71,7 +71,7 @@ class Sav_ticket extends SAV_Model {
 			$this->init->email();
 
 			// set email preferences
-			$smtp_user = $this->sav_setting->getSetting('smtp_user');
+			$smtp_user = $this->saav_setting->getSetting('smtp_user');
 			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
 
@@ -159,5 +159,5 @@ class Sav_ticket extends SAV_Model {
 	}
 }
 
-/* End of file sav_ticket.php */
-/* Location: ./application/models/sav_ticket.php */
+/* End of file saav_ticket.php */
+/* Location: ./application/models/saav_ticket.php */

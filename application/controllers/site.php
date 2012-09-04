@@ -3,11 +3,11 @@
 /**
 * Shows the informational website for the app.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Site extends SAV_Controller {
+class Site extends EXT_Controller {
 
 	/**
 	* The class constructor.

@@ -5,11 +5,11 @@
 *
 * Handles the CRUD of the Tickets.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Tickets extends SAV_Controller {
+class Tickets extends EXT_Controller {
 	
 	/**
 	* The class constructor.
@@ -24,7 +24,7 @@ class Tickets extends SAV_Controller {
 		
 		// load resources
 		$this->load->presenter('notification');
-		$this->load->model('sav_ticket');
+		$this->load->model('saav_ticket');
 
 		// store the post array
 		$this->post = $this->input->post();
@@ -56,11 +56,11 @@ class Tickets extends SAV_Controller {
  	*/
 	public function all() {
 		// fetch all the tickets from this user
-		$tickets = $this->sav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->getAll();
+		$tickets = $this->saav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->getAll();
 
 		if (count($tickets) !== 0) {
 			// load the neccessary code
-			$this->load->model('sav_department');
+			$this->load->model('saav_department');
 			$this->load->helper('parser');
 
 			// format the table
@@ -71,7 +71,7 @@ class Tickets extends SAV_Controller {
 				$this->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),
 					$ticket->subject,
-					$this->sav_department->getDepartment($ticket->department)->name,
+					$this->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,
 					$ticket->date_modified,
 					status($ticket->status),
@@ -96,7 +96,7 @@ class Tickets extends SAV_Controller {
 	public function view($ticket) {
 		// first, check if the ticket belongs to the user
 		$this->data->ticket		= new StdClass;
-		$this->data->ticket		= $this->sav_ticket->getTicket($ticket);
+		$this->data->ticket		= $this->saav_ticket->getTicket($ticket);
 
 		if ($this->data->ticket->reported_by != $this->session->userdata('id')) {
 			redirect('dashboard');
@@ -108,17 +108,17 @@ class Tickets extends SAV_Controller {
 		}
 
 		$this->load->helper('parser');
-		$this->load->model('sav_user');
-		$this->load->model('sav_message');
-		$this->load->model('sav_department');
+		$this->load->model('saav_user');
+		$this->load->model('saav_message');
+		$this->load->model('saav_department');
 
 		$this->data->messages	= new StdClass;
 		$this->data->reporter	= new StdClass;
 
 
 
-		$this->data->reporter	= $this->sav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
-		$this->data->messages	= $this->sav_message->getMessages($ticket);
+		$this->data->reporter	= $this->saav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
+		$this->data->messages	= $this->saav_message->getMessages($ticket);
 	}
 
  	/**
@@ -165,10 +165,10 @@ class Tickets extends SAV_Controller {
 			'content'		=> $this->input->post('content'),
 		);
 		
-		$this->load->model('sav_ticket');
+		$this->load->model('saav_ticket');
 
 		// add the new ticket and return the id
-		$id = $this->sav_ticket->addTicket($data);
+		$id = $this->saav_ticket->addTicket($data);
 
 		if (!empty($id)) {
 			$this->session->set_flashdata('ticket', $id);
@@ -205,7 +205,7 @@ class Tickets extends SAV_Controller {
 		}
 
 		// load the message model to process data
-		$this->load->model('sav_message');
+		$this->load->model('saav_message');
 
 		// prepare
 		$ticket_id 	= $this->input->post('ticket_id');
@@ -218,14 +218,14 @@ class Tickets extends SAV_Controller {
 		}
 
 		// notify the department when the ticket is updated
-		if ($this->sav_message->addMessage($ticket_id, $content, $status)) {
+		if ($this->saav_message->addMessage($ticket_id, $content, $status)) {
 			// get the ticket data
-			$ticket = $this->sav_ticket->getTicket($ticket_id);
+			$ticket = $this->saav_ticket->getTicket($ticket_id);
 
 			// check who shall receive the emails
-			$this->load->model('sav_setting');
-			$this->load->model('sav_department');
-			$members = $this->sav_department->getDepartmentMembers($ticket->department);
+			$this->load->model('saav_setting');
+			$this->load->model('saav_department');
+			$members = $this->saav_department->getDepartmentMembers($ticket->department);
 
 			foreach($members as $member) {
 				$bcc[] = $member->email;
@@ -235,7 +235,7 @@ class Tickets extends SAV_Controller {
 			$this->load->library('email');
 			$this->init->email();
 
-			$smtp_user = $this->sav_setting->getSetting('smtp_user');
+			$smtp_user = $this->saav_setting->getSetting('smtp_user');
 			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
 			$this->email->bcc($bcc);

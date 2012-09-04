@@ -21,7 +21,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 * @license		http://creativecommons.org/licenses/by/3.0
 */
-class SAV_Loader extends CI_Loader {
+class EXT_Loader extends CI_Loader {
 
 	/**
 	* Loads a presenter.
@@ -78,5 +78,5 @@ class SAV_Loader extends CI_Loader {
 	}
 }
 
-/* End of file SAV_Loader.php */
-/* Location: ./application/core/SAV_Loader.php */
+/* End of file EXT_Loader.php */
+/* Location: ./application/core/EXT_Loader.php */

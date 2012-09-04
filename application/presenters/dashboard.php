@@ -5,7 +5,7 @@
 *
 * Shows various dashboard widgets.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Presenters
 * @author		Mario Cuba <mario@mariocuba.net>
 */
@@ -30,13 +30,13 @@ class DashboardPresenter {
 	*/
 	public function latestTickets() {
 		// load the neccesary code
-		$this->app->load->model('sav_ticket');
-		$this->app->load->model('sav_department');
+		$this->app->load->model('saav_ticket');
+		$this->app->load->model('saav_department');
 		$this->app->load->helper('parser');
 
 		// fetch necessary information
 		$id			= $this->app->session->userdata('id');
-		$tickets	= $this->app->sav_ticket->getLatestTickets(5, $id);
+		$tickets	= $this->app->saav_ticket->getLatestTickets(5, $id);
 
 		if (count($tickets) !== 0) {
 			// configure table generation
@@ -54,7 +54,7 @@ class DashboardPresenter {
 					anchor('tickets/view/' . $ticket->id, $ticket->id),
 					$ticket->subject,
 					$ticket->date_created,
-					$this->app->sav_department->getDepartment($ticket->department)->name,
+					$this->app->saav_department->getDepartment($ticket->department)->name,
 					status($ticket->status)
 				);
 			}

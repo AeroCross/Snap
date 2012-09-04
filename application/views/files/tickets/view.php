@@ -34,7 +34,7 @@
 		
 		<ul>
 		
-			<li><strong>Departamento:</strong> <?php echo $this->sav_department->getDepartment($ticket->department)->name; ?></li>
+			<li><strong>Departamento:</strong> <?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></li>
 		
 		</ul>
 
@@ -78,7 +78,7 @@
 
 <!-- other messages here -->
 <?php foreach($messages as $message): ?>
-<?php $user = $this->sav_user->data('firstname, lastname, email')->id($message->user_id)->get(); ?>
+<?php $user = $this->saav_user->data('firstname, lastname, email')->id($message->user_id)->get(); ?>
 
 <div class="row">
 

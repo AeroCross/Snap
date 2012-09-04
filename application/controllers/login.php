@@ -3,11 +3,11 @@
 /**
 * Handles the log in and out of the system.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Login extends SAV_Controller {
+class Login extends EXT_Controller {
 	
 	/**
 	* The class constructor.
@@ -84,10 +84,10 @@ class Login extends SAV_Controller {
 		$username	= $this->input->post('username');
 		$password	= $this->input->post('password');
 
-		$this->load->model('sav_user');
+		$this->load->model('saav_user');
 
 		// if the user doesn't exists, exit
-		if ($this->sav_user->login($username, $password) === FALSE) {
+		if ($this->saav_user->login($username, $password) === FALSE) {
 			return array(
 				'status'	=> 'login_failed',
 				'title'		=> 'Usuario o contraseña incorrecto.',
@@ -97,7 +97,7 @@ class Login extends SAV_Controller {
 		}
 
 		// user found and password correct — login
-		$userdata	= $this->sav_user->data('id, firstname, lastname, username, email')->username($username)->get();
+		$userdata	= $this->saav_user->data('id, firstname, lastname, username, email')->username($username)->get();
 		$name		= $userdata->firstname . ' ' . $userdata->lastname;
 		$email		= $userdata->email;
 		$key		= $this->init->generateLoginKey($userdata);

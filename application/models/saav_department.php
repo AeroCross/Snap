@@ -5,11 +5,11 @@
 *
 * Handles the relations of users / departments.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Models
 * @author		Mario Cuba <mario@mariocuba.net>
 */ 
-class Sav_department extends SAV_Model {
+class Saav_department extends EXT_Model {
 
 	// the table used in the model
 	public $_table = 'department';
@@ -69,5 +69,5 @@ class Sav_department extends SAV_Model {
 	}
 }
 
-/* End of file sav_department.php */
-/* Location: ./application/models/sav_department.php */
+/* End of file saav_department.php */
+/* Location: ./application/models/saav_department.php */

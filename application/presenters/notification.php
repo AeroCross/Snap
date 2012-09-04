@@ -5,7 +5,7 @@
 *
 * Shows notifications troughout the application.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Presenters
 * @author		Mario Cuba <mario@mariocuba.net>
 */

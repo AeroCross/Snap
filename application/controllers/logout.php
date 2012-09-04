@@ -5,11 +5,11 @@
 *
 * Logs out the user of the system and destroys the session.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Logout extends SAV_Controller {
+class Logout extends EXT_Controller {
 	
 	/**
 	* The class constructor.

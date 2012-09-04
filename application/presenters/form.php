@@ -5,7 +5,7 @@
 *
 * Widgets for forms.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Presenters
 * @author		Mario Cuba <mario@mariocuba.net>
 */
@@ -61,8 +61,8 @@ class FormPresenter {
 	* @access	public
 	*/
 	public function departments() {
-		$this->sav->load->model('sav_department');
-		return $this->_createOptions($this->sav->sav_department->getDepartments(), 'id', 'name');
+		$this->sav->load->model('saav_department');
+		return $this->_createOptions($this->sav->saav_department->getDepartments(), 'id', 'name');
 	}
 }
 

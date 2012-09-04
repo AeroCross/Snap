@@ -5,11 +5,11 @@
 *
 * Shows the main menu for the app.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Dashboard extends SAV_Controller {
+class Dashboard extends EXT_Controller {
 	
 	/**
 	* The class constructor.

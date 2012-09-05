@@ -248,7 +248,8 @@ class Tickets extends EXT_Controller {
 			$this->email->message(nl2br($content));
 
 			// if message was sent, notify
-			$this->email->send();
+			// @TODO: how can we know if the email was or wasn't sent?
+			@$this->email->send();
 
 			return array(
 				'status'	=> 'sent',

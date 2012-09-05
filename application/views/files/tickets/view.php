@@ -163,7 +163,8 @@
 
 					<select name="assign_to" id="assign_to">
 
-						<option></option>
+						<?php echo $this->presenter->form->admins(); ?>
+						<?php echo $this->presenter->form->support(FALSE); ?>
 
 					</select>
 

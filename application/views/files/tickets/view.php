@@ -135,6 +135,66 @@
 			</div>
 			<!-- end content -->
 
+			<?php if ($this->saav_user->permission('support')): ?>
+
+			<!-- department -->
+			<div class="control-group">
+
+				<label for="department" class="control-label">Departamento</label>
+
+				<div class="controls">
+
+					<select name="department" id="department">
+
+						<option></option>
+
+					</select>
+
+				</div>
+
+			</div>
+
+			<!-- assign to -->
+			<div class="control-group">
+
+				<label for="assign_to" class="control-label">Asignar a</label>
+
+				<div class="controls">
+
+					<select name="assign_to" id="assign_to">
+
+						<option></option>
+
+					</select>
+
+				</div>
+
+			</div>
+
+			<!-- assign to -->
+			<div class="control-group">
+
+				<label for="eta" class="control-label">Tiempo Estimado</label>
+
+				<div class="controls">
+
+					<input type="text" class="span1" name="eta-value" id="eta" />
+					
+					<select name="eta-range" class="span2">
+
+						<option>Minuto/s</option>
+						<option>Hora/s</option>
+						<option>Día/s</option>
+						<option>Semana/s</option>
+
+					</select>
+
+				</div>
+
+			</div>
+
+			<?php endif; ?>
+
 			<!-- status -->
 			<div class="control-group">
 

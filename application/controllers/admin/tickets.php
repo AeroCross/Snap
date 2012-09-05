@@ -22,6 +22,12 @@ class Tickets extends EXT_Controller {
 
 		// load the ticket model
 		$this->load->model('saav_ticket');
+		$this->load->model('saav_user');
+
+		// check if the user's an admin
+		if (!$this->saav_user->permission('support')) {
+			redirect('dashboard');
+		}
 	}
 
 	/**

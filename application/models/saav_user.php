@@ -50,7 +50,7 @@ class Saav_user extends EXT_Model {
 	* This will allow the calculation of the role hierarchy - if an user is
 	* a certain role, then all of the remaining roles can (or can't) do something.
 	*
-	* @param	int		- the role to check (1 admin, 2 support, 3 user)
+	* @param	string	- the role to check (admin, support, user)
 	* @return	bool	- TRUE if the paramater matches the role, FALSE if not, NULL if there's not a session
 	* @access	public
 	*/

@@ -93,6 +93,8 @@ class Tickets extends EXT_Controller {
  	* @access	public
  	*/
 	public function view($ticket) {
+		$this->load->presenter('ticket');
+		
 		// if a message was sent, process it
 		if (!empty($this->post)) {
 			$this->presenter->notification->create($this->_update());
@@ -244,7 +246,7 @@ class Tickets extends EXT_Controller {
 			// load the email library
 			$this->load->library('email');
 			$this->init->email();
-			
+
 			if (!empty($members)) {
 				foreach($members as $member) {
 					$bcc[] = $member->email;

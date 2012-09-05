@@ -50,8 +50,17 @@ class Tickets extends EXT_Controller {
 		$this->load->model('saav_department');
 		$this->load->helper('parser');
 
-		// fetch table data
-		$tickets = $this->saav_ticket->data()->by('date_created', 'desc')->getAll();
+		// try to search
+		$search	= $this->input->post('search');
+		$value	= $this->input->post('value');
+
+		if (!empty($search) AND !empty($value)) {
+			$tickets	= $this->saav_ticket->data()->$search($value)->by('date_created', 'desc')->getAll();
+
+		// fetch table data normally
+		} else {
+			$tickets = $this->saav_ticket->data()->by('date_created', 'desc')->getAll();
+		}
 
 		// tickets found - generate table
 		if (count($tickets) > 0) {

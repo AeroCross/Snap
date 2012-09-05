@@ -24,6 +24,7 @@ class Tickets extends EXT_Controller {
 		
 		// load resources
 		$this->load->presenter('notification');
+		$this->load->presenter('form');
 		$this->load->model('saav_ticket');
 
 		// store the post array

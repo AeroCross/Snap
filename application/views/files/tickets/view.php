@@ -146,7 +146,7 @@
 
 					<select name="department" id="department">
 
-						<option></option>
+						<?php echo $this->presenter->form->departments(); ?>
 
 					</select>
 
@@ -188,6 +188,8 @@
 						<option>Semana/s</option>
 
 					</select>
+
+					<p class="help-block">Para completar o responder la consulta.</p>
 
 				</div>
 

@@ -25,6 +25,36 @@ class FormPresenter {
 	}
 
 	/**
+	* Creates options for the departments.
+	*
+	* @access	public
+	*/
+	public function departments() {
+		$this->sav->load->model('saav_department');
+		return $this->_createOptions($this->sav->saav_department->getDepartments(), 'id', 'name');
+	}
+
+	/**
+	* Creates options for the admins.
+	*
+	* @access	public
+	*/
+	public function admins() {
+		$this->sav->load->model('saav_user');
+		return $this->_createOptions($this->sav->saav_user->_getUserNames(array(1)), 'id', 'name');
+	}
+
+	/**
+	* Creates options for the support personnel.
+	*
+	* @access	public
+	*/
+	public function support($first_empty = TRUE) {
+		$this->sav->load->model('saav_user');
+		return $this->_createOptions($this->sav->saav_user->_getUserNames(array(2)), 'id', 'name', $first_empty);
+	}
+
+	/**
 	* Creates option elements for all the methods.
 	*
 	* @param	array	- data that contains the database information
@@ -53,16 +83,6 @@ class FormPresenter {
 		}
 
 		return $result;
-	}
-
-	/**
-	* Creates options for the departments.
-	*
-	* @access	public
-	*/
-	public function departments() {
-		$this->sav->load->model('saav_department');
-		return $this->_createOptions($this->sav->saav_department->getDepartments(), 'id', 'name');
 	}
 }
 

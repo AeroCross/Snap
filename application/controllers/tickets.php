@@ -241,19 +241,22 @@ class Tickets extends EXT_Controller {
 			$this->load->model('saav_department');
 			$members = $this->saav_department->getDepartmentMembers($ticket->department);
 
-			foreach($members as $member) {
-				$bcc[] = $member->email;
-			}
-			
 			// load the email library
 			$this->load->library('email');
 			$this->init->email();
+			
+			if (!empty($members)) {
+				foreach($members as $member) {
+					$bcc[] = $member->email;
+				}
+
+				$this->email->bcc($bcc);
+			}
 
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
 
 			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
-			$this->email->bcc($bcc);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
 			$this->email->message(nl2br($content));
 

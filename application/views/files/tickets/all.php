@@ -1,6 +1,6 @@
 <div class="page-header">
 
-	<h4>Todas las Consultas <small><?php echo anchor('dashboard', '(regresar)'); ?></small></h4>
+	<h4>Sus consultas <small><?php echo anchor('dashboard', '(regresar)'); ?></small></h4>
 
 
 </div>

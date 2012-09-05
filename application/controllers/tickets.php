@@ -229,7 +229,9 @@ class Tickets extends EXT_Controller {
 			}
 
 			// update ticket info
-			$this->saav_ticket->updateTicket($ticket_id, $info);
+			if (isset($info)) {
+				$this->saav_ticket->updateTicket($ticket_id, $info);
+			}
 
 			// get the ticket data
 			$ticket = $this->saav_ticket->getTicket($ticket_id);

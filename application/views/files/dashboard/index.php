@@ -30,7 +30,7 @@
 
 			</ul>
 
-			<p>Entonces cree una <?php echo anchor('ticket/add', 'nueva consulta'); ?>.</p>
+			<p>Entonces cree una <?php echo anchor('tickets/add', 'nueva consulta'); ?>.</p>
 
 			<p><span class="label label-info">Nota</span> Si usted ya tiene una consulta abierta sobre lo que va a reportar, ingrese a ella y actualize su consulta, para poder ofrecerle un mejor servicio.</p>
 

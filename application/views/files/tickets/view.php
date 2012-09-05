@@ -161,7 +161,7 @@
 
 				<div class="controls">
 
-					<select name="assign_to" id="assign_to">
+					<select name="assigned_to" id="assigned_to">
 
 						<?php echo $this->presenter->form->admins(); ?>
 						<?php echo $this->presenter->form->support(FALSE); ?>
@@ -179,14 +179,14 @@
 
 				<div class="controls">
 
-					<input type="text" class="span1" name="eta-value" id="eta" />
+					<input type="text" class="span1" name="eta_value" id="eta" />
 					
-					<select name="eta-range" class="span2">
+					<select name="eta_range" class="span2">
 
-						<option>Minuto/s</option>
-						<option>Hora/s</option>
-						<option>Día/s</option>
-						<option>Semana/s</option>
+						<option value="60">Minuto/s</option>
+						<option value="3600">Hora/s</option>
+						<option value="86400">Día/s</option>
+						<option value="604800">Semana/s</option>
 
 					</select>
 

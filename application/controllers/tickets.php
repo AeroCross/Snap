@@ -95,7 +95,7 @@ class Tickets extends EXT_Controller {
 	public function view($ticket) {
 		// if a message was sent, process it
 		if (!empty($this->post)) {
-			$this->presenter->notification->create($this->_addMessage());
+			$this->presenter->notification->create($this->_update());
 		}
 
 		// check if the ticket belongs to the user
@@ -191,7 +191,7 @@ class Tickets extends EXT_Controller {
  	*
  	* @access	private
  	*/
-	private function _addMessage() {
+	private function _update() {
 		// check if the data is complete
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('ticket_id', 'ID de Consulta', 'required');

@@ -228,12 +228,12 @@ class Tickets extends EXT_Controller {
 				}
 			}
 
-			// update ticket info
+			// update ticket info, since admin data was sent
 			if (isset($info)) {
 				$this->saav_ticket->updateTicket($ticket_id, $info);
 			}
 
-			// get the ticket data
+			// refresh the ticket data
 			$ticket = $this->saav_ticket->getTicket($ticket_id);
 			
 			// check who shall receive the emails
@@ -250,6 +250,7 @@ class Tickets extends EXT_Controller {
 			$this->init->email();
 
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
+
 			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
 			$this->email->bcc($bcc);
@@ -259,6 +260,21 @@ class Tickets extends EXT_Controller {
 			// if message was sent, notify
 			// @TODO: how can we know if the email was or wasn't sent?
 			@$this->email->send();
+
+			// if there was a new assignment, notify the person
+			if (isset($info['assigned_to'])) {
+				$assigned = $info['assigned_to'];
+				$user = $this->saav_user->data('id, firstname, lastname, email')->id($assigned)->get();
+				$this->email->clear();
+
+				$this->email->to($user->email, $user->firstname . ' ' . $user->lastname);
+				$this->email->from($smtp_user);
+				$this->email->subject('Asignación de Ticket #' . $ticket_id . ': ' . $ticket->subject);
+				$this->email->message('Se le ha asignado una nueva consulta: <strong>' . $ticket->subject . '</strong>');
+
+				// @TODO: how can we know if the email was or wasn't sent?
+				@$this->email->send();
+			}
 
 			return array(
 				'status'	=> 'sent',

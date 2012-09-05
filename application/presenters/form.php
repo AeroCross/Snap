@@ -12,7 +12,7 @@
 class FormPresenter {
 
 	// prevent overloading
-	private $sav;
+	private $app;
 
 	/**
 	* The class constructor.
@@ -21,7 +21,7 @@ class FormPresenter {
 	*/
 	public function __construct() {
 		// get the global CI object
-		$this->sav =& get_instance(); 
+		$this->app =& get_instance(); 
 	}
 
 	/**
@@ -30,8 +30,8 @@ class FormPresenter {
 	* @access	public
 	*/
 	public function departments() {
-		$this->sav->load->model('saav_department');
-		return $this->_createOptions($this->sav->saav_department->getDepartments(), 'id', 'name');
+		$this->app->load->model('saav_department');
+		return $this->_createOptions($this->app->saav_department->getDepartments(), 'id', 'name');
 	}
 
 	/**
@@ -40,8 +40,8 @@ class FormPresenter {
 	* @access	public
 	*/
 	public function admins() {
-		$this->sav->load->model('saav_user');
-		return $this->_createOptions($this->sav->saav_user->_getUserNames(array(1)), 'id', 'name');
+		$this->app->load->model('saav_user');
+		return $this->_createOptions($this->app->saav_user->_getUserNames(array(1)), 'id', 'name');
 	}
 
 	/**
@@ -50,8 +50,8 @@ class FormPresenter {
 	* @access	public
 	*/
 	public function support($first_empty = TRUE) {
-		$this->sav->load->model('saav_user');
-		return $this->_createOptions($this->sav->saav_user->_getUserNames(array(2)), 'id', 'name', $first_empty);
+		$this->app->load->model('saav_user');
+		return $this->_createOptions($this->app->saav_user->_getUserNames(array(2)), 'id', 'name', $first_empty);
 	}
 
 	/**

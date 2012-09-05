@@ -57,7 +57,7 @@ class Tickets extends EXT_Controller {
 		if (count($tickets) > 0) {
 			foreach($tickets as $ticket) {
 				$this->table->add_row(
-					anchor('ticket/view/' . $ticket->id, $ticket->id),
+					anchor('tickets/view/' . $ticket->id, $ticket->id),
 					$ticket->subject,
 					$this->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,

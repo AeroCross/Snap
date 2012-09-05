@@ -66,7 +66,7 @@ class Tickets extends EXT_Controller {
 
 			// format the table
 			$this->load->library('table');
-			$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus', 'Tiempo estimado');
+			$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
 
 			foreach($tickets as $ticket) {
 				$this->table->add_row(
@@ -75,8 +75,7 @@ class Tickets extends EXT_Controller {
 					$this->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,
 					$ticket->date_modified,
-					status($ticket->status),
-					$ticket->eta
+					status($ticket->status)
 				);
 			}
 
@@ -218,22 +217,11 @@ class Tickets extends EXT_Controller {
 		$updates = array(
 			'department'	=> $this->input->post('department'),
 			'assigned_to'	=> $this->input->post('assigned_to'),
-			'eta_value'		=> $this->input->post('eta_value'),
-			'eta_range'		=> $this->input->post('eta_range'),
 			'status'		=> $this->input->post('status')
 		);
 
 		// notify the department when the ticket is updated
 		if ($this->saav_message->addMessage($ticket_id, $content)) {
-			// calculate eta
-			if (!empty($updates['eta_value']) AND !empty($updates['eta_range'])) {
-				$updates['eta'] = (int) $updates['eta_value'] * (int) $updates['eta_range'];
-
-				// remove from array
-				unset($updates['eta_value']);
-				unset($updates['eta_range']);
-			}
-
 			foreach($updates as $key => $update) {
 				if (!empty($update)) {
 					$info[$key] = $update;

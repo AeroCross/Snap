@@ -172,30 +172,6 @@
 
 			</div>
 
-			<!-- assign to -->
-			<div class="control-group">
-
-				<label for="eta" class="control-label">Tiempo Estimado</label>
-
-				<div class="controls">
-
-					<input type="text" class="span1" name="eta_value" id="eta" />
-					
-					<select name="eta_range" class="span2">
-
-						<option value="60">Minuto/s</option>
-						<option value="3600">Hora/s</option>
-						<option value="86400">Día/s</option>
-						<option value="604800">Semana/s</option>
-
-					</select>
-
-					<p class="help-block">Para completar o responder la consulta.</p>
-
-				</div>
-
-			</div>
-
 			<?php endif; ?>
 
 			<!-- status -->

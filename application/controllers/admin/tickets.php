@@ -44,7 +44,7 @@ class Tickets extends EXT_Controller {
 	*/
 	public function all() {
 		$this->load->library('table');
-		$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus', 'Tiempo estimado');
+		$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
 		
 		// load the necessary code
 		$this->load->model('saav_department');
@@ -62,8 +62,7 @@ class Tickets extends EXT_Controller {
 					$this->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,
 					$ticket->date_modified,
-					status($ticket->status),
-					$ticket->eta
+					status($ticket->status)
 				);
 			}
 

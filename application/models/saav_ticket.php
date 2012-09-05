@@ -131,6 +131,23 @@ class Saav_ticket extends EXT_Model {
 	}
 
 	/**
+	* Updates the ticket information.
+	*
+	* @param	array	- the data used to update the ticket
+	* @return	bool	- TRUE on update, FALSE otherwise
+	* @access	public
+	*/
+	public function updateTicket($ticket_id, $data) {
+		foreach ($data as $key => $d) {
+			$this->cdb->set($key, $d);
+		}
+
+		$this->cdb->where('id', $ticket_id);
+
+		return $this->cdb->update($this->_table);
+	}
+
+	/**
 	* Updates the status of a ticket.
 	*
 	* @param	int		- the ticket id

@@ -94,7 +94,12 @@ class Tickets extends EXT_Controller {
  	* @access	public
  	*/
 	public function view($ticket) {
-		// first, check if the ticket belongs to the user
+		// if a message was sent, process it
+		if (!empty($this->post)) {
+			$this->presenter->notification->create($this->_addMessage());
+		}
+
+		// check if the ticket belongs to the user
 		$this->data->ticket		= new StdClass;
 		$this->data->ticket		= $this->saav_ticket->getTicket($ticket);
 
@@ -107,11 +112,6 @@ class Tickets extends EXT_Controller {
 			redirect('dashboard');
 		}
 
-		// if a message was sent, process it
-		if (!empty($this->post)) {
-			$this->presenter->notification->create($this->_addMessage());
-		}
-
 		$this->load->helper('parser');
 		$this->load->model('saav_user');
 		$this->load->model('saav_message');
@@ -119,8 +119,6 @@ class Tickets extends EXT_Controller {
 
 		$this->data->messages	= new StdClass;
 		$this->data->reporter	= new StdClass;
-
-
 
 		$this->data->reporter	= $this->saav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
 		$this->data->messages	= $this->saav_message->getMessages($ticket);

@@ -50,8 +50,8 @@
 	<select name="value" id="reported_by" class="hide" disabled="disabled">
 
 		<?php echo $this->presenter->form->admins(); ?>
-		<?php echo $this->presenter->form->support(); ?>
-		<?php echo $this->presenter->form->users(); ?>
+		<?php echo $this->presenter->form->support(FALSE); ?>
+		<?php echo $this->presenter->form->users(FALSE); ?>
 
 	</select>
 	<!-- end users -->

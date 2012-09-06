@@ -104,7 +104,7 @@ class Tickets extends EXT_Controller {
 		$this->data->ticket		= new StdClass;
 		$this->data->ticket		= $this->saav_ticket->getTicket($ticket);
 
-		// only admins, support cann see this ticket
+		// only admins, support and the owner can see this ticket
 		if (!$this->saav_user->permission('support')) {
 			// check if the ticket is of the reporter
 			if ($this->data->ticket->reported_by != $this->session->userdata('id')) {

@@ -49,11 +49,9 @@ class Tickets extends EXT_Controller {
 	* @access	public
 	*/
 	public function all() {
+		// load required code
 		$this->load->presenter('form');
 		$this->load->library('table');
-		$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
-		
-		// load the necessary code
 		$this->load->model('saav_department');
 		$this->load->helper('parser');
 
@@ -71,6 +69,9 @@ class Tickets extends EXT_Controller {
 
 		// tickets found - generate table
 		if (count($tickets) > 0) {
+			// configure table
+			$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
+
 			foreach($tickets as $ticket) {
 				$this->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),

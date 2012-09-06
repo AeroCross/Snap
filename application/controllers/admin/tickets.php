@@ -52,8 +52,9 @@ class Tickets extends EXT_Controller {
 		// load required code
 		$this->load->presenter('form');
 		$this->load->library('table');
-		$this->load->model('saav_department');
 		$this->load->helper('parser');
+		$this->load->model('saav_company');
+		$this->load->model('saav_department');
 
 		// try to search
 		$search	= $this->input->post('search');
@@ -70,11 +71,14 @@ class Tickets extends EXT_Controller {
 		// tickets found - generate table
 		if (count($tickets) > 0) {
 			// configure table
-			$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
+			$this->table->set_heading('Consulta', 'Reportado por', 'Compañía', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
 
 			foreach($tickets as $ticket) {
+				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
 				$this->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),
+					$reporter->firstname . ' ' . $reporter->lastname,
+					$this->saav_company->findCompany($ticket->reported_by)->name,
 					$ticket->subject,
 					$this->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,

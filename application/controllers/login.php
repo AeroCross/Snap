@@ -74,8 +74,7 @@ class Login extends EXT_Controller {
 		if (!$this->form_validation->run()) {
 			return array(
 				'status'	=> 'required',
-				'title'		=> 'Todos los campos son requeridos.',
-				'message'	=> 'Intente nuevamente.',
+				'message'	=> 'Todos los campos son requeridos.',
 				'type'		=> 'warning'
 			);
 		}
@@ -90,8 +89,7 @@ class Login extends EXT_Controller {
 		if ($this->saav_user->login($username, $password) === FALSE) {
 			return array(
 				'status'	=> 'login_failed',
-				'title'		=> 'Usuario o contraseña incorrecto.',
-				'message'	=> 'Intente nuevamente.',
+				'message'	=> 'Usuario o contraseña incorrecto.',
 				'type'		=> 'warning'
 			);
 		}

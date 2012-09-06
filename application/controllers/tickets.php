@@ -257,6 +257,12 @@ class Tickets extends EXT_Controller {
 
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
 
+			// send the update to the person who made the ticket
+			if ($this->session->userdata('id') != $ticket->reported_by) {
+				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
+				$this->email->bcc($reporter->email);
+			}
+
 			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');

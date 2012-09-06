@@ -55,6 +55,16 @@ class FormPresenter {
 	}
 
 	/**
+	* Creates options for the companies.
+	*
+	* @access public
+	*/
+	public function companies($first_empty = TRUE) {
+		$this->app->load->model('saav_company');
+		return $this->_createOptions($this->app->saav_company->getCompanies(), 'id', 'name');
+	}
+
+	/**
 	* Creates option elements for all the methods.
 	*
 	* @param	array	- data that contains the database information

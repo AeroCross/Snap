@@ -24,7 +24,7 @@ class Saav_company extends EXT_Model {
 	}
 	
 	/**
-	* Fetches a setting value.
+	* Gets the company of an user.
 	*
 	* @access	public
 	*/ 
@@ -36,6 +36,15 @@ class Saav_company extends EXT_Model {
 		->where('user.id', $user_id);
 
 		return $this->cdb->get()->row();
+	}
+
+	/**
+	* Fetches all the companies.
+	*
+	* @access	public
+	*/
+	public function getCompanies() {
+		return $this->cdb->select('*')->get($this->_table)->result();
 	}
 }
 

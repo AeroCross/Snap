@@ -49,6 +49,7 @@ class Tickets extends EXT_Controller {
 	* @access	public
 	*/
 	public function all() {
+		$this->load->presenter('form');
 		$this->load->library('table');
 		$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
 		

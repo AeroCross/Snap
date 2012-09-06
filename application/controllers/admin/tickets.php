@@ -61,7 +61,11 @@ class Tickets extends EXT_Controller {
 		$value	= $this->input->post('value');
 
 		if (!empty($search) AND !empty($value)) {
-			$tickets	= $this->saav_ticket->data()->$search($value)->by('date_created', 'desc')->getAll();
+			if ($search == 'company') {
+				$tickets	= $this->saav_ticket->getTicketsByCompany($value);
+			} else {
+				$tickets	= $this->saav_ticket->data()->$search($value)->by('date_created', 'desc')->getAll();
+			}
 
 		// fetch table data normally
 		} else {

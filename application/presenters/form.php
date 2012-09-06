@@ -29,9 +29,9 @@ class FormPresenter {
 	*
 	* @access	public
 	*/
-	public function departments() {
+	public function departments($first_empty = TRUE) {
 		$this->app->load->model('saav_department');
-		return $this->_createOptions($this->app->saav_department->getDepartments(), 'id', 'name');
+		return $this->_createOptions($this->app->saav_department->getDepartments(), 'id', 'name', $first_empty);
 	}
 
 	/**
@@ -39,9 +39,9 @@ class FormPresenter {
 	*
 	* @access	public
 	*/
-	public function admins() {
+	public function admins($first_empty = TRUE) {
 		$this->app->load->model('saav_user');
-		return $this->_createOptions($this->app->saav_user->_getUserNames(array(1)), 'id', 'name');
+		return $this->_createOptions($this->app->saav_user->_getUserNames(array(1)), 'id', 'name', $first_empty);
 	}
 
 	/**
@@ -61,7 +61,17 @@ class FormPresenter {
 	*/
 	public function companies($first_empty = TRUE) {
 		$this->app->load->model('saav_company');
-		return $this->_createOptions($this->app->saav_company->getCompanies(), 'id', 'name');
+		return $this->_createOptions($this->app->saav_company->getCompanies(), 'id', 'name', $first_empty);
+	}
+
+	/**
+	* Creates options for the users.
+	*
+	* @access public
+	*/
+	public function users($first_empty = TRUE) {
+		$this->app->load->model('saav_user');
+		return $this->_createOptions($this->app->saav_user->_getUserNames(array(3)), 'id', 'name', $first_empty);
 	}
 
 	/**

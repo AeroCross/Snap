@@ -77,7 +77,7 @@ class Tickets extends EXT_Controller {
 				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
 				$this->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),
-					$reporter->firstname . ' ' . $reporter->lastname,
+					safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname),
 					$this->saav_company->findCompany($ticket->reported_by)->name,
 					$ticket->subject,
 					$this->saav_department->getDepartment($ticket->department)->name,

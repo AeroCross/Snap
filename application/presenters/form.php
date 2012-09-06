@@ -84,6 +84,8 @@ class FormPresenter {
 	* @access	private
 	*/
 	private function  _createOptions($data, $value, $name, $first_empty = TRUE) {
+		$items = array();
+		
 		// first empty item
 		if ($first_empty === TRUE) {
 			$items[]	= '<option value=""></option>';

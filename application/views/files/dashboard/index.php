@@ -8,6 +8,17 @@
 
 <br />
 
+<div class="page-header">
+
+	<h4>Consultas asignadas <small><?php echo anchor('tickets/all', '(ver todas)'); ?></small></h4>
+
+</div>
+
+<?php echo $this->presenter->dashboard->latestAssigned();?>
+
+<br />
+<br />
+
 <div class="row">
 
 	<!-- tickets -->

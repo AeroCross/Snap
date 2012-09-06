@@ -25,6 +25,12 @@ class TicketPresenter {
 		$this->app->load->model('saav_ticket');
 
 		$assigned	= $this->app->saav_ticket->getTicket($ticket_id)->assigned_to;
+
+		// if there's noone assigned, return nothing
+		if (empty($assigned)) {
+			return NULL;
+		}
+
 		$user		= $this->app->saav_user->data('firstname, lastname, email')->id($assigned)->get();
 
 		$data = $user->firstname . ' ' . $user->lastname;

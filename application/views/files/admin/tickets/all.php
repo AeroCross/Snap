@@ -12,6 +12,8 @@
 
 		<option value="id"># de Consulta</option>
 		<option value="subject">Asunto</option>
+		<option value="reported_by">Usuario</option>
+		<option value="company">Compañía</option>
 		<option value="department">Departamento</option>
 		<option value="status">Estatus</option>
 
@@ -35,6 +37,24 @@
 	
 	</select>
 	<!-- end status -->
+
+	<!-- companies -->
+	<select name="value" id="company" class="hide" disabled="disabled">
+
+		<?php echo $this->presenter->form->companies(); ?>
+
+	</select>
+	<!-- end companies -->
+
+	<!-- users -->
+	<select name="value" id="reported_by" class="hide" disabled="disabled">
+
+		<?php echo $this->presenter->form->admins(); ?>
+		<?php echo $this->presenter->form->support(); ?>
+		<?php echo $this->presenter->form->users(); ?>
+
+	</select>
+	<!-- end users -->
 
 	<input type="text" name="value" id="value" class="span2" autofocus="autofocus" /><span class="help-inline"><button class="btn" class="submit"><?php echo icon('search'); ?> Buscar</button></span>
 

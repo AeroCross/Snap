@@ -36,15 +36,7 @@
 	</select>
 	<!-- end status -->
 
-	<!-- submit -->
-	<div class="input-append" id="value">
-
-		<input type="text" name="value" id="value" class="span2" /><button class="btn" class="submit"><?php echo icon('search'); ?></button>
-
-	</div>
-	<!-- submit -->
-
-	<input type="submit" class="invisible" />
+	<input type="text" name="value" id="value" class="span2" autofocus="autofocus" /><span class="help-inline"><button class="btn" class="submit"><?php echo icon('search'); ?> Buscar</button></span>
 
 <?php echo form_close(); ?>
 <!-- end search form -->

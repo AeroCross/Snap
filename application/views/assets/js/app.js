@@ -23,21 +23,51 @@ jQuery(document).ready(function() {
 		switch(value) {
 			case 'id':
 			case 'subject':
-				fieldDepartment.hide().val('').attr('disabled', 'disabled');
-				fieldStatus.hide().val('').attr('disabled', 'disabled');
-				fieldValue.show().children('input').removeAttr('disabled');
+				fieldDepartment
+					.hide()
+					.val('')
+					.attr('disabled', 'disabled');
+
+				fieldStatus
+					.hide()
+					.val('')
+					.attr('disabled', 'disabled');
+
+				fieldValue
+					.show()
+					.removeAttr('disabled');
 			break;
 
 			case 'department':
-				fieldValue.hide().children('input').val('').attr('disabled', 'disabled');
-				fieldStatus.hide().val('').attr('disabled', 'disabled');
-				fieldDepartment.show().removeAttr('disabled');
+				fieldValue
+					.hide()
+					.val('')
+					.attr('disabled', 'disabled');
+
+				fieldStatus
+					.hide()
+					.val('')
+					.attr('disabled', 'disabled');
+
+				fieldDepartment
+					.show()
+					.removeAttr('disabled');
 			break;
 
 			case 'status':
-				fieldValue.hide().children('input').val('').attr('disabled', 'disabled');
-				fieldDepartment.hide().val('').attr('disabled', 'disabled');
-				fieldStatus.show().removeAttr('disabled');
+				fieldValue
+					.hide()
+					.val('')
+					.attr('disabled', 'disabled');
+
+				fieldDepartment
+					.hide()
+					.val('')
+					.attr('disabled', 'disabled');
+
+				fieldStatus
+					.show()
+					.removeAttr('disabled');
 			break;
 		}
 	});

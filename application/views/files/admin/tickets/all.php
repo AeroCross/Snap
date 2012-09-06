@@ -49,9 +49,17 @@
 	<!-- users -->
 	<select name="value" id="reported_by" class="hide" disabled="disabled">
 
-		<?php echo $this->presenter->form->admins(); ?>
-		<?php echo $this->presenter->form->support(FALSE); ?>
-		<?php echo $this->presenter->form->users(FALSE); ?>
+		<optgroup label="Administradores">
+			<?php echo $this->presenter->form->admins(); ?>
+		</optgroup>
+
+		<optgroup label="Soporte Técnico">
+			<?php echo $this->presenter->form->support(FALSE); ?>
+		</optgroup>
+
+		<optgroup label="Clientes">
+			<?php echo $this->presenter->form->users(FALSE); ?>
+		</optgroup>
 
 	</select>
 	<!-- end users -->

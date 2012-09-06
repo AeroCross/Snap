@@ -18,19 +18,23 @@
 	</select>
 	<!-- end search fields -->
 
-	<select name="value-departments" id="department" class="hide">
+	<!-- departments -->
+	<select name="value" id="department" class="hide" disabled="disabled">
 		
 		<?php echo $this->presenter->form->departments();?>
 	
 	</select>
+	<!-- end departments -->
 
-	<select name="value-status" id="status" class="hide">
+	<!-- status -->
+	<select name="value" id="status" class="hide" disabled="disabled">
 		
 		<option value=""></option>
 		<option value="open">Abierto</option>
 		<option value="closed">Cerrado</option>
 	
 	</select>
+	<!-- end status -->
 
 	<!-- submit -->
 	<div class="input-append" id="value">
@@ -39,6 +43,8 @@
 
 	</div>
 	<!-- submit -->
+
+	<input type="submit" class="invisible" />
 
 <?php echo form_close(); ?>
 <!-- end search form -->

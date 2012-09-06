@@ -10,11 +10,11 @@ jQuery(document).ready(function() {
 	});
 	
 	// admin search form
-	jQuery('#search').on('change', function() {
-		// search fields
-		search		= jQuery('#search');
+	search		= jQuery('#search');
+	search.on('change', function() {
+		// value field
 		value		= search.val();
-			
+
 		// fields
 		fieldDepartment = jQuery('#department');
 		fieldStatus		= jQuery('#status');
@@ -23,21 +23,21 @@ jQuery(document).ready(function() {
 		switch(value) {
 			case 'id':
 			case 'subject':
-				fieldDepartment.hide().val('');
-				fieldStatus.hide().val('');
-				fieldValue.show();
+				fieldDepartment.hide().val('').attr('disabled', 'disabled');
+				fieldStatus.hide().val('').attr('disabled', 'disabled');
+				fieldValue.show().children('input').removeAttr('disabled');
 			break;
 
 			case 'department':
-				fieldValue.hide().children('input').val('');
-				fieldStatus.hide().val('');
-				fieldDepartment.show();
+				fieldValue.hide().children('input').val('').attr('disabled', 'disabled');
+				fieldStatus.hide().val('').attr('disabled', 'disabled');
+				fieldDepartment.show().removeAttr('disabled');
 			break;
 
 			case 'status':
-				fieldValue.hide().children('input').val('');
-				fieldDepartment.hide().val('');
-				fieldStatus.show();
+				fieldValue.hide().children('input').val('').attr('disabled', 'disabled');
+				fieldDepartment.hide().val('').attr('disabled', 'disabled');
+				fieldStatus.show().removeAttr('disabled');
 			break;
 		}
 	});

@@ -12,7 +12,7 @@
 
 		<option value="id"># de Consulta</option>
 		<option value="subject">Asunto</option>
-		<option value="reported_by">Usuario</option>
+		<option value="reported_by">Reportado por</option>
 		<option value="company">Compañía</option>
 		<option value="department">Departamento</option>
 		<option value="status">Estatus</option>

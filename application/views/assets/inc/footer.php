@@ -4,7 +4,7 @@
 
 				<div class="span6">
 
-					<strong>SAAV</strong> versión <strong>0.1</strong> &mdash; Sistema Automatizado de Asistencia Virtual<br />
+					<strong>SAAV</strong> versión <strong><?php echo SAAV_VERSION; ?></strong> &mdash; Sistema Automatizado de Asistencia Virtual<br />
 					Coyright 2012 &copy; <?php echo anchor('http://ingenium-dv.com', 'Ingenium: Desarrollo Virtual'); ?> &mdash; Todos los derechos reservados
 
 				</div>

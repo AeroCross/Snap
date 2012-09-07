@@ -93,7 +93,7 @@ class Saav_user extends EXT_Model {
 	* @return	object	- the data object with the names and id's
 	* @access	public
 	*/
-	public function _getUserNames($role = array(1,2)) {
+	public function getNamesByRole($role = array(1,2)) {
 		$this->cdb
 		->select('CONCAT(user.firstname, " ", user.lastname) AS "name", user.id', FALSE)
 		->join('role_assignment', 'role_assignment.user_id = user.id')

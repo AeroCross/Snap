@@ -41,7 +41,7 @@ class FormPresenter {
 	*/
 	public function admins($first_empty = TRUE) {
 		$this->app->load->model('saav_user');
-		return $this->_createOptions($this->app->saav_user->_getUserNames(array(1)), 'id', 'name', $first_empty);
+		return $this->_createOptions($this->app->saav_user->getNamesByRole(array(1)), 'id', 'name', $first_empty);
 	}
 
 	/**
@@ -51,7 +51,7 @@ class FormPresenter {
 	*/
 	public function support($first_empty = TRUE) {
 		$this->app->load->model('saav_user');
-		return $this->_createOptions($this->app->saav_user->_getUserNames(array(2)), 'id', 'name', $first_empty);
+		return $this->_createOptions($this->app->saav_user->getNamesByRole(array(2)), 'id', 'name', $first_empty);
 	}
 
 	/**
@@ -71,7 +71,7 @@ class FormPresenter {
 	*/
 	public function users($first_empty = TRUE) {
 		$this->app->load->model('saav_user');
-		return $this->_createOptions($this->app->saav_user->_getUserNames(array(3)), 'id', 'name', $first_empty);
+		return $this->_createOptions($this->app->saav_user->getNamesByRole(array(3)), 'id', 'name', $first_empty);
 	}
 
 	/**

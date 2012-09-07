@@ -32,6 +32,7 @@ class DashboardPresenter {
 	* Displays the latest tickets for a user.
 	*
 	* @return string	- the table with the tickets or a feedback message
+	* @access	public
 	*/
 	public function latestTickets() {
 		// fetch necessary information
@@ -77,6 +78,7 @@ class DashboardPresenter {
 	* Displays the latest tickets assigned to the current user.
 	*
 	* @return string	- the table with the tickets or a feedback message
+	* @access	public
 	*/
 	public function latestAssigned() {
 		$id			= $this->app->session->userdata('id');
@@ -97,6 +99,7 @@ class DashboardPresenter {
 			);
 
 			foreach ($tickets as $ticket) {
+				// @TODO: eager loading
 				$reported = $this->app->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
 				$this->app->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),

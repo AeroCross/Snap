@@ -259,7 +259,6 @@ class Tickets extends EXT_Controller {
 				$this->email->bcc($reporter->email);
 			}
 
-			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
 			$this->email->message(nl2br($content));

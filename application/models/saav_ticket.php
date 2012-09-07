@@ -80,14 +80,10 @@ class Saav_ticket extends EXT_Model {
 			$this->email->subject('Ticket #' . $id . ': ' . $subject);
 			$this->email->message(nl2br($content));
 
-			// all good - return ticket number
-			if ($this->email->send()) {
-				return $id;
+			// @TODO: how do we check if this is actually sent?
+			@$this->email->send();
 
-			// couldn't send email
-			} else {
-				return FALSE;
-			}
+			return $id;
 
 		// no insertion
 		} else {

@@ -55,6 +55,9 @@ class Saav_message extends EXT_Model {
 	/**
 	* Add a new message to a ticket.
 	*
+	* @param	int		- the ticket id to update
+	* @param	object	- the database object to process
+	* @return	bool	- TRUE if the ticket was updated, FALSE otherwise
 	* @access	public
 	*/
 	public function addMessage($ticket_id, $content) {

@@ -26,6 +26,8 @@ class Saav_company extends EXT_Model {
 	/**
 	* Gets the company of an user.
 	*
+	* @param	int		- a user id
+	* @return	object	- the company of the user
 	* @access	public
 	*/ 
 	public function findCompany($user_id) {
@@ -41,6 +43,7 @@ class Saav_company extends EXT_Model {
 	/**
 	* Fetches all the companies.
 	*
+	* @return	object	- all the companies
 	* @access	public
 	*/
 	public function getCompanies() {

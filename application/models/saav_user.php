@@ -26,6 +26,9 @@ class Saav_user extends EXT_Model {
 	/**
 	* Tries to log in an user to the system.
 	*
+	* @param	string	- the username to log in
+	* @param	string	- the password
+	* @return	bool	- TRUE if the credentials are correct, FALSE otherwise
 	* @access	public
 	*/ 
 	public function login($username, $password) {

@@ -26,6 +26,8 @@ class Saav_setting extends EXT_Model {
 	/**
 	* Fetches a setting value.
 	*
+	* @param	string	- the name of the setting value
+	* @return	string	- the setting value
 	* @access	public
 	*/ 
 	public function getSetting($name) {
@@ -38,6 +40,8 @@ class Saav_setting extends EXT_Model {
 	/**
 	* Fetches a group of settings.
 	*
+	* @param	array	- the names of the setting values
+	* @return	object	- the settings
 	* @access	public
 	*/ 
 	public function getSettings($data) {

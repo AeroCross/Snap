@@ -95,6 +95,20 @@ class Saav_ticket extends EXT_Model {
 		}
 	}
 
+
+	/**
+	* Gets the information of a single ticket
+	*
+	* @param	int		- the ticket id
+	* @return	object	- the ticket data 
+	*/
+	public function getTicket($id) {
+		$this->cdb->select('*')
+		->where('id', $id);
+
+		return $this->cdb->get($this->_table)->row();
+	}
+
 	/**
 	* Fetches the latest $amount of tickets from $reported
 	*
@@ -116,20 +130,7 @@ class Saav_ticket extends EXT_Model {
 
 		return $this->cdb->get($this->_table)->result();
 	}
-
-	/**
-	* Gets the information of a single ticket
-	*
-	* @param	int		- the ticket id
-	* @return	object	- the ticket data 
-	*/
-	public function getTicket($id) {
-		$this->cdb->select('*')
-		->where('id', $id);
-
-		return $this->cdb->get($this->_table)->row();
-	}
-
+	
 	/**
 	* Gets tickets for a company.
 	*

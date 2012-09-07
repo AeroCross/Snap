@@ -11,7 +11,7 @@
 
 				<div class="span6">
 
-					<img src="<?php echo $this->resource->img('idv-logo.png'); ?>" alt="" width="48" height="48" class="logo" />
+					<img src="<?php echo $this->resource->img('logo-idv.png'); ?>" alt="" width="48" height="48" class="logo" />
 
 				</div>
 

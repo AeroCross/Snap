@@ -5,11 +5,11 @@
 *
 * Shows the main menu for the app.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Dashboard extends SAV_Controller {
+class Dashboard extends EXT_Controller {
 	
 	/**
 	* The class constructor.
@@ -18,9 +18,9 @@ class Dashboard extends SAV_Controller {
 	*/
 	public function __construct() {
 		parent::__construct();
-
-		// set the default layout
-		$this->layout = 'app';
+		
+		// set the page title
+		$this->data->title = 'Escritorio';
 	}
 	
  	/**
@@ -29,9 +29,9 @@ class Dashboard extends SAV_Controller {
  	* @access	public
  	*/
 	public function index() {
-
+		$this->load->presenter('dashboard');
 	}
 }
 
-/* End of file controller.php */
-/* Location: ./application/controllers/controller.php */
+/* End of file dashboard.php */
+/* Location: ./application/controllers/dashboard.php */

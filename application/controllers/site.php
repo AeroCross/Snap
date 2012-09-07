@@ -1,12 +1,28 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
 * Shows the informational website for the app.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
+* @author		Mario Cuba <mario@mariocuba.net>
 */
-class Site extends SAV_Controller {
+class Site extends EXT_Controller {
+
+	/**
+	* The class constructor.
+	*
+	* @access	public
+	*/
+	public function __construct() {
+		parent::__construct();
+
+		// set the site layout
+		$this->layout = 'site';
+
+		// set the title
+		$this->data->title = 'Bienvenido';
+	}
 
 	/**
 	* Displays the main site and the login form.

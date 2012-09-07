@@ -74,15 +74,15 @@
 | the query builder class
 */
 
-$active_group = SAV_DATABASE;
+$active_group = SAAV_DATABASE;
 $query_builder = TRUE;
 
-$db[SAV_DATABASE] = array(
+$db[SAAV_DATABASE] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => SAV_USERNAME,
-	'password' => SAV_PASSWORD,
-	'database' => SAV_DATABASE,
+	'username' => SAAV_USERNAME,
+	'password' => SAAV_PASSWORD,
+	'database' => SAAV_DATABASE,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => TRUE,

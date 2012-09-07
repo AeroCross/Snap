@@ -5,11 +5,11 @@
 *
 * Logs out the user of the system and destroys the session.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Logout extends SAV_Controller {
+class Logout extends EXT_Controller {
 	
 	/**
 	* The class constructor.
@@ -18,6 +18,9 @@ class Logout extends SAV_Controller {
 	*/
 	public function __construct() {
 		parent::__construct();
+
+		// set the page title
+		$this->data->title = 'Cerrando Sesión';
 	}
 	
  	/**
@@ -40,5 +43,5 @@ class Logout extends SAV_Controller {
 	}
 }
 
-/* End of file controller.php */
-/* Location: ./application/controllers/controller.php */
+/* End of file logout.php */
+/* Location: ./application/controllers/logout.php */

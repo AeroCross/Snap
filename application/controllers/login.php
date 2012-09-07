@@ -3,16 +3,25 @@
 /**
 * Handles the log in and out of the system.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Login extends SAV_Controller {
+class Login extends EXT_Controller {
+	
+	/**
+	* The class constructor.
+	*
+	* @access	public
+	*/
 	public function __construct() {
 		parent::__construct();
 
 		// load the notification presenter
 		$this->load->presenter('notification');
+
+		// set the title
+		$this->data->title = 'Iniciar Sesión';
 	}
 	
 	/**
@@ -75,10 +84,10 @@ class Login extends SAV_Controller {
 		$username	= $this->input->post('username');
 		$password	= $this->input->post('password');
 
-		$this->load->model('sav_user');
+		$this->load->model('saav_user');
 
 		// if the user doesn't exists, exit
-		if ($this->sav_user->login($username, $password) === FALSE) {
+		if ($this->saav_user->login($username, $password) === FALSE) {
 			return array(
 				'status'	=> 'login_failed',
 				'title'		=> 'Usuario o contraseña incorrecto.',
@@ -88,12 +97,13 @@ class Login extends SAV_Controller {
 		}
 
 		// user found and password correct — login
-		$userdata	= $this->sav_user->data('firstname, lastname, username, email')->username($username)->get();
+		$userdata	= $this->saav_user->data('id, firstname, lastname, username, email')->username($username)->get();
 		$name		= $userdata->firstname . ' ' . $userdata->lastname;
 		$email		= $userdata->email;
 		$key		= $this->init->generateLoginKey($userdata);
 		
 		// set session variables
+		$this->session->set_userdata('id', $userdata->id);
 		$this->session->set_userdata('key', $key);
 		$this->session->set_userdata('name', $name);
 		$this->session->set_userdata('email', $email);

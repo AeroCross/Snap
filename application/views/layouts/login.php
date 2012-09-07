@@ -2,8 +2,8 @@
 
 <div class="container login-form">
 
-	<?php echo $yield; ?>
+	<?php echo $content; ?>
 
 </div>
 
-<?php $this->load->view('assets/inc/footer'); ?>
+<?php $this->load->view('assets/inc/footer-login'); ?>

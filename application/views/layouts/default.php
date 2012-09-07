@@ -1,4 +1,3 @@
-<!-- header -->
 <?php  $this->load->view('assets/inc/header'); ?>
 
 <!-- navbar -->
@@ -8,31 +7,56 @@
 
 		<div class="container">
 
-			<?php echo anchor('#', 'SAV', array('class' => 'brand')); ?>
+			<?php echo anchor('dashboard', icon('globe', 28), array('class' => 'brand')); ?>
 
 			<ul class="nav">
 
-				<li><?php echo anchor('#', 'Guía de Usuario'); ?></li>
-				<li><?php echo anchor('#', 'Preguntas Frecuentes'); ?></li>
-				<li><?php echo anchor('#', 'Soporte'); ?></li>
+				<li class="dropdown">
+
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nueva <b class="caret"></b></a>
+
+					<ul class="dropdown-menu">
+
+						<li><?php echo anchor('tickets/add', 'Consulta'); ?></li>
+						<li><?php echo anchor('#', 'Solicitud de Servicio'); ?></li>
+
+					</ul>
+
+				</li>
+
+				<li><?php echo anchor('tickets/all', 'Consultas'); ?></li>
+				
+				<?php if ($this->saav_user->permission('support')): ?>
+
+					<li class="dropdown">
+
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+
+							<li class="nav-header">Consultas</li>
+							<li><?php echo anchor('admin/tickets/all', 'Listado de Consultas'); ?></li>
+
+							<?php if ($this->saav_user->permission('admin')): ?>
+							
+								<li class="divider"></li>
+								<li class="nav-header">Configuración</li>
+								<li><?php echo anchor('#', 'Opciones Generales'); ?></li>
+
+							<?php endif; ?>
+
+						</ul>
+
+					</li>
+
+				<?php endif; ?>
+
+				<li class="divider-vertical"></li>
+				<li><?php echo anchor('#', icon('wrench') . ' Reportar un Problema'); ?></li>
 
 			</ul>
 
-			<?php if ($this->init->hasSession()): ?>
-
-				<p class="navbar-text pull-right">Sesión iniciada como <strong><?php echo $this->session->userdata('name'); ?></strong> &mdash; <?php echo anchor('dashboard', 'ir a area de cliente'); ?> | <?php echo anchor('logout', 'salir'); ?></p>
-
-			<?php else: ?>
-
-				<?php echo form_open('login', array('class' => 'navbar-form pull-right')); ?>
-
-					<input type="text" class="span2" name="username" placeholder="Usuario" />
-					<input type="password" class="span2" name="password" placeholder="Contraseña" />
-					<button class="btn" id="login-submit"><?php echo icon('signin'); ?> Iniciar Sesión</button>
-
-				<?php echo form_close(); ?>
-
-			<?php endif; ?>
+			<p class="navbar-text pull-right">Sesión iniciada como <strong><?php echo $this->session->userdata('name'); ?></strong> &mdash; <?php echo anchor('logout', 'salir'); ?></p>
 
 		</div>
 
@@ -43,7 +67,7 @@
 <!-- content -->
 <div class="container">
 
-	<?php echo $yield; ?>
+	<?php echo $content; ?>
 
 </div>
 

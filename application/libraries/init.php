@@ -5,7 +5,7 @@
 *
 * Handles some initialization processes.
 *
-* @package		SAV
+* @package		SAAV
 * @subpackage	Libraries
 * @author		Mario Cuba <mario@mariocuba.net>
 */
@@ -59,10 +59,10 @@ class Init {
 		}
 
 		// there's a session, so let's check if there's a tempered session
-		$this->app->load->model('sav_user');
+		$this->app->load->model('saav_user');
 
 		// the login key must match the one in the database and in the cookie
-		$userdata	= $this->app->sav_user->data('firstname, lastname, username, email')->username($username)->get();
+		$userdata	= $this->app->saav_user->data('firstname, lastname, username, email')->username($username)->get();
 		$key		= $this->generateLoginKey($userdata);
 
 		// check the login key
@@ -71,5 +71,40 @@ class Init {
 		} else {
 			return FALSE;
 		}
+	}
+
+	/**
+	* Initializes email settings.
+	*
+	* @access	public
+	*/
+	public function email() {
+		$this->app->load->library('email');
+		$this->app->load->model('saav_setting');
+		
+		// settings to fetch
+		$settings = array(
+			'smtp_host',
+			'smtp_port',
+			'smtp_user',
+			'smtp_pass',
+			'smtp_crypto',
+		);
+		
+		$settings = $this->app->saav_setting->getSettings($settings);
+		
+		$email = array(
+			'smtp_host'		=> $settings->smtp_host,
+			'smtp_port'		=> $settings->smtp_port,
+			'smtp_user'		=> $settings->smtp_user,
+			'smtp_pass'		=> $settings->smtp_pass,
+			'smtp_crypto'	=> $settings->smtp_crypto,
+			'protocol'		=> 'smtp',
+			'mailtype'		=> 'html',
+			'crlf'			=> '\r\n',
+			'newline'		=> '\r\n',
+		);
+
+		$this->app->email->initialize($email);
 	}
 }

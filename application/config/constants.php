@@ -81,9 +81,9 @@ define('SHOW_DEBUG_BACKTRACE', TRUE);
 | These values are used to connect to the database and load models.
 |
 */
-define('SAV_DATABASE', 'sav');
-define('SAV_USERNAME', 'sav');
-define('SAV_PASSWORD', 'sav');
+define('SAAV_DATABASE', 'saav');
+define('SAAV_USERNAME', 'saav');
+define('SAAV_PASSWORD', 'saav');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

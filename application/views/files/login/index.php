@@ -16,7 +16,7 @@
 
 				<div class="controls">
 
-					<input type="text" name="username" id="username" placeholder="Nombre de Usuario" maxlenght="255" />
+					<input type="text" name="username" id="username" placeholder="Nombre de Usuario" />
 
 				</div>
 
@@ -30,7 +30,7 @@
 
 				<div class="controls">
 
-					<input type="password" name="password" id="password" placeholder="Contraseña" maxlenght="255" />
+					<input type="password" name="password" id="password" placeholder="Contraseña" />
 
 				</div>
 

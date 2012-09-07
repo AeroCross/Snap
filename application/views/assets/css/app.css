@@ -9,33 +9,69 @@
 .text-right {text-align: right;}
 .text-justify {text-align: justify}
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'Telex';	
+h1, h2, h3, h4, h5, h6, legend, .brand {
+	font-family: 'Arvo', 'Segoe UI', 'Calibri', sans-serif;	
+	font-weight: normal;
 }
 
-p, ul, ol, li, small, input, form, a, button {
-	font-family: 'Source Sans Pro';
+p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, div {
+	font-family: 'Source Sans Pro', 'Segoe UI', 'Calibri', sans-serif;
 }
 
-/* ---------------------------------------- */
-/* Links ---------------------------------- */
-a.brand { /* until there's a logo */
-	font-weight: 200;
+.label {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	position: relative;
+	top: -1px;
+}
+
+.highlight {color: #999}
+.highlight-success {color: #468847;}
+.highlight-warning {color: #F89406;}
+.highlight-info {color: #3A87AD;}
+.highlight-error {color: #B94A48;}
+.highlight-inverse {color: #333;}
+
+.banner {
+	background: url('../img/bg.png');
+	width: 100%; 
+	margin: 0 0 20px; 
+	text-align: center;
+	padding: 20px 0;
+	border-bottom: 1px solid #E3E3E3;
+}
+
+.banner h1 {
+	margin-top: 0;
 }
 
 /* ---------------------------------------- */
 /* Forms ----------------------------------- */
-
 .form-actions {
 	border-top: none;
 	background: #fff;
 }
 
 /* ---------------------------------------- */
+/* Footer --------------------------------- */
+/* ---------------------------------------- */
+.footer {
+	border-top: 1px solid #E5E5E5;
+	margin: 30px 0 0 0;
+	padding: 30px 0 0 0;
+	font-size: 12px;
+	position: relative;
+}
+
+.footer .logo {
+	position: absolute;
+	right: 0;
+}
+
+/* ---------------------------------------- */
 /* login ---------------------------------- */
 /* ---------------------------------------- */
-
 .login-form {
 	position: relative;
 	top: 200px;

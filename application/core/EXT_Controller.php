@@ -25,7 +25,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 * @license		http://creativecommons.org/licenses/by/3.0
 */
-class SAV_Controller extends CI_Controller {
+class EXT_Controller extends CI_Controller {
 
 	// the data to be passed around views and controllers
 	public $data;
@@ -82,6 +82,7 @@ class SAV_Controller extends CI_Controller {
 	* @param	string	- the methods and variables
 	*/
 	public function _remap($method, $parameters) {
+
 		if (method_exists($this, $method)) {
 
 			// $this 	- the controller name (as in the class definition)
@@ -89,17 +90,27 @@ class SAV_Controller extends CI_Controller {
 
 			call_user_func_array(array($this, $method), $parameters);
 
-			// set the path to the view files
-			$view = strtolower('files/' . get_class($this)) . '/' . $method;
-
 			// does a specific view needs to be loaded?
 			if (is_string($this->view) && !empty($this->view)) {
 				$view = $this->view;
+
+			// it doesn't - calculate the folder
+			} else {
+				// set the path to the view files
+				$view		= strtolower('files/' . get_class($this));	
+
+				// check if there's a subfolder in views
+				if ($this->uri->segment(1) !== strtolower(get_class($this))) {
+					$view	= strtolower('files/' . $this->uri->segment(1) . '/' . get_class($this));
+				}
+
+				// complete the view
+				$view .= '/' . $method;
 			}
 
 			// autoload the view
 			if ($this->view !== FALSE) {
-				$this->data->yield = $this->load->view($view, $this->data, TRUE);
+				$this->data->content = $this->load->view($view, $this->data, TRUE);
 
 				// check if there's a custom layout
 				if (is_string($this->layout) AND !empty($this->layout)) {
@@ -120,7 +131,7 @@ class SAV_Controller extends CI_Controller {
 
 				// if not, echo directly to output for ajax calls, file handling, etc.
 				} else {
-					echo $this->data->yield;
+					echo $this->data->content;
 				}
 			}
 
@@ -136,5 +147,5 @@ class SAV_Controller extends CI_Controller {
 	}
 }
 
-/* End of file SAV_Controller.php */
-/* Location: ./application/core/SAV_Controller.php */
+/* End of file EXT_Controller.php */
+/* Location: ./application/core/EXT_Controller.php */

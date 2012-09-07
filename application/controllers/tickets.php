@@ -237,8 +237,14 @@ class Tickets extends EXT_Controller {
 			// check who shall receive the emails
 			$this->load->model('saav_setting');
 			$this->load->model('saav_department');
-			$members = $this->saav_department->getDepartmentMembers($ticket->department);
 
+			// check if the department was changed, then notify it
+			if (isset($info['department'])) {
+				$members = $this->saav_department->getDepartmentMembers($info['department']);
+			} else {
+				$members = $this->saav_department->getDepartmentMembers($ticket->department);
+			}
+			
 			// load the email library
 			$this->load->library('email');
 			$this->init->email();

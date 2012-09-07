@@ -12,7 +12,7 @@
 class Saav_message extends EXT_Model {
 
 	// the table used in the model
-	public $_table = 'message';
+	public $_table = 'messages';
 
 	/**
 	* The class constructor.
@@ -31,8 +31,7 @@ class Saav_message extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getMessage($message_id) {
-		$this->cdb->select('*')
-		->where('id', $message_id);
+		$this->cdb->where('id', $message_id);
 
 		return $this->cdb->get($this->_table)->row();
 	}	
@@ -45,7 +44,7 @@ class Saav_message extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getMessages($ticket_id) {
-		$this->cdb->select('*')
+		$this->cdb
 		->where('ticket_id', $ticket_id)
 		->order_by('date', 'asc');
 

@@ -280,7 +280,7 @@ $config['encryption_key'] = 'gGk)U}C@NN)~;r`:*]0q5{%>Zl/V.Qkv';
 |
 */
 $config['sess_cookie_name']		= 'saav_session';
-$config['sess_table_name']		= 'session';
+$config['sess_table_name']		= 'sessions';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;

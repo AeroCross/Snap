@@ -35,7 +35,8 @@
 		<ul>
 		
 			<li><strong>Departamento:</strong> <?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></li>
-		
+			<li><strong>Asignado a:</strong> <?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></li>
+
 		</ul>
 
 	</div>
@@ -161,36 +162,12 @@
 
 				<div class="controls">
 
-					<select name="assign_to" id="assign_to">
+					<select name="assigned_to" id="assigned_to">
 
 						<?php echo $this->presenter->form->admins(); ?>
 						<?php echo $this->presenter->form->support(FALSE); ?>
 
 					</select>
-
-				</div>
-
-			</div>
-
-			<!-- assign to -->
-			<div class="control-group">
-
-				<label for="eta" class="control-label">Tiempo Estimado</label>
-
-				<div class="controls">
-
-					<input type="text" class="span1" name="eta-value" id="eta" />
-					
-					<select name="eta-range" class="span2">
-
-						<option>Minuto/s</option>
-						<option>Hora/s</option>
-						<option>Día/s</option>
-						<option>Semana/s</option>
-
-					</select>
-
-					<p class="help-block">Para completar o responder la consulta.</p>
 
 				</div>
 

@@ -131,6 +131,39 @@ class Saav_ticket extends EXT_Model {
 	}
 
 	/**
+	* Gets tickets for a company.
+	*
+	* @param	int		- the company id
+	* @return	object	- the ticket data 
+	*/
+	public function getTicketsByCompany($company_id) {
+		$this->cdb->select($this->_table . '.*')
+		->from($this->_table)
+		->join('company_users', 'company_users.user_id = ticket.reported_by')
+		->where('company_users.company_id', $company_id)
+		->order_by('ticket.date_created', 'desc');
+
+		return $this->cdb->get()->result();
+	}
+
+	/**
+	* Updates the ticket information.
+	*
+	* @param	array	- the data used to update the ticket
+	* @return	bool	- TRUE on update, FALSE otherwise
+	* @access	public
+	*/
+	public function updateTicket($ticket_id, $data) {
+		foreach ($data as $key => $d) {
+			$this->cdb->set($key, $d);
+		}
+
+		$this->cdb->where('id', $ticket_id);
+
+		return $this->cdb->update($this->_table);
+	}
+
+	/**
 	* Updates the status of a ticket.
 	*
 	* @param	int		- the ticket id

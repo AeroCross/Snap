@@ -66,7 +66,7 @@ class Tickets extends EXT_Controller {
 
 			// format the table
 			$this->load->library('table');
-			$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus', 'Tiempo estimado');
+			$this->table->set_heading('Consulta', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
 
 			foreach($tickets as $ticket) {
 				$this->table->add_row(
@@ -75,8 +75,7 @@ class Tickets extends EXT_Controller {
 					$this->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,
 					$ticket->date_modified,
-					status($ticket->status),
-					$ticket->eta
+					status($ticket->status)
 				);
 			}
 
@@ -94,22 +93,24 @@ class Tickets extends EXT_Controller {
  	* @access	public
  	*/
 	public function view($ticket) {
-		// first, check if the ticket belongs to the user
+		$this->load->presenter('ticket');
+		
+		// if a message was sent, process it
+		if (!empty($this->post)) {
+			$this->presenter->notification->create($this->_update());
+		}
+
+		// check if the ticket belongs to the user
 		$this->data->ticket		= new StdClass;
 		$this->data->ticket		= $this->saav_ticket->getTicket($ticket);
 
-		// only admins, support cann see this ticket
+		// only admins, support and the owner can see this ticket
 		if (!$this->saav_user->permission('support')) {
 			// check if the ticket is of the reporter
 			if ($this->data->ticket->reported_by != $this->session->userdata('id')) {
 				redirect('dashboard');
 			}
 			redirect('dashboard');
-		}
-
-		// if a message was sent, process it
-		if (!empty($this->post)) {
-			$this->presenter->notification->create($this->_addMessage());
 		}
 
 		$this->load->helper('parser');
@@ -119,8 +120,6 @@ class Tickets extends EXT_Controller {
 
 		$this->data->messages	= new StdClass;
 		$this->data->reporter	= new StdClass;
-
-
 
 		$this->data->reporter	= $this->saav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
 		$this->data->messages	= $this->saav_message->getMessages($ticket);
@@ -194,7 +193,7 @@ class Tickets extends EXT_Controller {
  	*
  	* @access	private
  	*/
-	private function _addMessage() {
+	private function _update() {
 		// check if the data is complete
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('ticket_id', 'ID de Consulta', 'required');
@@ -215,40 +214,78 @@ class Tickets extends EXT_Controller {
 		// prepare
 		$ticket_id 	= $this->input->post('ticket_id');
 		$content	= $this->input->post('content');
-		$status		= $this->input->post('status');
 
-		// check for correct status
-		if (empty($status)) {
-			$status = 'open';
-		}
+		// prepare admin data
+		$updates = array(
+			'department'	=> $this->input->post('department'),
+			'assigned_to'	=> $this->input->post('assigned_to'),
+			'status'		=> $this->input->post('status')
+		);
 
 		// notify the department when the ticket is updated
-		if ($this->saav_message->addMessage($ticket_id, $content, $status)) {
-			// get the ticket data
-			$ticket = $this->saav_ticket->getTicket($ticket_id);
+		if ($this->saav_message->addMessage($ticket_id, $content)) {
+			foreach($updates as $key => $update) {
+				if (!empty($update)) {
+					$info[$key] = $update;
+				}
+			}
 
+			// update ticket info, since admin data was sent
+			if (isset($info)) {
+				$this->saav_ticket->updateTicket($ticket_id, $info);
+			}
+
+			// refresh the ticket data
+			$ticket = $this->saav_ticket->getTicket($ticket_id);
+			
 			// check who shall receive the emails
 			$this->load->model('saav_setting');
 			$this->load->model('saav_department');
 			$members = $this->saav_department->getDepartmentMembers($ticket->department);
 
-			foreach($members as $member) {
-				$bcc[] = $member->email;
-			}
-			
 			// load the email library
 			$this->load->library('email');
 			$this->init->email();
 
+			if (!empty($members)) {
+				foreach($members as $member) {
+					$bcc[] = $member->email;
+				}
+
+				$this->email->bcc($bcc);
+			}
+
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
+
+			// send the update to the person who made the ticket
+			if ($this->session->userdata('id') != $ticket->reported_by) {
+				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
+				$this->email->bcc($reporter->email);
+			}
+
 			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
-			$this->email->bcc($bcc);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
 			$this->email->message(nl2br($content));
 
 			// if message was sent, notify
-			$this->email->send();
+			// @TODO: how can we know if the email was or wasn't sent?
+			@$this->email->send();
+
+			// if there was a new assignment, notify the person
+			if (isset($info['assigned_to'])) {
+				$assigned = $info['assigned_to'];
+				$user = $this->saav_user->data('id, firstname, lastname, email')->id($assigned)->get();
+				$this->email->clear();
+
+				$this->email->to($user->email, $user->firstname . ' ' . $user->lastname);
+				$this->email->from($smtp_user);
+				$this->email->subject('Asignación de Ticket #' . $ticket_id . ': ' . $ticket->subject);
+				$this->email->message('Se le ha asignado una nueva consulta: <strong>' . $ticket->subject . '</strong>');
+
+				// @TODO: how can we know if the email was or wasn't sent?
+				@$this->email->send();
+			}
 
 			return array(
 				'status'	=> 'sent',

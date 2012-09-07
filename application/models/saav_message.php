@@ -57,7 +57,7 @@ class Saav_message extends EXT_Model {
 	*
 	* @access	public
 	*/
-	public function addMessage($ticket_id, $content, $status = 'open') {
+	public function addMessage($ticket_id, $content) {
 
 		$data = array(
 			'user_id'	=> $this->session->userdata('id'),
@@ -73,7 +73,7 @@ class Saav_message extends EXT_Model {
 		$id = $this->cdb->insert_id(); 
 		if ($id > 0) {
 			// correct status
-			$this->saav_ticket->updateStatus($ticket_id, $status);
+			$this->saav_ticket->updateStatus($ticket_id, 'open');
 
 			// correct modification date
 			$date = $this->saav_message->getMessage($id)->date;

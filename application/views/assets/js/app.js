@@ -8,7 +8,14 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 		jQuery(this).parents('form').submit();
 	});
+
+	// disable all broken links
+	jQuery('a[href$=#]').on('click', function(e) {
+		e.preventDefault();
+	});
 	
+	// @TODO: load javascript for controllers or methods
+	// @TODO: this should be fixed
 	// admin search form
 	search		= jQuery('#search');
 	search.on('change', function() {

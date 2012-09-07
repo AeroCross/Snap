@@ -99,7 +99,7 @@ class DashboardPresenter {
 			foreach ($tickets as $ticket) {
 				$reported = $this->app->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
 				$this->app->table->add_row(
-					anchor('tickets/views/' . $ticket->id, $ticket->id),
+					anchor('tickets/view/' . $ticket->id, $ticket->id),
 					safe_mailto($reported->email, $reported->firstname . ' ' . $reported->lastname),
 					$this->app->saav_company->findCompany($ticket->reported_by)->name,
 					$ticket->subject,

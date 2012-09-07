@@ -27,6 +27,8 @@ class FormPresenter {
 	/**
 	* Creates options for the departments.
 	*
+	* @param	bool	- TRUE if the first option must be empty
+	* @return	string	- the generated html
 	* @access	public
 	*/
 	public function departments($first_empty = TRUE) {
@@ -37,6 +39,8 @@ class FormPresenter {
 	/**
 	* Creates options for the admins.
 	*
+	* @param	bool	- TRUE if the first option must be empty
+	* @return	string	- the generated html
 	* @access	public
 	*/
 	public function admins($first_empty = TRUE) {
@@ -47,6 +51,8 @@ class FormPresenter {
 	/**
 	* Creates options for the support personnel.
 	*
+	* @param	bool	- TRUE if the first option must be empty
+	* @return	string	- the generated html
 	* @access	public
 	*/
 	public function support($first_empty = TRUE) {
@@ -57,6 +63,8 @@ class FormPresenter {
 	/**
 	* Creates options for the companies.
 	*
+	* @param	bool	- TRUE if the first option must be empty
+	* @return	string	- the generated html
 	* @access public
 	*/
 	public function companies($first_empty = TRUE) {
@@ -67,6 +75,8 @@ class FormPresenter {
 	/**
 	* Creates options for the users.
 	*
+	* @param	bool	- TRUE if the first option must be empty
+	* @return	string	- the generated html
 	* @access public
 	*/
 	public function users($first_empty = TRUE) {

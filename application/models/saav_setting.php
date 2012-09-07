@@ -12,7 +12,7 @@
 class Saav_setting extends EXT_Model {
 
 	// the table used in the model
-	public $_table = 'setting';
+	public $_table = 'settings';
 
 	/**
 	* The class constructor.

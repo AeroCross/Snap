@@ -12,7 +12,7 @@
 class Saav_ticket extends EXT_Model {
 
 	// the table used in the model
-	public $_table = 'ticket';
+	public $_table = 'tickets';
 
 	/**
 	* The class constructor.
@@ -42,7 +42,7 @@ class Saav_ticket extends EXT_Model {
 
 		// get the insert ID
 		$id = $this->cdb->insert_id();
-		
+	
 		// inserted? send an email to department members
 		if ($id > 0) {
 			$this->load->library('email');
@@ -80,14 +80,10 @@ class Saav_ticket extends EXT_Model {
 			$this->email->subject('Ticket #' . $id . ': ' . $subject);
 			$this->email->message(nl2br($content));
 
-			// all good - return ticket number
-			if ($this->email->send()) {
-				return $id;
+			// @TODO: how do we check if this is actually sent?
+			@$this->email->send();
 
-			// couldn't send email
-			} else {
-				return FALSE;
-			}
+			return $id;
 
 		// no insertion
 		} else {
@@ -103,8 +99,7 @@ class Saav_ticket extends EXT_Model {
 	* @return	object	- the ticket data 
 	*/
 	public function getTicket($id) {
-		$this->cdb->select('*')
-		->where('id', $id);
+		$this->cdb->where('id', $id);
 
 		return $this->cdb->get($this->_table)->row();
 	}
@@ -140,9 +135,9 @@ class Saav_ticket extends EXT_Model {
 	public function getTicketsByCompany($company_id) {
 		$this->cdb->select($this->_table . '.*')
 		->from($this->_table)
-		->join('company_users', 'company_users.user_id = ticket.reported_by')
+		->join('company_users', 'company_users.user_id = ' . $this->_table . '.reported_by')
 		->where('company_users.company_id', $company_id)
-		->order_by('ticket.date_created', 'desc');
+		->order_by($this->_table . '.date_created', 'desc');
 
 		return $this->cdb->get()->result();
 	}

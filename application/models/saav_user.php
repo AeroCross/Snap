@@ -12,7 +12,7 @@
 class Saav_user extends EXT_Model {
 
 	// the table used in the model
-	public $_table = 'user';
+	public $_table = 'users';
 
 	/**
 	* The class constructor.
@@ -76,7 +76,7 @@ class Saav_user extends EXT_Model {
 		->where_in('role_id', $role);
 		
 
-		$sql = $this->cdb->get('role_assignment');
+		$sql = $this->cdb->get('role_assignments');
 
 		if ($sql->num_rows() === 1) {
 			return TRUE;
@@ -95,9 +95,9 @@ class Saav_user extends EXT_Model {
 	*/
 	public function getNamesByRole($role = array(1,2)) {
 		$this->cdb
-		->select('CONCAT(user.firstname, " ", user.lastname) AS "name", user.id', FALSE)
-		->join('role_assignment', 'role_assignment.user_id = user.id')
-		->where_in('role_assignment.role_id', $role);
+		->select('CONCAT(users.firstname, " ", users.lastname) AS "name", users.id', FALSE)
+		->join('role_assignments', 'role_assignments.user_id = users.id')
+		->where_in('role_assignments.role_id', $role);
 
 		return $this->cdb->get($this->_table)->result();
 	}

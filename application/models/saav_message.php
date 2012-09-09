@@ -31,9 +31,9 @@ class Saav_message extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getMessage($message_id) {
-		$this->cdb->where('id', $message_id);
+		$this->db->where('id', $message_id);
 
-		return $this->cdb->get($this->_table)->row();
+		return $this->db->get($this->_table)->row();
 	}	
 
 	/**
@@ -44,11 +44,11 @@ class Saav_message extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getMessages($ticket_id) {
-		$this->cdb
+		$this->db
 		->where('ticket_id', $ticket_id)
 		->order_by('date', 'asc');
 
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 
 	/**
@@ -67,12 +67,12 @@ class Saav_message extends EXT_Model {
 			'content'	=> $content,
 		);
 
-		$this->cdb->set($data);
-		$this->cdb->set('date', 'NOW()', FALSE);
+		$this->db->set($data);
+		$this->db->set('date', 'NOW()', FALSE);
 
 		// proceed with the insert
-		$this->cdb->insert($this->_table);
-		$id = $this->cdb->insert_id(); 
+		$this->db->insert($this->_table);
+		$id = $this->db->insert_id(); 
 		if ($id > 0) {
 			// correct status
 			$this->saav_ticket->updateStatus($ticket_id, 'open');

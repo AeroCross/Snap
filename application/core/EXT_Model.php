@@ -23,21 +23,13 @@
 */
 class EXT_Model extends CI_Model {
 
-	// the database group name to load
-	private $database = SAAV_DATABASE;
-
 	/**
 	* The class constructor.
 	*
 	* @access	public
 	*/
 	public function __construct() {
-
-		// references the global object
-		$ci =& get_instance();
-
-		// sets the active database to the system database
-		$this->cdb = $ci->load->database($this->database, TRUE);
+		parent::__construct();
 	}
 
 	/**
@@ -49,7 +41,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function __call($name, $parameter) {
-		$this->cdb->where($name, $parameter[0]);
+		$this->db->where($name, $parameter[0]);
 		return $this;
 	}
 
@@ -61,7 +53,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function data($fields = '*') {
-		$this->cdb->select($fields);
+		$this->db->select($fields);
 		return $this;
 	}
 
@@ -72,7 +64,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function fetch() {
-		return $this->cdb->get($this->_table);
+		return $this->db->get($this->_table);
 	}
 
 	/**
@@ -82,7 +74,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function get() {
-		return $this->cdb->get($this->_table)->row();
+		return $this->db->get($this->_table)->row();
 	}
 
 	/**
@@ -92,7 +84,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function getAll() {
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 
 	/**
@@ -104,7 +96,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function by($field, $order) {
-		$this->cdb->order_by($field, $order);
+		$this->db->order_by($field, $order);
 		return $this;
 	}
 
@@ -118,9 +110,9 @@ class EXT_Model extends CI_Model {
 	*/
 	public function limit($limit, $offset = NULL) {
 		if (empty($offset)) {
-			$this->cdb->limit($limit);
+			$this->db->limit($limit);
 		} else {
-			$this->cdb->limit($limit, $offset);
+			$this->db->limit($limit, $offset);
 		}
 
 		return $this;
@@ -134,7 +126,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function insert($data) {
-		return $this->cdb->insert($this->_table, $data);
+		return $this->db->insert($this->_table, $data);
 	}
 
 	/**
@@ -146,7 +138,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function update($where, $data) {
-		return $this->cdb->where($where)->update($this->_table, $data);
+		return $this->db->where($where)->update($this->_table, $data);
 	}
 
 	/**
@@ -157,7 +149,7 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function delete($where) {
-		return $this->cdb->where($where)->delete($this->_table);
+		return $this->db->where($where)->delete($this->_table);
 	}
 
 	/**
@@ -169,11 +161,11 @@ class EXT_Model extends CI_Model {
 	* @access	public
 	*/
 	public function match($value, $field) {
-		$this->cdb
+		$this->db
 		->select($field)
 		->where($field, $value);
 		
-		$sql = $this->cdb->get($this->_table);
+		$sql = $this->db->get($this->_table);
 		
 		if ($sql->num_rows() > 0) {
 			return TRUE;

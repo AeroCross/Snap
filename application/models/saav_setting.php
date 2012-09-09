@@ -31,10 +31,10 @@ class Saav_setting extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getSetting($name) {
-		$this->cdb->select('value')
+		$this->db->select('value')
 		->where('name', $name);
 
-		return $this->cdb->get($this->_table)->row()->value;
+		return $this->db->get($this->_table)->row()->value;
 	}
 
 	/**
@@ -45,10 +45,10 @@ class Saav_setting extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getSettings($data) {
-		$this->cdb->select('name, value')
+		$this->db->select('name, value')
 		->where_in('name', $data);
 
-		$sql = $this->cdb->get($this->_table)->result();
+		$sql = $this->db->get($this->_table)->result();
 		$settings = new StdClass;
 
 		foreach($sql as $s) {

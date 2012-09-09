@@ -31,9 +31,9 @@ class Saav_department extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getDepartment($id) {
-		$this->cdb->where('id', $id);
+		$this->db->where('id', $id);
 
-		return $this->cdb->get($this->_table)->row();
+		return $this->db->get($this->_table)->row();
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Saav_department extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getDepartments() {
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 
 	/**
@@ -54,12 +54,12 @@ class Saav_department extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getDepartmentMembers($department_id) {
-		$this->cdb
+		$this->db
 		->select('users.id, users.firstname, users.lastname, users.email, users.username')
 		->join('department_members', 'department_members.user_id = users.id')
 		->where('department_members.department_id', $department_id);
 
-		return $this->cdb->get('users')->result();
+		return $this->db->get('users')->result();
 	}
 }
 

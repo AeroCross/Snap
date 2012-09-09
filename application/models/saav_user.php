@@ -32,12 +32,12 @@ class Saav_user extends EXT_Model {
 	* @access	public
 	*/ 
 	public function login($username, $password) {
-		$this->cdb
+		$this->db
 		->select('username, password')
 		->where('username', $username)
 		->where('password', hash('sha256', $password));
 
-		$sql = $this->cdb->get($this->_table);
+		$sql = $this->db->get($this->_table);
 
 		// does the user exists?
 		if ($sql->num_rows() === 1) {
@@ -71,12 +71,12 @@ class Saav_user extends EXT_Model {
 			default:		return NULL; break;
 		}
 
-		$this->cdb->select('role_id')
+		$this->db->select('role_id')
 		->where('user_id', $current_user)
 		->where_in('role_id', $role);
 		
 
-		$sql = $this->cdb->get('role_assignments');
+		$sql = $this->db->get('role_assignments');
 
 		if ($sql->num_rows() === 1) {
 			return TRUE;
@@ -94,12 +94,12 @@ class Saav_user extends EXT_Model {
 	* @access	public
 	*/
 	public function getNamesByRole($role = array(1,2)) {
-		$this->cdb
+		$this->db
 		->select('CONCAT(users.firstname, " ", users.lastname) AS "name", users.id', FALSE)
 		->join('role_assignments', 'role_assignments.user_id = users.id')
 		->where_in('role_assignments.role_id', $role);
 
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 }
 

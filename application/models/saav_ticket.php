@@ -32,16 +32,16 @@ class Saav_ticket extends EXT_Model {
 	*/
 	public function addTicket($data) {
 		foreach ($data as $key => $d) {
-			$this->cdb->set($key, $d);
+			$this->db->set($key, $d);
 		}
 
-		$this->cdb->set('reported_by', $this->session->userdata('id'));
-		$this->cdb->set('date_created', 'NOW()', FALSE);
+		$this->db->set('reported_by', $this->session->userdata('id'));
+		$this->db->set('date_created', 'NOW()', FALSE);
 
-		$this->cdb->insert($this->_table);
+		$this->db->insert($this->_table);
 
 		// get the insert ID
-		$id = $this->cdb->insert_id();
+		$id = $this->db->insert_id();
 	
 		// inserted? send an email to department members
 		if ($id > 0) {
@@ -99,9 +99,9 @@ class Saav_ticket extends EXT_Model {
 	* @return	object	- the ticket data 
 	*/
 	public function getTicket($id) {
-		$this->cdb->where('id', $id);
+		$this->db->where('id', $id);
 
-		return $this->cdb->get($this->_table)->row();
+		return $this->db->get($this->_table)->row();
 	}
 
 	/**
@@ -113,17 +113,17 @@ class Saav_ticket extends EXT_Model {
 	* @access	public
 	*/
 	public function getLatestTickets($amount = 5, $reported = NULL) {
-		$this->cdb->select('id, subject, content, date_created, status, department');
+		$this->db->select('id, subject, content, date_created, status, department');
 
 		// not selecting from someone in specific
 		if (!empty($reported)) {
-			$this->cdb->where('reported_by', $reported);
+			$this->db->where('reported_by', $reported);
 		}
 
 		// limit and order the results
-		$this->cdb->limit($amount)->order_by('id', 'desc');
+		$this->db->limit($amount)->order_by('id', 'desc');
 
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 	
 	/**
@@ -133,13 +133,13 @@ class Saav_ticket extends EXT_Model {
 	* @return	object	- the ticket data 
 	*/
 	public function getTicketsByCompany($company_id) {
-		$this->cdb->select($this->_table . '.*')
+		$this->db->select($this->_table . '.*')
 		->from($this->_table)
 		->join('company_users', 'company_users.user_id = ' . $this->_table . '.reported_by')
 		->where('company_users.company_id', $company_id)
 		->order_by($this->_table . '.date_created', 'desc');
 
-		return $this->cdb->get()->result();
+		return $this->db->get()->result();
 	}
 
 	/**
@@ -151,12 +151,12 @@ class Saav_ticket extends EXT_Model {
 	*/
 	public function updateTicket($ticket_id, $data) {
 		foreach ($data as $key => $d) {
-			$this->cdb->set($key, $d);
+			$this->db->set($key, $d);
 		}
 
-		$this->cdb->where('id', $ticket_id);
+		$this->db->where('id', $ticket_id);
 
-		return $this->cdb->update($this->_table);
+		return $this->db->update($this->_table);
 	}
 
 	/**
@@ -167,10 +167,10 @@ class Saav_ticket extends EXT_Model {
 	* @return	object	- the result
 	*/
 	public function updateStatus($ticket_id, $status) {
-		$this->cdb->set('status', $status)
+		$this->db->set('status', $status)
 		->where('id', $ticket_id);
 
-		return $this->cdb->update($this->_table);
+		return $this->db->update($this->_table);
 	}
 
 	/**
@@ -181,10 +181,10 @@ class Saav_ticket extends EXT_Model {
 	* @return	object	- the result
 	*/
 	public function updateModificationDate($ticket_id, $date) {
-		$this->cdb->set('date_modified', $date)
+		$this->db->set('date_modified', $date)
 		->where('id', $ticket_id);
 
-		return $this->cdb->update($this->_table);
+		return $this->db->update($this->_table);
 	}
 }
 

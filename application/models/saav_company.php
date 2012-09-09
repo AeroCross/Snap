@@ -31,12 +31,12 @@ class Saav_company extends EXT_Model {
 	* @access	public
 	*/ 
 	public function findCompany($user_id) {
-		$this->cdb->select('*')
+		$this->db->select('*')
 		->join('company_users', 'company_users.company_id = ' . $this->_table . '.id')
 		->join('users', 'company_users.user_id = users.id')
 		->where('users.id', $user_id);
 
-		return $this->cdb->get($this->_table)->row();
+		return $this->db->get($this->_table)->row();
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Saav_company extends EXT_Model {
 	* @access	public
 	*/
 	public function getCompanies() {
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 }
 

@@ -52,7 +52,7 @@
 				<?php endif; ?>
 
 				<li class="divider-vertical"></li>
-				<li><?php echo anchor('#', icon('wrench') . ' Reportar un Problema'); ?></li>
+				<li><?php echo anchor('report', icon('wrench') . ' Reportar un Problema'); ?></li>
 
 			</ul>
 

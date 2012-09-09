@@ -267,7 +267,16 @@ class Tickets extends EXT_Controller {
 
 			$this->email->from($smtp_user);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
-			$this->email->message(nl2br($content));
+
+			$data = array(
+				'content'			=> nl2br($content),
+				'updater_name'		=> $this->session->userdata('name'),
+				'updater_email'		=> $this->session->userdata('email'),
+				'ticket_id'			=> $ticket_id,
+				'ticket_subject'	=> $ticket->subject
+			);
+
+			$this->email->message($this->load->view('messages/tickets/update', $data, TRUE));
 
 			// if message was sent, notify
 			// @TODO: how can we know if the email was or wasn't sent?

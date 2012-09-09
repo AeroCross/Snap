@@ -35,7 +35,7 @@
 		<ul>
 		
 			<li><strong>Departamento:</strong> <?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></li>
-			<li><strong>Asignado a:</strong> <?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></li>
+			<li><strong>Asignada a:</strong> <?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></li>
 
 		</ul>
 

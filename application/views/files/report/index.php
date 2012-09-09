@@ -4,6 +4,9 @@
 
 </div>
 
+<!-- notifications -->
+<?php echo $this->presenter->notification->show(); ?>
+
 <div class="row">
 
 	<div class="span7">
@@ -39,7 +42,7 @@
 
 			<div class="form-actions">
 
-				<input type="submit" value="Reportar" class="btn btn-primary" />
+				<input type="submit" value="Reportar" name="submit" class="btn btn-primary" />
 				<?php echo anchor('dashboard', 'Regresar', array('class' => 'btn')); ?>
 
 			</div>

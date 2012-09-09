@@ -35,7 +35,8 @@ class Saav_user extends EXT_Model {
 		$this->db
 		->select('username, password')
 		->where('username', $username)
-		->where('password', hash('sha256', $password));
+		->where('password', hash('sha256', $password))
+		->where('deleted', 0);
 
 		$sql = $this->db->get($this->_table);
 

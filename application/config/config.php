@@ -316,7 +316,7 @@ $config['cookie_httponly'] 	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -332,11 +332,11 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection']		= FALSE;
+$config['csrf_protection']		= TRUE;
+$config['csrf_regenerate']		= TRUE;
 $config['csrf_token_name']		= 'saav_csrf_t';
 $config['csrf_cookie_name']		= 'saav_csrf_c';
 $config['csrf_expire']			= 7200;
-$config['csrf_regenerate']		= TRUE;
 $config['csrf_exclude_uris']	= array();
 
 /*

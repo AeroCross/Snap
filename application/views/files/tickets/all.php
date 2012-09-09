@@ -2,7 +2,6 @@
 
 	<h4>Sus consultas <small><?php echo anchor('dashboard', '(regresar)'); ?></small></h4>
 
-
 </div>
 
 <div class="row">

@@ -13,26 +13,41 @@
 
 		<?php echo form_open('report', array('class' => 'form-horizontal')); ?>
 
+			<!-- subject -->
+			<div class="control-group">
+
+				<label class="control-label" for="subject">Asunto</label>
+
+				<div class="controls">
+
+					<input type="text" name="subject" id="subject" /><span class="help-inline">¿De qué trata su mensaje?</span>
+
+				</div>
+
+			</div>
+
+			<!-- type -->
 			<div class="control-group">
 
 				<label class="control-label" for="type">Tipo de Reporte</label>
 
 				<div class="controls">
 
-					<label class="radio"><input type="radio" name="type" value="issue" /> <strong>Problema</strong> &mdash; error en el programa, comportamiento no deseado, etc.</label>
+					<label class="radio"><input type="radio" name="type" value="issue" id="type"/> <strong>Problema</strong> &mdash; error en el programa, comportamiento no deseado, etc.</label>
 					<label class="radio"><input type="radio" name="type" value="suggestion" /> <strong>Sugerencia</strong> &mdash; mejoras, nuevas características, etc.</label>
 
 				</div>
 
 			</div>
 
+			<!-- message -->
 			<div class="control-group">
 
 				<label class="control-label" for="message">Mensaje</label>
 
 				<div class="controls">
 
-					<textarea class="span4" rows="10"></textarea>
+					<textarea class="span4" rows="10" name="message" id="message"></textarea>
 					<p class="help-block">Asegúrese de ser lo más detallado que pueda.</p>
 					<p class="help-block">Soporte técnico se comunicará con usted tan pronto sea posible.</p>
 
@@ -40,6 +55,7 @@
 
 			</div>
 
+			<!-- submit -->
 			<div class="form-actions">
 
 				<input type="submit" value="Reportar" name="submit" class="btn btn-primary" />

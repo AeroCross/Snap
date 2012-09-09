@@ -72,13 +72,19 @@ class Saav_ticket extends EXT_Model {
 
 			// set email preferences
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
-			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
 
 			// actual message
 			$this->email->bcc($emails);
 			$this->email->subject('Ticket #' . $id . ': ' . $subject);
-			$this->email->message(nl2br($content));
+
+			$message = array(
+				'content'	=> nl2br($content),
+				'ticket_id'	=> $id,
+				'reported_by' => mailto($this->session->userdata('email'), $this->session->userdata('name'))
+			);
+
+			$this->email->message($this->load->view('messages/ticket-new', $message, TRUE));
 
 			// @TODO: how do we check if this is actually sent?
 			@$this->email->send();

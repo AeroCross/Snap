@@ -282,7 +282,15 @@ class Tickets extends EXT_Controller {
 				$this->email->to($user->email, $user->firstname . ' ' . $user->lastname);
 				$this->email->from($smtp_user);
 				$this->email->subject('Asignación de Ticket #' . $ticket_id . ': ' . $ticket->subject);
-				$this->email->message('Se le ha asignado una nueva consulta: <strong>' . $ticket->subject . '</strong>');
+
+				$data = array(
+					'assigner_name'		=> $this->session->userdata('name'),
+					'assigner_email'	=> $this->session->userdata('email'),
+					'ticket_id'			=> $ticket_id,
+					'ticket_subject'	=> $ticket->subject
+				);
+
+				$this->email->message($this->load->view('messages/tickets/assigned', $data, TRUE));
 
 				// @TODO: how can we know if the email was or wasn't sent?
 				@$this->email->send();

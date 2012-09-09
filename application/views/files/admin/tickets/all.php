@@ -15,6 +15,7 @@
 			<option value="id"># de Consulta</option>
 			<option value="subject">Asunto</option>
 			<option value="reported_by">Reportado por</option>
+			<option value="assigned_to">Asignado a</option>
 			<option value="company">Compañía</option>
 			<option value="department">Departamento</option>
 			<option value="status">Estatus</option>
@@ -51,6 +52,24 @@
 
 		<!-- users -->
 		<select name="value" id="reported_by" class="hide" disabled="disabled">
+
+			<optgroup label="Administradores">
+				<?php echo $this->presenter->form->admins(); ?>
+			</optgroup>
+
+			<optgroup label="Soporte Técnico">
+				<?php echo $this->presenter->form->support(FALSE); ?>
+			</optgroup>
+
+			<optgroup label="Clientes">
+				<?php echo $this->presenter->form->users(FALSE); ?>
+			</optgroup>
+
+		</select>
+		<!-- end users -->
+
+		<!-- users -->
+		<select name="value" id="assigned_to" class="hide" disabled="disabled">
 
 			<optgroup label="Administradores">
 				<?php echo $this->presenter->form->admins(); ?>

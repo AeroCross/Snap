@@ -27,7 +27,7 @@
 
 					<input type="text" class="span2" name="username" placeholder="Usuario" />
 					<input type="password" class="span2" name="password" placeholder="Contraseña" />
-					<button class="btn" id="login-submit"><?php echo icon('signin'); ?> Iniciar Sesión</button>
+					<button class="btn submit"><?php echo icon('signin'); ?> Iniciar Sesión</button>
 
 				<?php echo form_close(); ?>
 

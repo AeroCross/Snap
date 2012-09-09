@@ -84,7 +84,7 @@ class Saav_ticket extends EXT_Model {
 				'reported_by' => mailto($this->session->userdata('email'), $this->session->userdata('name'))
 			);
 
-			$this->email->message($this->load->view('messages/ticket-new', $message, TRUE));
+			$this->email->message($this->load->view('messages/tickets/new', $message, TRUE));
 
 			// @TODO: how do we check if this is actually sent?
 			@$this->email->send();

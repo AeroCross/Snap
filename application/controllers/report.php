@@ -9,6 +9,12 @@ class Report extends EXT_Controller {
 	*/
 	public function __construct() {
 		parent::__construct();
+
+		// sets the title
+		$this->data->title = 'Reportar un Problema';
+
+		// loads requried code
+		$this->load->presenter('notification');
 	}
 
 	/**

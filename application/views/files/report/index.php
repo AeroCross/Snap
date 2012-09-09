@@ -16,7 +16,7 @@
 
 				<div class="controls">
 
-					<label class="radio"><input type="radio" name="type" value="issue" /> <strong>Problema</strong> &mdash; error en el programa, comporatmiento no deseado, etc.</label>
+					<label class="radio"><input type="radio" name="type" value="issue" /> <strong>Problema</strong> &mdash; error en el programa, comportamiento no deseado, etc.</label>
 					<label class="radio"><input type="radio" name="type" value="suggestion" /> <strong>Sugerencia</strong> &mdash; mejoras, nuevas características, etc.</label>
 
 				</div>

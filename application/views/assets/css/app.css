@@ -36,15 +36,21 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 .highlight-error {color: #B94A48;}
 .highlight-inverse {color: #333;}
 
+
+/* ---------------------------------------- */
+/* Site ----------------------------------- */
+#main-content {padding-top: 40px;}
+#intro {position: relative; height: 328px;}
+#intro > div {height: 200px; position: absolute; top: 50%; margin-top: -100px;}
+
 .banner {
 	background: url('../img/bg.png');
 	width: 100%; 
-	margin: 0 0 20px; 
+	margin: 0; 
 	text-align: center;
-	padding: 20px 0;
+	padding: 20px 0 0 0;
 	border-bottom: 1px solid #E3E3E3;
 }
-
 .banner h1 {margin-top: 0;}
 
 /* ---------------------------------------- */
@@ -85,11 +91,11 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 /* since we're using Google Fonts, form buttons aren't aligned */
 .navbar-form .btn {
 	position: relative;
-	top: -1px;
+	top: 0;
 }
 
 /* icons aren't aligned as well */
 i {
 	position: relative;
-	top: 2px;
+	top: 4px;
 }

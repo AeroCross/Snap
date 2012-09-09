@@ -1,16 +1,44 @@
 <!-- intro -->
 <div class="banner">
-		
-	<h1>¿Necesita ayuda?</h1>
-	<h1><small>No busque más &mdash; toda la ayuda que necesite la tenemos aquí.</small></h1>
 
-	<br />
+	<div class="container">
 
-	<p><?php echo anchor('login', 'Inicie Sesión', array('class' => 'btn btn-warning btn-large')); ?></p>
+		<div class="row">
+
+			<div class="span6" id="intro">
+
+				<div>
+
+					<h1>Soporte Automatizado 100% en Línea</h1>
+
+					<p>No vuelva a preocuparse nunca más por soporte técnico.</p>
+
+					<br />
+
+					<div class="btn-group">
+
+						<?php echo anchor('login', icon('signin') . ' Ingresar', array('class' => 'btn btn-warning')); ?>
+						<?php echo anchor('login', icon('info-sign') . ' Más información', array('class' => 'btn')); ?>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="span6">
+
+				<img src="<?php echo $this->resource->img('display.png');?>" alt="SAAV" />
+
+			</div>
+
+		</div>
+
+	</div>
 
 </div>
 <!-- content -->
-<div class="container">
+<div class="container" id="main-content">
 
 	<div class="row text-center">
 

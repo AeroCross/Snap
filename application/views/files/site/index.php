@@ -17,7 +17,7 @@
 
 					<div class="btn-group">
 
-						<?php echo anchor('login', icon('signin') . ' Ingresar', array('class' => 'btn btn-warning')); ?>
+						<?php echo anchor('login', icon('signin') . ' Acceder', array('class' => 'btn btn-success')); ?>
 						<a href="#more-info" role="button" class="btn" data-toggle="modal"><?php echo icon('question-sign'); ?> ¿Cómo ingresar?</a>
 
 					</div>

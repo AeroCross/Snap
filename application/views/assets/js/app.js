@@ -14,154 +14,28 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 	});
 	
-	// @TODO: load javascript for controllers or methods
-	// @TODO: this should be fixed
-	// admin search form
-	search		= jQuery('#search');
-	search.on('change', function() {
-		// value field
-		value		= search.val();
+	// on admin
+	if (jQuery('body').attr('data-uri') == 'admin/tickets/all') {
+		search = jQuery('#search');
+		search.on('change', function() {
+			
+			value = search.val();
+			jQuery('#search-box select, #search-box input').each(function(){
+				inputs = jQuery(this);
 
-		// fields
-		fieldDepartment = jQuery('#department');
-		fieldStatus		= jQuery('#status');
-		fieldCompany	= jQuery('#company');
-		fieldReported	= jQuery('#reported_by');
-		fieldValue		= jQuery('#value');
+				if (inputs.attr('id') != 'search') {
+					inputs.hide().attr('disabled', 'disabled').val('');
+				}
+			});
 
-		// @TODO: this could be replaced by a option container, instad of the whole input
-		switch(value) {
-			case 'id':
-			case 'subject':
-				fieldReported
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
+			switch (value) {
+				case 'id':
+				case 'subject':
+					value = 'value';
+				break;
+			}
 
-				fieldStatus
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldDepartment
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldCompany
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldValue
-					.show()
-					.removeAttr('disabled');
-			break;
-
-			case 'department':
-				fieldValue
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldStatus
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldReported
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldCompany
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldDepartment
-					.show()
-					.removeAttr('disabled');
-			break;
-
-			case 'status':
-				fieldValue
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldReported
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldDepartment
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldCompany
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldStatus
-					.show()
-					.removeAttr('disabled');
-			break;
-
-			case 'reported_by':
-				fieldValue
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldStatus
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldDepartment
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldCompany
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldReported
-					.show()
-					.removeAttr('disabled');
-			break;
-
-			case 'company':
-				fieldValue
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldStatus
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldDepartment
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldReported
-					.hide()
-					.val('')
-					.attr('disabled', 'disabled');
-
-				fieldCompany
-					.show()
-					.removeAttr('disabled');
-			break;
-		}
-	});
-
+			jQuery('#' + value).show().removeAttr('disabled');
+		});
+	}
 });

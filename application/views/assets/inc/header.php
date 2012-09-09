@@ -23,4 +23,4 @@
 
 	</head>
 
-	<body>
+	<body data-controller="<?php echo $this->uri->segment(1); ?>" data-method="<?php echo $this->uri->segment(2); ?>" data-root="<?php echo base_url(); ?>" data-uri="<?php echo uri_string(); ?>">

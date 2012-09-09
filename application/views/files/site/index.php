@@ -16,11 +16,11 @@
 
 		<div class="span4">
 
-			<h1><?php echo icon('time'); ?></h1>
+			<h1><?php echo icon('globe'); ?></h1>
 
-			<h4>En línea las 24 horas</h4>
+			<h4>Asistencia en Línea</h4>
 
-			<p>No descansamos hasta saber que nuestro cliente está satisfecho. Tenga acceso a nuestro panel de expertos en Aulas Virtuales, Desarrollo Web, Educación a Distancia y más con solo unos pocos clicks.</p>
+			<p>Toda la ayuda que necesite se la podremos ofrecer directamente desde su computador. Lleve un registro detallado de todas sus preguntas y nuestras respuestas a través de nuestro sistema de soporte técnico.</p>
 
 		</div>
 

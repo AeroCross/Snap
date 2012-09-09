@@ -1,4 +1,4 @@
-<p>Una nueva consulta ha sido agregada al sistema por: <strong><?php echo $reported_by; ?></strong></p>
+<p>Una nueva consulta ha sido agregada al sistema por <?php echo $reported_by; ?></p>
 
 <blockquote>
 
@@ -10,4 +10,4 @@
 
 </blockquote>
 
-<p>Para ingresar a la consulta: <?php echo anchor('tickets/view/' . $ticket_id); ?></p>
+<p>Para acceder a esta consulta: <?php echo anchor('tickets/view/' . $ticket_id); ?></p>

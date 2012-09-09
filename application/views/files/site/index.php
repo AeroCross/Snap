@@ -18,7 +18,7 @@
 					<div class="btn-group">
 
 						<?php echo anchor('login', icon('signin') . ' Ingresar', array('class' => 'btn btn-warning')); ?>
-						<?php echo anchor('login', icon('info-sign') . ' Más información', array('class' => 'btn')); ?>
+						<a href="#more-info" role="button" class="btn" data-toggle="modal"><?php echo icon('question-sign'); ?> ¿Cómo ingresar?</a>
 
 					</div>
 
@@ -71,6 +71,33 @@
 			<p>Siempre trabajamos para la mejora continua de nuestros conocimientos y de nuestros sistemas, siempre escuchando a nuestro cliente.</p>
 
 		</div>
+
+	</div>
+
+</div>
+
+<!-- more information -->
+<div class="modal hide fade" id="more-info">
+
+	<div class="modal-header">
+		
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		
+		<h3>Ingresando al Sistema</h3>
+	
+	</div>
+
+	<div class="modal-body">
+	
+		<p>Cada cliente de <?php echo anchor('http://ingenium-dv.com', 'Ingenium: Desarrollo Virtual'); ?> tiene acceso al sistema automáticamente.</p>
+
+		<p>Si este no es su caso, contáctenos directamente a <?php echo safe_mailto('soporte@ingenium-dv.com'); ?> con sus datos personales y el nombre de su empresa para poder asignarle uno o varios usuarios, depende de cuantos sean necesarios, y le enviaremos su información vía correo electrónico.</p>
+	
+	</div>
+
+	<div class="modal-footer">
+	
+		<a href="#" data-dismiss="modal" class="btn">Cerrar</a>
 
 	</div>
 

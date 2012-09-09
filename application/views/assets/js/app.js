@@ -13,6 +13,12 @@ jQuery(document).ready(function() {
 	jQuery('a[href$=#]').on('click', function(e) {
 		e.preventDefault();
 	});
+
+	if (jQuery('body').attr('data-controller') === '' || jQuery('body').attr('data-controller') == 'site') {
+		jQuery('#more-info').modal({
+			show: false
+		});
+	}
 	
 	// ---------------------------
 	// admin/views/all -----------

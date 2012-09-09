@@ -14,7 +14,9 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 	});
 	
-	// on admin
+	// ---------------------------
+	// admin/views/all -----------
+	// ---------------------------
 	if (jQuery('body').attr('data-uri') == 'admin/tickets/all') {
 		search = jQuery('#search');
 		search.on('change', function() {

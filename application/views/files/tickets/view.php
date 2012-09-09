@@ -70,7 +70,7 @@
 
 	<div class="span8 well">
 
-		<p><?php echo nl2br($ticket->content); ?></p>
+		<p><?php echo nl2br(htmlentities($ticket->content, ENT_NOQUOTES, 'UTF-8')); ?></p>
 
 	</div>
 

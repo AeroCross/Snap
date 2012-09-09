@@ -12,7 +12,7 @@
 class Saav_user extends EXT_Model {
 
 	// the table used in the model
-	public $_table = 'user';
+	public $_table = 'users';
 
 	/**
 	* The class constructor.
@@ -26,15 +26,18 @@ class Saav_user extends EXT_Model {
 	/**
 	* Tries to log in an user to the system.
 	*
+	* @param	string	- the username to log in
+	* @param	string	- the password
+	* @return	bool	- TRUE if the credentials are correct, FALSE otherwise
 	* @access	public
 	*/ 
 	public function login($username, $password) {
-		$this->cdb
+		$this->db
 		->select('username, password')
 		->where('username', $username)
 		->where('password', hash('sha256', $password));
 
-		$sql = $this->cdb->get($this->_table);
+		$sql = $this->db->get($this->_table);
 
 		// does the user exists?
 		if ($sql->num_rows() === 1) {
@@ -68,12 +71,12 @@ class Saav_user extends EXT_Model {
 			default:		return NULL; break;
 		}
 
-		$this->cdb->select('role_id')
+		$this->db->select('role_id')
 		->where('user_id', $current_user)
 		->where_in('role_id', $role);
 		
 
-		$sql = $this->cdb->get('role_assignment');
+		$sql = $this->db->get('role_assignments');
 
 		if ($sql->num_rows() === 1) {
 			return TRUE;
@@ -90,13 +93,13 @@ class Saav_user extends EXT_Model {
 	* @return	object	- the data object with the names and id's
 	* @access	public
 	*/
-	public function _getUserNames($role = array(1,2)) {
-		$this->cdb
-		->select('CONCAT(user.firstname, " ", user.lastname) AS "name", user.id', FALSE)
-		->join('role_assignment', 'role_assignment.user_id = user.id')
-		->where_in('role_assignment.role_id', $role);
+	public function getNamesByRole($role = array(1,2)) {
+		$this->db
+		->select('CONCAT(users.firstname, " ", users.lastname) AS "name", users.id', FALSE)
+		->join('role_assignments', 'role_assignments.user_id = users.id')
+		->where_in('role_assignments.role_id', $role);
 
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 }
 

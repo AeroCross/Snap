@@ -85,5 +85,15 @@ define('SAAV_DATABASE', 'saav');
 define('SAAV_USERNAME', 'saav');
 define('SAAV_PASSWORD', 'saav');
 
+/*
+|--------------------------------------------------------------------------
+| Application Constants
+|--------------------------------------------------------------------------
+|
+| These values are used through the application for special needs.
+|
+*/
+define('SAAV_VERSION', '0.1');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

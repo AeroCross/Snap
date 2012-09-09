@@ -1,6 +1,7 @@
 /* ---------------------------------------- */
 /* Base Styles ---------------------------- */
 /* ---------------------------------------- */
+body {padding-top: 40px;}
 
 /* ---------------------------------------- */
 /* Text ----------------------------------- */
@@ -26,6 +27,8 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 	top: -1px;
 }
 
+.alert {margin-bottom: 30px;}
+
 .highlight {color: #999}
 .highlight-success {color: #468847;}
 .highlight-warning {color: #F89406;}
@@ -42,9 +45,7 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 	border-bottom: 1px solid #E3E3E3;
 }
 
-.banner h1 {
-	margin-top: 0;
-}
+.banner h1 {margin-top: 0;}
 
 /* ---------------------------------------- */
 /* Forms ----------------------------------- */

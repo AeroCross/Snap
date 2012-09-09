@@ -21,6 +21,7 @@ class TicketPresenter {
 	* @access	public
 	*/
 	public function showAssignedTo($ticket_id) {
+		// load necessary code
 		$this->app->load->model('saav_user');
 		$this->app->load->model('saav_ticket');
 
@@ -31,8 +32,7 @@ class TicketPresenter {
 			return NULL;
 		}
 
-		$user		= $this->app->saav_user->data('firstname, lastname, email')->id($assigned)->get();
-
+		$user = $this->app->saav_user->data('firstname, lastname, email')->id($assigned)->get();
 		$data = $user->firstname . ' ' . $user->lastname;
 
 		if ($this->app->saav_user->permission('support')) {

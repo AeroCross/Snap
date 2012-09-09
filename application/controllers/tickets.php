@@ -105,11 +105,7 @@ class Tickets extends EXT_Controller {
 		$this->data->ticket		= $this->saav_ticket->getTicket($ticket);
 
 		// only admins, support and the owner can see this ticket
-		if (!$this->saav_user->permission('support')) {
-			// check if the ticket is of the reporter
-			if ($this->data->ticket->reported_by != $this->session->userdata('id')) {
-				redirect('dashboard');
-			}
+		if ($this->data->ticket->reported_by != $this->session->userdata('id') AND !$this->saav_user->permission('support')) {
 			redirect('dashboard');
 		}
 
@@ -241,8 +237,14 @@ class Tickets extends EXT_Controller {
 			// check who shall receive the emails
 			$this->load->model('saav_setting');
 			$this->load->model('saav_department');
-			$members = $this->saav_department->getDepartmentMembers($ticket->department);
 
+			// check if the department was changed, then notify it
+			if (isset($info['department'])) {
+				$members = $this->saav_department->getDepartmentMembers($info['department']);
+			} else {
+				$members = $this->saav_department->getDepartmentMembers($ticket->department);
+			}
+			
 			// load the email library
 			$this->load->library('email');
 			$this->init->email();
@@ -263,10 +265,18 @@ class Tickets extends EXT_Controller {
 				$this->email->bcc($reporter->email);
 			}
 
-			$this->email->to($smtp_user);
 			$this->email->from($smtp_user);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
-			$this->email->message(nl2br($content));
+
+			$data = array(
+				'content'			=> nl2br($content),
+				'updater_name'		=> $this->session->userdata('name'),
+				'updater_email'		=> $this->session->userdata('email'),
+				'ticket_id'			=> $ticket_id,
+				'ticket_subject'	=> $ticket->subject
+			);
+
+			$this->email->message($this->load->view('messages/tickets/update', $data, TRUE));
 
 			// if message was sent, notify
 			// @TODO: how can we know if the email was or wasn't sent?
@@ -281,7 +291,15 @@ class Tickets extends EXT_Controller {
 				$this->email->to($user->email, $user->firstname . ' ' . $user->lastname);
 				$this->email->from($smtp_user);
 				$this->email->subject('Asignación de Ticket #' . $ticket_id . ': ' . $ticket->subject);
-				$this->email->message('Se le ha asignado una nueva consulta: <strong>' . $ticket->subject . '</strong>');
+
+				$data = array(
+					'assigner_name'		=> $this->session->userdata('name'),
+					'assigner_email'	=> $this->session->userdata('email'),
+					'ticket_id'			=> $ticket_id,
+					'ticket_subject'	=> $ticket->subject
+				);
+
+				$this->email->message($this->load->view('messages/tickets/assigned', $data, TRUE));
 
 				// @TODO: how can we know if the email was or wasn't sent?
 				@$this->email->send();

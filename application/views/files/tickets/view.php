@@ -35,7 +35,7 @@
 		<ul>
 		
 			<li><strong>Departamento:</strong> <?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></li>
-			<li><strong>Asignado a:</strong> <?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></li>
+			<li><strong>Asignada a:</strong> <?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></li>
 
 		</ul>
 
@@ -70,7 +70,7 @@
 
 	<div class="span8 well">
 
-		<p><?php echo nl2br($ticket->content); ?></p>
+		<p><?php echo nl2br(htmlentities($ticket->content, ENT_NOQUOTES, 'UTF-8')); ?></p>
 
 	</div>
 

@@ -6,7 +6,7 @@
 
 	</div>
 
-	<p>Su número de consulta es <strong>#<?php echo $ticket; ?></strong> &mdash; este es su número identificador en caso de que quiera buscarla más adelante en el <?php echo anchor('#', 'listado'); ?>.</p>
+	<p>Su número de consulta es <strong>#<?php echo $ticket; ?></strong> &mdash; este es su número identificador en caso de que quiera buscarla más adelante en el <?php echo anchor('tickets/all', 'listado'); ?>.</p>
 
 	<p>Nosotros nos encargaremos de responderle por esta misma vía cuando lo hayamos atendido.</p>
 

@@ -12,7 +12,7 @@
 class Saav_department extends EXT_Model {
 
 	// the table used in the model
-	public $_table = 'department';
+	public $_table = 'departments';
 
 	/**
 	* The class constructor.
@@ -31,11 +31,9 @@ class Saav_department extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getDepartment($id) {
-		$this->cdb
-		->select('*')
-		->where('id', $id);
+		$this->db->where('id', $id);
 
-		return $this->cdb->get($this->_table)->row();
+		return $this->db->get($this->_table)->row();
 	}
 
 	/**
@@ -45,10 +43,7 @@ class Saav_department extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getDepartments() {
-		$this->cdb
-		->select('*');
-
-		return $this->cdb->get($this->_table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 
 	/**
@@ -59,13 +54,12 @@ class Saav_department extends EXT_Model {
 	* @access	public
 	*/ 
 	public function getDepartmentMembers($department_id) {
-		$this->cdb
-		->select('user.id, user.firstname, user.lastname, user.email, user.username')
-		->from('user')
-		->join('department_member', 'department_member.user_id = user.id')
-		->where('department_member.department_id', $department_id);
+		$this->db
+		->select('users.id, users.firstname, users.lastname, users.email, users.username')
+		->join('department_members', 'department_members.user_id = users.id')
+		->where('department_members.department_id', $department_id);
 
-		return $this->cdb->get()->result();
+		return $this->db->get('users')->result();
 	}
 }
 

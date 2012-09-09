@@ -77,11 +77,20 @@ class Tickets extends EXT_Controller {
 			// configure table
 			$this->table->set_heading('Consulta', 'Reportado por', 'Compañía', 'Asunto', 'Departamento', 'Creada', 'Modificada', 'Estatus');
 
+			// eager load the reporters
+			$reporters = array();
+			foreach ($tickets as $key => $ticket) {
+				if (!array_key_exists($ticket->reported_by, $reporters)) {
+					$user = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
+					$reporters[$ticket->reported_by]['name']	= $user->firstname . ' ' . $user->lastname;
+					$reporters[$ticket->reported_by]['email']	= $user->email;
+				}
+			}
+
 			foreach($tickets as $ticket) {
-				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
 				$this->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),
-					safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname),
+					safe_mailto($reporters[$ticket->reported_by]['email'], $reporters[$ticket->reported_by]['name']),
 					$this->saav_company->findCompany($ticket->reported_by)->name,
 					$ticket->subject,
 					$this->saav_department->getDepartment($ticket->department)->name,

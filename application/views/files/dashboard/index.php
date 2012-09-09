@@ -6,15 +6,21 @@
 
 <?php echo $this->presenter->dashboard->latestTickets();?>
 
-<br />
+<?php if ($this->saav_user->permission('support')): ?>
+	<!-- spacing -->
+	<br />
 
-<div class="page-header">
+	<!-- assigned to -->
+	<div class="page-header">
 
-	<h4>Consultas asignadas <small><?php echo anchor('tickets/all', '(ver todas)'); ?></small></h4>
+		<h4>Consultas asignadas <small><?php echo anchor('admin/tickets/all', '(ver todas)'); ?></small></h4>
 
-</div>
+	</div>
 
-<?php echo $this->presenter->dashboard->latestAssigned();?>
+	<?php echo $this->presenter->dashboard->latestAssigned();?>
+	<!-- end assigned to -->
+
+<?php endif; ?>
 
 <br />
 <br />

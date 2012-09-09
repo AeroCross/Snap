@@ -40,8 +40,18 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 /* ---------------------------------------- */
 /* Site ----------------------------------- */
 #main-content {padding-top: 40px;}
-#intro {position: relative; height: 328px;}
-#intro > div {height: 200px; position: absolute; top: 50%; margin-top: -100px;}
+
+#intro {
+	position: relative;
+	height: 328px;
+}
+
+#intro > div {
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;
+}
 
 .banner {
 	background: url('../img/bg.png');

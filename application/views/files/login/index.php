@@ -1,25 +1,53 @@
-<div class="container-fluid">
+<div class="span6 offset3">
 
-	<div class="page-header">
+	<?php echo form_open('login', array('class' => 'form-horizontal')); ?>
 
-		<h1>Lorem Ipsum <small>dolor sit amet</small></h1>
+		<fieldset>
 
-	</div>
+			<legend>Iniciar Sesión</legend>
 
-	<div class="row-fluid">
+			<!-- notifications -->
+			<?php $this->presenter->notification->show(); ?>
 
-		<div class="span9">
+			<!-- username -->
+			<div class="control-group">
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<label class="control-label" for="username">Usuario</label>
 
-		</div>
+				<div class="controls">
 
-		<div class="span3">
+					<input type="text" name="username" id="username" placeholder="Nombre de Usuario" />
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</div>
 
-		</div>
+			</div>
+			<!-- end username -->
+			
+			<!-- password -->
+			<div class="control-group">
 
-	</div>
+				<label class="control-label" for="password">Contraseña</label>
+
+				<div class="controls">
+
+					<input type="password" name="password" id="password" placeholder="Contraseña" />
+
+				</div>
+
+			</div>
+			<!-- end password -->
+
+			<!-- submit -->
+			<div class="form-actions">
+
+				<input type="submit" class="btn btn-primary" value="Iniciar Sesión" />
+
+			</div>
+			<!-- end submit -->
+
+		</fieldset>
+		<!-- end fieldset -->
+
+	<?php echo form_close(); ?>
 
 </div>

@@ -1,0 +1,111 @@
+/* ---------------------------------------- */
+/* Base Styles ---------------------------- */
+/* ---------------------------------------- */
+body {padding-top: 40px;}
+
+/* ---------------------------------------- */
+/* Text ----------------------------------- */
+.text-center {text-align: center;}
+.text-left {text-align: left;}
+.text-right {text-align: right;}
+.text-justify {text-align: justify}
+
+h1, h2, h3, h4, h5, h6, legend, .brand {
+	font-family: 'Arvo', 'Segoe UI', 'Calibri', sans-serif;	
+	font-weight: normal;
+}
+
+p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, div {
+	font-family: 'Source Sans Pro', 'Segoe UI', 'Calibri', sans-serif;
+}
+
+.label {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	position: relative;
+	top: -1px;
+}
+
+.alert {margin-bottom: 30px;}
+
+.highlight {color: #999}
+.highlight-success {color: #468847;}
+.highlight-warning {color: #F89406;}
+.highlight-info {color: #3A87AD;}
+.highlight-error {color: #B94A48;}
+.highlight-inverse {color: #333;}
+
+
+/* ---------------------------------------- */
+/* Site ----------------------------------- */
+#main-content {padding-top: 40px;}
+
+#intro {
+	position: relative;
+	height: 328px;
+}
+
+#intro > div {
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;
+}
+
+.banner {
+	background: url('../img/bg.png');
+	width: 100%; 
+	margin: 0; 
+	text-align: center;
+	padding: 20px 0 0 0;
+	border-bottom: 1px solid #E3E3E3;
+}
+.banner h1 {margin-top: 0;}
+
+/* ---------------------------------------- */
+/* Forms ----------------------------------- */
+.form-actions {
+	border-top: none;
+	background: #fff;
+}
+
+/* ---------------------------------------- */
+/* Footer --------------------------------- */
+/* ---------------------------------------- */
+.footer {
+	border-top: 1px solid #E5E5E5;
+	margin: 30px 0 0 0;
+	padding: 30px 0 0 0;
+	font-size: 12px;
+	position: relative;
+}
+
+.footer .logo {
+	position: absolute;
+	right: 0;
+}
+
+/* ---------------------------------------- */
+/* login ---------------------------------- */
+/* ---------------------------------------- */
+.login-form {
+	position: relative;
+	top: 200px;
+}
+
+/* ---------------------------------------- */
+/* Hacks ---------------------------------- */
+/* ---------------------------------------- */
+
+/* since we're using Google Fonts, form buttons aren't aligned */
+.navbar-form .btn {
+	position: relative;
+	top: 0;
+}
+
+/* icons aren't aligned as well */
+i {
+	position: relative;
+	top: 4px;
+}

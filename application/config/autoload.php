@@ -78,7 +78,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('common/resource', 'debug/kint');
+$autoload['libraries'] = array('init', 'common/resource', 'debug/kint', 'session');
 
 
 /*
@@ -90,7 +90,7 @@ $autoload['libraries'] = array('common/resource', 'debug/kint');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'html');
+$autoload['helper'] = array('url', 'html', 'form', 'icon');
 
 
 /*
@@ -136,7 +136,6 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
-
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

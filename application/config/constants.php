@@ -73,6 +73,27 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 define('SHOW_DEBUG_BACKTRACE', TRUE);
 
+/*
+|--------------------------------------------------------------------------
+| Database Constants
+|--------------------------------------------------------------------------
+|
+| These values are used to connect to the database and load models.
+|
+*/
+define('SAAV_DATABASE', 'saav');
+define('SAAV_USERNAME', 'saav');
+define('SAAV_PASSWORD', 'saav');
+
+/*
+|--------------------------------------------------------------------------
+| Application Constants
+|--------------------------------------------------------------------------
+|
+| These values are used through the application for special needs.
+|
+*/
+define('SAAV_VERSION', '0.1');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -25,7 +25,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 * @license		http://creativecommons.org/licenses/by/3.0
 */
-class SAT_Controller extends CI_Controller {
+class EXT_Controller extends CI_Controller {
 
 	// the data to be passed around views and controllers
 	public $data;
@@ -34,12 +34,44 @@ class SAT_Controller extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		
+
 		// required to suppress strict errors
 		$this->data	= new StdClass;
+		$this->load->presenter('notification');
 
-		/* use this construct to process anything you'd like
-		/* at the beginning of each controller call */
+		// check if there's a session in the login controller
+		if ($this->uri->segment(1) === 'login') {
+
+			$logout = $this->session->flashdata('logout');
+
+			// session found - redirecting into the app
+			if ($this->init->hasSession() AND empty($logout)) {
+				redirect('dashboard');
+
+			// no session found
+			} else {
+				$notification = serialize(array(
+					'status'	=> 'not_logged_in',
+					'message'	=> 'No ha iniciado sesión.',
+					'type'		=> 'error'
+				));
+
+				$this->presenter->notification->create($notification);
+			}
+
+		// not the login, not logging out and not the site - check session
+		} elseif (!$this->init->hasSession() AND $this->uri->segment(1) !== 'site' AND $this->uri->segment(1) !== NULL) {
+			$notification = serialize(array(
+				'status'	=> 'not_logged_in',
+				'message'	=> 'No ha iniciado sesión.',
+				'type'		=> 'error'
+			));
+
+			$this->session->set_flashdata('notification', $notification);
+
+			// redirect
+			redirect('login');
+		}
 
 	}
 
@@ -50,6 +82,7 @@ class SAT_Controller extends CI_Controller {
 	* @param	string	- the methods and variables
 	*/
 	public function _remap($method, $parameters) {
+
 		if (method_exists($this, $method)) {
 
 			// $this 	- the controller name (as in the class definition)
@@ -57,17 +90,27 @@ class SAT_Controller extends CI_Controller {
 
 			call_user_func_array(array($this, $method), $parameters);
 
-			// set the path to the view files
-			$view = strtolower('files/' . get_class($this)) . '/' . $method;
-
 			// does a specific view needs to be loaded?
 			if (is_string($this->view) && !empty($this->view)) {
 				$view = $this->view;
+
+			// it doesn't - calculate the folder
+			} else {
+				// set the path to the view files
+				$view		= strtolower('files/' . get_class($this));	
+
+				// check if there's a subfolder in views
+				if ($this->uri->segment(1) !== strtolower(get_class($this))) {
+					$view	= strtolower('files/' . $this->uri->segment(1) . '/' . get_class($this));
+				}
+
+				// complete the view
+				$view .= '/' . $method;
 			}
 
 			// autoload the view
 			if ($this->view !== FALSE) {
-				$this->data->yield = $this->load->view($view, $this->data, TRUE);
+				$this->data->content = $this->load->view($view, $this->data, TRUE);
 
 				// check if there's a custom layout
 				if (is_string($this->layout) AND !empty($this->layout)) {
@@ -75,20 +118,20 @@ class SAT_Controller extends CI_Controller {
 
 				// set the path to check for an existing layout
 				} elseif (file_exists(APPPATH . 'views/layouts/' . strtolower(get_class($this) . '.php'))) {
-					$layout = 'layouts/' . strtolower(get_class($this));
+					$layout = strtolower(get_class($this));
 
 				// if all else fails, set the main layout
 				} else {
-					$layout = 'layouts/default';
+					$layout = 'default';
 				}
 
 				// if the layout is going to be called
-				if ($this->layout === TRUE) {
-					$this->load->view($layout, $this->data);
+				if (is_string($layout) AND !empty($layout)) {
+					$this->load->view('layouts/' . $layout, $this->data);
 
 				// if not, echo directly to output for ajax calls, file handling, etc.
 				} else {
-					echo $this->data->yield;
+					echo $this->data->content;
 				}
 			}
 

@@ -74,15 +74,15 @@
 | the query builder class
 */
 
-$active_group = 'default';
+$active_group = SAAV_DATABASE;
 $query_builder = TRUE;
 
-$db['default'] = array(
+$db[SAAV_DATABASE] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'username' => SAAV_USERNAME,
+	'password' => SAAV_PASSWORD,
+	'database' => SAAV_DATABASE,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => TRUE,
@@ -93,7 +93,7 @@ $db['default'] = array(
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
 	'autoinit' => TRUE,
-	'stricton' => FALSE,
+	'stricton' => TRUE,
 	'failover' => array()
 );
 

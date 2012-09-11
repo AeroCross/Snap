@@ -1,7 +1,7 @@
 /* ---------------------------------------- */
 /* Base Styles ---------------------------- */
 /* ---------------------------------------- */
-body {padding-top: 40px;}
+body {padding-top: 60px;}
 
 /* ---------------------------------------- */
 /* Text ----------------------------------- */
@@ -36,6 +36,14 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 .highlight-error {color: #B94A48;}
 .highlight-inverse {color: #333;}
 
+.navbar .brand {padding: 0 40px 0 0;}
+.navbar .logo {
+	width: 36px;
+	height: 36px;
+	position: relative;
+	top: 10px;
+	left: 30px;
+}
 
 /* ---------------------------------------- */
 /* Site ----------------------------------- */

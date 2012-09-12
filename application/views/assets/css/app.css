@@ -1,7 +1,7 @@
 /* ---------------------------------------- */
 /* Base Styles ---------------------------- */
 /* ---------------------------------------- */
-body {padding-top: 60px;}
+body {padding-top: 40px;}
 
 /* ---------------------------------------- */
 /* Text ----------------------------------- */
@@ -36,13 +36,15 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 .highlight-error {color: #B94A48;}
 .highlight-inverse {color: #333;}
 
-.navbar .brand {padding: 0 40px 0 0;}
+.navbar .brand {
+	padding: 0;
+}
 .navbar .logo {
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	padding: 8px;
+	margin-right: 24px;
 	position: relative;
-	top: 10px;
-	left: 30px;
+	left: 20px;
 }
 
 /* ---------------------------------------- */
@@ -62,14 +64,15 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 }
 
 .banner {
-	background: url('../img/bg.png');
+	background: url('../img/bg.jpg');
+	color: #fff;
 	width: 100%; 
-	margin: 0; 
+	margin: 5px 0 0 0; 
 	text-align: center;
 	padding: 20px 0 0 0;
 	border-bottom: 1px solid #E3E3E3;
 }
-.banner h1 {margin-top: 0;}
+.banner h1 {margin-top: 0; text-shadow: 0 3px 0 #404040;}
 
 /* ---------------------------------------- */
 /* Forms ----------------------------------- */

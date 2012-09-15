@@ -7,40 +7,61 @@
 <!-- ticket status -->
 <div class="row">
 
-	<!-- info -->
-	<div class="span3">
-			
-		<ul>
-		
-			<li><strong>Hecha por:</strong> <?php echo safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname); ?></li>
-			<li><strong>Estatus:</strong> <?php echo status($ticket->status); ?></li>
-		
-		</ul>
+	<div class="span12">
+
+		<!-- info -->
+		<table class="table table-striped table-bordered table-hover">
+
+			<thead>
+				<tr>
+					<th>Hecha por</th>
+					<th>Estatus</th>
+					<th>Aperturada</th>
+					<th>Modificada</th>
+					<th>Departamento</th>
+					<th>Asignada a</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td><?php echo safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname); ?></td>
+					<td><?php echo status($ticket->status); ?></td>
+					<td><?php echo $ticket->date_created; ?></td>
+					<td><?php echo $ticket->date_modified; ?></td>
+					<td><?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></td>
+					<td><?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></td>
+				</tr>
+
+			</tbody>
+
+		</table>
+		<!-- end info -->
+
+		<!-- files -->
+		<table class="table table-striped table-bordered table-hover">
+
+			<thead>
+				<tr>
+					<th>Archivo</th>
+					<th>Tipo</th>
+					<th>Modificado</th>
+					<th>Acción</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>Ley del Ejercicio de la Ingeniería.pdf</td>
+					<td>PDF</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+
+		</table>
 
 	</div>
-
-	<div class="span3">
-		
-		<ul>
-		
-			<li><strong>Aperturada:</strong> <?php echo $ticket->date_created; ?></li>
-			<li><strong>Modificada:</strong> <?php echo $ticket->date_modified; ?></li>
-		
-		</ul>
-
-	</div>
-
-	<div class="span3">
-		
-		<ul>
-		
-			<li><strong>Departamento:</strong> <?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></li>
-			<li><strong>Asignada a:</strong> <?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></li>
-
-		</ul>
-
-	</div>
-	<!-- end info -->
 
 </div>
 <!-- end ticket status -->

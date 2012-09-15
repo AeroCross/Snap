@@ -30,5 +30,25 @@ function icon($name, $size = NULL, $attributes = array()) {
 	return '<i class="' . $class . '" ' . $attr . $size . '></i>';
 }
 
+/**
+* Returns the img of a file extension.
+*
+* @param	string	- the filename or the extension (with prepended .)
+* @param	int		- the size of the image
+* @return	string	- the path to the icon
+*/
+function extension($filename, $size = '16') {
+	$match	= array();
+	$search = preg_match('/\.[\w]{2,4}$/', $filename, $match);
+	$icon	= 'extensions/' . $size . '/file_extension_' . substr($match[0], 1) . '.png';
+	$path	= VIEWPATH . 'assets/img/' . $icon; 
+
+	if (file_exists($path)) {
+		return $icon;
+	} else {
+		return NULL;
+	}
+}
+
 /* End of file icon.php */
 /* Location: ./application/helpers/icon.php */

@@ -52,7 +52,7 @@
 
 			<tbody>
 				<tr>
-					<td>Ley del Ejercicio de la Ingeniería.pdf</td>
+					<td><?php echo img($this->resource->img(extension('.pdf')), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'Ley del Ejercicio de la Ingeniería.pdf'); ?></td>
 					<td>PDF</td>
 					<td></td>
 					<td></td>

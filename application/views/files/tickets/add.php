@@ -9,7 +9,7 @@
 	<!-- form container -->
 	<div class="span8">
 
-		<?php echo form_open('tickets/add', array('class' => 'form-horizontal')); ?>
+		<?php echo form_open_multipart('tickets/add', array('class' => 'form-horizontal')); ?>
 
 			<fieldset>
 
@@ -86,6 +86,21 @@
 
 				</div>
 				<!-- end content -->
+
+				<!-- file -->
+				<div class="control-group">
+
+					<label for="file" class="control-label">Archivo</label>
+
+					<div class="controls">
+
+						<input type="file" name="file" id="file" />
+						<p class="help-block">Si tiene que subir más de un archivo, comprimalo primero.</p>
+
+					</div>
+
+				</div>
+				<!-- end file -->
 
 				<div class="form-actions">
 

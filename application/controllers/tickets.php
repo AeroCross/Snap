@@ -165,6 +165,10 @@ class Tickets extends EXT_Controller {
 			'content'		=> $this->input->post('content'),
 		);
 		
+		if ($this->input->post('assigned_to') != FALSE) {
+			$data['assigned_to'] = $this->input->post('assigned_to');
+		}
+
 		$this->load->model('saav_ticket');
 
 		// add the new ticket and return the id

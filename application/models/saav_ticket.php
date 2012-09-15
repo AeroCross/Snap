@@ -40,7 +40,7 @@ class Saav_ticket extends EXT_Model {
 
 		$this->db->insert($this->_table);
 
-		// get the insert ID
+		// get the new ticket ID
 		$id = $this->db->insert_id();
 	
 		// inserted? send an email to department members
@@ -49,15 +49,42 @@ class Saav_ticket extends EXT_Model {
 			$this->load->model('saav_setting');
 			$this->load->model('saav_department');
 
-			// set variables of form
 			$department = $data['department'];
 			$content	= $data['content'];
 			$subject	= $data['subject'];
 
-			// fetches the info of all department members, to send emails
+			if (isset($data['assigned_to'])) {
+				$assigned_to = $data['assigned_to'];
+			}
+
+			// get all department members to notify of new ticket
 			$members = $this->saav_department->getDepartmentMembers($department);
 
-			// no members related to that department, insert and leave returning ticket #
+			// assigned at creating time - notify
+			if (isset($assigned_to)) {
+				$this->load->library('email');
+				$this->init->email();
+				
+				$assigned	= $this->saav_user->data('firstname, lastname, email')->id($assigned_to)->get();
+				$user		= array(
+					'assigner_email'	=> $this->session->userdata('email'),
+					'assigner_name'		=> $this->session->userdata('name'),
+					'ticket_id'			=> $id,
+					'ticket_subject'	=> $subject,
+				);
+
+				$this->email->to($assigned->email);
+				$this->email->from($this->saav_setting->getSetting('smtp_user'));
+				$this->email->subject('Asignación de Ticket #' . $id . ': ' . $subject);
+				$this->email->message($this->load->view('messages/tickets/assigned', $user, TRUE));
+
+				unset($user);
+				unset($assigned);
+				@$this->email->send();
+				$this->email->clear();
+			}
+
+			// no members related to that department, leave returning ticket id
 			if(empty($members)) {
 				return $id;
 			}
@@ -67,14 +94,10 @@ class Saav_ticket extends EXT_Model {
 				$emails[] = $member->email;
 			}
 
-			// initialize email preferences
-			$this->init->email();
-
 			// set email preferences
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
+			$this->init->email();
 			$this->email->from($smtp_user);
-
-			// actual message
 			$this->email->bcc($emails);
 			$this->email->subject('Ticket #' . $id . ': ' . $subject);
 

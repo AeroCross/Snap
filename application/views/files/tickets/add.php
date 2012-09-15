@@ -34,6 +34,29 @@
 				</div>
 				<!-- end department -->
 
+				<?php if ($this->saav_user->permission('support')): ?>
+
+					<!-- assigned to -->
+
+					<div class="control-group">
+
+						<label for="assigned_to" class="control-label">Asignar a</label>
+
+						<div class="controls">
+
+							<select name="assigned_to" id="assigned_to">
+
+								<?php echo $this->presenter->form->admins(TRUE); ?>
+								<?php echo $this->presenter->form->support(FALSE); ?>
+
+							</select>
+
+						</div>
+						
+					</div>
+
+				<?php endif; ?>
+
 				<!-- title -->
 				<div class="control-group">
 

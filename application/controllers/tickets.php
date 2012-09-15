@@ -170,9 +170,18 @@ class Tickets extends EXT_Controller {
 		}
 
 		$this->load->model('saav_ticket');
-
+		
 		// add the new ticket and return the id
 		$id = $this->saav_ticket->addTicket($data);
+
+		// file sent, process
+		if (isset($_FILES['file']) AND !empty($_FILES['file'])) {
+			$file = $_FILES['file'];
+			$this->load->library('file');
+
+			// unused variable
+			$status = $this->file->upload('ticket', $id, $file);
+		}
 
 		if (!empty($id)) {
 			$this->session->set_flashdata('ticket', $id);

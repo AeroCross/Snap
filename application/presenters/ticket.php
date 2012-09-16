@@ -41,6 +41,20 @@ class TicketPresenter {
 
 		return $data;
 	}
+
+	public function showFiles($ticket_id) {
+		$path = FCPATH . 'files/tickets/' . $ticket_id . '/';
+
+		if (!file_exists($path)) {
+			return NULL;
+		}
+
+		$folders	= scandir($path);
+		unset($folders[0]); // this directory
+		unset($folders[1]); // top level directory
+		$users		= $this->app->saav_user->data('id, firstname, lastname, email')->in('id', array(1,3))->getAll();
+		dd($users);
+	}
 }
 
 /* End of file ticket.php */

@@ -42,18 +42,67 @@ class TicketPresenter {
 		return $data;
 	}
 
+	/**
+	* Shows the files uploaded to a ticket.
+	*
+	* @param	int		- the id of the ticket
+	* @return	string	- the table with all the files
+	* @access	public
+	*/
 	public function showFiles($ticket_id) {
 		$path = FCPATH . 'files/tickets/' . $ticket_id . '/';
 
+		// no uploads by the user, dismiss
 		if (!file_exists($path)) {
 			return NULL;
 		}
 
 		$folders	= scandir($path);
-		unset($folders[0]); // this directory
-		unset($folders[1]); // top level directory
-		$users		= $this->app->saav_user->data('id, firstname, lastname, email')->in('id', array(1,3))->getAll();
-		dd($users);
+		
+		// get all the files
+		foreach($folders as $folder) {
+			if ($folder === '.' OR $folder === '..') {
+				continue;
+			}
+
+			if (!is_dir($path . $folder)) {
+				continue;
+			}
+
+			$files = scandir($path . $folder);
+
+			foreach($files as $file) {
+				if ($file === '.' OR $file === '..') {
+					continue;
+				} else {
+					$results[] = $folder . '/' . $file;
+				}
+			}
+		}
+
+		$this->app->load->library('table');
+		$this->app->table->set_heading('Archivo', 'Tipo', 'Enviado por', 'Tamaño', 'Última Modificación');
+
+		foreach($results as $result) {
+			$fullpath	= $path . $result;
+			$stat		= stat($fullpath);
+			$result		= explode('/', $result);
+			$user		= $this->app->saav_user->data('id, firstname, lastname, email')->id($result[0])->get();
+			$file		= $result[1];
+			$ext		= array();
+			$search		= preg_match('/\.[^.]+$/', $file, $ext);
+			$ext		= $ext[0];
+			
+			$this->app->table->add_row(
+				img($this->app->resource->img(extension($ext, 32)), FALSE, array('class' => 'file-extension')) . ' ' . anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, $file),
+				strtoupper(substr($ext, 1)),
+				safe_mailto($user->email, $user->firstname . ' ' . $user->lastname),
+				number_format((int) $stat['size'] / 1024  / 1024, 2) . ' MB',
+				date('Y-m-d H:i:s', $stat['mtime'])
+			);
+		}
+
+		return $this->app->table->generate();
 	}
 }
 

@@ -47,30 +47,23 @@
 			
 					<th>Archivo</th>
 					<th>Tipo</th>
-					<th>Modificado</th>
-					<th>Acción</th>
+					<th>Enviado por</th>
+					<th>Tamaño</th>
+					<th>Enviado</th>
 			
 				</tr>
 			
 			</thead>
 
 			<tbody>
-				
-				<tr>
-				
-					<td><?php echo img($this->resource->img(extension('.pdf', 32)), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'Ley del Ejercicio de la Ingeniería.pdf'); ?></td>
-					<td>PDF</td>
-					<td></td>
-					<td></td>
-				
-				</tr>
 
 				<tr>
 				
-					<td><?php echo img($this->resource->img(extension('.zip', 32)), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'Imágenes para SPOT.zip'); ?></td>
+					<td><?php echo img($this->resource->img(extension('.zip', 32)), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'RT Theme 16.zip'); ?></td>
 					<td>ZIP</td>
-					<td></td>
-					<td></td>
+					<td>Mario Cuba</td>
+					<td>1.6 MB</td>
+					<td>2012-09-15 14:44:12</td>
 				
 				</tr>
 

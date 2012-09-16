@@ -39,37 +39,7 @@
 		<!-- end info -->
 
 		<!-- files -->
-		<table class="table table-striped table-bordered table-hover">
-
-			<thead>
-			
-				<tr>
-			
-					<th>Archivo</th>
-					<th>Tipo</th>
-					<th>Enviado por</th>
-					<th>Tamaño</th>
-					<th>Enviado</th>
-			
-				</tr>
-			
-			</thead>
-
-			<tbody>
-
-				<tr>
-				
-					<td><?php echo img($this->resource->img(extension('.zip', 32)), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'RT Theme 16.zip'); ?></td>
-					<td>ZIP</td>
-					<td>Mario Cuba</td>
-					<td>1.6 MB</td>
-					<td>2012-09-15 14:44:12</td>
-				
-				</tr>
-
-			</tbody>
-
-		</table>
+		<?php echo $this->presenter->ticket->showFiles($this->uri->segment(3)); ?>
 
 	</div>
 

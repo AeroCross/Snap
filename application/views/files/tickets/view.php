@@ -42,21 +42,38 @@
 		<table class="table table-striped table-bordered table-hover">
 
 			<thead>
+			
 				<tr>
+			
 					<th>Archivo</th>
 					<th>Tipo</th>
 					<th>Modificado</th>
 					<th>Acción</th>
+			
 				</tr>
+			
 			</thead>
 
 			<tbody>
+				
 				<tr>
-					<td><?php echo img($this->resource->img(extension('.pdf')), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'Ley del Ejercicio de la Ingeniería.pdf'); ?></td>
+				
+					<td><?php echo img($this->resource->img(extension('.pdf', 32)), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'Ley del Ejercicio de la Ingeniería.pdf'); ?></td>
 					<td>PDF</td>
 					<td></td>
 					<td></td>
+				
 				</tr>
+
+				<tr>
+				
+					<td><?php echo img($this->resource->img(extension('.zip', 32)), FALSE, array('class' => 'file-extension')); ?> <?php echo anchor('files/get/#', 'Imágenes para SPOT.zip'); ?></td>
+					<td>ZIP</td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+
 			</tbody>
 
 		</table>

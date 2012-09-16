@@ -81,7 +81,7 @@ class TicketPresenter {
 		}
 
 		$this->app->load->library('table');
-		$this->app->table->set_heading('Archivo', 'Extensión', 'Enviado por', 'Tamaño', 'Última Modificación');
+		$this->app->table->set_heading('Archivo', 'Tipo', 'Enviado por', 'Tamaño', 'Última Modificación');
 
 		foreach($results as $result) {
 			$fullpath	= $path . $result;
@@ -95,7 +95,7 @@ class TicketPresenter {
 			
 			$this->app->table->add_row(
 				img($this->app->resource->img(extension($ext, 32)), FALSE, array('class' => 'file-extension')) . ' ' . anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, $file),
-				substr($ext, 1),
+				strtoupper(substr($ext, 1)),
 				safe_mailto($user->email, $user->firstname . ' ' . $user->lastname),
 				number_format((int) $stat['size'] / 1024  / 1024, 2) . ' MB',
 				date('Y-m-d H:i:s', $stat['mtime'])

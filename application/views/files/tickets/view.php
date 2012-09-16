@@ -58,18 +58,14 @@
 <!-- first message -->
 <div class="row">
 
-	<div class="span3">
+	<div class="span3 text-center">
 
-		<ul>
-
-			<li><?php echo $reporter->firstname . ' ' . $reporter->lastname; ?></li>
-			<li><?php echo $ticket->date_created; ?></li>
-
-		</ul>
+		<h5><?php echo $reporter->firstname . ' ' . $reporter->lastname; ?></h5>
+		<p><?php echo $ticket->date_created; ?></p>
 
 	</div>
 
-	<div class="span8 well">
+	<div class="span8 well message">
 
 		<p><?php echo nl2br(htmlentities($ticket->content, ENT_NOQUOTES, 'UTF-8')); ?></p>
 
@@ -79,7 +75,7 @@
 <!-- end first message -->
 
 <!-- other messages here -->
-<?php foreach($messages as $message): ?>
+<?php foreach($messages as $message): // @TODO: eager loading ?>
 <?php $user = $this->saav_user->data('firstname, lastname, email')->id($message->user_id)->get(); ?>
 
 <div class="row">
@@ -95,7 +91,7 @@
 
 	</div>
 
-	<div class="span8 well">
+	<div class="span8 well message">
 
 		<p><?php echo nl2br($message->content); ?></p>
 

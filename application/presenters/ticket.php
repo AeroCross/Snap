@@ -59,6 +59,11 @@ class TicketPresenter {
 
 		$folders	= scandir($path);
 		
+		// the only way this folder has 2 or less is that's empty
+		if (count($folders) <= 2) {
+			return NULL;
+		}
+
 		// get all the files
 		foreach($folders as $folder) {
 			if ($folder === '.' OR $folder === '..') {
@@ -80,11 +85,21 @@ class TicketPresenter {
 			}
 		}
 
+		// still no results
+		if (empty($results)) {
+			return NULL;
+		}
+
 		$this->app->load->library('table');
 		$this->app->table->set_heading('Archivo', 'Tipo', 'Enviado por', 'Tamaño', 'Última Modificación');
 
 		foreach($results as $result) {
 			$fullpath	= $path . $result;
+
+			if (is_dir($fullpath)) {
+				continue;
+			}
+
 			$stat		= stat($fullpath);
 			$result		= explode('/', $result);
 			$user		= $this->app->saav_user->data('id, firstname, lastname, email')->id($result[0])->get();
@@ -101,7 +116,7 @@ class TicketPresenter {
 				date('Y-m-d H:i:s', $stat['mtime'])
 			);
 		}
-
+		
 		return $this->app->table->generate();
 	}
 }

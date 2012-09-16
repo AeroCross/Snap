@@ -37,16 +37,26 @@ function icon($name, $size = NULL, $attributes = array()) {
 * @param	int		- the size of the image
 * @return	string	- the path to the icon
 */
-function extension($filename, $size = '16') {
+function extension($filename, $size = '32') {
 	$match	= array();
-	$search = preg_match('/\.[\w]{2,4}$/', $filename, $match);
-	$icon	= 'extensions/' . $size . '/file_extension_' . substr($match[0], 1) . '.png';
+	$search = preg_match('/\.[^.]+$/', $filename, $match);
+
+	if (empty($match)) {
+		$ext = 'gen';
+	} else {
+		$ext = substr($match[0], 1);
+	}
+
+	$icon	= 'extensions/' . $size . '/file_extension_' . $ext . '.png';
 	$path	= VIEWPATH . 'assets/img/' . $icon; 
 
 	if (file_exists($path)) {
 		return $icon;
 	} else {
-		return NULL;
+		$ext	= 'gen';
+		$icon	= 'extensions/' . $size . '/file_extension_' . $ext . '.png';
+		$path	= VIEWPATH . 'assets/img/' . $icon; 
+		return $icon;
 	}
 }
 

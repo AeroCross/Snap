@@ -112,12 +112,12 @@ class TicketPresenter {
 			$result		= explode('/', $result);
 			$user		= $this->app->saav_user->data('id, firstname, lastname, email')->id($result[0])->get();
 			$file		= $result[1];
-			$ext		= array();
-			$search		= preg_match('/\.[^.]+$/', $file, $ext);
-
-			// only for found extensions
-			if (!empty($ext)) {
-				$ext		= $ext[0];
+			$ext		= explode('.', $file);
+			
+			if 	(count($ext) !== 1) {
+				$ext = end($ext);
+			} else {
+				$ext = '';
 			}
 
 			$this->app->table->add_row(

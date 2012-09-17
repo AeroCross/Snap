@@ -121,7 +121,7 @@ class TicketPresenter {
 			}
 
 			$this->app->table->add_row(
-				anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, img($this->app->resource->img(extension($ext))), array('class' => 'file-extension')) . ' ' . anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, $file),
+				anchor('file/get/tickets/' . $ticket_id . '/' . $result[0] . '/' . $file, img($this->app->resource->img(extension($ext))), array('class' => 'file-extension')) . ' ' . anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, $file),
 				extension_name($ext),
 				safe_mailto($user->email, $user->firstname . ' ' . $user->lastname),
 				number_format((int) $stat['size'] / 1024  / 1024, 2) . ' MB',

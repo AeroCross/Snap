@@ -57,6 +57,14 @@ class File {
 			mkdir($dir, 0777, TRUE);
 		}
 
+		// make sure there's an .htaccess file in the root of the files folder
+		$htaccess = FCPATH . 'files/.htaccess';
+		if (!file_exists($htaccess)) {
+			$handler = fopen($htaccess, 'w+b');
+			fwrite($handler, 'Deny from All');
+			fclose($handler);
+		}
+
 		$this->app->upload->initialize($config);
 		$this->app->upload->do_upload('file');
 

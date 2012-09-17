@@ -39,7 +39,7 @@
 		<!-- end info -->
 
 		<!-- files -->
-		<?php echo $this->presenter->ticket->showFiles($this->uri->segment(3)); ?>
+		<?php echo $files; ?>
 
 	</div>
 

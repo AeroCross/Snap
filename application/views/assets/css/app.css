@@ -47,6 +47,13 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 	left: 20px;
 }
 
+.table th, .table td {
+	vertical-align: middle;
+}
+.sortable th:hover {cursor: pointer;}
+
+.file-extension {margin: 0 10px;}
+
 /* ---------------------------------------- */
 /* Site ----------------------------------- */
 #main-content {padding-top: 40px;}
@@ -79,6 +86,15 @@ p, ul, ol, li, small, input, select, option, form, a, button, textarea, td, tr, 
 .form-actions {
 	border-top: none;
 	background: #fff;
+}
+
+/* ---------------------------------------- */
+/* Tickets -------------------------------- */
+/* ---------------------------------------- */
+.message {
+	max-height: 300px;
+	overflow: auto;
+	overflow-x: hidden;
 }
 
 /* ---------------------------------------- */

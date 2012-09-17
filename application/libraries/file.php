@@ -47,7 +47,6 @@ class File {
 		$this->app->load->library('upload');
 		$config = array(
 			'upload_path'	=> './files/tickets/' . $id . '/' . $this->app->session->userdata('id') . '/',
-			'allowed_types'	=> 'bmp|gif|jpg|jpeg|png|psd|doc|docx|txt|zip|tar.gz|tar|tar.bz|rar|ppt|pptx|xls|xlsx|csv|ai',
 			'remove_spaces'	=> FALSE
 		);
 

@@ -49,7 +49,7 @@ class TicketPresenter {
 	* @return	string	- the table with all the files
 	* @access	public
 	*/
-	public function showFiles($ticket_id) {
+	public function files($ticket_id) {
 		$path = FCPATH . 'files/tickets/' . $ticket_id . '/';
 
 		// no uploads by the user, dismiss

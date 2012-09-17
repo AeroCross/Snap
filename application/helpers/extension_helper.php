@@ -1,5 +1,11 @@
 <?php
 
+/**
+* Selects the correct name for a file extension.
+*
+* @param	string	- the file extension
+* @return	string	- the complete file type
+*/
 function extension_name($extension) {
 	// has a dot, remove it
 	if (strpos($extension, '.') === 0) {
@@ -41,3 +47,6 @@ function extension_name($extension) {
 
 	return $name;
 }
+
+/* End of file extension_helper.php */
+/* Location: ./application/helpers/extension_helper.php */

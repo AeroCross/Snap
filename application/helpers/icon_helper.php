@@ -60,5 +60,5 @@ function extension($filename, $size = '32') {
 	}
 }
 
-/* End of file icon.php */
-/* Location: ./application/helpers/icon.php */
+/* End of file icon_helper.php */
+/* Location: ./application/helpers/icon_helper.php */

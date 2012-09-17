@@ -94,7 +94,7 @@
 
 					<div class="controls">
 
-						<input type="file" name="file" id="file" />
+						<input type="file" name="file" id="file" /><span class="help-inline"><strong>Tamaño máximo:</strong> <?php echo ini_get('upload_max_filesize'); ?>B</span>
 						<p class="help-block">Si tiene que subir más de un archivo, comprimalo primero.</p>
 
 					</div>

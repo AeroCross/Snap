@@ -48,7 +48,7 @@ class File {
 		$config = array(
 			'upload_path'	=> './files/tickets/' . $id . '/' . $this->app->session->userdata('id') . '/',
 			'allowed_types'	=> 'bmp|gif|jpg|png|psd|doc|docx|txt|zip|tar.gz|tar|tar.bz|rar|ppt|pptx|xls|xlsx|csv|ai',
-			'remove_spaces'	=> FALSE;
+			'remove_spaces'	=> FALSE
 		);
 
 		$dir = FCPATH . substr($config['upload_path'], 1);

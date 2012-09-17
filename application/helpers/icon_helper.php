@@ -38,13 +38,12 @@ function icon($name, $size = NULL, $attributes = array()) {
 * @return	string	- the path to the icon
 */
 function extension($filename, $size = '32') {
-	$match	= array();
-	$search = preg_match('/\.[^.]+$/', $filename, $match);
+	$ext = explode('.', $filename);
 
-	if (empty($match)) {
+	if (count($ext) === 0) {
 		$ext = 'gen';
 	} else {
-		$ext = substr($match[0], 1);
+		$ext = end($ext);
 	}
 
 	$icon	= 'extensions/' . $size . '/file_extension_' . $ext . '.png';
@@ -52,6 +51,8 @@ function extension($filename, $size = '32') {
 
 	if (file_exists($path)) {
 		return $icon;
+
+	// inefficient!
 	} else {
 		$ext	= 'gen';
 		$icon	= 'extensions/' . $size . '/file_extension_' . $ext . '.png';

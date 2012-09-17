@@ -237,6 +237,16 @@ class Tickets extends EXT_Controller {
 
 		// notify the department when the ticket is updated
 		if ($this->saav_message->addMessage($ticket_id, $content)) {
+
+			// file sent, process
+			if (isset($_FILES['file']) AND !empty($_FILES['file'])) {
+				$file = $_FILES['file'];
+				$this->load->library('file');
+
+				// unused variable
+				$status = $this->file->upload('ticket', $ticket_id, $file);
+			}
+
 			foreach($updates as $key => $update) {
 				if (!empty($update)) {
 					$info[$key] = $update;

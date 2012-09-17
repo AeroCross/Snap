@@ -107,7 +107,7 @@
 <!-- reopen -->
 <div class="row">
 
-	<?php echo form_open('tickets/view/' . $ticket->id, array('class' => 'form-horizontal')); ?>
+	<?php echo form_open_multipart('tickets/view/' . $ticket->id, array('class' => 'form-horizontal')); ?>
 
 		<!-- form -->
 		<div class="span12">
@@ -185,6 +185,21 @@
 
 			</div>
 			<!-- end status -->
+
+			<!-- file -->
+			<div class="control-group">
+
+				<label for="file" class="control-label">Enviar un Archivo</label>
+
+				<div class="controls">
+
+					<input type="file" name="file" id="file" /><span class="help-inline"><strong>Tamaño máximo:</strong> <?php echo ini_get('upload_max_filesize'); ?>B</span>
+					<p class="help-block">Si tiene que subir más de un archivo, comprimalo primero.</p>
+
+				</div>
+
+			</div>
+			<!-- end file -->
 
 			<!-- actions -->
 			<div class="form-actions">

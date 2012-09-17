@@ -21,7 +21,8 @@ class File extends EXT_Controller {
 	* @param	string	- the filename
 	*/
 	public function get($type, $id, $user, $filename) {
-		$file = FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/' . $filename;
+		$filename	= urldecode($filename);
+		$file		= FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/' . $filename;
 
 		// @TODO: better feedback
 		if (!file_exists($file)) {

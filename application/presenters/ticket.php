@@ -91,11 +91,19 @@ class TicketPresenter {
 		}
 
 		$this->app->load->library('table');
+		
+		$config = array(
+			'table_open'	=> '<table class="table table-striped table-bordered table-hover sortable">'
+		);
+		$this->app->table->set_template($config);
+		unset($config);
+
 		$this->app->table->set_heading('Archivo', 'Tipo', 'Enviado por', 'Tamaño', 'Última Modificación');
 
 		foreach($results as $result) {
 			$fullpath	= $path . $result;
 
+			// since we don't want more subdirectories, omit all remaining folders
 			if (is_dir($fullpath)) {
 				continue;
 			}
@@ -107,10 +115,9 @@ class TicketPresenter {
 			$ext		= array();
 			$search		= preg_match('/\.[^.]+$/', $file, $ext);
 
+			// only for found extensions
 			if (!empty($ext)) {
 				$ext		= $ext[0];
-			} else {
-				$ext = '';
 			}
 
 			$this->app->table->add_row(

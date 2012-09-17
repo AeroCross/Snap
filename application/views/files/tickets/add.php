@@ -90,7 +90,7 @@
 				<!-- file -->
 				<div class="control-group">
 
-					<label for="file" class="control-label">Archivo</label>
+					<label for="file" class="control-label">Enviar un Archivo</label>
 
 					<div class="controls">
 

@@ -80,14 +80,10 @@
 
 <div class="row">
 
-	<div class="span3">
+	<div class="span3 text-center">
 
-		<ul>
-
-			<li><?php echo $user->firstname . ' ' . $user->lastname; ?></li>
-			<li><?php echo $message->date; ?></li>
-
-		</ul>
+		<h5><?php echo $user->firstname . ' ' . $user->lastname; ?></h5>
+		<p><?php echo $message->date; ?></p>
 
 	</div>
 

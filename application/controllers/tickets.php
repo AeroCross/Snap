@@ -95,6 +95,7 @@ class Tickets extends EXT_Controller {
 	public function view($ticket) {
 		$this->load->presenter('ticket');
 		$this->load->helper('icon');
+		$this->load->helper('extension');
 		
 		// if a message was sent, process it
 		if (!empty($this->post)) {

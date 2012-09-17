@@ -106,17 +106,22 @@ class TicketPresenter {
 			$file		= $result[1];
 			$ext		= array();
 			$search		= preg_match('/\.[^.]+$/', $file, $ext);
-			$ext		= $ext[0];
-			
+
+			if (!empty($ext)) {
+				$ext		= $ext[0];
+			} else {
+				$ext = '';
+			}
+
 			$this->app->table->add_row(
-				img($this->app->resource->img(extension($ext, 32)), FALSE, array('class' => 'file-extension')) . ' ' . anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, $file),
-				strtoupper(substr($ext, 1)),
+				anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, img($this->app->resource->img(extension($ext))), array('class' => 'file-extension')) . ' ' . anchor('file/get/ticket/' . $ticket_id . '/' . $result[0] . '/' . $file, $file),
+				extension_name($ext),
 				safe_mailto($user->email, $user->firstname . ' ' . $user->lastname),
 				number_format((int) $stat['size'] / 1024  / 1024, 2) . ' MB',
 				date('Y-m-d H:i:s', $stat['mtime'])
 			);
 		}
-		
+
 		return $this->app->table->generate();
 	}
 }

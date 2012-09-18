@@ -31,22 +31,35 @@ class File extends EXT_Controller {
 	* @param	string	- the filename
 	*/
 	public function get($type, $id, $user, $filename) {
+
+		// all parameters are required
+		if (empty($type) OR empty($id) OR empty($user) OR empty($filename)) {
+			redirect('dashboard');
+		}
+
 		$filename	= urldecode($filename);
 		$file		= FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/' . $filename;
 
 		// @TODO: better feedback
 		if (!file_exists($file)) {
-			die();
+			die('Archivo no encontrado o con caracteres no autorizados.');
 		}
 
-		// get mime-type for headers
+		// get mime-type for headers (if needed)
 		$handler	= finfo_open(FILEINFO_MIME_TYPE);
 		$mime		= finfo_file($handler, $file);
 		finfo_close($handler);
 
 		// set headers and download
 		header('Content-disposition: attachment; filename=' . $filename);
-		header('Content-type: ' . $mime);
+		header("Content-Length: " . filesize($file));  
+		header('Content-type: application/octet-stream');
+
+		// make sure anything's outputted to the browser
+		ob_clean();
+		flush();
+
+		// download
 		readfile($file);
 	}
 }

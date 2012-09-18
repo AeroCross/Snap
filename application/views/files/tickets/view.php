@@ -7,40 +7,41 @@
 <!-- ticket status -->
 <div class="row">
 
-	<!-- info -->
-	<div class="span3">
-			
-		<ul>
-		
-			<li><strong>Hecha por:</strong> <?php echo safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname); ?></li>
-			<li><strong>Estatus:</strong> <?php echo status($ticket->status); ?></li>
-		
-		</ul>
+	<div class="span12">
+
+		<!-- info -->
+		<table class="table table-striped table-bordered table-hover">
+
+			<thead>
+				<tr>
+					<th>Hecha por</th>
+					<th>Estatus</th>
+					<th>Aperturada</th>
+					<th>Modificada</th>
+					<th>Departamento</th>
+					<th>Asignada a</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td><?php echo safe_mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname); ?></td>
+					<td><?php echo status($ticket->status); ?></td>
+					<td><?php echo $ticket->date_created; ?></td>
+					<td><?php echo $ticket->date_modified; ?></td>
+					<td><?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></td>
+					<td><?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></td>
+				</tr>
+
+			</tbody>
+
+		</table>
+		<!-- end info -->
+
+		<!-- files -->
+		<?php echo $files; ?>
 
 	</div>
-
-	<div class="span3">
-		
-		<ul>
-		
-			<li><strong>Aperturada:</strong> <?php echo $ticket->date_created; ?></li>
-			<li><strong>Modificada:</strong> <?php echo $ticket->date_modified; ?></li>
-		
-		</ul>
-
-	</div>
-
-	<div class="span3">
-		
-		<ul>
-		
-			<li><strong>Departamento:</strong> <?php echo $this->saav_department->getDepartment($ticket->department)->name; ?></li>
-			<li><strong>Asignada a:</strong> <?php echo $this->presenter->ticket->showAssignedTo($ticket->id); ?></li>
-
-		</ul>
-
-	</div>
-	<!-- end info -->
 
 </div>
 <!-- end ticket status -->
@@ -57,18 +58,14 @@
 <!-- first message -->
 <div class="row">
 
-	<div class="span3">
+	<div class="span3 text-center">
 
-		<ul>
-
-			<li><?php echo $reporter->firstname . ' ' . $reporter->lastname; ?></li>
-			<li><?php echo $ticket->date_created; ?></li>
-
-		</ul>
+		<h5><?php echo $reporter->firstname . ' ' . $reporter->lastname; ?></h5>
+		<p><?php echo $ticket->date_created; ?></p>
 
 	</div>
 
-	<div class="span8 well">
+	<div class="span8 well message">
 
 		<p><?php echo nl2br(htmlentities($ticket->content, ENT_NOQUOTES, 'UTF-8')); ?></p>
 
@@ -78,23 +75,19 @@
 <!-- end first message -->
 
 <!-- other messages here -->
-<?php foreach($messages as $message): ?>
+<?php foreach($messages as $message): // @TODO: eager loading ?>
 <?php $user = $this->saav_user->data('firstname, lastname, email')->id($message->user_id)->get(); ?>
 
 <div class="row">
 
-	<div class="span3">
+	<div class="span3 text-center">
 
-		<ul>
-
-			<li><?php echo $user->firstname . ' ' . $user->lastname; ?></li>
-			<li><?php echo $message->date; ?></li>
-
-		</ul>
+		<h5><?php echo $user->firstname . ' ' . $user->lastname; ?></h5>
+		<p><?php echo $message->date; ?></p>
 
 	</div>
 
-	<div class="span8 well">
+	<div class="span8 well message">
 
 		<p><?php echo nl2br($message->content); ?></p>
 
@@ -114,7 +107,7 @@
 <!-- reopen -->
 <div class="row">
 
-	<?php echo form_open('tickets/view/' . $ticket->id, array('class' => 'form-horizontal')); ?>
+	<?php echo form_open_multipart('tickets/view/' . $ticket->id, array('class' => 'form-horizontal')); ?>
 
 		<!-- form -->
 		<div class="span12">
@@ -192,6 +185,21 @@
 
 			</div>
 			<!-- end status -->
+
+			<!-- file -->
+			<div class="control-group">
+
+				<label for="file" class="control-label">Enviar un Archivo</label>
+
+				<div class="controls">
+
+					<input type="file" name="file" id="file" /><span class="help-inline"><strong>Tamaño máximo:</strong> <?php echo ini_get('upload_max_filesize'); ?>B</span>
+					<p class="help-block">Si tiene que subir más de un archivo, comprimalo primero.</p>
+
+				</div>
+
+			</div>
+			<!-- end file -->
 
 			<!-- actions -->
 			<div class="form-actions">

@@ -9,7 +9,7 @@
 	<!-- form container -->
 	<div class="span8">
 
-		<?php echo form_open('tickets/add', array('class' => 'form-horizontal')); ?>
+		<?php echo form_open_multipart('tickets/add', array('class' => 'form-horizontal')); ?>
 
 			<fieldset>
 
@@ -33,6 +33,29 @@
 
 				</div>
 				<!-- end department -->
+
+				<?php if ($this->saav_user->permission('support')): ?>
+
+					<!-- assigned to -->
+
+					<div class="control-group">
+
+						<label for="assigned_to" class="control-label">Asignar a</label>
+
+						<div class="controls">
+
+							<select name="assigned_to" id="assigned_to">
+
+								<?php echo $this->presenter->form->admins(TRUE); ?>
+								<?php echo $this->presenter->form->support(FALSE); ?>
+
+							</select>
+
+						</div>
+						
+					</div>
+
+				<?php endif; ?>
 
 				<!-- title -->
 				<div class="control-group">
@@ -63,6 +86,21 @@
 
 				</div>
 				<!-- end content -->
+
+				<!-- file -->
+				<div class="control-group">
+
+					<label for="file" class="control-label">Enviar un Archivo</label>
+
+					<div class="controls">
+
+						<input type="file" name="file" id="file" /><span class="help-inline"><strong>Tamaño máximo:</strong> <?php echo ini_get('upload_max_filesize'); ?>B</span>
+						<p class="help-block">Si tiene que subir más de un archivo, comprimalo primero.</p>
+
+					</div>
+
+				</div>
+				<!-- end file -->
 
 				<div class="form-actions">
 

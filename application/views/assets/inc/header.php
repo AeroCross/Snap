@@ -19,6 +19,7 @@
 		<!-- scripts -->
 		<script src="<?php echo $this->resource->js('jq.js'); ?>"></script>
 		<script src="<?php echo $this->resource->js('bs.js'); ?>"></script>
+		<script src="<?php echo $this->resource->js('sort.js'); ?>"></script>
 		<script src="<?php echo $this->resource->js('app.js'); ?>"></script>
 
 	</head>

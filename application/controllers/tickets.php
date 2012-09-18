@@ -94,6 +94,8 @@ class Tickets extends EXT_Controller {
  	*/
 	public function view($ticket) {
 		$this->load->presenter('ticket');
+		$this->load->helper('icon');
+		$this->load->helper('extension');
 		
 		// if a message was sent, process it
 		if (!empty($this->post)) {
@@ -116,9 +118,11 @@ class Tickets extends EXT_Controller {
 
 		$this->data->messages	= new StdClass;
 		$this->data->reporter	= new StdClass;
+		$this->data->files		= new StdClass;
 
 		$this->data->reporter	= $this->saav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
 		$this->data->messages	= $this->saav_message->getMessages($ticket);
+		$this->data->files		= $this->presenter->ticket->files($ticket);
 	}
 
  	/**
@@ -165,10 +169,23 @@ class Tickets extends EXT_Controller {
 			'content'		=> $this->input->post('content'),
 		);
 		
-		$this->load->model('saav_ticket');
+		if ($this->input->post('assigned_to') != FALSE) {
+			$data['assigned_to'] = $this->input->post('assigned_to');
+		}
 
+		$this->load->model('saav_ticket');
+		
 		// add the new ticket and return the id
 		$id = $this->saav_ticket->addTicket($data);
+
+		// file sent, process
+		if (isset($_FILES['file']) AND !empty($_FILES['file'])) {
+			$file = $_FILES['file'];
+			$this->load->library('file');
+
+			// unused variable
+			$status = $this->file->upload('ticket', $id, $file);
+		}
 
 		if (!empty($id)) {
 			$this->session->set_flashdata('ticket', $id);
@@ -218,8 +235,18 @@ class Tickets extends EXT_Controller {
 			'status'		=> $this->input->post('status')
 		);
 
+		// file sent, process
+		if (isset($_FILES['file']) AND !empty($_FILES['file'])) {
+			$file = $_FILES['file'];
+			$this->load->library('file');
+
+			// unused variable
+			$status = $this->file->upload('ticket', $ticket_id, $file);
+		}
+
 		// notify the department when the ticket is updated
 		if ($this->saav_message->addMessage($ticket_id, $content)) {
+
 			foreach($updates as $key => $update) {
 				if (!empty($update)) {
 					$info[$key] = $update;

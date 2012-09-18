@@ -58,6 +58,18 @@ class EXT_Model extends CI_Model {
 	}
 
 	/**
+	* Selects in a field.
+	*
+	* @param	string	- the table fields
+	* @return	array	- the values to search
+	* @access	public
+	*/	
+	public function in($field, $values) {
+		$this->db->where_in($field, $values);
+		return $this;
+	}
+
+	/**
 	* Fetches query for further processing.
 	*
 	* @return	object	- the database object

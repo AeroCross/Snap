@@ -19,6 +19,13 @@ jQuery(document).ready(function() {
 			show: false
 		});
 	}
+
+	// sortable tables
+	jQuery('.sortable').tablesorter();
+	jQuery('.sortable thead tr th').each(function() {
+		var html = jQuery(this).html();
+		jQuery(this).html(html + ' <i class="icon-sort pull-right"></i>');
+	});
 	
 	// ---------------------------
 	// admin/views/all -----------

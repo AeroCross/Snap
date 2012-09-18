@@ -7,7 +7,7 @@
 
 		<div class="container">
 
-			<?php echo anchor('dashboard', icon('globe', 28), array('class' => 'brand')); ?>
+			<?php echo anchor('dashboard', '<img src="' . $this->resource->img('logo.png') . '" class="logo" alt="" />', array('class' => 'brand')); ?>
 
 			<ul class="nav">
 

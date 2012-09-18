@@ -30,5 +30,36 @@ function icon($name, $size = NULL, $attributes = array()) {
 	return '<i class="' . $class . '" ' . $attr . $size . '></i>';
 }
 
-/* End of file icon.php */
-/* Location: ./application/helpers/icon.php */
+/**
+* Returns the img of a file extension.
+*
+* @param	string	- the filename or the extension (with prepended .)
+* @param	int		- the size of the image
+* @return	string	- the path to the icon
+*/
+function extension($filename, $size = '32') {
+	$ext = explode('.', $filename);
+
+	if (count($ext) === 0) {
+		$ext = 'gen';
+	} else {
+		$ext = end($ext);
+	}
+
+	$icon	= 'extensions/' . $size . '/file_extension_' . $ext . '.png';
+	$path	= VIEWPATH . 'assets/img/' . $icon; 
+
+	if (file_exists($path)) {
+		return $icon;
+
+	// inefficient!
+	} else {
+		$ext	= 'gen';
+		$icon	= 'extensions/' . $size . '/file_extension_' . $ext . '.png';
+		$path	= VIEWPATH . 'assets/img/' . $icon; 
+		return $icon;
+	}
+}
+
+/* End of file icon_helper.php */
+/* Location: ./application/helpers/icon_helper.php */

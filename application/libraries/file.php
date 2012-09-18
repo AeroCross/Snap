@@ -65,9 +65,6 @@ class File {
 			fclose($handler);
 		}
 
-		// remove unwanted characters sure the file name is correct
-		$_FILES['file']['name'] = str_replace(array('(',')','$', '%28', '%29', '%'), '', $file['name']);
-
 		$this->app->upload->initialize($config);
 		$this->app->upload->do_upload('file');
 

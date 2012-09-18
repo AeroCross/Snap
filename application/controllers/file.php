@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class File extends EXT_Controller {
+
 	/**
 	* The class constructor.
 	*
@@ -10,6 +11,15 @@ class File extends EXT_Controller {
 		parent::__construct();
 		$this->view		= FALSE;
 		$this->layout	= FALSE;
+	}
+
+	/**
+	* Do nothing if the controller's accessed directly.
+	*
+	* @access	public
+	*/
+	public function index() {
+		redirect('dashboard');
 	}
 
 	/**

@@ -28,17 +28,32 @@ class File extends EXT_Controller {
 	* @param	string	- source of the file (ticket, personal, user, etc.)
 	* @param	int		- id of the source
 	* @param	int		- user id
-	* @param	string	- the filename
+	* @param	string	- the file inode
 	*/
-	public function get($type, $id, $user, $filename) {
+	public function get($type, $id, $user, $inode) {
 
 		// all parameters are required
-		if (empty($type) OR empty($id) OR empty($user) OR empty($filename)) {
+		if (empty($type) OR empty($id) OR empty($user) OR empty($inode)) {
 			redirect('dashboard');
 		}
 
-		$filename	= urldecode($filename);
-		$file		= FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/' . $filename;
+		// match inode
+		$dir	= FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/';
+		$files	= scandir($dir);
+
+		foreach($files as $file) {
+			$stat = stat($dir . $file);
+			if ($inode == $stat['ino']) {
+				$filename = $file;
+			}
+		}
+
+		// @TODO: better feedback
+		if (!isset($filename)) {
+			die('Archivo no existente');
+		}
+
+		$file = FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/' . $filename;
 
 		// @TODO: better feedback
 		if (!file_exists($file)) {
@@ -56,8 +71,8 @@ class File extends EXT_Controller {
 		header('Content-type: application/octet-stream');
 
 		// make sure anything's outputted to the browser
-		ob_clean();
-		flush();
+		@ob_clean();
+		@flush();
 
 		// download
 		readfile($file);

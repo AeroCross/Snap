@@ -34,3 +34,4 @@ $config['num_tag_close']	= '</li>';
 
 // other options
 $config['use_page_numbers']	= true;
+$config['per_page']			= 15; // @TODO: should be a database value

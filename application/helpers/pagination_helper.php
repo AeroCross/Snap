@@ -11,9 +11,9 @@ function calculateOffset($uri_segment) {
 	$app =& get_instance();
 
 	$pagination			= new StdClass;
-	$pagination->limit	= 8; // should be a database value
+	$pagination->limit	= 15; // @TODO: should be a database value
 	$value				= $app->uri->segment($uri_segment);
-	
+
 	if (empty($value)) {
 		$uri = 1;
 	} else {

@@ -97,7 +97,11 @@
 
 	<div class="span12">
 
+		<!-- table -->
 		<?php echo $tickets; ?>
+
+		<!-- pagination -->
+		<?php echo $this->pagination->create_links(); ?>
 
 	</div>
 

@@ -48,11 +48,13 @@ class Tickets extends EXT_Controller {
 	*
 	* @access	public
 	*/
-	public function all() {
+	public function all($page = 1) {
 		// load required code
 		$this->load->presenter('form');
 		$this->load->library('table');
+		$this->load->library('pagination');
 		$this->load->helper('parser');
+		$this->load->helper('pagination');
 		$this->load->model('saav_company');
 		$this->load->model('saav_department');
 
@@ -60,16 +62,27 @@ class Tickets extends EXT_Controller {
 		$search	= $this->input->post('search');
 		$value	= $this->input->post('value');
 
+		$pagination = array(
+			'base_url'			=> base_url('admin/tickets/all'),
+			'total_rows'		=> count($this->saav_ticket->data('id')->getAll()),
+			'uri_segment'		=> 4,
+		);
+
+		$this->pagination->initialize($pagination);
+
+		// calculate offset
+		$pagination = calculateOffset($pagination['uri_segment']);
+
 		if (!empty($search) AND !empty($value)) {
 			if ($search == 'company') {
 				$tickets	= $this->saav_ticket->getTicketsByCompany($value);
 			} else {
-				$tickets	= $this->saav_ticket->data()->$search($value)->by('date_created', 'desc')->getAll();
+				$tickets	= $this->saav_ticket->data()->$search($value)->limit($pagination->limit, $pagination->offset)->by('date_created', 'desc')->getAll();
 			}
 
 		// fetch table data normally
 		} else {
-			$tickets = $this->saav_ticket->data()->by('date_created', 'desc')->getAll();
+			$tickets = $this->saav_ticket->data()->limit($pagination->limit, $pagination->offset)->by('date_created', 'desc')->getAll();
 		}
 
 		// tickets found - generate table

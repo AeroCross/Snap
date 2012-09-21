@@ -15,12 +15,12 @@ $config['last_tag_open']	= '<li>';
 $config['last_tag_close']	= '</li>';
 
 // next link
-$config['next_link']		= '→';
+$config['next_link']		= 'Siguiente →';
 $config['next_tag_open']	= '<li>';
 $config['next_tag_close']	= '</li>';
 
 // previous link
-$config['prev_link']		= '←';
+$config['prev_link']		= '← Anterior';
 $config['prev_tag_open']	= '<li>';
 $config['prev_tag_close']	= '</li>';
 

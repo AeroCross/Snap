@@ -31,6 +31,11 @@ class Tickets extends EXT_Controller {
 		$this->post = $this->input->post();
 	}
 
+	/**
+	* Redirects to the add method since it's the default method.
+	*
+	* @access	public
+	*/
 	public function index() {
 		$this->add();
 	}

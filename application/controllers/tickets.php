@@ -261,37 +261,15 @@ class Tickets extends EXT_Controller {
 			// refresh the ticket data
 			$ticket = $this->saav_ticket->getTicket($ticket_id);
 			
-			// check who shall receive the emails
-			$this->load->model('saav_setting');
-			$this->load->model('saav_department');
-
-			// check if the department was changed, then notify it
-			if (isset($info['department'])) {
-				$members = $this->saav_department->getDepartmentMembers($info['department']);
-			} else {
-				$members = $this->saav_department->getDepartmentMembers($ticket->department);
-			}
-			
-			// load the email library
+			// initialize emails
 			$this->load->library('email');
 			$this->init->email();
 
-			if (!empty($members)) {
-				foreach($members as $member) {
-					$bcc[] = $member->email;
-				}
-
-				$this->email->bcc($bcc);
-			}
-
+			// get email settings			
+			$this->load->model('saav_setting');
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
 
-			// send the update to the person who made the ticket
-			if ($this->session->userdata('id') != $ticket->reported_by) {
-				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
-				$this->email->bcc($reporter->email);
-			}
-
+			// set email configuration
 			$this->email->from($smtp_user);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
 
@@ -305,9 +283,41 @@ class Tickets extends EXT_Controller {
 
 			$this->email->message($this->load->view('messages/tickets/update', $data, TRUE));
 
-			// if message was sent, notify
-			// @TODO: how can we know if the email was or wasn't sent?
+			// send the update to the person who made the ticket
+			if ($this->session->userdata('id') != $ticket->reported_by) {
+				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
+				$this->email->bcc($reporter->email);
+			}
+
+			// check if there's someone assigned - if there is, just notify him/her
+			if (!empty($ticket->assigned_to)) {
+				$assigned = $this->saav_user->data('firstname, lastname, email')->id($ticket->assigned_to)->get();
+				$this->email->bcc($assigned->email);
+			}
+			
+			$this->load->model('saav_department');
+
+			// check if the department was changed, then notify it
+			if (isset($info['department'])) {
+				$members = $this->saav_department->getDepartmentMembers($info['department']);
+
+			// if not, then check if there's someone assigned — if there is, no need to notify the whole group
+			} elseif (empty($ticket->assigned_to)) {
+				$members = $this->saav_department->getDepartmentMembers($ticket->department);
+			}
+			
+			// is the department members message allowed? set the recipents
+			if (!empty($members)) {
+				foreach($members as $member) {
+					$bcc[] = $member->email;
+				}
+
+				$this->email->bcc($bcc);
+			}
+
+			// send the notification email
 			@$this->email->send();
+			 $this->email->clear();
 
 			// if there was a new assignment, notify the person
 			if (isset($info['assigned_to'])) {
@@ -323,7 +333,8 @@ class Tickets extends EXT_Controller {
 					'assigner_name'		=> $this->session->userdata('name'),
 					'assigner_email'	=> $this->session->userdata('email'),
 					'ticket_id'			=> $ticket_id,
-					'ticket_subject'	=> $ticket->subject
+					'ticket_subject'	=> $ticket->subject,
+					'ticket_content'	=> $ticket->content
 				);
 
 				$this->email->message($this->load->view('messages/tickets/assigned', $data, TRUE));

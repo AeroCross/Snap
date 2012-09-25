@@ -71,6 +71,7 @@ class Saav_ticket extends EXT_Model {
 					'assigner_name'		=> $this->session->userdata('name'),
 					'ticket_id'			=> $id,
 					'ticket_subject'	=> $subject,
+					'ticket_content'	=> $content
 				);
 
 				$this->email->to($assigned->email);
@@ -82,6 +83,9 @@ class Saav_ticket extends EXT_Model {
 				unset($assigned);
 				@$this->email->send();
 				$this->email->clear();
+
+				// since we assigned someone, don't notify the whole department
+				return $id;
 			}
 
 			// no members related to that department, leave returning ticket id

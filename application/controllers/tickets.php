@@ -283,7 +283,8 @@ class Tickets extends EXT_Controller {
 				'updater_name'		=> $this->session->userdata('name'),
 				'updater_email'		=> $this->session->userdata('email'),
 				'ticket_id'			=> $ticket_id,
-				'ticket_subject'	=> $ticket->subject
+				'ticket_subject'	=> $ticket->subject,
+				'message_content'	=> $content
 			);
 
 			$this->email->message($this->load->view('messages/tickets/update', $data, TRUE));

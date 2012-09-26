@@ -33,7 +33,17 @@ class Settings extends EXT_Controller {
  	* @access	public
  	*/
 	public function index() {
+		$this->load->model('saav_setting');
 
+		$settings = array(
+			'smtp_host',
+			'smtp_port',
+			'smtp_user',
+			'smtp_pass',
+			'smtp_crypto'
+		);
+
+		$this->data->settings = $this->saav_setting->getSettings($settings);
 	}
 }
 

@@ -35,7 +35,7 @@
 
 		<div class="controls">
 
-			<input type="text" name="smtp_host" id="smtp_host" value="" />
+			<input type="text" name="smtp_host" id="smtp_host" value="<?php echo $settings->smtp_host; ?>" />
 			<p class="help-block">El servidor de correo electrónico que se utilizará para enviar mensajes del sistema</p>
 
 		</div>
@@ -49,7 +49,7 @@
 
 		<div class="controls">
 
-			<input type="text" name="smtp_port" id="smtp_port" value="" /><span class="help-inline"><strong>Defecto:</strong> 587</span>
+			<input type="text" name="smtp_port" id="smtp_port" value="<?php echo $settings->smtp_port; ?>" /><span class="help-inline"><strong>Defecto:</strong> 587</span>
 			<p class="help-block">El puerto saliente habilitado para enviar correos electrónicos.</p>
 
 		</div>
@@ -63,7 +63,7 @@
 
 		<div class="controls">
 
-			<input type="text" name="smtp_user" id="smtp_user" value="" />
+			<input type="text" name="smtp_user" id="smtp_user" value="<?php echo $settings->smtp_user; ?>" />
 			<p class="help-block">El usuario del servidor SMTP para enviar correos. Usualmente es una dirección de correo electrónico.</p>
 
 		</div>
@@ -77,7 +77,7 @@
 
 		<div class="controls">
 
-			<input type="password" name="smtp_pass" id="smtp_pass" value="" />
+			<input type="password" name="smtp_pass" id="smtp_pass" value="<?php echo $settings->smtp_pass; ?>" />
 			<p class="help-block">La contraseña del usuario SMTP.</p>
 
 		</div>

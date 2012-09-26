@@ -19,6 +19,12 @@ class Upgrade extends EXT_Controller {
 
 		// set the title
 		$this->data->title = 'Actualización de la Base de Datos';
+
+		// verify that only admins enter this area
+		$this->load->model('saav_user');
+		if (!$this->saav_user->permission('admin')) {
+			redirect('dashboard');
+		}
 	}
 
 	/**

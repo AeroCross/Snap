@@ -42,6 +42,7 @@
 								<li class="divider"></li>
 								<li class="nav-header">Configuración</li>
 								<li><?php echo anchor('settings', 'Opciones del Sistema'); ?></li>
+								<li><?php echo anchor('upgrade', 'Actualizar Base de Datos'); ?></li>
 
 							<?php endif; ?>
 

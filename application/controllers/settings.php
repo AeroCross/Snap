@@ -40,7 +40,10 @@ class Settings extends EXT_Controller {
 			'smtp_port',
 			'smtp_user',
 			'smtp_pass',
-			'smtp_crypto'
+			'smtp_name',
+			'smtp_crypto',
+			'smtp_enabled',
+			'per_page'
 		);
 
 		$this->data->settings = $this->saav_setting->getSettings($settings);

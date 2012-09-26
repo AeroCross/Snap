@@ -13,7 +13,7 @@
 
 		<div class="controls">
 
-			<input type="text" name="per_page" id="per_page" value="" /><span class="help-inline"><strong>Defecto:</strong> 50</span>
+			<input type="text" name="per_page" id="per_page" value="<?php echo $settings->per_page; ?>" /><span class="help-inline"><strong>Defecto:</strong> 50</span>
 			<p class="help-block">Número de resultados que tendrá cada listado y búsqueda por página.</p>
 
 		</div>
@@ -82,6 +82,20 @@
 
 	</div>
 
+	<!-- smtp name -->
+	<div class="control-group">
+
+		<label for="smtp_name" class="control-label">Nombre del Usuario SMTP</label>
+
+		<div class="controls">
+
+			<input type="text" name="smtp_name" id="smtp_name" value="<?php echo $settings->smtp_name; ?>" />
+			<p class="help-block">Este nombre aparecerá en los correos electrónicos enviados por el sistema.</p>
+
+		</div>
+
+	</div>
+
 	<!-- smtp crypto -->
 	<div class="control-group">
 
@@ -91,19 +105,19 @@
 
 			<label class="radio">
 
-				<input type="radio" name="smtp_crypto" id="smtp_crypto_off" value="off" /> Sin encriptación &mdash; <strong>Defecto:</strong> Sin encriptación
+				<input type="radio" name="smtp_crypto" id="smtp_crypto_off" value="off" <?php echo ($settings->smtp_crypto === 'off') ? 'checked' : NULL; ?> /> Sin encriptación &mdash; <strong>Defecto:</strong> Sin encriptación
 
 			</label>
 
 			<label class="radio">
 
-				<input type="radio" name="smtp_crypto" id="smtp_crypto_tls" value="tls" /> TLS
+				<input type="radio" name="smtp_crypto" id="smtp_crypto_tls" value="tls" <?php echo ($settings->smtp_crypto === 'tls') ? 'checked' : NULL; ?> /> TLS
 
 			</label>
 
 			<label class="radio">
 
-				<input type="radio" name="smtp_crypto" id="smtp_crypto_ssl" value="ssl" /> SSL
+				<input type="radio" name="smtp_crypto" id="smtp_crypto_ssl" value="ssl" <?php echo ($settings->smtp_crypto === 'ssl') ? 'checked' : NULL; ?> /> SSL
 
 			</label>
 
@@ -116,19 +130,19 @@
 	<!-- send emails -->
 	<div class="control-group">
 
-		<label for="send_mails" class="control-label">Envío de Correos</label>
+		<label for="smtp_enabled_on" class="control-label">Envío de Correos</label>
 
 		<div class="controls">
 
 			<label class="radio">
 
-				<input type="radio" name="send_mails" id="send_mails" value="on" /> Activado &mdash; <strong>Defecto:</strong> Activado
+				<input type="radio" name="smtp_enabled" id="smtp_enabled_on" value="1" <?php echo ($settings->smtp_enabled == 1) ? 'checked' : NULL; ?> /> Activado &mdash; <strong>Defecto:</strong> Activado
 
 			</label>
 
 			<label class="radio">
 
-				<input type="radio" name="send_mails" id="send_mails" value="off" /> Desactivado
+				<input type="radio" name="smtp_enabled" id="smtp_enabled_off" value="0" <?php echo ($settings->smtp_enabled == 0) ? 'checked' : NULL; ?> /> Desactivado
 
 			</label>
 

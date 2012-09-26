@@ -2,7 +2,6 @@
 
 	<div class="page-header">
 
-		<a name="#general"></a>
 		<h4>Opciones Generales</h4>
 
 	</div>
@@ -23,7 +22,6 @@
 
 	<div class="page-header">
 
-		<a name="#email"></a>
 		<h4>Correo Electrónico</h4>
 
 	</div>

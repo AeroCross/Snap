@@ -41,7 +41,7 @@
 							
 								<li class="divider"></li>
 								<li class="nav-header">Configuración</li>
-								<li><?php echo anchor('#', 'Opciones Generales'); ?></li>
+								<li><?php echo anchor('settings', 'Opciones del Sistema'); ?></li>
 
 							<?php endif; ?>
 

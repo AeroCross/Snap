@@ -1,3 +1,6 @@
+<!-- notification -->
+<?php echo $this->presenter->notification->show(); ?>
+
 <?php echo form_open('settings', array('class' => 'form-horizontal')); ?>
 
 	<div class="page-header">

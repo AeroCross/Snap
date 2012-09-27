@@ -14,12 +14,15 @@
 		<link rel="stylesheet" href="<?php echo $this->resource->css('bs-r.css'); ?>" />
 		<link rel="stylesheet" href="<?php echo $this->resource->css('fa.css'); ?>" />
 		<link rel="stylesheet" href="<?php echo $this->resource->css('fa-ie.css'); ?>" />
+		<link rel="stylesheet" href="<?php echo $this->resource->css('n.css'); ?>" />
+		<link rel="stylesheet" href="<?php echo $this->resource->css('n-r.css'); ?>" />
 		<link rel="stylesheet" href="<?php echo $this->resource->css('app.css'); ?>" />
 
 		<!-- scripts -->
 		<script src="<?php echo $this->resource->js('jq.js'); ?>"></script>
 		<script src="<?php echo $this->resource->js('bs.js'); ?>"></script>
 		<script src="<?php echo $this->resource->js('sort.js'); ?>"></script>
+		<script src="<?php echo $this->resource->js('n.js'); ?>"></script>
 		<script src="<?php echo $this->resource->js('app.js'); ?>"></script>
 
 	</head>

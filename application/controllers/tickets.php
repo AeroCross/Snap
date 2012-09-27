@@ -29,6 +29,9 @@ class Tickets extends EXT_Controller {
 
 		// store the post array
 		$this->post = $this->input->post();
+
+		// checks for post_max_size excess
+		$this->_checkPost();
 	}
 
 	/**
@@ -257,8 +260,11 @@ class Tickets extends EXT_Controller {
 			$file = $_FILES['file'];
 			$this->load->library('file');
 
-			// unused variable
 			$status = $this->file->upload('ticket', $ticket_id, $file);
+
+			if (isset($status['message'])) {
+				return $status;
+			}
 		}
 
 		// notify the department when the ticket is updated
@@ -374,6 +380,31 @@ class Tickets extends EXT_Controller {
 				'message'	=> 'Error al enviar su mensaje. Contacte a soporte técnico e intente más tarde.',
 				'type'		=> 'error'
 			);
+		}
+	}
+
+	/**
+	* Notifies if post_max_size was exceeded.
+	*
+	* @access	public
+	*/
+	public function _checkPost() {
+		// load necessary code
+		$this->load->library('file');
+
+		// check if there was a post_max_size call
+		if ($this->file->excess()) {
+			$message = array(
+				'status'	=> 'post_exceeded',
+				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>' . ini_get('upload_max_filesize') . 'B</strong>.',
+				'type'		=> 'warning'
+			);
+
+			// notify
+			$this->presenter->notification->create($message);
+
+			// garbage collection
+			unset($message);
 		}
 	}
 }

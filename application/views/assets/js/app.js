@@ -30,6 +30,27 @@ jQuery(document).ready(function() {
 	// ---------------------------
 	// admin/views/all -----------
 	// ---------------------------
+	if (jQuery('body').attr('data-uri') == 'login') {
+
+		var center = function centerVertically() {
+			var form	= jQuery('.login-form');
+			var height	= jQuery(window).outerHeight();
+	
+			form.css({position: 'absolute', top: (height / 2) + 'px', marginTop: '-' + (form.outerHeight() / 2) + 'px'});
+		};
+
+		// set vertically on page load
+		center();
+
+		// vertical centering of login form
+		jQuery(window).on('resize', function() {
+			center();
+		});
+	}
+
+	// ---------------------------
+	// admin/views/all -----------
+	// ---------------------------
 	if (jQuery('body').attr('data-uri') == 'admin/tickets/all') {
 		// show correct inputs when selecting what type of search
 		search = jQuery('#search');

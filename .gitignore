@@ -1,0 +1,8 @@
+# ignore server generated files
+cgi-bin/
+
+# ignore OS X generated files
+files/
+
+# ignore logs
+application/logs/

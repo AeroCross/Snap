@@ -9,6 +9,7 @@ class File extends EXT_Controller {
 	*/
 	public function __construct() {
 		parent::__construct();
+
 		$this->view		= FALSE;
 		$this->layout	= FALSE;
 	}
@@ -31,10 +32,27 @@ class File extends EXT_Controller {
 	* @param	string	- the file inode
 	*/
 	public function get($type, $id, $user, $inode) {
-
 		// all parameters are required
 		if (empty($type) OR empty($id) OR empty($user) OR empty($inode)) {
 			redirect('dashboard');
+		}
+
+		$this->load->model('saav_user');
+		$this->load->model('saav_ticket');
+
+		// check if the user accessing the file is admin, support, or the user
+		// that reported the issue
+		if ($type === 'tickets') {
+			// get ticket data
+			$ticket = $this->saav_ticket->getTicket($id);
+
+			if (!$this->saav_user->permission('support')) {
+				// no admin / support? check if it owns the ticket
+				if ($ticket->reported_by != $this->session->userdata('id')) {
+					// it doesn't - exit
+					redirect('dashboard');
+				}	
+			}
 		}
 
 		// match inode
@@ -48,17 +66,13 @@ class File extends EXT_Controller {
 			}
 		}
 
-		// @TODO: better feedback
+		// file does not exist
 		if (!isset($filename)) {
-			die('Archivo no existente');
+			$this->session->set_flashdata('message', 'El archivo que ha solicitado no existe.');
+			redirect('error');
 		}
 
 		$file = FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/' . $filename;
-
-		// @TODO: better feedback
-		if (!file_exists($file)) {
-			die('Archivo no encontrado o con caracteres no autorizados.');
-		}
 
 		// get mime-type for headers (if needed)
 		$handler	= finfo_open(FILEINFO_MIME_TYPE);

@@ -92,6 +92,11 @@ class Init {
 		);
 		
 		$settings = $this->app->saav_setting->getSettings($settings);
+
+		// correct the crypto setting
+		if ($settings->smtp_crypto === 'off') {
+			$settings->smtp_crypto = NULL;
+		}
 		
 		$email = array(
 			'smtp_host'		=> $settings->smtp_host,

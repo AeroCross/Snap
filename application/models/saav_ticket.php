@@ -163,16 +163,15 @@ class Saav_ticket extends EXT_Model {
 	* Gets tickets for a company.
 	*
 	* @param	int		- the company id
-	* @return	object	- the ticket data 
+	* @return	object	- the database object 
 	*/
 	public function getTicketsByCompany($company_id) {
 		$this->db->select($this->_table . '.*')
-		->from($this->_table)
 		->join('company_users', 'company_users.user_id = ' . $this->_table . '.reported_by')
 		->where('company_users.company_id', $company_id)
 		->order_by($this->_table . '.date_created', 'desc');
 
-		return $this->db->get()->result();
+		return $this;
 	}
 
 	/**

@@ -60,9 +60,21 @@ class Tickets extends EXT_Controller {
  	*
  	* @access	public
  	*/
-	public function all() {
+	public function all($page = 1) {
+		$this->load->library('pagination');
+		$this->load->helper('pagination');
+		
+		$pagination = array(
+			'base_url'			=> base_url('tickets/all'),
+			'total_rows'		=> count($this->saav_ticket->data('id')->reported_by($this->session->userdata('id'))->getAll()),
+			'uri_segment'		=> 3,
+		);
+
+		$this->pagination->initialize($pagination);
+		$pagination = calculateOffset($pagination['uri_segment']);
+
 		// fetch all the tickets from this user
-		$tickets = $this->saav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->getAll();
+		$tickets = $this->saav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->limit($pagination->limit, $pagination->offset)->getAll();
 
 		if (count($tickets) !== 0) {
 			// load the neccessary code

@@ -86,7 +86,7 @@
 		</select>
 		<!-- end users -->
 
-		<input type="text" name="value" id="value" class="span2" autofocus="autofocus" /><span class="help-inline"><button class="btn" class="submit"><?php echo icon('search'); ?> Buscar</button></span>
+		<input type="text" name="value" id="value" class="span2" autofocus="autofocus" /><span class="help-inline btn-group"><button class="btn" class="submit"><?php echo icon('search'); ?> Buscar</button><button class="btn" id="clear"><?php echo icon('list'); ?> Mostrar Todos</button></span>
 	
 	</div>
 <?php echo form_close(); ?>
@@ -97,7 +97,14 @@
 
 	<div class="span12">
 
+		<!-- pagination links -->
+		<?php echo $this->pagination->create_links(); ?>
+
+		<!-- tickets table -->
 		<?php echo $tickets; ?>
+
+		<!-- pagination links -->
+		<?php echo $this->pagination->create_links(); ?>
 
 	</div>
 

@@ -92,9 +92,7 @@ class TicketPresenter {
 
 		$this->app->load->library('table');
 		
-		$config = array(
-			'table_open'	=> '<table class="table table-striped table-bordered table-hover sortable">'
-		);
+		$config = array('table_open'	=> '<table class="table table-striped table-bordered table-hover sortable">');
 		$this->app->table->set_template($config);
 		unset($config);
 
@@ -123,7 +121,7 @@ class TicketPresenter {
 			$this->app->table->add_row(
 				anchor('file/get/tickets/' . $ticket_id . '/' . $result[0] . '/' . $stat['ino'], img($this->app->resource->img(extension($ext))), array('class' => 'file-extension')) . ' ' . anchor('file/get/tickets/' . $ticket_id . '/' . $result[0] . '/' . $stat['ino'], $file),
 				extension_name($ext),
-				safe_mailto($user->email, $user->firstname . ' ' . $user->lastname),
+				($this->app->saav_user->permission('support')) ? safe_mailto($user->email, $user->firstname . ' ' . $user->lastname) : $user->firstname . ' ' . $user->lastname,
 				number_format((int) $stat['size'] / 1024  / 1024, 2) . ' MB',
 				date('Y-m-d H:i:s', $stat['mtime'])
 			);

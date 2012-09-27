@@ -18,6 +18,37 @@ class File {
 	*/
 	public function __construct() {
 		$this->app =& get_instance();
+
+		// allowed file types
+		$this->allowed = array(
+			// images
+			'bmp',
+			'gif',
+			'jpg',
+			'jpeg',
+			'png',
+			// adobe
+			'psd', 
+			'ai',
+			'swf',
+			'fla',
+			// office documents
+			'doc', 
+			'docx', 
+			'ppt', 
+			'pptx', 
+			'xls', 
+			'xlsx', 
+			// text files
+			'txt', 
+			'csv', 
+			// compressed files
+			'zip', 
+			'tar.gz', 
+			'tar', 
+			'tar.bz', 
+			'rar'
+		);
 	}
 
 	/**
@@ -45,9 +76,23 @@ class File {
 	*/
 	public function _isTicket($id, $file) {
 		$this->app->load->library('upload');
+
+		// get file extension to check if permitted
+		$ext = substr($this->app->upload->get_extension($file['name']), 1);
+
+		// not allowed, notify
+		if (!in_array($ext, $this->allowed)) {
+			return array(
+				'status'	=> 'ext_not_allowed',
+				'message'	=> 'El tipo de archivo <strong>.' . $ext . '</strong> no está permitido guardarlo en el sistema.',
+				'type'		=> 'warning'
+			);
+		}
+
+		// configure
 		$config = array(
 			'upload_path'	=> './files/tickets/' . $id . '/' . $this->app->session->userdata('id') . '/',
-			'allowed_types'	=> 'bmp|gif|jpg|jpeg|png|psd|doc|docx|txt|zip|tar.gz|tar|tar.bz|rar|ppt|pptx|xls|xlsx|csv|ai',
+			'allowed_types'	=> implode('|', $this->allowed),
 			'remove_spaces'	=> FALSE
 		);
 

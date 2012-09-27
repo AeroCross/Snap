@@ -256,9 +256,12 @@ class Tickets extends EXT_Controller {
 		if (isset($_FILES['file']) AND !empty($_FILES['file'])) {
 			$file = $_FILES['file'];
 			$this->load->library('file');
-
-			// unused variable
+			
 			$status = $this->file->upload('ticket', $ticket_id, $file);
+
+			if (isset($status['message'])) {
+				return $status;
+			}
 		}
 
 		// notify the department when the ticket is updated

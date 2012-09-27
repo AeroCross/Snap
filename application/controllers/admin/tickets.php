@@ -61,29 +61,50 @@ class Tickets extends EXT_Controller {
 		// try to search
 		$search	= $this->input->post('search');
 		$value	= $this->input->post('value');
+		
+		// no post search, try session search
+		if (empty($value) OR empty($search)) {
+			$search	= $this->session->userdata('search');
+			$value	= $this->session->userdata('value');
+		}
+		
+		$clear = $this->input->post('clear');
+		
+		// empty search results, if set
+		if (!empty($clear)) {
+			$search	= NULL;
+			$value	= NULL;
+		}
 
-		$pagination = array(
+		$config = array(
 			'base_url'			=> base_url('admin/tickets/all'),
-			'total_rows'		=> count($this->saav_ticket->data('id')->getAll()),
 			'uri_segment'		=> 4,
 		);
 
-		$this->pagination->initialize($pagination);
-
 		// calculate offset
-		$pagination = calculateOffset($pagination['uri_segment']);
+		$pagination = calculateOffset($config['uri_segment']);
 
+		// if there's a post or session search, fetch results accordingly
 		if (!empty($search) AND !empty($value)) {
 			if ($search == 'company') {
-				$tickets	= $this->saav_ticket->getTicketsByCompany($value);
+				$config['total_rows']	= count($this->saav_ticket->getTicketsByCompany($value)->getAll());
+				$tickets				= $this->saav_ticket->getTicketsByCompany($value)->limit($pagination->limit, $pagination->offset)->getAll();
 			} else {
-				$tickets	= $this->saav_ticket->data()->$search($value)->limit($pagination->limit, $pagination->offset)->by('date_created', 'desc')->getAll();
+				$config['total_rows']	= count($this->saav_ticket->data('id')->$search($value)->getAll());
+				$tickets				= $this->saav_ticket->data()->$search($value)->limit($pagination->limit, $pagination->offset)->by('date_created', 'desc')->getAll();
 			}
 
 		// fetch table data normally
 		} else {
-			$tickets = $this->saav_ticket->data()->limit($pagination->limit, $pagination->offset)->by('date_created', 'desc')->getAll();
+			$config['total_rows']	= count($this->saav_ticket->data('id')->getAll());
+			$tickets				= $this->saav_ticket->data()->limit($pagination->limit, $pagination->offset)->by('date_created', 'desc')->getAll();
 		}
+
+		$this->pagination->initialize($config);
+
+		// save search (if any)
+		$this->session->set_userdata('search', $search);
+		$this->session->set_userdata('value', $value);
 
 		// tickets found - generate table
 		if (count($tickets) > 0) {

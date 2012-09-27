@@ -1,4 +1,13 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+* Pagination configuration file
+*
+* Handles default options for pagination (used by the Pagination Class)
+*
+*/
+
+// get the global object
+$app =& get_instance();
 
 // markup
 $config['full_tag_open']	= '<div class="pagination"><ul>';
@@ -34,4 +43,4 @@ $config['num_tag_close']	= '</li>';
 
 // other options
 $config['use_page_numbers']	= true;
-$config['per_page']			= 15; // @TODO: should be a database value
+$config['per_page']			= $app->saav_setting->getSetting('per_page');

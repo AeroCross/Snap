@@ -11,7 +11,7 @@ function calculateOffset($uri_segment) {
 	$app =& get_instance();
 
 	$pagination			= new StdClass;
-	$pagination->limit	= 15; // @TODO: should be a database value
+	$pagination->limit	= $app->saav_setting->getSetting('per_page');
 	$value				= $app->uri->segment($uri_segment);
 
 	if (empty($value)) {

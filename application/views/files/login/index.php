@@ -1,4 +1,4 @@
-<div class="span6 offset3">
+<div class="span6 offset3 login-form">
 
 	<?php echo form_open('login', array('class' => 'form-horizontal')); ?>
 

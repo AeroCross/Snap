@@ -58,6 +58,18 @@ class Saav_setting extends EXT_Model {
 
 		return $settings;
 	}
+
+	/**
+	* Updates set settings.
+	*
+	* @param	array	- the settings to save
+	* @return	bool	- true on success, false otherwise
+	* @access	public
+	*/
+	public function updateSetting($name, $value) {
+		$this->db->set('value', $value)->where('name', $name);
+		return $this->db->update($this->_table);
+	}
 }
 
 /* End of file saav_settings.php */

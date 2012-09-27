@@ -7,8 +7,14 @@
 <div class="row">
 
 	<div class="span12">
-		
+		<!-- pagination links -->
+		<?php echo $this->pagination->create_links(); ?>
+
+		<!-- tickets table -->
 		<?php echo $tickets; ?>
+
+		<!-- pagination links -->
+		<?php echo $this->pagination->create_links(); ?>
 
 	</div>
 

@@ -1,6 +1,6 @@
 <?php $this->load->view('assets/inc/header'); ?>
 
-<div class="container login-form">
+<div class="container">
 
 	<?php echo $content; ?>
 

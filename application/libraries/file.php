@@ -18,6 +18,37 @@ class File {
 	*/
 	public function __construct() {
 		$this->app =& get_instance();
+
+		// allowed file types
+		$this->allowed = array(
+			// images
+			'bmp',
+			'gif',
+			'jpg',
+			'jpeg',
+			'png',
+			// adobe
+			'psd', 
+			'ai',
+			'swf',
+			'fla',
+			// office documents
+			'doc', 
+			'docx', 
+			'ppt', 
+			'pptx', 
+			'xls', 
+			'xlsx', 
+			// text files
+			'txt', 
+			'csv', 
+			// compressed files
+			'zip', 
+			'tar.gz', 
+			'tar', 
+			'tar.bz', 
+			'rar'
+		);
 	}
 
 	/**
@@ -45,9 +76,32 @@ class File {
 	*/
 	public function _isTicket($id, $file) {
 		$this->app->load->library('upload');
+
+		// get file extension to check if permitted
+		$ext = substr($this->app->upload->get_extension($file['name']), 1);
+
+		// not allowed, notify
+		if (!in_array($ext, $this->allowed)) {
+			return array(
+				'status'	=> 'ext_not_allowed',
+				'message'	=> 'El tipo de archivo <strong>.' . $ext . '</strong> no está permitido guardarlo en el sistema.',
+				'type'		=> 'warning'
+			);
+		}
+
+		// file size exceeded
+		if ($file['size'] === 0 AND $file['error'] === 1) {
+			return array(
+				'status'	=> 'max_filesize_exceeded',
+				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>' . ini_get('upload_max_filesize') . 'B</strong>.',
+				'type'		=> 'warning'
+			);
+		}
+
+		// configure
 		$config = array(
 			'upload_path'	=> './files/tickets/' . $id . '/' . $this->app->session->userdata('id') . '/',
-			'allowed_types'	=> 'bmp|gif|jpg|jpeg|png|psd|doc|docx|txt|zip|tar.gz|tar|tar.bz|rar|ppt|pptx|xls|xlsx|csv|ai',
+			'allowed_types'	=> implode('|', $this->allowed),
 			'remove_spaces'	=> FALSE
 		);
 
@@ -68,10 +122,26 @@ class File {
 		$this->app->upload->initialize($config);
 		$this->app->upload->do_upload('file');
 
+		// all good
 		return array(
 			'data'		=> $this->app->upload->data(),
-			'errors'	=> $this->app->upload->display_errors('<li>', '</li>')
 		);
+	}
+
+	/**
+	* Checks if a file was sent and if exceedes the post_max_size directive.
+	*
+	* @return	bool	- true if theere was a sent file exceeding the limit, false otherwise
+	* @access	public
+	*/
+	public function excess() {
+		// there was something sent, check if post size was exceeded
+		if (isset($_SERVER['CONTENT_LENGTH'])) {
+			if ((int) $_SERVER['CONTENT_LENGTH'] > ini_get('post_max_size')) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 

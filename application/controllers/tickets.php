@@ -29,8 +29,16 @@ class Tickets extends EXT_Controller {
 
 		// store the post array
 		$this->post = $this->input->post();
+
+		// checks for post_max_size excess
+		$this->_checkPost();
 	}
 
+	/**
+	* Redirects to the add method since it's the default method.
+	*
+	* @access	public
+	*/
 	public function index() {
 		$this->add();
 	}
@@ -55,9 +63,21 @@ class Tickets extends EXT_Controller {
  	*
  	* @access	public
  	*/
-	public function all() {
+	public function all($page = 1) {
+		$this->load->library('pagination');
+		$this->load->helper('pagination');
+		
+		$pagination = array(
+			'base_url'			=> base_url('tickets/all'),
+			'total_rows'		=> count($this->saav_ticket->data('id')->reported_by($this->session->userdata('id'))->getAll()),
+			'uri_segment'		=> 3,
+		);
+
+		$this->pagination->initialize($pagination);
+		$pagination = calculateOffset($pagination['uri_segment']);
+
 		// fetch all the tickets from this user
-		$tickets = $this->saav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->getAll();
+		$tickets = $this->saav_ticket->data()->reported_by($this->session->userdata('id'))->by('date_created', 'desc')->limit($pagination->limit, $pagination->offset)->getAll();
 
 		if (count($tickets) !== 0) {
 			// load the neccessary code
@@ -240,8 +260,11 @@ class Tickets extends EXT_Controller {
 			$file = $_FILES['file'];
 			$this->load->library('file');
 
-			// unused variable
 			$status = $this->file->upload('ticket', $ticket_id, $file);
+
+			if (isset($status['message'])) {
+				return $status;
+			}
 		}
 
 		// notify the department when the ticket is updated
@@ -261,37 +284,15 @@ class Tickets extends EXT_Controller {
 			// refresh the ticket data
 			$ticket = $this->saav_ticket->getTicket($ticket_id);
 			
-			// check who shall receive the emails
-			$this->load->model('saav_setting');
-			$this->load->model('saav_department');
-
-			// check if the department was changed, then notify it
-			if (isset($info['department'])) {
-				$members = $this->saav_department->getDepartmentMembers($info['department']);
-			} else {
-				$members = $this->saav_department->getDepartmentMembers($ticket->department);
-			}
-			
-			// load the email library
+			// initialize emails
 			$this->load->library('email');
 			$this->init->email();
 
-			if (!empty($members)) {
-				foreach($members as $member) {
-					$bcc[] = $member->email;
-				}
-
-				$this->email->bcc($bcc);
-			}
-
+			// get email settings			
+			$this->load->model('saav_setting');
 			$smtp_user = $this->saav_setting->getSetting('smtp_user');
 
-			// send the update to the person who made the ticket
-			if ($this->session->userdata('id') != $ticket->reported_by) {
-				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
-				$this->email->bcc($reporter->email);
-			}
-
+			// set email configuration
 			$this->email->from($smtp_user);
 			$this->email->subject('Ticket #' . $ticket_id . ': Actualización');
 
@@ -300,14 +301,47 @@ class Tickets extends EXT_Controller {
 				'updater_name'		=> $this->session->userdata('name'),
 				'updater_email'		=> $this->session->userdata('email'),
 				'ticket_id'			=> $ticket_id,
-				'ticket_subject'	=> $ticket->subject
+				'ticket_subject'	=> $ticket->subject,
+				'message_content'	=> $content
 			);
 
 			$this->email->message($this->load->view('messages/tickets/update', $data, TRUE));
 
-			// if message was sent, notify
-			// @TODO: how can we know if the email was or wasn't sent?
+			// send the update to the person who made the ticket
+			if ($this->session->userdata('id') != $ticket->reported_by) {
+				$reporter = $this->saav_user->data('firstname, lastname, email')->id($ticket->reported_by)->get();
+				$this->email->bcc($reporter->email);
+			}
+
+			// check if there's someone assigned - if there is, just notify him/her
+			if (!empty($ticket->assigned_to)) {
+				$assigned = $this->saav_user->data('firstname, lastname, email')->id($ticket->assigned_to)->get();
+				$this->email->bcc($assigned->email);
+			}
+			
+			$this->load->model('saav_department');
+
+			// check if the department was changed, then notify it
+			if (isset($info['department'])) {
+				$members = $this->saav_department->getDepartmentMembers($info['department']);
+
+			// if not, then check if there's someone assigned — if there is, no need to notify the whole group
+			} elseif (empty($ticket->assigned_to)) {
+				$members = $this->saav_department->getDepartmentMembers($ticket->department);
+			}
+			
+			// is the department members message allowed? set the recipents
+			if (!empty($members)) {
+				foreach($members as $member) {
+					$bcc[] = $member->email;
+				}
+
+				$this->email->bcc($bcc);
+			}
+
+			// send the notification email
 			@$this->email->send();
+			 $this->email->clear();
 
 			// if there was a new assignment, notify the person
 			if (isset($info['assigned_to'])) {
@@ -323,7 +357,8 @@ class Tickets extends EXT_Controller {
 					'assigner_name'		=> $this->session->userdata('name'),
 					'assigner_email'	=> $this->session->userdata('email'),
 					'ticket_id'			=> $ticket_id,
-					'ticket_subject'	=> $ticket->subject
+					'ticket_subject'	=> $ticket->subject,
+					'ticket_content'	=> $ticket->content
 				);
 
 				$this->email->message($this->load->view('messages/tickets/assigned', $data, TRUE));
@@ -345,6 +380,31 @@ class Tickets extends EXT_Controller {
 				'message'	=> 'Error al enviar su mensaje. Contacte a soporte técnico e intente más tarde.',
 				'type'		=> 'error'
 			);
+		}
+	}
+
+	/**
+	* Notifies if post_max_size was exceeded.
+	*
+	* @access	public
+	*/
+	public function _checkPost() {
+		// load necessary code
+		$this->load->library('file');
+
+		// check if there was a post_max_size call
+		if ($this->file->excess()) {
+			$message = array(
+				'status'	=> 'post_exceeded',
+				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>' . ini_get('upload_max_filesize') . 'B</strong>.',
+				'type'		=> 'warning'
+			);
+
+			// notify
+			$this->presenter->notification->create($message);
+
+			// garbage collection
+			unset($message);
 		}
 	}
 }

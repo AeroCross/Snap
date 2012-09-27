@@ -89,6 +89,6 @@
 
 		<p>¿Utiliza el sistema pero necesita alguna característica adicional? ¿Tiene una idea que puede mejorar el sistema y su experiencia en él?</p>
 
-		<p>Escríbanos detallando sus idead y sus necesidades y nos encargaremos de evaluar e implementar las mejoras en el sistema.</p>
+		<p>Escríbanos detallando sus ideas y sus necesidades y nos encargaremos de evaluar e implementar las mejoras en el sistema.</p>
 
 </div>

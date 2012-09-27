@@ -48,15 +48,27 @@ class Saav_setting extends EXT_Model {
 		$this->db->select('name, value')
 		->where_in('name', $data);
 
-		$sql = $this->db->get($this->_table)->result();
-		$settings = new StdClass;
+		$sql		= $this->db->get($this->_table)->result();
+		$settings	= new StdClass;
 
 		foreach($sql as $s) {
-			$name = $s->name;
-			$settings->$name = $s->value;
+			$name				= $s->name;
+			$settings->$name	= $s->value;
 		}
 
 		return $settings;
+	}
+
+	/**
+	* Updates set settings.
+	*
+	* @param	array	- the settings to save
+	* @return	bool	- true on success, false otherwise
+	* @access	public
+	*/
+	public function updateSetting($name, $value) {
+		$this->db->set('value', $value)->where('name', $name);
+		return $this->db->update($this->_table);
 	}
 }
 

@@ -31,6 +31,7 @@ jQuery(document).ready(function() {
 	// admin/views/all -----------
 	// ---------------------------
 	if (jQuery('body').attr('data-uri') == 'admin/tickets/all') {
+		// show correct inputs when selecting what type of search
 		search = jQuery('#search');
 		search.on('change', function() {
 			
@@ -51,6 +52,11 @@ jQuery(document).ready(function() {
 			}
 
 			jQuery('#' + value).show().removeAttr('disabled');
+		});
+
+		// remove the session results when pressing "clear"
+		jQuery('#clear').on('click', function() {
+			jQuery(this).parents('form').append('<input type="hidden" name="clear" value="clear" />').submit();
 		});
 	}
 });

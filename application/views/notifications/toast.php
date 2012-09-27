@@ -10,7 +10,7 @@
 	
 	jQuery(document).ready(function() {
 		toastr.options = {
-			positionClass: 'toast-bottom-right',
+			positionClass: 'toast-top-right',
 			fadeIn: 500,
 			fadeOut: 200,
 			timeOut: 5000,

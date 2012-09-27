@@ -127,6 +127,22 @@ class File {
 			'data'		=> $this->app->upload->data(),
 		);
 	}
+
+	/**
+	* Checks if a file was sent and if exceedes the post_max_size directive.
+	*
+	* @return	bool	- true if theere was a sent file exceeding the limit, false otherwise
+	* @access	public
+	*/
+	public function excess() {
+		// there was something sent, check if post size was exceeded
+		if (isset($_SERVER['CONTENT_LENGTH'])) {
+			if ((int) $_SERVER['CONTENT_LENGTH'] > ini_get('post_max_size')) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 /* End of file file.php */

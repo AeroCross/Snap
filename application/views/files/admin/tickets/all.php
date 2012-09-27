@@ -97,10 +97,13 @@
 
 	<div class="span12">
 
-		<!-- table -->
+		<!-- pagination links -->
+		<?php echo $this->pagination->create_links(); ?>
+
+		<!-- tickets table -->
 		<?php echo $tickets; ?>
 
-		<!-- pagination -->
+		<!-- pagination links -->
 		<?php echo $this->pagination->create_links(); ?>
 
 	</div>

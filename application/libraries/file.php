@@ -89,6 +89,15 @@ class File {
 			);
 		}
 
+		// file size exceeded
+		if ($file['size'] === 0 AND $file['error'] === 1) {
+			return array(
+				'status'	=> 'max_filesize_exceeded',
+				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>' . ini_get('upload_max_filesize') . 'B</strong>.',
+				'type'		=> 'warning'
+			);
+		}
+
 		// configure
 		$config = array(
 			'upload_path'	=> './files/tickets/' . $id . '/' . $this->app->session->userdata('id') . '/',
@@ -113,9 +122,9 @@ class File {
 		$this->app->upload->initialize($config);
 		$this->app->upload->do_upload('file');
 
+		// all good
 		return array(
 			'data'		=> $this->app->upload->data(),
-			'errors'	=> $this->app->upload->display_errors('<li>', '</li>')
 		);
 	}
 }

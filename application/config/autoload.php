@@ -135,7 +135,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('saav_setting');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

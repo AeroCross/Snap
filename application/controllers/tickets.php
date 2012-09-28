@@ -317,7 +317,7 @@ class Tickets extends EXT_Controller {
 			}
 
 			// check if there's someone assigned - if there is, just notify him/her
-			if (!empty($ticket->assigned_to)) {
+			if (!empty($ticket->assigned_to) AND $ticket->assigned_to != $this->session->userdata('id')) {
 				$assigned = $this->saav_user->data('firstname, lastname, email')->id($ticket->assigned_to)->get();
 				$this->email->bcc($assigned->email);
 			}

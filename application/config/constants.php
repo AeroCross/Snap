@@ -93,7 +93,7 @@ define('SAAV_PASSWORD', 'saav');
 | These values are used through the application for special needs.
 |
 */
-define('SAAV_VERSION', '0.3');
+define('SAAV_VERSION', '0.3.1');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -199,12 +199,15 @@ class Tickets extends EXT_Controller {
 		$id = $this->saav_ticket->addTicket($data);
 
 		// file sent, process
-		if (isset($_FILES['file']) AND !empty($_FILES['file'])) {
+		if ($_FILES['file']['error'] != 4) {
 			$file = $_FILES['file'];
 			$this->load->library('file');
 
-			// unused variable
 			$status = $this->file->upload('ticket', $id, $file);
+
+			if (isset($status['message'])) {
+				return $status;
+			}
 		}
 
 		if (!empty($id)) {
@@ -256,7 +259,7 @@ class Tickets extends EXT_Controller {
 		);
 
 		// file sent, process
-		if (isset($_FILES['file']) AND !empty($_FILES['file'])) {
+		if ($_FILES['file']['error'] != 4) {
 			$file = $_FILES['file'];
 			$this->load->library('file');
 

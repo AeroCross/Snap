@@ -104,7 +104,7 @@ class DashboardPresenter {
 				$this->app->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),
 					safe_mailto($reported->email, $reported->firstname . ' ' . $reported->lastname),
-					$this->app->saav_company->findCompany($ticket->reported_by)->name,
+					$this->app->saav_company->getCompany($ticket->reported_by)->name,
 					$ticket->subject,
 					$this->app->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,

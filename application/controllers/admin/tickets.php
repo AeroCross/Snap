@@ -125,7 +125,7 @@ class Tickets extends EXT_Controller {
 				$this->table->add_row(
 					anchor('tickets/view/' . $ticket->id, $ticket->id),
 					safe_mailto($reporters[$ticket->reported_by]['email'], $reporters[$ticket->reported_by]['name']),
-					$this->saav_company->findCompany($ticket->reported_by)->name,
+					$this->saav_company->getCompany($ticket->reported_by)->name,
 					$ticket->subject,
 					$this->saav_department->getDepartment($ticket->department)->name,
 					$ticket->date_created,

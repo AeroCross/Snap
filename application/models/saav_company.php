@@ -30,8 +30,8 @@ class Saav_company extends EXT_Model {
 	* @return	object	- the company of the user
 	* @access	public
 	*/ 
-	public function findCompany($user_id) {
-		$this->db->select('*')
+	public function getCompany($user_id) {
+		$this->db->select('companies.name')
 		->join('company_users', 'company_users.company_id = ' . $this->_table . '.id')
 		->join('users', 'company_users.user_id = users.id')
 		->where('users.id', $user_id);

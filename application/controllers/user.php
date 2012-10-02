@@ -54,11 +54,13 @@ class User extends EXT_Controller {
 	public function edit($section = null) {
 		switch ($section) {
 			case 'password':
-				$this->view = 'files/user/edit/password';
+			case 'email':
+				$this->view = 'files/user/edit/' . $section;
+				$section = '_' . $section;
 				
 				// update
 				if ($this->input->post() != false) {
-					$this->presenter->notification->create($this->_password(), 'toast');	
+					$this->presenter->notification->create($this->$section(), 'toast');	
 				}
 
 			break;

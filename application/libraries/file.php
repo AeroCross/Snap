@@ -166,6 +166,26 @@ class File {
 			);
 		}
 
+		// if file > 1MB, not permitted
+		if ($file['size'] > 1048576) {
+			return array(
+				'status'	=> 'max_filesize_exceeded',
+				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>1MB</strong>.',
+				'type'		=> 'warning'
+			);
+		}
+
+		// check if the image is squared
+		$size = getimagesize($file['tmp_name']);
+
+		if ($size[0] != $size[1]) {
+			return array(
+				'status'	=> 'not_square',
+				'message'	=> 'La imagen no es cuadrada',
+				'type'		=> 'warning'
+			);
+		}
+
 		// configure
 		$config = array(
 			'upload_path'	=> './files/avatars/' . $id . '/',
@@ -173,7 +193,6 @@ class File {
 			'remove_spaces'	=> false,
 			'overwrite'		=> true,
 			'file_name'		=> 'avatar.jpg',
-			'max_size'		=> '1024'
 		);
 
 		$dir = FCPATH . substr($config['upload_path'], 1);

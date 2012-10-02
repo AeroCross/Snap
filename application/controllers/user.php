@@ -55,6 +55,7 @@ class User extends EXT_Controller {
 		switch ($section) {
 			case 'password':
 			case 'email':
+			case 'picture':
 				$this->view = 'files/user/edit/' . $section;
 				$section = '_' . $section;
 				

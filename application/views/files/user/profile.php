@@ -39,7 +39,7 @@
 
 			<?php echo anchor('user/edit/password', icon('key') . ' Cambiar Contraseña', array('class' => 'btn')); ?>
 			<?php echo anchor('user/edit/email', icon('envelope-alt') . ' Actualizar Correo', array('class' => 'btn')); ?>
-			<?php echo anchor('#', icon('picture') . ' Cambiar Imágen de Perfil', array('class' => 'btn')); ?>
+			<?php echo anchor('user/edit/picture', icon('picture') . ' Cambiar Imágen de Perfil', array('class' => 'btn')); ?>
 
 		</div>
 

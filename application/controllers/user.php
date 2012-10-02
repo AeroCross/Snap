@@ -60,7 +60,7 @@ class User extends EXT_Controller {
 				$section = '_' . $section;
 				
 				// update
-				if ($this->input->post() != false) {
+				if ($this->input->post() != false or isset($_FILES['file'])) {
 					$this->presenter->notification->create($this->$section(), 'toast');	
 				}
 
@@ -216,6 +216,20 @@ class User extends EXT_Controller {
 				'type'		=> 'error'
 			);
 		}
+	}
+
+	/**
+	* Uploads a new user profile picture.
+	*
+	* @access	private
+	*/
+	private function _picture() {
+		// the uploaded file
+		$file = $_FILES['file'];
+
+		// upload the file
+		$this->load->library('file');
+		$this->file->upload('avatar', $this->session->userdata('id'), $file);
 	}
 }
 

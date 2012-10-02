@@ -61,8 +61,14 @@ class File {
 	* @access	public
 	*/
 	public function upload($destination, $id, $file) {
+		$this->app->load->library('upload');
+
 		if ($destination === 'ticket') {
-			return $this->_isTicket($id, $file);
+			return $this->_ticket($id, $file);
+		}
+
+		if ($destination === 'avatar') {
+			return $this->_avatar($id, $file);	
 		}
 	}
 
@@ -74,8 +80,7 @@ class File {
 	* @return	array	- the data and errors array
 	* @access	public
 	*/
-	public function _isTicket($id, $file) {
-		$this->app->load->library('upload');
+	public function _ticket($id, $file) {
 
 		// get file extension to check if permitted
 		$ext = substr($this->app->upload->get_extension($file['name']), 1);
@@ -117,6 +122,64 @@ class File {
 			$handler = fopen($htaccess, 'w+b');
 			fwrite($handler, 'Deny from All');
 			fclose($handler);
+		}
+
+		$this->app->upload->initialize($config);
+		$this->app->upload->do_upload('file');
+
+		// all good
+		return array(
+			'data'		=> $this->app->upload->data(),
+		);
+	}
+
+	/**
+	* Uploads an user profile picture.
+	*
+	* @param	int		- the user id
+	* @param	array	- the file array
+	* @return	array	- the notification
+	*/
+	private function _avatar($id, $file) {
+
+		// get file extension to check if permitted
+		$ext = substr($this->app->upload->get_extension($file['name']), 1);
+
+		// allowed file types
+		$allowed = array('jpg', 'jpeg', 'png');
+
+		// not allowed, notify
+		if (!in_array($ext, $allowed)) {
+			return array(
+				'status'	=> 'ext_not_allowed',
+				'message'	=> 'El tipo de archivo <strong>.' . $ext . '</strong> no está permitido guardarlo en el sistema.',
+				'type'		=> 'warning'
+			);
+		}
+
+		// file size exceeded
+		if ($file['size'] === 0 AND $file['error'] === 1) {
+			return array(
+				'status'	=> 'max_filesize_exceeded',
+				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>1MB</strong>.',
+				'type'		=> 'warning'
+			);
+		}
+
+		// configure
+		$config = array(
+			'upload_path'	=> './files/avatars/' . $id . '/',
+			'allowed_types'	=> implode('|', $allowed),
+			'remove_spaces'	=> false,
+			'overwrite'		=> true,
+			'file_name'		=> 'avatar.jpg',
+			'max_size'		=> '1024'
+		);
+
+		$dir = FCPATH . substr($config['upload_path'], 1);
+
+		if (!file_exists($dir)) {
+			mkdir($dir, 0777, TRUE);
 		}
 
 		$this->app->upload->initialize($config);

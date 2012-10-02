@@ -18,7 +18,7 @@
 
 			<div class="controls">
 
-				<input type="text" name="password" id="password" value="" />
+				<input type="password" name="password" id="password" value="" />
 				<p class="help-block">Introduzca su contraseña, por medidas de seguridad</p>
 
 			</div>
@@ -32,7 +32,7 @@
 
 			<div class="controls">
 
-				<input type="text" name="new" id="new" value="" />
+				<input type="text" name="new" id="new" value="<?php echo set_value('new'); ?>" />
 				<p class="help-block">Ha de ser una <strong>dirección válida</strong> &mdash; de lo contrario, no recibirá notificaciones</p>
 
 			</div>
@@ -46,14 +46,14 @@
 
 			<div class="controls">
 
-				<input type="password" name="confirm" id="confirm" value="" />
+				<input type="text" name="confirm" id="confirm" value="" />
 				<p class="help-block">Esta y la <strong>nueva</strong> dirección de correo deben coincidir</p>
 
 			</div>
 
 		</div>
 
-		<!-- submit password -->
+		<!-- submit email -->
 		<div class="form-actions">
 
 			<div class="btn-group">

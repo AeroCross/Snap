@@ -136,6 +136,87 @@ class User extends EXT_Controller {
 			);
 		}
 	}
+
+	/**
+	* Updates the email.
+	*
+	* @return	array	- a message for the notification presenter
+	* @access	private
+	*/
+	private function _email() {
+		$this->load->library('form_validation');
+		
+		$password	= $this->input->post('password');
+		$new		= $this->input->post('new');
+		$confirm	= $this->input->post('confirm');
+
+		$this->form_validation->set_rules('password', 'Contraseña', 'required');
+		$this->form_validation->set_rules('new', 'Nueva dirección', 'required');
+		$this->form_validation->set_rules('confirm', 'Confirmación de dirección', 'required');
+
+		if (!$this->form_validation->run()) {
+			return array(
+				'status'	=> 'required',
+				'message'	=> 'Todos los campos son requeridos',
+				'type'		=> 'warning'
+			);
+		}
+
+		// emails must be valid
+		$this->form_validation->set_rules('new', 'Nueva dirección', 'valid_email');
+
+		if (!$this->form_validation->run()) {
+			return array(
+				'status'	=> 'new_invalid',
+				'message'	=> 'La nueva dirección no es válida',
+				'type'		=> 'warning'
+			);
+		}
+
+		$this->form_validation->set_rules('confirm', 'Confirmación de dirección', 'valid_email');
+
+		// emails must match
+		$this->form_validation->set_rules('confirm', 'Confirmación de dirección', 'matches[new]');
+
+		if (!$this->form_validation->run()) {
+			return array(
+				'status'	=> 'new_not_matching',
+				'message'	=> 'Las direcciones no coinciden',
+				'type'		=> 'warning'
+			);
+		}
+
+		// password verification
+		if (!$this->saav_user->match(hash('sha256', $password), 'password')) {
+			return array(
+				'status'	=> 'password',
+				'message'	=> 'Contraseña incorrecta',
+				'type'		=> 'warning'
+			);
+		}
+
+		// all good — update
+		$where	= array('id'	=> $this->session->userdata('id'));
+		$update	= array('email'	=> $new);
+
+		if ($this->saav_user->update($where, $update)) {
+			// all good — clear data
+			$this->form_validation->reset_validation();
+			return array(
+				'status'	=> 'success',
+				'message'	=> 'Correo electrónico actualizado',
+				'type'		=> 'success'
+			);
+
+		// something happened
+		} else {
+			return array(
+				'status'	=> 'error',
+				'message'	=> 'No se pudo cambiar su dirección de correo electrónico',
+				'type'		=> 'error'
+			);
+		}
+	}
 }
 
 /* End of file logout.php */

@@ -45,10 +45,92 @@ class User extends EXT_Controller {
 		$this->data->title = 'Perfil de Usuario: ' . $user->firstname . ' ' . $user->lastname;
 	}
 
+	/**
+	* Edits information about the user.
+	*
+	* @param	string	- the section to edit
+	* @access	public
+	*/
 	public function edit($section = null) {
 		switch ($section) {
-			case 'password': $this->view = 'files/user/edit/password'; break;
+			case 'password':
+				$this->view = 'files/user/edit/password';
+				
+				// update
+				if ($this->input->post() != false) {
+					$this->presenter->notification->create($this->_password(), 'toast');	
+				}
+
+			break;
+
+			// nothing selected, go to profile
 			default: redirect('user/profile'); break;
+		}
+	}
+
+	/**
+	* Updates the password.
+	*
+	* @return	array	- a message for the notification presenter
+	* @access	private
+	*/
+	private function _password() {
+		$this->load->library('form_validation');
+
+		$old		= $this->input->post('old');
+		$new		= $this->input->post('new');
+		$current	= $this->input->post('new');
+
+		$this->form_validation->set_rules('old', 'Contraseña anterior', 'required');
+		$this->form_validation->set_rules('new', 'Contraseña nueva', 'required');
+		$this->form_validation->set_rules('confirm', 'Confirmación', 'required');
+
+		if (!$this->form_validation->run()) {
+			return array(
+				'status'	=> 'required',
+				'message'	=> 'Todos los campos son requeridos',
+				'type'		=> 'warning'
+			);
+		}
+
+		// new and confirm must match
+		$this->form_validation->set_rules('confirm', 'Confirmación', 'matches[new]');
+
+		if (!$this->form_validation->run()) {
+			return array(
+				'status'	=> 'new_not_matching',
+				'message'	=> 'Las contraseñas no coinciden',
+				'type'		=> 'warning'
+			);
+		}
+
+		// the password must match
+		if (!$this->saav_user->match(hash('sha256', $old), 'password')) {
+			return array(
+				'status'	=> 'old_not_matching',
+				'message'	=> 'La contraseña anterior no coincide',
+				'type'		=> 'warning'
+			);
+		}
+
+		// all good — change password
+		$where = array('id' => $this->session->userdata('id'));
+		$update = array('password' => hash('sha256', $new));
+
+		if ($this->saav_user->update($where, $update)) {
+			return array(
+				'status'	=> 'changed',
+				'message'	=> 'Contraseña actualizada',
+				'type'		=> 'success'
+			);
+
+		// something happened
+		} else {
+			return array(
+				'status'	=> 'error',
+				'message'	=> 'No se pudo cambiar su contraseña',
+				'type'		=> 'error'
+			);
 		}
 	}
 }

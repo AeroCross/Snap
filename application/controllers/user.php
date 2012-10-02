@@ -42,7 +42,14 @@ class User extends EXT_Controller {
 		$this->data->company	= $company;
 
 		// set the page title
-		$this->data->title = 'Perfil de Usuario: ' . $user->firstname . ' ' . $user->lastname;		
+		$this->data->title = 'Perfil de Usuario: ' . $user->firstname . ' ' . $user->lastname;
+	}
+
+	public function edit($section = null) {
+		switch ($section) {
+			case 'password': $this->view = 'files/user/edit/password'; break;
+			default: redirect('user/profile'); break;
+		}
 	}
 }
 

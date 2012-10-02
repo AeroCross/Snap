@@ -19,6 +19,7 @@
 			<div class="controls">
 
 				<input type="password" name="old" id="old" value="" />
+				<p class="help-block">Introduzca su contraseña, por medidas de seguridad</p>
 
 			</div>
 
@@ -41,7 +42,7 @@
 		<!-- confirm password -->
 		<div class="control-group">
 
-			<label for="confirm" class="control-label">Confirmación</label>
+			<label for="confirm" class="control-label">Confirmación de Contraseña</label>
 
 			<div class="controls">
 
@@ -57,7 +58,7 @@
 
 			<div class="btn-group">
 
-				<button class="submit btn btn-primary"><?php echo icon('key'); ?> Cambiar Contraseña</button>
+				<button class="submit btn btn-primary"><?php echo icon('ok-sign'); ?> Cambiar Contraseña</button>
 				<?php echo anchor('user/profile', icon('circle-arrow-left') . ' Regresar', array('class' => 'btn')); ?>
 
 			</div>

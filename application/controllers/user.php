@@ -229,7 +229,20 @@ class User extends EXT_Controller {
 
 		// upload the file
 		$this->load->library('file');
-		$this->file->upload('avatar', $this->session->userdata('id'), $file);
+		$status = $this->file->upload('avatar', $this->session->userdata('id'), $file);
+
+		// message returned by the file upload method
+		if (isset($status['message'])) {
+			return $status;
+
+		// all good
+		} else {
+			return array(
+				'status'	=> 'success',
+				'message'	=> 'Imagen de perfil actualizada',
+				'type'		=> 'success'
+			);
+		}
 	}
 }
 

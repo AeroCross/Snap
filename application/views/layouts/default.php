@@ -13,19 +13,17 @@
 
 				<li class="dropdown">
 
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nueva <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
 
 					<ul class="dropdown-menu">
 
-						<li><?php echo anchor('tickets/add', 'Consulta'); ?></li>
-						<li><?php echo anchor('#', 'Solicitud de Servicio'); ?></li>
+						<li><?php echo anchor('tickets/add', 'Nueva Consulta'); ?></li>
+						<li><?php echo anchor('tickets/all', 'Mis Consultas'); ?></li>
 
 					</ul>
 
 				</li>
 
-				<li><?php echo anchor('tickets/all', 'Consultas'); ?></li>
-				
 				<?php if ($this->saav_user->permission('support')): ?>
 
 					<li class="dropdown">
@@ -35,7 +33,7 @@
 						<ul class="dropdown-menu">
 
 							<li class="nav-header">Consultas</li>
-							<li><?php echo anchor('admin/tickets/all', 'Listado de Consultas'); ?></li>
+							<li><?php echo anchor('admin/tickets/all', 'Todas las Consultas'); ?></li>
 
 							<?php if ($this->saav_user->permission('admin')): ?>
 							
@@ -53,11 +51,26 @@
 				<?php endif; ?>
 
 				<li class="divider-vertical"></li>
-				<li><?php echo anchor('report', icon('wrench') . ' Reportar un Problema'); ?></li>
+				<li><?php echo anchor('report', icon('wrench') . ' Soporte'); ?></li>
 
 			</ul>
 
-			<p class="navbar-text pull-right">Sesión iniciada como <strong><?php echo $this->session->userdata('name'); ?></strong> &mdash; <?php echo anchor('logout', 'salir'); ?></p>
+			<ul class="nav pull-right">
+
+				<li class="dropdown">
+
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo icon('user'); ?> Sesión iniciada como <strong><?php echo $this->session->userdata('name'); ?></strong><b class="caret"></b></a>
+
+					<ul class="dropdown-menu">
+
+						<li><?php echo anchor('user/profile', icon('edit') . ' Editar Perfil'); ?></li>
+						<li><?php echo anchor('logout', icon('signout') . ' Cerrar Sesión'); ?></li>
+
+					</ul>
+
+				</li>
+
+			</ul>
 
 		</div>
 

@@ -14,12 +14,12 @@
 		<!-- image -->
 		<div class="control-group">
 
-			<label for="password" class="control-label">Imagen de perfil</label>
+			<label for="file" class="control-label">Imagen de perfil</label>
 
 			<div class="controls">
 
-				<input type="file" name="picture" id="picture" value="" /><span class="help-inline"><strong>Formatos permitidos:</strong> jpg, jpeg, png</span>
-				<p class="help-block">La imagen debe ser cuadrada (e.g <strong>200x200</strong>), y no mayor de <strong>2MB</strong>.</p>
+				<input type="file" name="file" id="file" /><span class="help-inline"><strong>Formatos permitidos:</strong> jpg, jpeg, png</span>
+				<p class="help-block">La imagen debe ser cuadrada (e.g <strong>200x200</strong>), y no mayor de <strong>1MB</strong>.</p>
 
 			</div>
 

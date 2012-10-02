@@ -14,7 +14,7 @@
 
 				<a href="#" class="thumbnail">
 
-					<img src="http://placehold.it/170x170" alt="" />
+					<?php echo $this->presenter->user->avatar($this->session->userdata('id'), 170); ?>
 
 				</a>
 

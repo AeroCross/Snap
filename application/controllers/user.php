@@ -24,6 +24,7 @@ class User extends EXT_Controller {
 
 		// load necessary code
 		$this->load->model('saav_company');
+		$this->load->presenter('user');
 	}
 	
  	/**

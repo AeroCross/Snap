@@ -36,7 +36,7 @@
 
 					<li class="thumbnail">
 
-						<img src="http://placehold.it/200x200" alt="" />
+						<?php echo $this->presenter->user->avatar($this->session->userdata('id')); ?>
 
 					</li>
 

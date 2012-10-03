@@ -73,7 +73,7 @@
 
 	</div>
 
-	<div class="span9 well message">
+	<div class="span7 well message">
 
 		<p><?php echo nl2br(htmlentities($ticket->content, ENT_NOQUOTES, 'UTF-8')); ?></p>
 
@@ -106,7 +106,7 @@
 
 	</div>
 
-	<div class="span9 well message">
+	<div class="span7 well message">
 
 		<p><?php echo nl2br($message->content); ?></p>
 

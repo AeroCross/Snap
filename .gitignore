@@ -5,4 +5,10 @@ cgi-bin/
 /files/
 
 # ignore logs
-application/logs/
+/application/logs/
+
+# ignore uploads
+/application/uploads/
+
+# temporarily ignore extension icons
+application/views/assets/img/extensions/

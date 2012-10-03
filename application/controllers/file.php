@@ -56,7 +56,7 @@ class File extends EXT_Controller {
 		}
 
 		// match inode
-		$dir	= FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/';
+		$dir	= APPPATH . 'uploads/' . $type . '/' . $id . '/'. $user . '/';
 		$files	= scandir($dir);
 
 		foreach($files as $file) {
@@ -72,7 +72,7 @@ class File extends EXT_Controller {
 			redirect('error');
 		}
 
-		$file = FCPATH . 'files/' . $type . '/' . $id . '/'. $user . '/' . $filename;
+		$file = APPPATH . 'uploads/' . $type . '/' . $id . '/'. $user . '/' . $filename;
 
 		// get mime-type for headers (if needed)
 		$handler	= finfo_open(FILEINFO_MIME_TYPE);

@@ -105,19 +105,19 @@ class File {
 
 		// configure
 		$config = array(
-			'upload_path'	=> './files/tickets/' . $id . '/' . $this->app->session->userdata('id') . '/',
+			'upload_path'	=> './application/uploads/tickets/' . $id . '/' . $this->app->session->userdata('id') . '/',
 			'allowed_types'	=> implode('|', $this->allowed),
 			'remove_spaces'	=> FALSE
 		);
 
-		$dir = FCPATH . substr($config['upload_path'], 1);
+		$dir = APPPATH . substr($config['upload_path'], 1);
 
 		if (!file_exists($dir)) {
 			mkdir($dir, 0777, TRUE);
 		}
 
-		// make sure there's an .htaccess file in the root of the files folder
-		$htaccess = FCPATH . 'files/.htaccess';
+		// make sure there's an .htaccess file in the root of the tickets folder
+		$htaccess = APPPATH . 'uploads/tickets/.htaccess';
 		if (!file_exists($htaccess)) {
 			$handler = fopen($htaccess, 'w+b');
 			fwrite($handler, 'Deny from All');
@@ -188,14 +188,14 @@ class File {
 
 		// configure
 		$config = array(
-			'upload_path'	=> './files/avatars/' . $id . '/',
+			'upload_path'	=> './application/uploads/avatars/' . $id . '/',
 			'allowed_types'	=> implode('|', $allowed),
 			'remove_spaces'	=> false,
 			'overwrite'		=> true,
-			'file_name'		=> 'avatar.jpg',
+			'file_name'		=> md5($id) . '.jpg',
 		);
 
-		$dir = FCPATH . substr($config['upload_path'], 1);
+		$dir = APPPATH . substr($config['upload_path'], 1);
 
 		if (!file_exists($dir)) {
 			mkdir($dir, 0777, TRUE);

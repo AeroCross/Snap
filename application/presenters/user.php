@@ -30,7 +30,7 @@ class UserPresenter {
 	* @access	public
 	*/
 	public function avatar($user_id, $width = 200, $height = null) {
-		$file = FCPATH . 'files/avatars/' . $user_id . '/avatar.jpg';
+		$file = APPPATH . 'uploads/avatars/' . $user_id . '/' . md5($user_id) . '.jpg';
 
 		if (empty($height)) {
 			$height = $width;
@@ -39,7 +39,7 @@ class UserPresenter {
 		if (!file_exists($file)) {
 			return '<img src="' . $this->app->resource->img('avatars/default.png') . '" alt="" width="' . $width . '" height ="' . $height . '" />';
 		}else {
-			return '<img src="' . base_url('files/avatars/' . $user_id . '/avatar.jpg?' . time()) . '" alt="" width="' . $width . '" height="' . $height . '" />';
+			return '<img src="' . base_url('application/uploads/avatars/' . $user_id . '/' . md5($user_id) . '.jpg?' . time()) . '" alt="" width="' . $width . '" height="' . $height . '" />';
 		}
 	}
 }

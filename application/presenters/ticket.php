@@ -50,7 +50,7 @@ class TicketPresenter {
 	* @access	public
 	*/
 	public function files($ticket_id) {
-		$path = FCPATH . 'files/tickets/' . $ticket_id . '/';
+		$path = APPPATH . 'uploads/tickets/' . $ticket_id . '/';
 
 		// no uploads by the user, dismiss
 		if (!file_exists($path)) {

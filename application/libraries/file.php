@@ -152,7 +152,7 @@ class File {
 		if (!in_array($ext, $allowed)) {
 			return array(
 				'status'	=> 'ext_not_allowed',
-				'message'	=> 'El tipo de archivo <strong>.' . $ext . '</strong> no está permitido guardarlo en el sistema.',
+				'message'	=> 'El tipo de archivo <strong>.' . $ext . '</strong> no está permitido.',
 				'type'		=> 'warning'
 			);
 		}
@@ -161,7 +161,7 @@ class File {
 		if ($file['size'] === 0 AND $file['error'] === 1) {
 			return array(
 				'status'	=> 'max_filesize_exceeded',
-				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>1MB</strong>.',
+				'message'	=> 'El archivo excede el límite de <strong>1MB</strong>.',
 				'type'		=> 'warning'
 			);
 		}
@@ -170,7 +170,7 @@ class File {
 		if ($file['size'] > 1048576) {
 			return array(
 				'status'	=> 'max_filesize_exceeded',
-				'message'	=> 'El archivo excede el límite de transferencia. El tamaño máximo es de <strong>1MB</strong>.',
+				'message'	=> 'El archivo excede el límite de <strong>1MB</strong>.',
 				'type'		=> 'warning'
 			);
 		}

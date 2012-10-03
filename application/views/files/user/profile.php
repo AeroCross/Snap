@@ -12,7 +12,7 @@
 
 			<li class="span2">
 
-				<a href="#" class="thumbnail">
+				<a href="<?php echo base_url('user/edit/picture'); ?>" class="thumbnail">
 
 					<?php echo $this->presenter->user->avatar($this->session->userdata('id'), 170); ?>
 

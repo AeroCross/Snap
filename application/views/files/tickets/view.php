@@ -58,14 +58,22 @@
 <!-- first message -->
 <div class="row">
 
-	<div class="span3 text-center">
+	<div class="span2 text-center">
+
+		<!-- avatar -->
+		<div class="thumbnail">
+
+			<?php echo $this->presenter->user->avatar($reporter->id); ?>
+
+		</div>
+
 
 		<h5><?php echo $reporter->firstname . ' ' . $reporter->lastname; ?></h5>
 		<p><?php echo $ticket->date_created; ?></p>
 
 	</div>
 
-	<div class="span8 well message">
+	<div class="span9 well message">
 
 		<p><?php echo nl2br(htmlentities($ticket->content, ENT_NOQUOTES, 'UTF-8')); ?></p>
 
@@ -76,18 +84,29 @@
 
 <!-- other messages here -->
 <?php foreach($messages as $message): // @TODO: eager loading ?>
-<?php $user = $this->saav_user->data('firstname, lastname, email')->id($message->user_id)->get(); ?>
+<?php $user = $this->saav_user->data('id, firstname, lastname, email')->id($message->user_id)->get(); ?>
 
+<!-- padding -->
+<div class="row">&nbsp;</div>
+
+<!-- message -->
 <div class="row">
 
-	<div class="span3 text-center">
+	<div class="span2 text-center">
+
+		<!-- avatar -->
+		<div class="thumbnail">
+
+			<?php echo $this->presenter->user->avatar($user->id); ?>
+
+		</div>
 
 		<h5><?php echo $user->firstname . ' ' . $user->lastname; ?></h5>
 		<p><?php echo $message->date; ?></p>
 
 	</div>
 
-	<div class="span8 well message">
+	<div class="span9 well message">
 
 		<p><?php echo nl2br($message->content); ?></p>
 

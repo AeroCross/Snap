@@ -98,7 +98,7 @@
 			<div class="btn-group">
 
 				<button class="btn btn-primary submit"><?php echo icon('plus'); ?> Agregar Usuario</button>
-				<a href="<?php echo base_url('users'); ?>" class="btn"><?php echo icon('circle-arrow-left'); ?> Regresar</a>
+				<a href="<?php echo base_url('admin/user'); ?>" class="btn"><?php echo icon('circle-arrow-left'); ?> Regresar</a>
 
 			</div>
 

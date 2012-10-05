@@ -27,7 +27,8 @@ class User extends EXT_Controller {
 	* @access	public
 	*/
 	public function index() {
-
+		$this->view = 'files/admin/user/add';
+		$this->add();
 	}
 
 	/**

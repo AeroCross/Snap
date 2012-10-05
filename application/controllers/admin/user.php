@@ -52,6 +52,16 @@ class User extends EXT_Controller {
 	}
 
 	/**
+	* Shows the roles screen.
+	*
+	* @access	public
+	*/
+	public function roles() {
+		$this->load->presenter('user');
+		$this->data->title = 'Administración » Asignar Roles';
+	}
+
+	/**
 	* Processes a new user.
 	*
 	* @access	private

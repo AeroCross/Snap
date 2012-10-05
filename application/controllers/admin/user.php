@@ -8,6 +8,12 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 */
 class User extends EXT_Controller {
+
+	/**
+	* The class constructor.
+	*
+	* @access	public
+	*/
 	public function __construct() {
 		parent::__construct();
 
@@ -15,10 +21,20 @@ class User extends EXT_Controller {
 		$this->_notifications();
 	}
 
+	/**
+	* Shows the add user form (since the list is not implemented)
+	*
+	* @access	public
+	*/
 	public function index() {
 
 	}
 
+	/**
+	* Shows the add new user form.
+	*
+	* @access	public
+	*/
 	public function add() {
 		if ($this->input->post() != false) {
 			$this->presenter->notification->create($this->_add(), 'toast');
@@ -28,10 +44,20 @@ class User extends EXT_Controller {
 		$this->data->title = 'Agregar Usuario';
 	}
 
+	/**
+	* Shows the companies and the actions that can be performed on them.
+	*
+	* @access	public
+	*/
 	public function companies() {
 		$this->data->title = 'Compañías';
 	}
 
+	/**
+	* Processes a new user.
+	*
+	* @access	private
+	*/
 	private function _add() {
 		$this->load->library('form_validation');
 
@@ -121,6 +147,11 @@ class User extends EXT_Controller {
 
 	}
 
+	/**
+	* Stores the possible notifications in an array for ease of access.
+	*
+	* @access	private
+	*/
 	private function _notifications() {
 		$this->notification = new StdClass;
 		$this->notification->required = array(

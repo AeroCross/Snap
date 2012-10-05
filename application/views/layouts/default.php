@@ -39,7 +39,6 @@
 
 								<li class="divider"></li>
 								<li class="nav-header">Usuarios</li>
-								<li><?php echo anchor('admin/user', 'Listado de Usuarios'); ?></li>
 								<li><?php echo anchor('admin/user/add', 'Agregar Usuario'); ?></li>
 								<li><?php echo anchor('admin/user/roles', 'Asignar Roles'); ?></li>
 								<li><?php echo anchor('admin/companies', 'Compañías'); ?></li>

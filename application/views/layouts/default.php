@@ -36,11 +36,18 @@
 							<li><?php echo anchor('admin/tickets/all', 'Todas las Consultas'); ?></li>
 
 							<?php if ($this->saav_user->permission('admin')): ?>
-							
+
 								<li class="divider"></li>
-								<li class="nav-header">Configuración</li>
-								<li><?php echo anchor('settings', 'Opciones del Sistema'); ?></li>
-								<li><?php echo anchor('upgrade', 'Actualizar Base de Datos'); ?></li>
+								<li class="nav-header">Usuarios</li>
+								<li><?php echo anchor('admin/user', 'Listado de Usuarios'); ?></li>
+								<li><?php echo anchor('admin/user/add', 'Agregar Usuario'); ?></li>
+								<li><?php echo anchor('admin/user/roles', 'Asignar Roles'); ?></li>
+								<li><?php echo anchor('admin/companies', 'Compañías'); ?></li>
+
+								<li class="divider"></li>
+								<li class="nav-header">Sistema</li>
+								<li><?php echo anchor('settings', 'Configuración'); ?></li>
+								<li><?php echo anchor('upgrade', 'Actualizar'); ?></li>
 
 							<?php endif; ?>
 

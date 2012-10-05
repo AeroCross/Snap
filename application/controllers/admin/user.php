@@ -19,6 +19,11 @@ class User extends EXT_Controller {
 
 		// load notifications
 		$this->_notifications();
+
+		// check if the user's an admin
+		if (!$this->saav_user->permission('admin')) {
+			redirect('dashboard');
+		}
 	}
 
 	/**
@@ -37,21 +42,13 @@ class User extends EXT_Controller {
 	* @access	public
 	*/
 	public function add() {
+		$this->data->title = 'Administración » Agregar Usuario';
+
 		if ($this->input->post() != false) {
 			$this->presenter->notification->create($this->_add(), 'toast');
 		}
 
 		$this->load->presenter('form');
-		$this->data->title = 'Agregar Usuario';
-	}
-
-	/**
-	* Shows the companies and the actions that can be performed on them.
-	*
-	* @access	public
-	*/
-	public function companies() {
-		$this->data->title = 'Compañías';
 	}
 
 	/**

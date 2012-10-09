@@ -22,7 +22,22 @@ class Saav_company_user extends EXT_Model {
 	public function __construct() {
 		parent::__construct();
 	}
-	
+
+	/**
+	* Selects all the user information from the users of an specific company,
+	*
+	* @param	int		- the company id
+	* @return	object	- the user information
+	* @access	public
+	*/
+	public function getCompanyUsers($company_id) {
+		$this->db->select('users.*')
+		->from('users')
+		->join('company_users', 'users.id = company_users.user_id')
+		->where('company_users.company_id', $company_id);
+
+		return $this->db->get()->result();
+	}
 }
 
 /* End of file saav_company.php */

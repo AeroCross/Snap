@@ -65,28 +65,35 @@
 
 		<div class="span5 offset1">
 
-			<div class="row">
+			<div class="row">	
 
-				<legend>Administradores</legend>
+			<legend>Administradores</legend>
 
-				<div class="span1">
+				<?php foreach($admins as $admin): ?>
+				
+					<div class="span1">
 
-					<div class="thumbnail">
+						<div class="thumbnail">
 
-						<?php echo $this->presenter->user->avatar(1, 64); ?>
-					
+							<?php echo $this->presenter->user->avatar($admin['id'], 64); ?>
+						
+						</div>
+
 					</div>
 
-				</div>
+					<div class="span4">
 
-				<div class="span4">
+						<h4><?php echo $admin['name']; ?> <small><?php echo $admin['company']->name; ?></small></h4>
 
-					<h4>Mario Cuba <small>Ingenium: Desarrollo Virtual</small></h4>
+						<p><?php echo safe_mailto($admin['email']); ?></p>
 
-					<p><?php echo safe_mailto('mario.cuba@ingenium-dv.com'); ?></p>
+					</div>
 
-				</div>
+					<!-- hax -->
+					<div class="row">&nbsp;</div>
 
+				<?php endforeach; ?>
+			
 			</div>
 
 			<!-- hax -->

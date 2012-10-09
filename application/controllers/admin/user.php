@@ -57,10 +57,12 @@ class User extends EXT_Controller {
 	* @access	public
 	*/
 	public function roles() {
+		// laod necessary code
 		$this->load->presenter('user');
 		$this->load->presenter('role');
 
-		$this->data->title = 'Administración » Asignar Roles';
+		$this->data->admins	= $this->presenter->role->admins();
+		$this->data->title	= 'Administración » Asignar Roles';
 	}
 
 	/**

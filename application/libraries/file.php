@@ -148,11 +148,20 @@ class File {
 		// allowed file types
 		$allowed = array('jpg', 'jpeg', 'png');
 
+		// no file uploaded
+		if ($file['error'] === 4) {
+			return array(
+				'status'	=> 'no_file',
+				'message'	=> 'No se ha seleccionado ningún archivo',
+				'type'		=> 'warning'
+			);
+		}
+
 		// not allowed, notify
 		if (!in_array($ext, $allowed)) {
 			return array(
 				'status'	=> 'ext_not_allowed',
-				'message'	=> 'El tipo de archivo <strong>.' . $ext . '</strong> no está permitido.',
+				'message'	=> 'El tipo de archivo <strong>.' . $ext . '</strong> no está permitido',
 				'type'		=> 'warning'
 			);
 		}

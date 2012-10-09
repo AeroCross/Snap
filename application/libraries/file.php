@@ -169,7 +169,7 @@ class File {
 		if ($file['size'] === 0 AND $file['error'] === 1) {
 			return array(
 				'status'	=> 'max_filesize_exceeded',
-				'message'	=> 'El archivo excede el límite de <strong>1MB</strong>.',
+				'message'	=> 'El archivo excede el límite de <strong>1MB</strong>',
 				'type'		=> 'warning'
 			);
 		}
@@ -178,7 +178,7 @@ class File {
 		if ($file['size'] > 1048576) {
 			return array(
 				'status'	=> 'max_filesize_exceeded',
-				'message'	=> 'El archivo excede el límite de <strong>1MB</strong>.',
+				'message'	=> 'El archivo excede el límite de <strong>1MB</strong>',
 				'type'		=> 'warning'
 			);
 		}

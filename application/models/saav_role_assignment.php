@@ -23,6 +23,13 @@ class Saav_role_assignment extends EXT_Model {
 		parent::__construct();
 	}
 
+	/**
+	* Selects the users that belong to a certain role.
+	*
+	* @param	string	- the role (admin, support, client)
+	* @return	object	- the role information
+	* @access	public
+	*/
 	public function getRoleUsers($role = null) {
 		// if empty, get them all
 		if (empty($role)) {

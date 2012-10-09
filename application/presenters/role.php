@@ -72,6 +72,49 @@ class RolePresenter {
 		// @see: http://stackoverflow.com/a/11854285/613997
 		return json_decode(json_encode($users));
 	}
+
+	/**
+	* Returns an option group of user to change role.
+	*
+	* @access	public
+	*/
+	public function users() {
+		$this->app->load->model('saav_company');
+		$this->app->load->model('saav_company_user');
+
+		// fetch all companies
+		$companies = $this->app->saav_company->data()->by('id', 'asc')->getAll();
+
+		foreach($companies as $company) {
+			$label[$company->id] = '<optgroup label="' . $company->name . '">';
+
+			// all company users
+			$users		= $this->app->saav_company_user->getCompanyUsers($company->id);
+
+			if (empty($users)) {
+				$option[$company->id] = '<option>No existen usuarios asignados a esta compañía</option>';
+				continue;
+			}
+
+			$option[$company->id]	= '';
+
+			foreach($users as $user) {
+				$option[$company->id] .= '<option value="' . $user->id . '">' . $user->firstname . ' ' . $user->lastname . '</option>';
+			}
+
+			// close the tag
+			$option[$company->id] .= '</optgroup>';
+		}
+
+		// result
+		$result = '';
+
+		foreach ($label as $key => $l) {
+			$result .= $l . $option[$key];
+		} 
+
+		return $result;
+	}
 }
 
 /* End of file role.php */

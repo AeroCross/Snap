@@ -21,21 +21,7 @@
 
 					<select name="user[]" id="users" multiple="multiple" class="span4" style="height: 500px; overflow: auto">
 
-						<optgroup label="Ingenium: Desarrollo Virtual">
-
-							<option>Mario Cuba</option>
-							<option>Nancy Reyes</option>
-							<option>Luis Rodríguez</option>
-							<option>Leonardo González</option>
-
-						</optgroup>
-
-						<optgroup label="Instituto Virtual de Estudios Avanzados">
-
-							<option>José Rincón</option>
-							<option>Nadia Padrón</option>
-
-						</optgroup>
+						<?php echo $this->presenter->role->users(); ?>
 
 					</select>
 

@@ -75,7 +75,7 @@
 
 						<div class="thumbnail">
 
-							<?php echo $this->presenter->user->avatar($admin['id'], 64); ?>
+							<?php echo $this->presenter->user->avatar($admin->id, 64); ?>
 						
 						</div>
 
@@ -83,9 +83,9 @@
 
 					<div class="span4">
 
-						<h4><?php echo $admin['name']; ?> <small><?php echo $admin['company']->name; ?></small></h4>
+						<h4><?php echo $admin->name; ?> <small><?php echo $admin->company->name; ?></small></h4>
 
-						<p><?php echo safe_mailto($admin['email']); ?></p>
+						<p><?php echo safe_mailto($admin->email); ?></p>
 
 					</div>
 

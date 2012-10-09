@@ -67,8 +67,10 @@ class RolePresenter {
 				'company'	=> $this->app->saav_company->getCompany($user->id),
 			); 
 		}
-
-		return (object) $users;
+		
+		// quick hack for multidimensional arrays
+		// @see: http://stackoverflow.com/a/11854285/613997
+		return json_decode(json_encode($users));
 	}
 }
 

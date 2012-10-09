@@ -19,7 +19,7 @@
 
 				<div class="controls">
 
-					<select name="user[]" id="users" multiple="multiple" class="span4" style="height: 500px; overflow: auto">
+					<select name="users[]" id="users" multiple="multiple" class="span4" style="height: 500px; overflow: auto">
 
 						<?php echo $this->presenter->role->users(); ?>
 

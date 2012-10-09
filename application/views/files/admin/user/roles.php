@@ -97,13 +97,8 @@
 
 				<legend>Soporte Técnico</legend>
 
-				<ul>
-
-					<li>Leonardo González</li>
-					<li>Nancy Reyes</li>
-					<li>Luis Rodríguez</li>
-
-				</ul>
+				<!-- support personel -->
+				<?php echo $this->presenter->role->support(); ?>
 
 			</div>
 

@@ -42,6 +42,34 @@ class RolePresenter {
 
 		return '<ul>' . implode('', $users) . '</ul>';
 	}
+
+	/**
+	* Returns a list of the admins.
+	*
+	* @access	public
+	*/
+	public function admins() {
+		$this->app->load->model('saav_company');
+		$roles = $this->app->saav_role_assignment->getRoleUsers('admin');
+
+		// if this does happen, then something is seriously wrong
+		// starting at "how can you enter this view if you're not an admin?" issue
+		if (empty($roles)) {
+			return '<p>No existe personal administrativo asignado.</p>';
+		}
+
+		foreach ($roles as $role) {
+			$user		= $this->app->saav_user->data('id, firstname, lastname, email')->id($role->user_id)->get();
+			$users[$user->id] = array(
+				'id'		=> $user->id,
+				'name'		=> $user->firstname . ' ' . $user->lastname,
+				'email'		=> $user->email,
+				'company'	=> $this->app->saav_company->getCompany($user->id),
+			); 
+		}
+
+		return (object) $users;
+	}
 }
 
 /* End of file role.php */

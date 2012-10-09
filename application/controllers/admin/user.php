@@ -57,10 +57,14 @@ class User extends EXT_Controller {
 	* @access	public
 	*/
 	public function roles() {
-		// laod necessary code
+		// check if there was a role assignment
+		if ($this->input->post() != false) {
+			$this->presenter->notification->create($this->_assign(), 'toast');
+		}
+
+		// load necessary code
 		$this->load->presenter('user');
 		$this->load->presenter('role');
-
 		$this->data->admins	= $this->presenter->role->admins();
 		$this->data->title	= 'Administración » Asignar Roles';
 	}
@@ -109,7 +113,7 @@ class User extends EXT_Controller {
 
 		// email exists
 		if ($this->saav_user->match($email, 'email')) {
-			return $this->notification->emailExists;
+			return $this->notification->userEmailExists;
 		}
 
 		// all good - insert and notify
@@ -123,7 +127,7 @@ class User extends EXT_Controller {
 
 		// user inserted
 		if (!$this->saav_user->insert($user)) {
-			return $this->notificaton->insertError;
+			return $this->notificaton->userInsertError;
 		}
 
 		// insert the company
@@ -136,7 +140,7 @@ class User extends EXT_Controller {
 		);
 
 		if (!$this->saav_company_user->insert($company)) {
-			return $this->notification->insertError;
+			return $this->notification->userInsertError;
 		}
 
 		// insert the role (by default, client)
@@ -148,14 +152,14 @@ class User extends EXT_Controller {
 		);
 
 		if (!$this->saav_role_assignment->insert($role)) {
-			return $this->notification->insertError;
+			return $this->notification->userInsertError;
 		}
 
 		// all good - no values to show again
 		$this->form_validation->reset_validation();
 
 		// notify
-		return $this->notification->success;
+		return $this->notification->userInsertSuccess;
 
 	}
 
@@ -166,6 +170,8 @@ class User extends EXT_Controller {
 	*/
 	private function _notifications() {
 		$this->notification = new StdClass;
+
+		// users
 		$this->notification->required = array(
 				'status'	=> 'required',
 				'message'	=> 'Todos los campos son requeridos',
@@ -184,23 +190,56 @@ class User extends EXT_Controller {
 				'type'		=> 'warning'
 			);
 
-		$this->notification->emailExists = array(
+		$this->notification->userEmailExists = array(
 				'status'	=> 'email_exists',
 				'message'	=> 'Dirección de correo ya existe',
 				'type'		=> 'warning'
 			);
 
-		$this->notification->insertError = array(
+		$this->notification->userInsertError = array(
 				'status'	=> 'insert_error',
 				'message'	=> 'Error al insertar usuario',
 				'type'		=> 'error'
 			);
 
-		$this->notification->success = array(
+		$this->notification->userInsertSuccess = array(
 			'status'	=> 'success',
 			'message'	=> 'Usuario agregado',
 			'type'		=> 'success'
 		);
+
+		// roles
+		$this->notification->roleUpdateSuccess = array(
+			'status'	=> 'role_update_success',
+			'message'	=> 'Roles actualizados',
+			'type'		=> 'success'
+		);
+
+		$this->notification->roleUpdateFailure = array(
+			'status'	=> 'role_update_failure',
+			'message'	=> 'Error al actualizar roles',
+			'type'		=> 'error'
+		);
+	}
+
+	/**
+	* Assigns system roles.
+	*
+	* @return	array - the notification array
+	* @access	private
+	*/
+	private function _assign() {
+		$users	= $this->input->post('users');
+		$role	= $this->input->post('action');
+
+		foreach($users as $user) {
+			$this->db->set('role_id', $role)->where('user_id', $user);
+			if(!$this->db->update('role_assignments')) {
+				return $this->notification->roleUpdateFailure;
+			}
+		}
+
+		return $this->notification->roleUpdateSuccess;
 	}
 }
 

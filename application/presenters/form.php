@@ -27,11 +27,11 @@ class FormPresenter {
 	/**
 	* Creates options for the departments.
 	*
-	* @param	bool	- TRUE if the first option must be empty
+	* @param	bool	- true if the first option must be empty
 	* @return	string	- the generated html
 	* @access	public
 	*/
-	public function departments($first_empty = TRUE) {
+	public function departments($first_empty = true) {
 		$this->app->load->model('saav_department');
 		return $this->_createOptions($this->app->saav_department->getDepartments(), 'id', 'name', $first_empty);
 	}
@@ -39,11 +39,11 @@ class FormPresenter {
 	/**
 	* Creates options for the admins.
 	*
-	* @param	bool	- TRUE if the first option must be empty
+	* @param	bool	- true if the first option must be empty
 	* @return	string	- the generated html
 	* @access	public
 	*/
-	public function admins($first_empty = TRUE) {
+	public function admins($first_empty = true) {
 		$this->app->load->model('saav_user');
 		return $this->_createOptions($this->app->saav_user->getNamesByRole(array(1)), 'id', 'name', $first_empty);
 	}
@@ -51,11 +51,11 @@ class FormPresenter {
 	/**
 	* Creates options for the support personnel.
 	*
-	* @param	bool	- TRUE if the first option must be empty
+	* @param	bool	- true if the first option must be empty
 	* @return	string	- the generated html
 	* @access	public
 	*/
-	public function support($first_empty = TRUE) {
+	public function support($first_empty = true) {
 		$this->app->load->model('saav_user');
 		return $this->_createOptions($this->app->saav_user->getNamesByRole(array(2)), 'id', 'name', $first_empty);
 	}
@@ -63,11 +63,11 @@ class FormPresenter {
 	/**
 	* Creates options for the companies.
 	*
-	* @param	bool	- TRUE if the first option must be empty
+	* @param	bool	- true if the first option must be empty
 	* @return	string	- the generated html
 	* @access public
 	*/
-	public function companies($first_empty = TRUE) {
+	public function companies($first_empty = true) {
 		$this->app->load->model('saav_company');
 		return $this->_createOptions($this->app->saav_company->getCompanies(), 'id', 'name', $first_empty);
 	}
@@ -75,13 +75,24 @@ class FormPresenter {
 	/**
 	* Creates options for the users.
 	*
-	* @param	bool	- TRUE if the first option must be empty
+	* @param	bool	- true if the first option must be empty
 	* @return	string	- the generated html
 	* @access public
 	*/
-	public function users($first_empty = TRUE) {
+	public function users($first_empty = true) {
 		$this->app->load->model('saav_user');
 		return $this->_createOptions($this->app->saav_user->getNamesByRole(array(3)), 'id', 'name', $first_empty);
+	}
+
+	/**
+	* Creates options for the roles.
+	*
+	* @param	bool	- true if the first option must be empty
+	* @return	string	- the generated html
+	*/
+	public function roles($first_empty = true) {
+		$this->app->load->model('saav_role'); 
+		return $this->_createOptions($this->app->saav_role->getRoles(), 'id', 'name', $first_empty);
 	}
 
 	/**
@@ -93,11 +104,11 @@ class FormPresenter {
 	* @return	string	- formed HTML of options
 	* @access	private
 	*/
-	private function  _createOptions($data, $value, $name, $first_empty = TRUE) {
+	private function  _createOptions($data, $value, $name, $first_empty = true) {
 		$items = array();
-		
+
 		// first empty item
-		if ($first_empty === TRUE) {
+		if ($first_empty === true) {
 			$items[]	= '<option value=""></option>';
 		}
 

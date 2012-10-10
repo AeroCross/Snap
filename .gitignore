@@ -1,8 +1,14 @@
 # ignore server generated files
 cgi-bin/
 
-# ignore OS X generated files
-files/
+# ignore uploaded files
+/files/
 
 # ignore logs
-application/logs/
+/application/logs/
+
+# ignore uploads
+/application/uploads/
+
+# temporarily ignore extension icons
+application/views/assets/img/extensions/

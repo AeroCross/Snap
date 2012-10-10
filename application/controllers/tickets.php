@@ -114,6 +114,7 @@ class Tickets extends EXT_Controller {
  	*/
 	public function view($ticket) {
 		$this->load->presenter('ticket');
+		$this->load->presenter('user');
 		$this->load->helper('icon');
 		$this->load->helper('extension');
 		
@@ -140,7 +141,7 @@ class Tickets extends EXT_Controller {
 		$this->data->reporter	= new StdClass;
 		$this->data->files		= new StdClass;
 
-		$this->data->reporter	= $this->saav_user->data('firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
+		$this->data->reporter	= $this->saav_user->data('id, firstname, lastname, email, username')->id($this->data->ticket->reported_by)->get();
 		$this->data->messages	= $this->saav_message->getMessages($ticket);
 		$this->data->files		= $this->presenter->ticket->files($ticket);
 	}

@@ -20,8 +20,10 @@ class Upgrade extends EXT_Controller {
 		// set the title
 		$this->data->title = 'Actualización de la Base de Datos';
 
-		// verify that only admins enter this area
+		// load necessary code
 		$this->load->model('saav_user');
+
+		// verify that only admins enter this area
 		if (!$this->saav_user->permission('admin')) {
 			redirect('dashboard');
 		}
@@ -33,25 +35,28 @@ class Upgrade extends EXT_Controller {
 	* @access	public
 	*/
 	public function index() {
+		// load necessary code
 		$this->load->library('migration');
-
 		$this->config->load('migration');
-		$current = $this->config->item('migration_version');
 
-		// already at latest version
-		if ($this->migration->current() === TRUE) {
-			$this->data->message = 'La base de datos está actualizada en su última versión &mdash; número de versión: <strong>' . $current . '</strong>';
+		// get data
+		$current	= $this->config->item('migration_version');
+		$status		= $this->migration->current();
 
-		// updated database
-		} elseif (is_numeric($this->migration->current())) {
-			$this->data->message = 'La base de datos ha sido actualizada a la versión ' . $current . '.';
+		// current
+		if ($status === true) {
+			$this->data->message = 'La base de datos se encuentra en la versión <strong>' . $current . '</strong>.';
 
-		// error updating
+		// successful
+		} elseif(is_numeric($status)) {
+			$this->data->message = 'La base de datos ha sido actualizada la versión <strong>' . $current . '</strong>.';
+		
+		// error
 		} else {
-			$this->data->message = 'Error al actualizar la base de datos a la versión ' . $current . '.';
+			$this->data->message = 'Error al actualizar la base de datos a la versión <strong>' . $current . '</strong>.';
 		}
 	}
 }
 
-/* End of file update.php */
-/* Location: ./application/controllers/update.php */
+/* End of file upgrade.php */
+/* Location: ./application/controllers/upgrade.php */

@@ -46,7 +46,22 @@ class Saav_company extends EXT_Model {
 	* @access	public
 	*/
 	public function getCompanies() {
-		return $this->db->get($this->_table)->result();
+		return $this->db->order_by('id', 'asc')->get($this->_table)->result();
+	}
+
+	/**
+	* Gets the total amount of members inside a company.
+	*
+	* @param	int		- the company id
+	* @return	int		- the amount of members
+	* @access	public
+	*/
+	public function getTotalMembers($company_id) {
+		$this->db->select('id')
+		->from('company_users')
+		->where('company_id', $company_id);
+
+		return $this->db->count_all_results();
 	}
 }
 

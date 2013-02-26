@@ -1,101 +1,125 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP 5.2.4 or newer
- *
- * NOTICE OF LICENSE
- *
- * Licensed under the Academic Free License version 3.0
- *
- * This source file is subject to the Academic Free License (AFL 3.0) that is
- * bundled with this package in the files license_afl.txt / license_afl.rst.
- * It is also available through the world wide web at this URL:
- * http://opensource.org/licenses/AFL-3.0
- * If you did not receive a copy of the license and are unable to obtain it
- * through the world wide web, please send an email to
- * licensing@ellislab.com so we can send you a copy immediately.
- *
- * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
- * @license		http://opensource.org/licenses/AFL-3.0 Academic Free License (AFL 3.0)
- * @link		http://codeigniter.com
- * @since		Version 1.0
- * @filesource
- */
-/*
-| -------------------------------------------------------------------
-| DATABASE CONNECTIVITY SETTINGS
-| -------------------------------------------------------------------
-| This file will contain the settings needed to access your database.
-|
-| For complete instructions please consult the 'Database Connection'
-| page of the User Guide.
-|
-| -------------------------------------------------------------------
-| EXPLANATION OF VARIABLES
-| -------------------------------------------------------------------
-|
-|	['dsn']      The full DSN string describe a connection to the database.
-|	['hostname'] The hostname of your database server.
-|	['username'] The username used to connect to the database
-|	['password'] The password used to connect to the database
-|	['database'] The name of the database you want to connect to
-|	['dbdriver'] The database driver. e.g.: mysqli.
-			Currently supported:
-|				 cubrid, ibase, mssql, mysql, mysqli, oci8,
-|				 odbc, pdo, postgre, sqlite, sqlite3, sqlsrv
-|	['dbprefix'] You can add an optional prefix, which will be added
-|				 to the table name when using the  Query Builder class
-|	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
-|	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
-|	['cache_on'] TRUE/FALSE - Enables/disables query caching
-|	['cachedir'] The path to the folder where cache files should be stored
-|	['char_set'] The character set used in communicating with the database
-|	['dbcollat'] The character collation used in communicating with the database
-|				 NOTE: For MySQL and MySQLi databases, this setting is only used
-| 				 as a backup if your server is running PHP < 5.2.3 or MySQL < 5.0.7
-|				 (and in table creation queries made with DB Forge).
-| 				 There is an incompatibility in PHP with mysql_real_escape_string() which
-| 				 can make your site vulnerable to SQL injection if you are using a
-| 				 multi-byte character set and are running versions lower than these.
-| 				 Sites using Latin-1 or UTF-8 database character set and collation are unaffected.
-|	['swap_pre'] A default table prefix that should be swapped with the dbprefix
-|	['autoinit'] Whether or not to automatically initialize the database.
-|	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
-|							- good for ensuring strict SQL while developing
-|	['failover'] array - A array with 0 or more data for connections if the main should fail.
-|
-| The $active_group variable lets you choose which connection group to
-| make active.  By default there is only one group (the 'default' group).
-|
-| The $query_builder variables lets you determine whether or not to load
-| the query builder class
-*/
+<?php
 
-$active_group = SAAV_DATABASE;
-$query_builder = TRUE;
+return array(
 
-$db[SAAV_DATABASE] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => SAAV_USERNAME,
-	'password' => SAAV_PASSWORD,
-	'database' => SAAV_DATABASE,
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => TRUE,
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'autoinit' => TRUE,
-	'stricton' => TRUE,
-	'failover' => array()
+	/*
+	|--------------------------------------------------------------------------
+	| Database Query Logging
+	|--------------------------------------------------------------------------
+	|
+	| By default, the SQL, bindings, and execution time are logged in an array
+	| for you to review. They can be retrieved via the DB::profile() method.
+	| However, in some situations, you may want to disable logging for
+	| ultra high-volume database work. You can do so here.
+	|
+	*/
+
+	'profile' => false,
+
+	/*
+	|--------------------------------------------------------------------------
+	| PDO Fetch Style
+	|--------------------------------------------------------------------------
+	|
+	| By default, database results will be returned as instances of the PHP
+	| stdClass object; however, you may wish to retrieve records as arrays
+	| instead of objects. Here you can control the PDO fetch style of the
+	| database queries run by your application.
+	|
+	*/
+
+	'fetch' => PDO::FETCH_CLASS,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Default Database Connection
+	|--------------------------------------------------------------------------
+	|
+	| The name of your default database connection. This connection will be used
+	| as the default for all database operations unless a different name is
+	| given when performing said operation. This connection name should be
+	| listed in the array of connections below.
+	|
+	*/
+
+	'default' => 'mysql',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Database Connections
+	|--------------------------------------------------------------------------
+	|
+	| All of the database connections used by your application. Many of your
+	| applications will no doubt only use one connection; however, you have
+	| the freedom to specify as many connections as you can handle.
+	|
+	| All database work in Laravel is done through the PHP's PDO facilities,
+	| so make sure you have the PDO drivers for your particular database of
+	| choice installed on your machine.
+	|
+	*/
+
+	'connections' => array(
+
+		'sqlite' => array(
+			'driver'   => 'sqlite',
+			'database' => 'application',
+			'prefix'   => '',
+		),
+
+		'mysql' => array(
+			'driver'   => 'mysql',
+			'host'     => '127.0.0.1',
+			'database' => 'database',
+			'username' => 'root',
+			'password' => '',
+			'charset'  => 'utf8',
+			'prefix'   => '',
+		),
+
+		'pgsql' => array(
+			'driver'   => 'pgsql',
+			'host'     => '127.0.0.1',
+			'database' => 'database',
+			'username' => 'root',
+			'password' => '',
+			'charset'  => 'utf8',
+			'prefix'   => '',
+			'schema'   => 'public',
+		),
+
+		'sqlsrv' => array(
+			'driver'   => 'sqlsrv',
+			'host'     => '127.0.0.1',
+			'database' => 'database',
+			'username' => 'root',
+			'password' => '',
+			'prefix'   => '',
+		),
+
+	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Redis Databases
+	|--------------------------------------------------------------------------
+	|
+	| Redis is an open source, fast, and advanced key-value store. However, it
+	| provides a richer set of commands than a typical key-value store such as
+	| APC or memcached. All the cool kids are using it.
+	|
+	| To get the scoop on Redis, check out: http://redis.io
+	|
+	*/
+
+	'redis' => array(
+
+		'default' => array(
+			'host'     => '127.0.0.1',
+			'port'     => 6379,
+			'database' => 0
+		),
+
+	),
+
 );
-
-/* End of file database.php */
-/* Location: ./application/config/database.php */

@@ -15,12 +15,14 @@ class Base_Controller extends Controller {
 
 	public function __construct() {
 		// javascript files
-		Asset::add('scripts', 'js/scripts.js');
+		Asset::add('jquery',	'js/jquery.js');
+		Asset::add('bootstrap',	'js/bootstrap.js');
+		Asset::add('functions',	'js/functions.js');
 
 		// styles
-		Asset::add('styles', 'css/styles.css');
-		Asset::add('responsive', 'css/responsive.css');
-		Asset::add('theme', 'css/theme.css');
+		Asset::add('styles',		'css/styles.css');
+		Asset::add('responsive',	'css/responsive.css');
+		Asset::add('theme',			'css/theme.css');
 	}
 
 }

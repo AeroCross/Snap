@@ -21,10 +21,12 @@
 	</head>
 
 	<body>
-
+		
 		<div class="container">
 
 			<div class="signin">
+
+				{{ Notification::show() }}
 
 				<div class="signin-box">
 
@@ -36,8 +38,8 @@
 							<label for="username">Nombre de Usuario</label>
 							<input type="text" class="input-block-level" name="username" id="username">
 
-							<label for="passwd">Contraseña</label>
-							<input type="password" class="input-block-level" name="passwd" id="passwd">
+							<label for="password">Contraseña</label>
+							<input type="password" class="input-block-level" name="password" id="password">
 
 							<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
 

@@ -24,12 +24,13 @@ Route::filter('auth', function() {
 });
 
 // landing page
-Route::get('/', 'login@index');
+Route::get('/', 'auth@login');
 
 // authentication
-Route::controller('login');
-Route::get('login', 'login@index');
-Route::get('logout', 'login@logout');
+Route::post('login', 'auth@login');
+Route::get('login', 'auth@login');
+Route::get('logout', 'auth@logout');
+
 
 // locked areas
 Route::group(array('before' => 'auth'), function() {

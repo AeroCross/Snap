@@ -1,13 +1,13 @@
 <?php
 
 /**
-* Handles the initial session of the user
+* Handles the authentication methods for users
 *
 * @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Login_Controller extends Base_Controller {
+class Auth_Controller extends Base_Controller {
 
 	public $restful = true;
 
@@ -24,7 +24,7 @@ class Login_Controller extends Base_Controller {
 	*
 	* @access	public
 	*/
-	public function get_index() {
+	public function get_login() {
 		// create a notification, if there's any
 		Notification::create($this->notification(Session::get('notification')));
 		return View::make('login.index');
@@ -35,7 +35,7 @@ class Login_Controller extends Base_Controller {
 	*
 	* @access	public
 	*/
-	public function post_index() {
+	public function post_login() {
 		$credentials = array(
 			'username'	=> Input::get('username'),
 			'password'	=> Input::get('password')

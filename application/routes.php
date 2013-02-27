@@ -9,21 +9,6 @@ Event::listen('500', function() {
 	return Response::error('500');
 });
 
-// controller
-Route::controller('login');
-Route::controller('dashboard');
-
-// routes
-Route::get('/', 'login@index');
-Route::get('login', 'login@index');
-Route::get('logout', 'login@logout');
-
-Route::get('dashboard', array('before' => 'auth', 'do' => function() {
-	return Redirect::to('login')
-	->with('message', 'No ha iniciado sesión')
-	->with('type', 'warning');
-}));
-
 // cross-site request forgery filter
 Route::filter('csrf', function() {
 	if (Request::forged()) {
@@ -34,6 +19,19 @@ Route::filter('csrf', function() {
 // authentication filter
 Route::filter('auth', function() {
 	if (Auth::guest())  {
-		return Redirect::to('login');
+		return Redirect::to('login')->with('notification', 'login');
 	}
+});
+
+// landing page
+Route::get('/', 'login@index');
+
+// authentication
+Route::controller('login');
+Route::get('login', 'login@index');
+Route::get('logout', 'login@logout');
+
+// locked areas
+Route::group(array('before' => 'auth'), function() {
+	Route::controller('dashboard');
 });

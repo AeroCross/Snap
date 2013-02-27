@@ -91,6 +91,13 @@ class Login_Controller extends Base_Controller {
 				);
 			break;
 
+			case 'login':
+				return array(
+					'message'	=> 'No ha iniciado sesión',
+					'type'		=> 'error',
+				);
+			break;
+
 			default:
 				return false;
 			break;

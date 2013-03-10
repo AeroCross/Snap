@@ -76,7 +76,7 @@
 
 								<li class="{{ $ticket->status }}">
 
-									<a href="{{ URL::to('ticket/view/' . $ticket->id)">
+									<a href="{{ URL::to('ticket/view/' . $ticket->id) }}">
 										{{ $ticket->subject }} <span class="pull-right">{{ Helper::icon('chevron-right') }}</span><br />
 										<small class="muted">{{ $ticket->date_created }}</small>
 									</a>

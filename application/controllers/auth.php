@@ -14,8 +14,6 @@ class Auth_Controller extends Base_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		// since this is the login form, add correct styles
-		// @TODO: perhaps the right thing to do is to use a template
 		Asset::add('login', 'css/login.css');
 	}
 
@@ -46,6 +44,13 @@ class Auth_Controller extends Base_Controller {
 		}
 
 		if (Auth::attempt($credentials)) {
+
+			$user = User::where_username($credentials['username'])->first();
+
+			Session::put('name', $user->firstname . ' ' . $user->lastname);
+			Session::put('email', $user->email);
+			Session::put('id', $user->id);
+
 			return Redirect::to('dashboard');
 		} else {
 			return Redirect::to('login')->with('notification', 'failed');

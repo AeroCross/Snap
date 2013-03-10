@@ -1,3 +1,9 @@
 jQuery(document).ready(function() {
-	jQuery('.alert').alert();	
+	// enable alerts
+	jQuery('.alert').alert();
+
+	// disable dead links
+	jQuery('a[href$="#"]').on('click', function(e) {
+		e.preventDefault();
+	});
 });

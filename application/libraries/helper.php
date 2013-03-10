@@ -11,4 +11,8 @@ class Helper {
 
         return '<i class="icon-' . $status . '"></i> ';
     }
+
+    public static function icon($icon) {
+    	return '<i class="icon-' . $icon . '"></i>';
+    }
 }

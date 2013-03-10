@@ -1,60 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+@layout('layouts/login')
 
-	<head>
+@section('content')
 
-		<meta charset="utf-8">
+	<div class="signin">
 
-		<title>Iniciar Sesión</title>
+		{{ Notification::show() }}
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="" />
-		<meta name="author" content="" />
+		<div class="signin-box">
 
-		{{ Asset::styles(); }}
+			<!-- login form -->
+			{{ Form::open('login', 'POST') }}
 
-		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]>
-			<script src="../assets/js/html5shiv.js"></script>
-		<![endif]-->
+				<fieldset>
 
-	</head>
+					<label for="username">Nombre de Usuario</label>
+					<input type="text" class="input-block-level" name="username" id="username">
 
-	<body>
-		
-		<div class="container">
+					<label for="password">Contraseña</label>
+					<input type="password" class="input-block-level" name="password" id="password">
 
-			<div class="signin">
+					<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
 
-				{{ Notification::show() }}
+				</fieldset>
 
-				<div class="signin-box">
+			{{ Form::close() }}
 
-					<!-- login form -->
-					{{ Form::open('login', 'POST') }}
+		</div> <!-- /signin-box -->
 
-						<fieldset>
+	</div> <!-- /signin -->
 
-							<label for="username">Nombre de Usuario</label>
-							<input type="text" class="input-block-level" name="username" id="username">
-
-							<label for="password">Contraseña</label>
-							<input type="password" class="input-block-level" name="password" id="password">
-
-							<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-
-						</fieldset>
-
-					{{ Form::close() }}
-
-				</div> <!-- /signin-box -->
-
-			</div> <!-- /signin -->
-
-		</div> <!-- /container -->
-
-		{{ Asset::scripts(); }}
-
-	</body>
-
-</html>
+@endsection

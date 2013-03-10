@@ -22,6 +22,14 @@
 
 				<!-- latest -->
 				<div class="tab-pane active" id="latest">
+
+					<div class="btn-group">
+
+						<button class="btn">{{ Helper::icon('search') }} Buscar</button>
+
+					</div>
+
+					<br /><br />
 				
 					@if (empty($data->latest))
 
@@ -69,6 +77,15 @@
 						</div>
 
 					@else
+
+						<div class="btn-group">
+
+							<button class="btn">{{ Helper::icon('search') }} Buscar</button>
+							<button class="btn">{{ Helper::icon('th-list') }} Todas</button>
+
+						</div>
+
+						<br /><br />
 
 						<ul class="nav nav-tabs nav-stacked">
 

@@ -1,4 +1,5 @@
 body {padding-top: 45px;}
+button:hover,
 a:hover {cursor: pointer;}
 .padded {padding-top: 30px;}
 .center {text-align: center !important}

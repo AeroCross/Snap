@@ -1,0 +1,48 @@
+body {padding-top: 45px;}
+a:hover {cursor: pointer;}
+.padded {padding-top: 30px;}
+.center {text-align: center !important}
+
+/* tables */
+td.subject {
+	padding: 0;
+}
+
+td.subject a {
+	color: #333;
+	display: block;
+	height: 100%;
+	width: 100%;
+	padding: 8px;
+}
+
+td.subject a:hover {
+	text-decoration: none;
+}
+
+table td.status {
+	padding-top: 12px;
+}
+
+table td.status i[class^="icon"] {
+	width: 12px;
+	height: 12px;
+	margin: 0 auto;
+	display: block;
+}
+
+/* fixes */
+/* correct alignment of icons in dropdowns */
+.nav [class^="icon-"] {
+	margin-top: -1px;
+}
+
+/* not enough space in button icons */
+[class^="icon-"] {
+	margin: 6px 6px 0 0;
+}
+
+/* dropdowns have incorrect top and bottom padding */
+.dropdown-menu {
+	padding: 8px 0;
+}

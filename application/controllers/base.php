@@ -13,6 +13,11 @@ class Base_Controller extends Controller {
 		return Response::error('404');
 	}
 
+	/**
+	 * Base contorller loader
+	 *
+	 * @access	public
+	 */
 	public function __construct() {
 		// javascript files
 		Asset::add('jquery',	'js/jquery.js');
@@ -22,7 +27,10 @@ class Base_Controller extends Controller {
 		// styles
 		Asset::add('styles',		'css/styles.css');
 		Asset::add('responsive',	'css/responsive.css');
+		Asset::add('icons',			'css/icons.css');
+		Asset::add('icons-ie7',		'css/icons-ie7.css');
 		Asset::add('theme',			'css/theme.css');
+		Asset::add('custom',		'css/custom.css');
 	}
 
 }

@@ -3,32 +3,15 @@ a:hover {cursor: pointer;}
 .padded {padding-top: 30px;}
 .center {text-align: center !important}
 
-/* tables */
-td.subject {
-	padding: 0;
-}
-
-td.subject a {
+/* tickets list */
+.nav.nav-stacked li.open {
+	border-left: 3px solid #dd4b39;
 	color: #333;
-	display: block;
-	height: 100%;
-	width: 100%;
-	padding: 8px;
+	font-weight: bold;
 }
 
-td.subject a:hover {
-	text-decoration: none;
-}
-
-table td.status {
-	padding-top: 12px;
-}
-
-table td.status i[class^="icon"] {
-	width: 12px;
-	height: 12px;
-	margin: 0 auto;
-	display: block;
+.nav.nav-stacked li.open small {
+	font-weight: normal;
 }
 
 /* fixes */

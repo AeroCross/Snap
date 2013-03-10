@@ -29,37 +29,22 @@
 
 					@else
 
-						<table class="table table-bordered table-striped">
+						<ul class="nav nav-tabs nav-stacked">
 
-							<thead>
+							@foreach($latest as $ticket)
 
-								<tr>
+								<li class="{{ $ticket->status }}">
+								
+									<a href="{{ URL::to('ticket/view/' . $ticket->id) }}">
+										{{ $ticket->subject }} <span class="pull-right">{{ Helper::icon('chevron-right') }}</span><br />
+										<small class="muted">{{ $ticket->date_created }}</small>
+									</a>
+								
+								</li>
 
-									<th>#</th>
-									<th>Asunto</th>
-									<th class="center">Estatus</th>
+							@endforeach
 
-								</tr>
-
-							</thead>
-
-							<tbody>
-
-								@foreach($latest as $ticket)
-
-									<tr>
-
-										<td>{{ HTML::link('ticket/view/' . $ticket->id, $ticket->id) }}</td>
-										<td class="subject">{{ HTML::link('ticket/view/' . $ticket->id, $ticket->subject) }}</td>
-										<td class="status">{{ Helper::status($ticket->status) }}</td>
-
-									</tr>
-
-								@endforeach
-
-							</tbody>
-
-						</table>
+						</ul>
 
 					@endif
 
@@ -77,37 +62,22 @@
 
 					@else
 
-						<table class="table table-bordered table-striped">
+						<ul class="nav nav-tabs nav-stacked">
 
-							<thead>
+							@foreach($assigned as $ticket)
 
-								<tr>
+								<li class="{{ $ticket->status }}">
 
-									<th>#</th>
-									<th>Asunto</th>
-									<th class="center">Estatus</th>
-
-								</tr>
-
-							</thead>
-
-							<tbody>
-
-								@foreach($assigned as $ticket)
-
-									<tr>
-
-										<td>{{ HTML::link('ticket/view/' . $ticket->id, $ticket->id) }}</td>
-										<td class="subject">{{ HTML::link('ticket/view/' . $ticket->id, $ticket->subject) }}</td>
-										<td class="status">{{ Helper::status($ticket->status) }}</td>
-
-									</tr>
+									<a href="{{ URL::to('ticket/view/' . $ticket->id)">
+										{{ $ticket->subject }} <span class="pull-right">{{ Helper::icon('chevron-right') }}</span><br />
+										<small class="muted">{{ $ticket->date_created }}</small>
+									</a>
 								
-								@endforeach
+								</li>
 
-							</tbody>
+							@endforeach
 
-						</table>
+						</ul>
 
 					@endif
 

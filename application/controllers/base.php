@@ -23,6 +23,7 @@ class Base_Controller extends Controller {
 		Asset::add('jquery',	'js/jquery.js');
 		Asset::add('bootstrap',	'js/bootstrap.js');
 		Asset::add('functions',	'js/functions.js');
+		Asset::add('select',	'js/select.js');
 
 		// styles
 		Asset::add('styles',		'css/styles.css');
@@ -30,6 +31,7 @@ class Base_Controller extends Controller {
 		Asset::add('icons',			'css/icons.css');
 		Asset::add('icons-ie7',		'css/icons-ie7.css');
 		Asset::add('theme',			'css/theme.css');
+		Asset::add('select',		'css/select.css');
 		Asset::add('custom',		'css/custom.css');
 	}
 

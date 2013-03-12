@@ -35,4 +35,5 @@ Route::get('logout', 'auth@logout');
 // locked areas
 Route::group(array('before' => 'auth'), function() {
 	Route::controller('dashboard');
+	Route::controller('ticket');
 });

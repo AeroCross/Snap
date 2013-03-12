@@ -6,4 +6,6 @@ jQuery(document).ready(function() {
 	jQuery('a[href$="#"]').on('click', function(e) {
 		e.preventDefault();
 	});
+
+	jQuery('select').select2();
 });

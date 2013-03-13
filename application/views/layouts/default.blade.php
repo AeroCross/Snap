@@ -26,7 +26,7 @@
 
 					<div class="container">
 
-						<a class="brand" href="#">{{ HTML::image('img/logo.png', 'SAAV Logo', array('width' => '24', 'height' => '24')) }}</a>
+						<a class="brand" href="{{ URL::to('dashboard') }}">{{ HTML::image('img/logo.png', 'SAAV Logo', array('width' => '24', 'height' => '24')) }}</a>
 
 						<ul class="nav navbar-googlebar">
 
@@ -36,7 +36,7 @@
 
 								<ul class="dropdown-menu">
 
-									<li><a href="#">Nueva consulta</a></li>
+									<li>{{ HTML::link('ticket/add', 'Nueva consulta') }}</li>
 									<li><a href="#">Mis consultas</a></li>
 
 								</ul>

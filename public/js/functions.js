@@ -7,5 +7,6 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 	});
 
-	jQuery('select').select2();
+	// start Select2 with an empty placeholder as a default
+	jQuery('select').select2({placeholder: ''});
 });

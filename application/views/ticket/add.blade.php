@@ -9,7 +9,7 @@
 </div>
 
 <!-- form div -->
-<div class="span6">
+<div class="span7">
 	
 	{{ Form::open_for_files('ticket/add', 'PUT', array('class' => 'form-horizontal')) }}
 
@@ -22,7 +22,13 @@
 
 				<select name="department" id="department" class="input-large">
 
-					<option value="">Sitios Web</option>
+					<option></option>
+
+					@foreach($data->departments as $department)
+
+						<option value="{{ $department->id }}">{{ $department->name }}</option>
+
+					@endforeach
 
 				</select>
 
@@ -40,7 +46,21 @@
 
 				<select name="assign" id="assign" class="input-large">
 
-					<option value=""></option>
+					<option></option>
+
+					@foreach($data->departments as $department)
+
+						<optgroup label="{{ $department->name }}">
+
+							@foreach($data->members[$department->id] as $member)
+
+								<option value="{{ $member['id'] }}">{{ $member['name'] }}</option>
+
+							@endforeach
+
+						</optgroup>
+
+					@endforeach
 
 				</select>
 
@@ -56,7 +76,7 @@
 
 			<div class="controls">
 
-				<input type="text" name="subject" id="subject" /><span class="help-block">Describa brevemente su solicitud</span>
+				<input type="text" name="subject" id="subject" /><span class="help-block">Describa brevemente su consulta.</span>
 
 			</div>
 
@@ -70,7 +90,7 @@
 
 			<div class="controls">
 
-				<textarea name="content" id="content" cols="8" rows="10" class="span4"></textarea>
+				<textarea name="content" id="content" cols="8" rows="10" class="span4"></textarea><span class="help-block">Indique la situación que presenta — mientras más detalle, mejor.</span>
 
 			</div>
 
@@ -84,7 +104,7 @@
 
 			<div class="controls">
 
-				{{ Form::file('file') }}
+				{{ Form::file('file') }}<span class="help-inline"><strong>Tamaño máximo:</strong> {{ ini_get('upload_max_filesize') }}B</span><br /><span class="help-block">Si tiene que subir más de un archivo, comprímalo primero.</span>
 
 			</div>
 
@@ -103,7 +123,7 @@
 <!-- end form div -->
 
 <!-- help text -->
-<div class="span4 offset1">
+<div class="span4">
 
 	<h3>Información</h3>
 

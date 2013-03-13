@@ -19,6 +19,9 @@ class Base_Controller extends Controller {
 	 * @access	public
 	 */
 	public function __construct() {
+		// to pass data to views
+		$this->data	= new StdClass;
+
 		// javascript files
 		Asset::add('jquery',	'js/jquery.js');
 		Asset::add('bootstrap',	'js/bootstrap.js');

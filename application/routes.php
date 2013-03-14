@@ -31,6 +31,8 @@ Route::post('login', 'auth@login');
 Route::get('login', 'auth@login');
 Route::get('logout', 'auth@logout');
 
+// tickets
+Route::post('ticket/add', 'ticket@add');
 
 // locked areas
 Route::group(array('before' => 'auth'), function() {

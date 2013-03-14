@@ -11,7 +11,10 @@
 <!-- form div -->
 <div class="span7">
 	
-	{{ Form::open_for_files('ticket/add', 'PUT', array('class' => 'form-horizontal')) }}
+	<!-- notification -->
+	{{ Notification::show() }}
+
+	{{ Form::open_for_files('ticket/add', 'POST', array('class' => 'form-horizontal')) }}
 
 		<!-- department -->
 		<div class="control-group">

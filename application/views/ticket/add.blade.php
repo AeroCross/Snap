@@ -22,13 +22,7 @@
 
 				<select name="department" id="department" class="input-large">
 
-					<option></option>
-
-					@foreach($data->departments as $department)
-
-						<option value="{{ $department->id }}">{{ $department->name }}</option>
-
-					@endforeach
+					{{ Fields::departments() }}
 
 				</select>
 
@@ -46,21 +40,7 @@
 
 				<select name="assign" id="assign" class="input-large">
 
-					<option></option>
-
-					@foreach($data->departments as $department)
-
-						<optgroup label="{{ $department->name }}">
-
-							@foreach($data->members[$department->id] as $member)
-
-								<option value="{{ $member['id'] }}">{{ $member['name'] }}</option>
-
-							@endforeach
-
-						</optgroup>
-
-					@endforeach
+					{{ Fields::members() }}
 
 				</select>
 

@@ -27,7 +27,7 @@ class Fields {
 		// loop through each department to form groups
 		foreach ($departments as $department) {
 			// get the members of THIS department
-			$members	= Department::find($department->id)->user()->get();
+			$members	= Department::find($department->id)->user()->where_deleted('0')->get();
 
 			// start the group
 			$field .= '<optgroup label="' . $department->name . '">';

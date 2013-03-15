@@ -62,6 +62,13 @@ class Ticket_Controller extends Base_Controller {
 			$ticket['assigned_to']	= $input['assign'];
 		}
 
+		// notify the whole department
+		$members	= Department::find($input['department'])->user()->where_deleted('0')->get('firstname', 'lastname', 'email');
+		
+		foreach ($members as $member) {
+			$bcc[$member->email] = $member->firstname . ' ' . $member->lastname;
+		}
+
 		// save it to the database
 		$ticket = Ticket::insert_get_id($ticket);
 
@@ -71,7 +78,8 @@ class Ticket_Controller extends Base_Controller {
 		// construct the message
 		$message = Swift_Message::newInstance('Consulta #' . $ticket . ': ' . $input['subject'])
 		->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))
-		->setTo(array('mario.cuba@ingenium-dv.com' => 'Mario Cuba'))
+		->setTo(array('soporte@ingenim-dv.com' => 'Soporte'))
+		->setBcc($bcc)
 		->setBody($input['content'], 'text/html')
 		->addPart($input['content'], 'text/plain');
 

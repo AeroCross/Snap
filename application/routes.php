@@ -34,6 +34,10 @@ Route::get('logout', 'auth@logout');
 // tickets
 Route::post('ticket/add', 'ticket@add');
 
+// settings
+Route::get('settings', 'settings@index');
+Route::put('settings', 'settings@index');
+
 // locked areas
 Route::group(array('before' => 'auth'), function() {
 	Route::controller('dashboard');

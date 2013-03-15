@@ -49,5 +49,33 @@ class Ticket_Controller extends Base_Controller {
 		if ($validation->fails()) {
 			return Redirect::to('ticket/add')->with('notification', 'form_required');
 		}
+
+		// validation passed, add data to database
+		$ticket = array(
+			'subject'		=> $input['subject'],
+			'content'		=> $input['content'],
+			'department'	=> $input['department'],
+			'reported_by'	=> Session::get('id'),
+		);
+
+		if (isset($input['assign'])) {
+			$ticket['assigned_to']	= $input['assign'];
+		}
+
+		// save it to the database
+		$ticket = Ticket::insert_get_id($ticket);
+
+		// mail the department
+		$mailer = IoC::resolve('mailer');
+
+		// construct the message
+		$message = Swift_Message::newInstance('Consulta #' . $ticket . ': ' . $input['subject'])
+		->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))
+		->setTo(array('mario.cuba@ingenium-dv.com' => 'Mario Cuba'))
+		->setBody($input['content'], 'text/html')
+		->addPart($input['content'], 'text/plain');
+
+		// send the email
+		$sent = $mailer->send($message);
 	}
 }

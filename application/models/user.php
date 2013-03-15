@@ -8,7 +8,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 */
 class User extends Eloquent {
-	public static $timestamps = false;
+	public static $timestamps = true;
 
 	/** 
 	* An user can belong to different departments, and 

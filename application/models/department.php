@@ -8,7 +8,7 @@
 * @author		Mario Cuba <mario@mariocuba.net>
 */
 class Department extends Eloquent {
-	public static $timestamps = false;
+	public static $timestamps = true;
 
 	/** 
 	* A department can have lots of users, and 

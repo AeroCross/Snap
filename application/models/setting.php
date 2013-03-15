@@ -1,12 +1,12 @@
 <?php
 
 /**
-* Ticket model
+* Setting model
 *
 * @package		SAAV
 * @subpackage	Controllers
 * @author		Mario Cuba <mario@mariocuba.net>
 */
-class Ticket extends Eloquent {
+class Setting extends Eloquent {
 	public static $timestamps = true;
 }

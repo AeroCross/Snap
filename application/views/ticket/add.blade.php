@@ -14,6 +14,7 @@
 	<!-- notification -->
 	{{ Notification::show() }}
 
+	<!-- form -->
 	{{ Form::open_for_files('ticket/add', 'POST', array('class' => 'form-horizontal')) }}
 
 		<!-- department -->

@@ -4,6 +4,7 @@
 
 	<div class="signin">
 
+		<!-- notifications -->
 		{{ Notification::show() }}
 
 		<div class="signin-box">

@@ -23,8 +23,6 @@ class Auth_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function get_login() {
-		// create a notification, if there's any
-		Notification::create($this->notification(Session::get('notification')));
 		return View::make('login.index');
 	}
 
@@ -40,7 +38,7 @@ class Auth_Controller extends Base_Controller {
 		);
 
 		if (empty($credentials['username']) or empty($credentials['password'])) {
-			return Redirect::to('login')->with('notification', 'required');
+			return Redirect::to('login')->with('notification', 'form_required');
 		}
 
 		if (Auth::attempt($credentials)) {
@@ -53,7 +51,7 @@ class Auth_Controller extends Base_Controller {
 
 			return Redirect::to('dashboard');
 		} else {
-			return Redirect::to('login')->with('notification', 'failed');
+			return Redirect::to('login')->with('notification', 'auth_failed');
 		}
 	}
 
@@ -65,47 +63,6 @@ class Auth_Controller extends Base_Controller {
 	public function get_logout() {
 		Auth::logout();
 
-		return Redirect::to('login')->with('notification', 'logout');
-	}
-
-	/**
-	* Resolves what notification to use
-	*
-	* @access	public
-	*/
-	private function notification($type) {
-		switch($type) {
-			case 'logout':
-				return array(
-					'message'	=> 'Ha cerrado sesión',
-					'type'		=> 'info'
-				);
-			break;
-
-			case 'failed':
-				return array(
-					'message'	=> 'Nombre de usuario o contraseña incorrectos',
-					'type'		=> 'warning',
-				);
-			break;
-
-			case 'required':
-				return array(
-					'message'	=> 'Todos los campos son requeridos',
-					'type'		=> 'warning',
-				);
-			break;
-
-			case 'login':
-				return array(
-					'message'	=> 'No ha iniciado sesión',
-					'type'		=> 'error',
-				);
-			break;
-
-			default:
-				return false;
-			break;
-		}
+		return Redirect::to('login')->with('notification', 'auth_logout');
 	}
 }

@@ -63,7 +63,7 @@
 										<li class="divider"></li>
 										<li class="nav-header">Sistema</li>
 
-										<li><a href="#">Configuración</a></li>
+										<li>{{ HTML::link('settings', 'Configuración') }}</li>
 										<li><a href="#">Actualizar</a></li>
 									
 								</ul>

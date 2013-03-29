@@ -102,6 +102,7 @@
 		</div>
 
 	{{ Form::close() }}
+	<!-- end form -->
 
 </div>
 <!-- end form div -->

@@ -19,7 +19,8 @@ class User extends Eloquent {
 	}
 
 	/**
-	* An user can have many messages in tickets
+	* An user can have many messages in tickets, but a message
+	* can belong only to a single user
 	*/
 	public function messages() {
 		return $this->has_many('Message');

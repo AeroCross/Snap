@@ -17,4 +17,11 @@ class Department extends Eloquent {
 	public function user() {
 		return $this->has_many_and_belongs_to('User', 'department_members');
 	}
+
+	/**
+	* Alias of $this->user()
+	*/
+	public function users() {
+		return $this->has_many_and_belongs_to('User', 'department_members');
+	}
 }

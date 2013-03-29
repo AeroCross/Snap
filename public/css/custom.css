@@ -46,6 +46,22 @@ a:hover {cursor: pointer;}
 	background: none;
 }
 
+.highlight.highlight-success {
+	color: #468847;
+}
+
+.highlight.highlight-error {
+	color: #dd4b39;
+}
+
+.highlight.highlight-warning {
+	color: #f89406;
+}
+
+.highlight.highlight-info {
+	color: #3a87ad;
+}
+
 /* tickets list */
 .nav.nav-stacked li.open {
 	border-left: 3px solid #dd4b39;

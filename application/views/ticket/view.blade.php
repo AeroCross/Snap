@@ -27,7 +27,9 @@
 
 		{{ Form::close() }}
 		
-		<p class="reporter">{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
+		<h5>{{ $ticket->subject }}</h5>
+
+		<p>{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
 
 		<p>{{ $ticket->content }}</p>
 

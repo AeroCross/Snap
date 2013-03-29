@@ -119,7 +119,7 @@
 
 				<p class="muted credit">
 
-					<strong>SAAV</strong> Versión <strong>0.5a</strong> — Sistem Automatizado de Asistencia Virtual<br />
+					<strong>SAAV</strong> Versión <strong>0.5a</strong> — Sistema Automatizado de Asistencia Virtual<br />
 					Copyright 2013 &copy; {{ HTML::link('http://mariocuba.net', 'Mario Cuba') }} — Todos los derechos reservados.
 
 				</p>

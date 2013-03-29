@@ -104,4 +104,24 @@ class Ticket_Controller extends Base_Controller {
 		return View::make('ticket.success')->with('ticket', $ticket);
 	}
 
+	/**
+	* Shows detailed information about a ticket
+	*
+	* @param	
+	* @access	public
+	*/
+	public function get_view($ticket) {
+		$ticket		= Ticket::find($ticket);
+		$messages	= $ticket->messages()->get();
+
+		// information about who made the ticket
+		$reporter	= User::find($ticket->reported_by);
+		$reporter->fullname = $reporter->firstname . ' ' . $reporter->lastname;
+
+		return View::make('ticket/view')
+		->with('ticket', $ticket)
+		->with('messages', $messages)
+		->with('reporter', $reporter);
+	}
+
 }

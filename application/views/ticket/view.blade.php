@@ -40,7 +40,7 @@
 
 		<fieldset>
 
-			<legend>Reabrir consulta</legend>
+			<legend>Actualizar consulta</legend>
 
 			<!-- form -->
 			{{ Form::open_for_files('ticket/update/' . $ticket->id, 'POST') }}
@@ -75,6 +75,8 @@
 							{{ Fields::members() }}
 
 						</select>
+
+						<span class="help-block">Si asigna a un especialista, no se le notificará al departamento</span>
 
 					</div>
 

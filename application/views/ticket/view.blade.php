@@ -6,13 +6,34 @@
 	<!-- initial thread -->
 	<div class="span5">
 
-		<p>{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
-		
-		<p>{{ $ticket->content }}</p>
+		<!-- notification -->
+		{{ Notification::show() }}
+
+		<!-- opening message -->
 
 		<!-- ticket status -->
+		{{ Form::open('ticket/status/' . $ticket->id, 'PUT', array('class' => 'form-status pull-right')) }}
+
+			<div class="btn-group">
+
+				<button class="btn btn-small" name="status" value="closed">{{ Helper::icon('ok-sign') }} Cerrar</button>
+				<button class="btn btn-small" name="status" value="open">{{ Helper::icon('exclamation-sign') }} Reabrir</button>
+				<button class="btn btn-small" name="status" value="hold">{{ Helper::icon('time') }} En espera</button>
+
+			</div>
+
+			<!-- update this ticket -->
+			<input type="hidden" name="ticket_id" value="{{ $ticket->id }}" />
+
+		{{ Form::close() }}
+		
+		<p class="reporter">{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
+
+		<p>{{ $ticket->content }}</p>
+
 		<p class="pull-right"><small><strong>Estatus:</strong> {{ Helper::status($ticket->status) }}</small></p>
 
+		<!-- separate from form -->
 		<br />
 
 		<fieldset>
@@ -20,7 +41,7 @@
 			<legend>Reabrir consulta</legend>
 
 			<!-- form -->
-			{{ Form::open_for_files('ticket/add', 'POST', array('class' => '')) }}
+			{{ Form::open_for_files('ticket/update/' . $ticket->id, 'POST') }}
 
 				<!-- department -->
 				<div class="control-group">
@@ -88,11 +109,13 @@
 
 				<div class="btn-group">
 					
-					<button class="btn btn-primary submit">{{ Helper::icon('reply') }} Responder</button>
-					<button class="btn" id="file-field-show">{{ Helper::icon('paper-clip') }} Adjuntar</button>
+					<button class="btn btn-primary">{{ Helper::icon('reply') }} Responder</button>
+					<button class="btn" id="file-field-show" type="button">{{ Helper::icon('paper-clip') }} Adjuntar</button>
 
 				</div>
 
+				<!-- additional information -->
+				<input type="hidden" name="ticket_id" value="{{ $ticket->id }}" />
 
 			{{ Form::close() }}
 			<!-- end form -->

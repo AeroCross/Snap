@@ -79,6 +79,13 @@ a:hover {cursor: pointer;}
 	height: 670px;
 }
 
+.reporter {
+	height: 28px;
+	line-height: 28px;
+}
+
+.form-status {margin: 0;}
+
 /* fixes */
 /* correct alignment of icons in dropdowns */
 .nav [class^="icon-"] {

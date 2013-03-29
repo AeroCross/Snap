@@ -31,8 +31,9 @@ class Helper {
         switch ($type) {
             case 'text':
                 switch($status) {
-                    case 'open':    $status = 'Abierto'; $type = 'warning'; break;
-                    case 'closed':  $status = 'Cerrado'; $type = 'success'; break;
+                    case 'open':    $status = 'Abierta';    $type = 'warning';  break;
+                    case 'closed':  $status = 'Cerrada';    $type = 'success';  break;
+                    case 'hold':    $status = 'En espera';  $type = 'info';     break;
                 }
 
                 return '<span class="highlight highlight-' . $type . '">' . $status . '</span>';

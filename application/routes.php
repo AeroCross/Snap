@@ -31,15 +31,17 @@ Route::post('login', 'auth@login');
 Route::get('login', 'auth@login');
 Route::get('logout', 'auth@logout');
 
-// tickets
-Route::post('ticket/add', 'ticket@add');
-
-// settings
-Route::get('settings', 'settings@index');
-Route::put('settings', 'settings@index');
-
 // locked areas
 Route::group(array('before' => 'auth'), function() {
 	Route::controller('dashboard');
-	Route::controller('ticket');
+	
+	// tickets
+	Route::post('ticket/add', 'ticket@add');
+	Route::get('ticket/(:num)', 'ticket@view');	
+	Route::post('ticket/update/(:num)', 'ticket@update');
+	Route::put('ticket/status/(:num)', 'ticket@status');
+
+	// settings
+	Route::get('settings', 'settings@index');
+	Route::put('settings', 'settings@index');
 });

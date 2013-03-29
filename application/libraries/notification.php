@@ -27,12 +27,12 @@ class Notification {
 			return false;
 		}		
 
-		$message		= $notification['message'];
-		$type			= $notification['type'];
+		$message	= $notification['message'];
+		$type		= $notification['type'];
 
 		// create a notification with a title
-		if (isset($notification['title'])) {
-			$message = '<strong>' . $data['title'] . '</strong> ' . $message;
+		if (isset($notification['title']) and !empty($notification['title'])) {
+			$message = '<strong>' . $notification['title'] . '</strong><br / > ' . $message;
 		}
 
 		$start	= '<div class="alert alert-' . $type . ' fade in"><button type="button" class="close" data-dismiss="alert">&times;</button>';
@@ -56,6 +56,7 @@ class Notification {
 					'type'	=> 'warning'
 				);
 			break;
+
 			// authentication messages
 			case 'auth_logout':
 				return array(
@@ -73,6 +74,29 @@ class Notification {
 				return array(
 					'message'	=> 'No ha iniciado sesión',
 					'type'		=> 'error',
+				);
+			break;
+
+			// ticket messages
+			case 'message_add_failed':
+				return array(
+					'message'	=> 'Error en la base de datos',
+					'type'		=> 'error'
+				);
+			break;
+			case 'message_add_success':
+				return array(
+					'message'	=> 'El personal ha sido notificado y responderá a la brevedad posible',
+					'type'		=> 'success',
+					'title'		=> 'Consulta actualizada'
+				);
+			break;
+
+			// tickets
+			case 'ticket_status_changed':
+				return array(
+					'message'	=> 'Estatus de la consulta actualizado',
+					'type'		=> 'info'
 				);
 			break;
 		}

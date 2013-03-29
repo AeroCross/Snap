@@ -115,13 +115,53 @@ class Ticket_Controller extends Base_Controller {
 		$messages	= $ticket->messages()->get();
 
 		// information about who made the ticket
-		$reporter	= User::find($ticket->reported_by);
+		$reporter			= User::find($ticket->reported_by);
 		$reporter->fullname = $reporter->firstname . ' ' . $reporter->lastname;
 
 		return View::make('ticket/view')
 		->with('ticket', $ticket)
 		->with('messages', $messages)
 		->with('reporter', $reporter);
+	}
+
+	/**
+	* Adds a new message to a ticket
+	*
+	* @param	int		- the ticket id
+	* @access	public
+	*/
+	public function post_update($ticket) {
+		$data = array(
+			'user_id'	=> Session::get('id'),
+			'content'	=> Input::get('content')
+		);
+		
+		// save the status of the update
+		$status		= Message::add($ticket, $data);
+		$redirect	= Redirect::to('ticket/' . $ticket);
+
+		if ($status === 'validation_failed') {
+			return $redirect->with('notification', 'form_required');
+
+		// database error — this should NEVER happen
+		} elseif ($status === false) {
+			return $redirect->with('notification', 'message_add_failed');
+		}
+	}
+
+	/**
+	* Changes the ticket status
+	*
+	* @param	int		- the ticket id
+	* @access	public
+	*/
+	public function put_status($ticket) {
+		$redirect		= Redirect::to('ticket/' . $ticket);
+		$ticket			= Ticket::find($ticket);
+		$ticket->status = Input::get('status');
+		$ticket->save();
+
+		return $redirect->with('notification', 'ticket_status_changed');
 	}
 
 }

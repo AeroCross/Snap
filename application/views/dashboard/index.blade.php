@@ -5,7 +5,7 @@
 <div class="row padded">
 	
 	<!-- tabsgroup -->
-	<div class="span4">
+	<div class="span5">
 		
 		<!-- tabs -->
 		<div class="tabbable">
@@ -23,14 +23,6 @@
 				<!-- latest -->
 				<div class="tab-pane active" id="latest">
 
-					<div class="btn-group">
-
-						<button class="btn">{{ Helper::icon('search') }} Buscar</button>
-
-					</div>
-
-					<br /><br />
-				
 					@if (empty($data->latest))
 
 					<div class="alert alert-info">
@@ -49,7 +41,7 @@
 								
 									<a href="{{ URL::to('ticket/view/' . $ticket->id) }}">
 										{{ $ticket->subject }} <span class="pull-right">{{ Helper::icon('chevron-right') }}</span><br />
-										<small class="muted">{{ $ticket->date_created }}</small>
+										<small class="muted">{{ $ticket->created_at }}</small>
 									</a>
 								
 								</li>
@@ -78,15 +70,6 @@
 
 					@else
 
-						<div class="btn-group">
-
-							<button class="btn">{{ Helper::icon('search') }} Buscar</button>
-							<button class="btn">{{ Helper::icon('th-list') }} Todas</button>
-
-						</div>
-
-						<br /><br />
-
 						<ul class="nav nav-tabs nav-stacked">
 
 							@foreach($data->assigned as $ticket)
@@ -95,7 +78,7 @@
 
 									<a href="{{ URL::to('ticket/view/' . $ticket->id) }}">
 										{{ $ticket->subject }} <span class="pull-right">{{ Helper::icon('chevron-right') }}</span><br />
-										<small class="muted">{{ $ticket->date_created }}</small>
+										<small class="muted">{{ $ticket->created_at }}</small>
 									</a>
 								
 								</li>

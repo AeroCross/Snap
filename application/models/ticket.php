@@ -9,4 +9,8 @@
 */
 class Ticket extends Eloquent {
 	public static $timestamps = true;
+
+	public function messages() {
+		return $this->has_many('Message');
+	}
 }

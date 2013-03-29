@@ -4,7 +4,7 @@
 * User model
 *
 * @package		SAAV
-* @subpackage	Controllers
+* @subpackage	Models
 * @author		Mario Cuba <mario@mariocuba.net>
 */
 class User extends Eloquent {
@@ -16,5 +16,12 @@ class User extends Eloquent {
 	*/
 	public function department() {
 		return $this->has_many_and_belongs_to('Department', 'department_members');
+	}
+
+	/**
+	* An user can have many messages in tickets
+	*/
+	public function messages() {
+		return $this->has_many('Message');
 	}
 }

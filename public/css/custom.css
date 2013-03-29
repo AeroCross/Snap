@@ -57,6 +57,12 @@ a:hover {cursor: pointer;}
 	font-weight: normal;
 }
 
+/* ticket view */
+.scrollable.messages {
+	overflow-y: auto;
+	height: 670px;
+}
+
 /* fixes */
 /* correct alignment of icons in dropdowns */
 .nav [class^="icon-"] {

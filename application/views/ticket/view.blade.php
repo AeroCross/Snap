@@ -97,6 +97,26 @@
 				</div>
 				<!-- end content -->
 
+				<!-- status -->
+				<div class="control-group">
+
+					<label for="status">Estatus</label>
+
+					<div class="controls">
+
+						<select name="status" class="input-large">
+
+							<option value="closed">Cerrado</option>
+							<option value="open">Abierto</option>
+							<option value="hold">En espera</option>
+
+						</select>
+
+					</div>
+
+				</div>
+				<!-- end status -->
+
 				<!-- file -->
 				<div class="hidden control-group" id="file-field">
 
@@ -111,8 +131,11 @@
 				</div>
 				<!-- end file -->
 
+				<!-- separation from the last field -->
+				<br />
+
 				<div class="btn-group">
-					
+						
 					<button class="btn btn-primary">{{ Helper::icon('reply') }} Responder</button>
 					<button class="btn" id="file-field-show" type="button">{{ Helper::icon('paper-clip') }} Adjuntar</button>
 

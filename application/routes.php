@@ -19,7 +19,7 @@ Route::filter('csrf', function() {
 // authentication filter
 Route::filter('auth', function() {
 	if (Auth::guest())  {
-		return Redirect::to('login')->with('notification', 'login');
+		return Redirect::to('login')->with('notification', 'auth_missing');
 	}
 });
 

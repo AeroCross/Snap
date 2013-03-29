@@ -1,13 +1,7 @@
 @layout('layouts/default')
 
 @section('content')
-<div class="page-header">
-
-	<h4>Consulta #{{ $ticket->id }} &mdash; <small>{{ $ticket->subject }}</small></h4>
-
-</div>
-
-<div class="row">
+<div class="row padded">
 
 	<!-- initial thread -->
 	<div class="span5">
@@ -15,6 +9,11 @@
 		<p>{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
 		
 		<p>{{ $ticket->content }}</p>
+
+		<!-- ticket status -->
+		<p class="pull-right"><small><strong>Estatus:</strong> {{ Helper::status($ticket->status) }}</small></p>
+
+		<br />
 
 		<fieldset>
 

@@ -9,23 +9,6 @@
 */
 class Helper {
 
-	/**
-	* Parses the value of a ticket status
-	*
-	* @param	string	- the ticket status
-	* @return	string	- an icon referencing the status
-	* @access	public
-	*/
-    public static function status($status) {
-        switch ($status) {
-        	case 'closed':	$status = 'ok-sign text-success'; break;
-        	case 'open':	$status = 'exclamation-sign text-error'; break;
-        	default:		$status	= 'question-sign text-info'; break;
-        }
-
-        return '<i class="icon-' . $status . '"></i> ';
-    }
-
     /**
     * Creates the markup for an icon
     *
@@ -35,5 +18,25 @@ class Helper {
     */
     public static function icon($icon) {
     	return '<i class="icon-' . $icon . '"></i>';
+    }
+
+    /**
+    * Parses a ticket status
+    *
+    * @param    string  - the status
+    * @return   string  - a formatted HTML string
+    * @access   public
+    */
+    public static function status($status, $type = 'text') {
+        switch ($type) {
+            case 'text':
+                switch($status) {
+                    case 'open':    $status = 'Abierto'; $type = 'warning'; break;
+                    case 'closed':  $status = 'Cerrado'; $type = 'success'; break;
+                }
+
+                return '<span class="highlight highlight-' . $type . '">' . $status . '</span>';
+            break;
+        }
     }
 }

@@ -22,6 +22,26 @@ class Ticket_Controller extends Base_Controller {
 	}
 
 	/**
+	* Shows detailed information about a ticket
+	*
+	* @param	
+	* @access	public
+	*/
+	public function get_view($ticket) {
+		$ticket		= Ticket::find($ticket);
+		$messages	= $ticket->messages()->get();
+
+		// information about who made the ticket
+		$reporter			= User::find($ticket->reported_by);
+		$reporter->fullname = $reporter->firstname . ' ' . $reporter->lastname;
+
+		return View::make('ticket/view')
+		->with('ticket', $ticket)
+		->with('messages', $messages)
+		->with('reporter', $reporter);
+	}
+
+	/**
 	* Adds a new ticket
 	*
 	* @access	public
@@ -105,26 +125,6 @@ class Ticket_Controller extends Base_Controller {
 	}
 
 	/**
-	* Shows detailed information about a ticket
-	*
-	* @param	
-	* @access	public
-	*/
-	public function get_view($ticket) {
-		$ticket		= Ticket::find($ticket);
-		$messages	= $ticket->messages()->get();
-
-		// information about who made the ticket
-		$reporter			= User::find($ticket->reported_by);
-		$reporter->fullname = $reporter->firstname . ' ' . $reporter->lastname;
-
-		return View::make('ticket/view')
-		->with('ticket', $ticket)
-		->with('messages', $messages)
-		->with('reporter', $reporter);
-	}
-
-	/**
 	* Adds a new message to a ticket
 	*
 	* @param	int		- the ticket id
@@ -137,17 +137,27 @@ class Ticket_Controller extends Base_Controller {
 		);
 		
 		// save the status of the update
-		$status		= Message::add($ticket, $data);
+		$message	= Message::add($ticket, $data);
 		$redirect	= Redirect::to('ticket/' . $ticket);
 		$ticket		= Ticket::find($ticket);
+		$status		= Input::get('status');
+		$department = Input::get('department');
+		$assign_to	= Input::get('assign');
 
-		// @TODO: update status, assigments, etc.
-		
-		if ($status === 'validation_failed') {
+		// set a new department if it was changed
+		if (!empty($department)) {	
+			$ticket->department = $department;
+		}
+
+		if (!empty($status)) {
+			$ticket->status = $status;
+		}
+
+		if ($message === 'validation_failed') {
 			return $redirect->with('notification', 'form_required');
 
 		// database error — this should NEVER happen
-		} elseif ($status === false) {
+		} elseif ($message === false) {
 			return $redirect->with('notification', 'message_add_failed');
 		}
 
@@ -214,8 +224,6 @@ class Ticket_Controller extends Base_Controller {
 		* c: there's a new assignment
 		* d: notify, individually, that new person
 		*/	
-		$assign_to = Input::get('assign');
-
 		if (!empty($assign_to)) {
 			// reset the recipents
 			$bcc = array();
@@ -237,7 +245,13 @@ class Ticket_Controller extends Base_Controller {
 
 			// send this message
 			$sent = $mailer->send($message);
+
+			// and update the assigned person
+			$ticket->assigned_to = $assign_to;
 		}
+
+		// save changes
+		$ticket->save();
 
 		return $redirect->with('notification', 'message_add_success');
 	}

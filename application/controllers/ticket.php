@@ -31,14 +31,18 @@ class Ticket_Controller extends Base_Controller {
 		$ticket		= Ticket::find($ticket);
 		$messages	= $ticket->messages()->get();
 
-		// information about who made the ticket
+		// ticket details
 		$reporter			= User::find($ticket->reported_by);
 		$reporter->fullname = $reporter->firstname . ' ' . $reporter->lastname;
+		$department			= Department::find($ticket->department);
+		$assigned			= User::find($ticket->assigned_to);
 
 		return View::make('ticket/view')
 		->with('ticket', $ticket)
 		->with('messages', $messages)
-		->with('reporter', $reporter);
+		->with('reporter', $reporter)
+		->with('assigned', $assigned)
+		->with('department', $department);
 	}
 
 	/**

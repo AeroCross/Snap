@@ -27,21 +27,31 @@
 
 		{{ Form::close() }}
 		
+		<!-- subject -->
 		<h5>{{ $ticket->subject }}</h5>
 
+		<!-- reporter details -->
 		<p>{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
 
+		<!-- ticket content -->
 		<p>{{ $ticket->content }}</p>
 
-		@if (!empty($ticket->assigned_to))
+		<!-- metadata -->
+		<p class="pull-left"><small><strong>Departamento:</strong> {{ $department->name }}
 
-			<p class="pull-left"><small><strong>Asignado a:</strong> {{ $ticket->assigned_to }}</small></p>
+			@if (!empty($ticket->assigned_to))
 
-		@endif
+				<br /><strong>Asignado a:</strong> {{ $assigned->firstname . ' ' . $assigned->lastname }}
 
-		<p class="pull-right"><small><strong>Departamento:</strong> {{ $ticket->department }} • <strong>Estatus:</strong> {{ Helper::status($ticket->status) }}</small></p>
+			@endif
+
+		</small></p>
+
+		<p class="pull-right"><small><strong>Estatus:</strong> {{ Helper::status($ticket->status) }}</small></p>
 
 		<!-- separate from form -->
+		<br />
+		<br />
 		<br />
 
 		<fieldset>

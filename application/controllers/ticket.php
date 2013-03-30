@@ -139,7 +139,10 @@ class Ticket_Controller extends Base_Controller {
 		// save the status of the update
 		$status		= Message::add($ticket, $data);
 		$redirect	= Redirect::to('ticket/' . $ticket);
+		$ticket		= Ticket::find($ticket);
 
+		// @TODO: update status, assigments, etc.
+		
 		if ($status === 'validation_failed') {
 			return $redirect->with('notification', 'form_required');
 
@@ -147,6 +150,96 @@ class Ticket_Controller extends Base_Controller {
 		} elseif ($status === false) {
 			return $redirect->with('notification', 'message_add_failed');
 		}
+
+		/**
+		* now that the message is added, we need to make sure who
+		* are we going to notify
+		*
+		* check:
+		*
+		* 1. if the person replying is who reported it
+		* 2. if the person replying is tech support
+		* 3. if there's a new assignment
+		*/
+
+		// who replied to the ticket
+		$replier			= User::find($ticket->reported_by);
+		$replier->fullname	= $replier->firstname . ' ' . $replier->lastname;
+
+		/**
+		* c: person who replyed is the person who reported it
+		* d: notify the department if there's noone assigned, or the person assigned
+		*/
+		if (Session::get('id') == $ticket->reported_by) {
+			// who should we send the notification?
+			// if assigned to someone, send it to that person — if not, send it to the whole department
+			if (!empty($ticket->assigned_to)) {
+				$assigned = User::find($ticket->assigned_to);
+				$bcc[$assigned->email] = $assigned->firstname . ' ' . $assigned->lastname;
+			} else {
+				$members = Department::find($ticket->department)->users()->where_deleted('0')->get('firstname', 'lastname', 'email');
+				foreach($members as $member) {
+					$bcc[$member->email] = $member->firstname . ' ' . $member->lastname;
+				}
+			}
+		}
+
+		/**
+		* c: person who replyed is from tech support
+		* d: notify only the reporter
+		*/
+		elseif (Session::get('id') != $ticket->reported_by) {
+			$reporter				= User::find($ticket->reported_by);
+			$bcc[$reporter->email]	= $reporter->firstname . ' ' . $reporter->lastname;
+		}
+
+		// create the message
+		$body = View::make('messages.ticket.updated')
+		->with('ticket', $ticket)
+		->with('replier', $replier)
+		->with('content', $data['content']);
+
+		// send the message
+		$mailer		= IoC::resolve('mailer');
+		$message	= Swift_Message::newInstance($replier->fullname . ' ha actualizado la Consulta #' . $ticket->id . ': ' . $ticket->subject)
+		->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
+		->setBcc($bcc)
+		->setBody($body, 'text/html')
+		->addPart($data['content'], 'text/plain');
+
+		// send this message
+		$sent = $mailer->send($message);
+
+		/**
+		* c: there's a new assignment
+		* d: notify, individually, that new person
+		*/	
+		$assign_to = Input::get('assign');
+
+		if (!empty($assign_to)) {
+			// reset the recipents
+			$bcc = array();
+
+			$assigned = User::find($assign_to);
+			$bcc[$assigned->email] = $assigned->firstname . ' ' . $assigned->lastname;
+
+			// create the message
+			$body = View::make('messages.ticket.assigned')
+			->with('ticket', $ticket)
+			->with('reporter', $replier)
+			->with('content', $data['content']);
+
+			$message = Swift_Message::newInstance($replier->fullname . ' le ha asignado una la consulta #' . $ticket->id . ': ' . $ticket->subject)
+			->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
+			->setBcc($bcc)
+			->setBody($body, 'text/html')
+			->addPart($data['content'], 'text/plain');
+
+			// send this message
+			$sent = $mailer->send($message);
+		}
+
+		return $redirect->with('notification', 'message_add_success');
 	}
 
 	/**

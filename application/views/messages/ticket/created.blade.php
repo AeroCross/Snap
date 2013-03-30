@@ -8,4 +8,4 @@
 
 </blockquote>
 
-<p>Para acceder a la consulta, a la siguiente dirección: {{ HTML::link('ticket/' . $ticket); }}</p>
+<p>Para acceder a la consulta, ingrese a la siguiente dirección: {{ HTML::link('ticket/' . $ticket); }}</p>

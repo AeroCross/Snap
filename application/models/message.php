@@ -37,9 +37,11 @@ class Message extends Eloquent {
 		}
 
 		$insert = array(
-			'ticket_id' => $data['ticket_id'],
-			'user_id'	=> $data['user_id'],
-			'content'	=> $data['content']
+			'ticket_id' 	=> $data['ticket_id'],
+			'user_id'		=> $data['user_id'],
+			'content'		=> $data['content'],
+			'created_at'	=> DB::raw('NOW()'),
+			'updated_at'	=> DB::raw('NOW()')
 		);
 
 		return DB::table('messages')->insert($insert);

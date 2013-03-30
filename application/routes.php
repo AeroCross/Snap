@@ -36,8 +36,9 @@ Route::group(array('before' => 'auth'), function() {
 	Route::controller('dashboard');
 	
 	// tickets
-	Route::post('ticket/add', 'ticket@add');
 	Route::get('ticket/(:num)', 'ticket@view');	
+	Route::get('ticket/add', 'ticket@add');
+	Route::post('ticket/add', 'ticket@add');
 	Route::post('ticket/update/(:num)', 'ticket@update');
 	Route::put('ticket/status/(:num)', 'ticket@status');
 

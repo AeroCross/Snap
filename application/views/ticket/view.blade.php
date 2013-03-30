@@ -33,7 +33,13 @@
 
 		<p>{{ $ticket->content }}</p>
 
-		<p class="pull-right"><small><strong>Estatus:</strong> {{ Helper::status($ticket->status) }}</small></p>
+		@if (!empty($ticket->assigned_to))
+
+			<p class="pull-left"><small><strong>Asignado a:</strong> {{ $ticket->assigned_to }}</small></p>
+
+		@endif
+
+		<p class="pull-right"><small><strong>Departamento:</strong> {{ $ticket->department }} • <strong>Estatus:</strong> {{ Helper::status($ticket->status) }}</small></p>
 
 		<!-- separate from form -->
 		<br />

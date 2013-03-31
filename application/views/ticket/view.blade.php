@@ -100,13 +100,20 @@
 				<!-- end assign -->
 
 				<!-- content -->
-				<div class="control-group">
+				<div class="wmd-panel">
+				
+					<div class="control-group">
 
-					<label for="content" class="control-label">Contenido</label>
+						<!-- no label in here -->
+						<br />
 
-					<div class="controls">
+						<div id="wmd-button-bar"></div>
 
-						<textarea name="content" id="content" cols="8" rows="10" class="span4"></textarea>
+						<div class="controls">
+
+							<textarea name="content" id="wmd-input" cols="8" rows="10" class="span4 wmd-input"></textarea>
+
+						</div>
 
 					</div>
 

@@ -37,8 +37,14 @@ class Ticket_Controller extends Base_Controller {
 		$department			= Department::find($ticket->department);
 		$assigned			= User::find($ticket->assigned_to);
 
+		// markdown enabled view
 		Load::library('markdown/markdown');
-		
+
+		// load markdown editor
+		Asset::add('markdown-converter', 'js/markdown/Markdown.Converter.js', 'jquery');
+		Asset::add('markdown-sanitizer', 'js/markdown/Markdown.Sanitizer.js', array('jquery', 'markdown-converter'));
+		Asset::add('markdown-editor', 'js/markdown/Markdown.Editor.js', array('jquery', 'markdown-converter', 'markdown-sanitizer'));
+
 		return View::make('ticket/view')
 		->with('ticket', $ticket)
 		->with('messages', $messages)

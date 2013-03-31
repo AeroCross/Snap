@@ -9,4 +9,11 @@ jQuery(document).ready(function() {
 
 	// start Select2 with an empty placeholder as a default
 	jQuery('select').select2({placeholder: ''});
+
+	// markdown editor
+	if (typeof Markdown != 'undefined') {
+		var converter	= Markdown.getSanitizingConverter();
+		var editor		= new Markdown.Editor(converter);
+		editor.run();
+	}
 });

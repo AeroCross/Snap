@@ -1384,14 +1384,14 @@
             
             group4 = makeGroup(4);
             //buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "icon-undo", null, group4);
-            buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
+            //buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
                 "Redo - Ctrl+Y" :
                 "Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
 
             //buttons.redo = makeButton("wmd-redo-button", redoTitle, "icon-share-alt", null, group4);
-            buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
+            //buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
             if (helpOptions) {
                 group5 = makeGroup(5);

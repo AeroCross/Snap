@@ -41,6 +41,8 @@ a:hover {cursor: pointer;}
 	top: 10px;
 }
 
+.block {display: block;}
+
 .form-actions {
 	border: none;
 	background: none;

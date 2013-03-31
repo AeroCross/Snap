@@ -111,7 +111,7 @@
 
 						<div class="controls">
 
-							<textarea name="content" id="wmd-input" cols="8" rows="10" class="span4 wmd-input"></textarea>
+							<textarea name="content" id="wmd-input" rows="10" class="span5 wmd-input"></textarea>
 
 						</div>
 

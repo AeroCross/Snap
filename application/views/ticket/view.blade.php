@@ -33,8 +33,14 @@
 		<!-- reporter details -->
 		<p>{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
 
+		<!-- separation of info -->
+		<br />
+
 		<!-- ticket content -->
 		{{ Markdown($ticket->content) }}
+
+		<!-- separation of metadata -->
+		<br />
 
 		<!-- metadata -->
 		<p class="pull-left"><small><strong>Departamento:</strong> {{ $department->name }}

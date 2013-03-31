@@ -37,6 +37,8 @@ class Ticket_Controller extends Base_Controller {
 		$department			= Department::find($ticket->department);
 		$assigned			= User::find($ticket->assigned_to);
 
+		Load::library('markdown/markdown');
+		
 		return View::make('ticket/view')
 		->with('ticket', $ticket)
 		->with('messages', $messages)

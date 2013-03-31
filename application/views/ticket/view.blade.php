@@ -34,7 +34,7 @@
 		<p>{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
 
 		<!-- ticket content -->
-		<p>{{ $ticket->content }}</p>
+		{{ Markdown($ticket->content) }}
 
 		<!-- metadata -->
 		<p class="pull-left"><small><strong>Departamento:</strong> {{ $department->name }}
@@ -194,7 +194,7 @@
 
 					{{ HTML::link('user/' . $message->user_id, $sender->fullname) }} • <small>{{ $message->created_at }}</small>
 
-					<p>{{ $message->content }}</p>
+					{{ Markdown($message->content) }}
 
 					<hr />
 

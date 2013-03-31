@@ -1,5 +1,12 @@
 <?php
 
+/**
+* Notification framework
+*
+* @package		SAAV
+* @subpackage	Libraries
+* @author		Mario Cuba <mario@mariocuba.net>
+*/
 class Notification {
 
 	/**

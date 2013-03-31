@@ -36,6 +36,20 @@ class Settings_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function put_index() {
+		$settings = array(
+			'per_page'		=> Input::get('per_page'),
+			'smtp_host'		=> Input::get('smtp_host'),
+			'smtp_port'		=> Input::get('smtp_port'),
+			'smtp_user'		=> Input::get('smtp_user'),
+			'smtp_pass'		=> Input::get('smtp_pass'),
+			'smtp_name'		=> Input::get('smtp_name'),
+			'smtp_crypto'	=> Input::get('smtp_crypto')
+		);
 
+		foreach ($settings as $setting => $value) {
+			DB::table('settings')->where('name', '=', $setting)->update(array('value' => $value, 'updated_at' => DB::raw('NOW()')));
+		}
+
+		return Redirect::to('settings')->with('notification', 'settings_success');
 	}
 }

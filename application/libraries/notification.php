@@ -106,6 +106,14 @@ class Notification {
 					'type'		=> 'info'
 				);
 			break;
+
+			// settings
+			case 'settings_success':
+				return array(
+					'message'	=> 'Configuración actualizada',
+					'type'		=> 'success'
+				);
+			break;
 		}
 	}
 }

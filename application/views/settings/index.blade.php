@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="page-header">
+	
+	<!-- notifications -->
+	{{ Notification::show() }}
 
 	<h4>Opciones Generales</h4>
 
 </div>
-
-<!-- notifications -->
-{{ Notification::show() }}
 
 <!-- settings form -->
 {{ Form::open('settings', 'PUT', array('class' => 'form-horizontal')) }}

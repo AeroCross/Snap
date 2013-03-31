@@ -193,27 +193,43 @@
 
 			<div class="tab-pane active" id="messages">
 
-				<?php // @TODO: optimize for users — WHEN I'M DONE
-					foreach($messages as $message):
-						$sender				= User::find($message->user_id);
-						$sender->fullname	= $sender->firstname . ' ' . $sender->lastname;
+				@if (empty($messages))
+
+					<div class="alert">
+
+						<span class="block center">No existen respuestas registradas para la consulta</span>
+
+					</div>
+
+				@else
+
+					<?php // @TODO: optimize for users — WHEN I'M DONE
+						foreach($messages as $message):
+							$sender				= User::find($message->user_id);
+							$sender->fullname	= $sender->firstname . ' ' . $sender->lastname;
+						?>
+
+						{{ HTML::link('user/' . $message->user_id, $sender->fullname) }} • <small>{{ $message->created_at }}</small>
+
+						{{ Markdown($message->content) }}
+
+						<hr />
+
+						<?php
+						endforeach;
 					?>
 
-					{{ HTML::link('user/' . $message->user_id, $sender->fullname) }} • <small>{{ $message->created_at }}</small>
-
-					{{ Markdown($message->content) }}
-
-					<hr />
-
-					<?php
-					endforeach;
-				?>
+				@endif
 
 			</div>
 
 			<div class="tab-pane" id="files">
 
-				<p>Not implemented</p>
+					<div class="alert alert-info">
+
+						<span class="block center">No se han subido archivos a la consulta</span>
+
+					</div>
 
 			</div>
 

@@ -216,10 +216,12 @@ class Ticket_Controller extends Base_Controller {
 		}
 
 		// create the message
+		Load::library('markdown/markdown');
+
 		$body = View::make('messages.ticket.updated')
 		->with('ticket', $ticket)
 		->with('replier', $replier)
-		->with('content', $data['content']);
+		->with('content', Markdown($data['content']));
 
 		// send the message
 		$mailer		= IoC::resolve('mailer');
@@ -247,7 +249,7 @@ class Ticket_Controller extends Base_Controller {
 			$body = View::make('messages.ticket.assigned')
 			->with('ticket', $ticket)
 			->with('reporter', $replier)
-			->with('content', $data['content']);
+			->with('content', Markdown($data['content']));
 
 			$message = Swift_Message::newInstance($replier->fullname . ' le ha asignado una la consulta #' . $ticket->id . ': ' . $ticket->subject)
 			->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings

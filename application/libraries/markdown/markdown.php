@@ -197,7 +197,7 @@ class Markdown_Parser {
 	var $tab_width = MARKDOWN_TAB_WIDTH;
 	
 	# Change to `true` to disallow markup or entities.
-	var $no_markup = false;
+	var $no_markup = true;
 	var $no_entities = false;
 	
 	# Predefined urls and titles for reference links and images.

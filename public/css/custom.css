@@ -63,11 +63,6 @@ a:hover {cursor: pointer;}
 }
 
 /* ticket view */
-.scrollable.messages {
-	overflow-y: auto;
-	height: 670px;
-}
-
 .form-status {margin: 0; position: relative; top: 20px;}
 
 /* fixes */

@@ -191,7 +191,7 @@
 
 		<div class="tab-content">
 
-			<div class="tab-pane active scrollable messages" id="messages">
+			<div class="tab-pane active" id="messages">
 
 				<?php // @TODO: optimize for users — WHEN I'M DONE
 					foreach($messages as $message):

@@ -27,8 +27,8 @@
 
     // The text that appears on the upper part of the dialog box when
     // entering links.
-    var linkDialogText = "<p>http://example.com/ \"título opcional\"</p>";
-    var imageDialogText = "<p>http://example.com/images/diagram.jpg \"título opcional\"</p>";
+    var linkDialogText = "<p>http://ejemplo.com/ \"título opcional\"</p>";
+    var imageDialogText = "<p>http://ejemplo.com/img/imagen.jpg \"título opcional\"</p>";
 
     // The default text that appears in the dialog input box when entering
     // links.
@@ -1359,39 +1359,39 @@
             }
 
             group1 = makeGroup(1);
-            buttons.bold = makeButton("wmd-bold-button", "Bold - Ctrl+B", "icon-bold", bindCommand("doBold"), group1);
-            buttons.italic = makeButton("wmd-italic-button", "Italic - Ctrl+I", "icon-italic", bindCommand("doItalic"), group1);
+            buttons.bold = makeButton("wmd-bold-button", "Negrita - Ctrl+B", "icon-bold", bindCommand("doBold"), group1);
+            buttons.italic = makeButton("wmd-italic-button", "Itálico - Ctrl+I", "icon-italic", bindCommand("doItalic"), group1);
             
             group2 = makeGroup(2);
-            buttons.link = makeButton("wmd-link-button", "Link - Ctrl+L", "icon-link", bindCommand(function (chunk, postProcessing) {
+            buttons.link = makeButton("wmd-link-button", "Enlace - Ctrl+L", "icon-link", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, false);
             }), group2);
-            buttons.quote = makeButton("wmd-quote-button", "Blockquote - Ctrl+Q", "icon-quote-left", bindCommand("doBlockquote"), group2);
+            buttons.quote = makeButton("wmd-quote-button", "Cita textual - Ctrl+Q", "icon-quote-left", bindCommand("doBlockquote"), group2);
             //buttons.code = makeButton("wmd-code-button", "Code Sample - Ctrl+K", "icon-code", bindCommand("doCode"), group2);
-            buttons.image = makeButton("wmd-image-button", "Image - Ctrl+G", "icon-picture", bindCommand(function (chunk, postProcessing) {
+            buttons.image = makeButton("wmd-image-button", "Imagen - Ctrl+G", "icon-picture", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }), group2);
 
             group3 = makeGroup(3);
-            buttons.olist = makeButton("wmd-olist-button", "Numbered List - Ctrl+O", "icon-list-ol", bindCommand(function (chunk, postProcessing) {
+            buttons.olist = makeButton("wmd-olist-button", "Lista Numerada - Ctrl+O", "icon-list-ol", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, true);
             }), group3);
-            buttons.ulist = makeButton("wmd-ulist-button", "Bulleted List - Ctrl+U", "icon-list-ul", bindCommand(function (chunk, postProcessing) {
+            buttons.ulist = makeButton("wmd-ulist-button", "Lista de Viñetas- Ctrl+U", "icon-list-ul", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }), group3);
             //buttons.heading = makeButton("wmd-heading-button", "Heading - Ctrl+H", "icon-header", bindCommand("doHeading"), group3);
             //buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "icon-hr-line", bindCommand("doHorizontalRule"), group3);
             
             group4 = makeGroup(4);
-            //buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "icon-undo", null, group4);
-            //buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
+            buttons.undo = makeButton("wmd-undo-button", "Deshacer - Ctrl+Z", "icon-undo", null, group4);
+            buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-                "Redo - Ctrl+Y" :
-                "Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
+                "Rehacer - Ctrl+Y" :
+                "Rehacer - Ctrl+Shift+Z"; // mac and other non-Windows platforms
 
-            //buttons.redo = makeButton("wmd-redo-button", redoTitle, "icon-share-alt", null, group4);
-            //buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
+            buttons.redo = makeButton("wmd-redo-button", redoTitle, "icon-share-alt", null, group4);
+            buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
             if (helpOptions) {
                 group5 = makeGroup(5);
@@ -1457,11 +1457,11 @@
     };
 
     commandProto.doBold = function (chunk, postProcessing) {
-        return this.doBorI(chunk, postProcessing, 2, "texto en negrita");
+        return this.doBorI(chunk, postProcessing, 2, "negrita");
     };
 
     commandProto.doItalic = function (chunk, postProcessing) {
-        return this.doBorI(chunk, postProcessing, 1, "texto en itálico");
+        return this.doBorI(chunk, postProcessing, 1, "itálico");
     };
 
     // chunk: The selected region that will be enclosed with */**
@@ -1675,7 +1675,7 @@
 
             if (isImage) {
                 if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                    ui.prompt('Insert Image', imageDialogText, imageDefaultText, linkEnteredCallback);
+                    ui.prompt('Insertar Imagen', imageDialogText, imageDefaultText, linkEnteredCallback);
             }
             else {
                 ui.prompt('Insertar Enlace', linkDialogText, linkDefaultText, linkEnteredCallback);
@@ -1745,7 +1745,7 @@
             });
 
         chunk.selection = chunk.selection.replace(/^(\s|>)+$/, "");
-        chunk.selection = chunk.selection || "Blockquote";
+        chunk.selection = chunk.selection || "Cita textual";
 
         // The original code uses a regular expression to find out how much of the
         // text *directly before* the selection already was a blockquote:
@@ -2019,7 +2019,7 @@
             });
 
         if (!chunk.selection) {
-            chunk.selection = "Item";
+            chunk.selection = "Ítem";
         }
 
         var prefix = getItemPrefix();

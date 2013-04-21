@@ -3,151 +3,151 @@
 @section('content')
 
 <div class="page-header">
-	
-	<!-- notifications -->
-	{{ Notification::show() }}
+  
+  <!-- notifications -->
+  {{ Notification::show() }}
 
-	<h4>Opciones Generales</h4>
+  <h4>Opciones Generales</h4>
 
 </div>
 
 <!-- settings form -->
 {{ Form::open('settings', 'PUT', array('class' => 'form-horizontal')) }}
 
-	<div class="control-group">
+  <div class="control-group">
 
-		<label for="per_page" class="control-label">Resultados por Página</label>
+    <label for="per_page" class="control-label">Resultados por Página</label>
 
-		<div class="controls">
+    <div class="controls">
 
-			<input type="text" name="per_page" id="per_page" value="{{ $setting->per_page }}" /><span class="help-inline"><strong>Defecto:</strong> 50</span>
-			<span class="help-block">Número de resultados que tendrá cada listado y búsqueda por página</span>
+      <input type="text" name="per_page" id="per_page" value="{{ $setting->per_page }}" /><span class="help-inline"><strong>Defecto:</strong> 50</span>
+      <span class="help-block">Número de resultados que tendrá cada listado y búsqueda por página</span>
 
-		</div>
+    </div>
 
-	</div>
+  </div>
 
-	<!-- email settings -->
-	<div class="page-header">
+  <!-- email settings -->
+  <div class="page-header">
 
-		<h4>Correo Electrónico</h4>
+    <h4>Correo Electrónico</h4>
 
-	</div>
+  </div>
 
-	<!-- smtp server -->
-	<div class="control-group">
+  <!-- smtp server -->
+  <div class="control-group">
 
-		<label for="smtp_host" class="control-label">Servidor SMTP</label>
+    <label for="smtp_host" class="control-label">Servidor SMTP</label>
 
-		<div class="controls">
+    <div class="controls">
 
-			<input type="text" name="smtp_host" id="smtp_host" value="{{ $setting->smtp_host }}" /><span>&nbsp;</span>
-			<span class="help-block">El servidor de correo electrónico que se utilizará para enviar mensajes del sistema</span>
+      <input type="text" name="smtp_host" id="smtp_host" value="{{ $setting->smtp_host }}" /><span>&nbsp;</span>
+      <span class="help-block">El servidor de correo electrónico que se utilizará para enviar mensajes del sistema</span>
 
-		</div>
+    </div>
 
-	</div>
-	<!-- end smtp server -->
+  </div>
+  <!-- end smtp server -->
 
-	<!-- smtp port -->
-	<div class="control-group">
+  <!-- smtp port -->
+  <div class="control-group">
 
-		<label for="smtp_port" class="control-label">Puerto SMTP</label>
+    <label for="smtp_port" class="control-label">Puerto SMTP</label>
 
-		<div class="controls">
+    <div class="controls">
 
-			<input type="text" name="smtp_port" id="smtp_port" value="{{ $setting->smtp_port }}" /><span class="help-inline"><strong>Defecto:</strong> 25</span>
-			<span class="help-block">El puerto saliente habilitado para enviar correo electrónicos</span>
+      <input type="text" name="smtp_port" id="smtp_port" value="{{ $setting->smtp_port }}" /><span class="help-inline"><strong>Defecto:</strong> 25</span>
+      <span class="help-block">El puerto saliente habilitado para enviar correo electrónicos</span>
 
-		</div>
+    </div>
 
-	</div>
-	<!-- end smtp port -->
+  </div>
+  <!-- end smtp port -->
 
-	<!-- smtp user -->
-	<div class="control-group">
+  <!-- smtp user -->
+  <div class="control-group">
 
-		<label for="smtp_user" class="control-label">Usuario SMTP</label>
+    <label for="smtp_user" class="control-label">Usuario SMTP</label>
 
-		<div class="controls">
+    <div class="controls">
 
-			<input type="text" name="smtp_user" id="smtp_user" value="{{ $setting->smtp_user }}" /><span>&nbsp;</span>
-			<span class="help-block">El usuario del servidor SMTP para enviar correos — usualmente una dirección de correo electrónico</span>
+      <input type="text" name="smtp_user" id="smtp_user" value="{{ $setting->smtp_user }}" /><span>&nbsp;</span>
+      <span class="help-block">El usuario del servidor SMTP para enviar correos — usualmente una dirección de correo electrónico</span>
 
-		</div>
+    </div>
 
-	</div>
-	<!-- end smtp user -->
+  </div>
+  <!-- end smtp user -->
 
-	<!-- smtp password -->
-	<div class="control-group">
+  <!-- smtp password -->
+  <div class="control-group">
 
-		<label for="smtp_pass" class="control-label">Contraseña SMTP</label>
+    <label for="smtp_pass" class="control-label">Contraseña SMTP</label>
 
-		<div class="controls">
+    <div class="controls">
 
-			<input type="password" name="smtp_pass" id="smtp_pass" value="{{ $setting->smtp_pass }}" /><span>&nbsp;</span>
-			<span class="help-block">La contraseña del usuario SMTP.</span>
+      <input type="password" name="smtp_pass" id="smtp_pass" value="{{ $setting->smtp_pass }}" /><span>&nbsp;</span>
+      <span class="help-block">La contraseña del usuario SMTP.</span>
 
-		</div>
+    </div>
 
-	</div>
-	<!-- end smtp password -->
+  </div>
+  <!-- end smtp password -->
 
-	<!-- smtp name -->
-	<div class="control-group">
+  <!-- smtp name -->
+  <div class="control-group">
 
-		<label for="smtp_name" class="control-label">Nombre del Usuario SMTP</label>
+    <label for="smtp_name" class="control-label">Nombre del Usuario SMTP</label>
 
-		<div class="controls">
+    <div class="controls">
 
-			<input type="text" name="smtp_name" id="smtp_name" value="{{ $setting->smtp_name }}" /><span>&nbsp;</span>
-			<span class="help-block">Este nombre aparecerá en los correos electrónicos enviados por el sistema</span>
+      <input type="text" name="smtp_name" id="smtp_name" value="{{ $setting->smtp_name }}" /><span>&nbsp;</span>
+      <span class="help-block">Este nombre aparecerá en los correos electrónicos enviados por el sistema</span>
 
-		</div>
+    </div>
 
-	</div>
-	<!-- end smtp name -->
+  </div>
+  <!-- end smtp name -->
 
-	<!-- smtp crypto -->
-	<div class="control-group">
+  <!-- smtp crypto -->
+  <div class="control-group">
 
-		<label for="smtp_crypto_off" class="control-label">Método de Encriptación</label>
+    <label for="smtp_crypto_off" class="control-label">Método de Encriptación</label>
 
-		<div class="controls">
+    <div class="controls">
 
-			<label class="radio">
+      <label class="radio">
 
-				<input type="radio" name="smtp_crypto" id="smtp_crypto_off" value="off" <?php if ($setting->smtp_crypto === 'off'): echo 'checked'; endif; ?>> Sin encriptación — <strong>Defecto:</strong> Sin encriptación
+        <input type="radio" name="smtp_crypto" id="smtp_crypto_off" value="off" <?php if ($setting->smtp_crypto === 'off'): echo 'checked'; endif; ?>> Sin encriptación — <strong>Defecto:</strong> Sin encriptación
 
-			</label>
+      </label>
 
-			<label class="radio">
+      <label class="radio">
 
-				<input type="radio" name="smtp_crypto" id="smtp_crypto_tls" value="tls" <?php if ($setting->smtp_crypto === 'tls'): echo 'checked'; endif; ?>> TLS
+        <input type="radio" name="smtp_crypto" id="smtp_crypto_tls" value="tls" <?php if ($setting->smtp_crypto === 'tls'): echo 'checked'; endif; ?>> TLS
 
-			</label>
+      </label>
 
-			<label class="radio">
+      <label class="radio">
 
-				<input type="radio" name="smtp_crypto" id="smtp_crypto_ssl" value="ssl" <?php if ($setting->smtp_crypto === 'ssl'): echo 'checked'; endif; ?>> SSL
+        <input type="radio" name="smtp_crypto" id="smtp_crypto_ssl" value="ssl" <?php if ($setting->smtp_crypto === 'ssl'): echo 'checked'; endif; ?>> SSL
 
-			</label>
+      </label>
 
-			<p class="help-block">Seleccione el tipo de encriptación que posee el servidor de correos electrónicos</p>
+      <p class="help-block">Seleccione el tipo de encriptación que posee el servidor de correos electrónicos</p>
 
-		</div>
+    </div>
 
-	</div>
-	<!-- end smtp crypto -->
+  </div>
+  <!-- end smtp crypto -->
 
-	<!-- form actions -->
-	<div class="form-actions">
+  <!-- form actions -->
+  <div class="form-actions">
 
-		<button class="btn send">{{ Helper::icon('ok-sign') }} Actualizar</button>
+    <button class="btn send">{{ Helper::icon('ok-sign') }} Actualizar</button>
 
-	</div>
-	<!-- end form action -->
+  </div>
+  <!-- end form action -->
 
 {{ Form::close() }}
 <!-- end settings form -->

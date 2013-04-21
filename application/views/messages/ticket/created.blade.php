@@ -1,10 +1,10 @@
 <p>{{ HTML::mailto($from->email, $from->firstname . ' ' . $from->lastname) }} ha creado una nueva consulta:</p>
 
 <blockquote>
-	
-	<h4>{{ HTML::link('ticket/' . $ticket->id, $ticket->subject) }}</h4>
+  
+  <h4>{{ HTML::link('ticket/' . $ticket->id, $ticket->subject) }}</h4>
 
-	<p>{{ $content }}</p>
+  <p>{{ $content }}</p>
 
 </blockquote>
 

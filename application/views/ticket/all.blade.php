@@ -4,6 +4,25 @@
 
 <div class="row padded">
 	
+	<div class="btn-toolbar">
+
+		<div class="btn-group">
+
+			<button type="submit" class="btn" value="open">{{ Helper::icon('ok-sign') }} Solo cerradas</button>
+			<button type="submit" class="btn" value="open">{{ Helper::icon('time') }} Solo en espera</button>
+			<button type="submit" class="btn" value="open">{{ Helper::icon('exclamation-sign') }} Solo abiertas</button>
+
+		</div>
+
+		<div class="input-append pull-right">
+
+			<input type="text" placeholder="Consulta #" />
+			<button type="submit" class="btn btn-primary">{{ Helper::icon('search') }}</button>
+
+		</div>
+
+	</div>
+
 	<table class="table table-striped table-hover table-bordered table-tickets">
 
 		<thead>
@@ -11,7 +30,7 @@
 			<tr>
 
 				<th>#</th>
-				<th>Asunto</th>
+				<th>Consulta</th>
 				<th>Reportado por</th>
 				<th>Asignado a</th>
 				<th>Estatus</th>

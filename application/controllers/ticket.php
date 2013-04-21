@@ -107,28 +107,24 @@ class Ticket_Controller extends Base_Controller {
 		}
 
 		// save it to the database
-		$ticket		= Ticket::insert_get_id($ticket);
+		$ticket		= Ticket::create($ticket);
 		$reporter	= User::find(Session::get('id'));
 
 		// create an email for the assigned person
 		if (isset($input['assigned_to'])) {
-			$subject	= 'Asignación de Consulta #' . $ticket . ': ' . $input['subject'];
+			$subject	= 'Asignación de Consulta #' . $ticket->id . ': ' . $input['subject'];
 			$view			= 'messages.ticket.assigned'; 
 
 		// or for the whole department
 		} else {
-			$subject	= 'Consulta #' . $ticket . ': ' . $input['subject'];
+			$subject	= 'Consulta #' . $ticket->id . ': ' . $input['subject'];
 			$view			= 'messages.ticket.created';
 		}
-
+		
 		// prepare the data for the view
 		$from				=& $reporter;												// needed
-		$content		= $input['content'];								// needed
-		$id					= $ticket;
-		$ticket			= json_decode(json_encode($input)); // needed
-		$ticket->id	= $id;
-		unset($id); // since it's not needed anymore
-
+		$content		= $ticket->content;								// needed
+	
 		$body	= View::make($view)
 		->with('from', $from)
 		->with('content', $content)

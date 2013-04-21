@@ -24,12 +24,18 @@ Route::filter('auth', function() {
 });
 
 // landing page
-Route::get('/', 'auth@login');
+Route::get('/', function() {
+	if (Auth::check()) {
+		return Redirect::to('dashboard');
+	} else {
+		return Redirect::to('login');
+	}
+});
 
 // authentication
-Route::post('login', 'auth@login');
-Route::get('login', 'auth@login');
-Route::get('logout', 'auth@logout');
+Route::post('login',	'auth@login');
+Route::get('login',		'auth@login');
+Route::get('logout',	'auth@logout');
 
 // locked areas
 Route::group(array('before' => 'auth'), function() {

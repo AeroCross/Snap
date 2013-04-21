@@ -159,10 +159,10 @@ class Ticket_Controller extends Base_Controller {
     );
     
     // save the status of the update
-    $message  = Message::add($ticket, $data);
-    $redirect = Redirect::to('ticket/' . $ticket);
-    $ticket   = Ticket::find($ticket);
-    $status   = Input::get('status');
+    $message    = Message::add($ticket, $data);
+    $redirect   = Redirect::to('ticket/' . $ticket);
+    $ticket     = Ticket::find($ticket);
+    $status     = Input::get('status');
     $department = Input::get('department');
     $assign_to  = Input::get('assign');
 
@@ -230,7 +230,7 @@ class Ticket_Controller extends Base_Controller {
 
     $body = View::make('messages.ticket.updated')
     ->with('ticket', $ticket)
-    ->with('replier', $replier)
+    ->with('from', $replier)
     ->with('content', Markdown($data['content']));
 
     // send the message
@@ -258,7 +258,7 @@ class Ticket_Controller extends Base_Controller {
       // create the message
       $body = View::make('messages.ticket.assigned')
       ->with('ticket', $ticket)
-      ->with('reporter', $replier)
+      ->with('from', $replier)
       ->with('content', Markdown($data['content']));
 
       $message = Swift_Message::newInstance($replier->fullname . ' le ha asignado una la consulta #' . $ticket->id . ': ' . $ticket->subject)

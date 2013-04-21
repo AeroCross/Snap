@@ -1,4 +1,4 @@
-<p>{{ HTML::mailto($replier->email, $replier->firstname . ' ' . $replier->lastname) }} ha actualizado la consulta {{ HTML::link('ticket/' . $ticket->id, $ticket->subject) }}:</p>
+<p>{{ HTML::mailto($from->email, $from->firstname . ' ' . $from->lastname) }} ha actualizado la consulta {{ HTML::link('ticket/' . $ticket->id, $ticket->subject) }}:</p>
 
 <blockquote>
   

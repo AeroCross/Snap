@@ -61,8 +61,8 @@ class Ticket_Controller extends Base_Controller {
 	public function post_add() {
 		$input	= array(
 			'department'	=> Input::get('department'),
-			'subject'		=> Input::get('subject'),
-			'content'		=> Input::get('content')
+			'subject'			=> Input::get('subject'),
+			'content'			=> Input::get('content')
 		); 
 
 		// only support and admins can set an assigned person
@@ -72,8 +72,8 @@ class Ticket_Controller extends Base_Controller {
 
 		$rules = array(
 			'department'	=> 'required',
-			'subject'		=> 'required',
-			'content'		=> 'required'
+			'subject'			=> 'required',
+			'content'			=> 'required'
 		);
 
 		$validation = Validator::make($input, $rules);
@@ -84,8 +84,8 @@ class Ticket_Controller extends Base_Controller {
 
 		// validation passed, prepare data to be added to database
 		$ticket = array(
-			'subject'		=> $input['subject'],
-			'content'		=> $input['content'],
+			'subject'			=> $input['subject'],
+			'content'			=> $input['content'],
 			'department'	=> $input['department'],
 			'reported_by'	=> Session::get('id'),
 		);
@@ -185,7 +185,7 @@ class Ticket_Controller extends Base_Controller {
 		*/
 
 		// who replied to the ticket
-		$replier			= User::find($ticket->reported_by);
+		$replier						= User::find($ticket->reported_by);
 		$replier->fullname	= $replier->firstname . ' ' . $replier->lastname;
 
 		/**
@@ -211,7 +211,7 @@ class Ticket_Controller extends Base_Controller {
 		* d: notify only the reporter
 		*/
 		elseif (Session::get('id') != $ticket->reported_by) {
-			$reporter				= User::find($ticket->reported_by);
+			$reporter								= User::find($ticket->reported_by);
 			$bcc[$reporter->email]	= $reporter->firstname . ' ' . $reporter->lastname;
 		}
 

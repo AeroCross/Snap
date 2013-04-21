@@ -23,7 +23,7 @@ class Auth_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function get_login() {
-		return View::make('login.index');
+		return View::make('login.index')->with('title', 'Inicie Sesión');
 	}
 
 	/**

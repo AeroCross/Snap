@@ -27,6 +27,6 @@ class Dashboard_Controller extends Base_Controller {
 		if ($data->totalAssigned == 0): $data->badge = 'success'; else: $data->badge = 'important'; endif;
 
 		// output view and send all the data
-		return View::make('dashboard.index')->with('data', $data);
+		return View::make('dashboard.index')->with('data', $data)->with('title', 'Dashboard');
 	}
 }

@@ -18,7 +18,7 @@ class Ticket_Controller extends Base_Controller {
 	*/
 	public function get_add() {
 		// display the form
-		return View::make('ticket/add');
+		return View::make('ticket/add')->with('title', 'Nueva Consulta');
 	}
 
 	/**
@@ -32,10 +32,10 @@ class Ticket_Controller extends Base_Controller {
 		$messages	= $ticket->messages()->get();
 
 		// ticket details
-		$reporter			= User::find($ticket->reported_by);
+		$reporter						= User::find($ticket->reported_by);
 		$reporter->fullname = $reporter->firstname . ' ' . $reporter->lastname;
-		$department			= Department::find($ticket->department);
-		$assigned			= User::find($ticket->assigned_to);
+		$department					= Department::find($ticket->department);
+		$assigned						= User::find($ticket->assigned_to);
 
 		// markdown enabled view
 		Load::library('markdown/markdown');
@@ -50,7 +50,8 @@ class Ticket_Controller extends Base_Controller {
 		->with('messages', $messages)
 		->with('reporter', $reporter)
 		->with('assigned', $assigned)
-		->with('department', $department);
+		->with('department', $department)
+		->with('title', 'Consulta #' . $ticket->id . ': ' . $ticket->subject);
 	}
 
 	/**
@@ -120,7 +121,7 @@ class Ticket_Controller extends Base_Controller {
 			$subject	= 'Consulta #' . $ticket->id . ': ' . $input['subject'];
 			$view			= 'messages.ticket.created';
 		}
-		
+
 		// prepare the data for the view
 		$from				=& $reporter;												// needed
 		$content		= $ticket->content;								// needed
@@ -142,7 +143,7 @@ class Ticket_Controller extends Base_Controller {
 		$sent = $mailer->send($message);
 
 		// all good
-		return View::make('ticket.success')->with('ticket', $ticket);
+		return View::make('ticket.success')->with('ticket', $ticket)->with('title', '¡Consulta creada!');
 	}
 
 	/**

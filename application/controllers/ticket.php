@@ -24,7 +24,7 @@ class Ticket_Controller extends Base_Controller {
 	/**
 	* Shows detailed information about a ticket
 	*
-	* @param	
+	* @param	int		- the ticket id
 	* @access	public
 	*/
 	public function get_view($ticket) {
@@ -52,6 +52,21 @@ class Ticket_Controller extends Base_Controller {
 		->with('assigned', $assigned)
 		->with('department', $department)
 		->with('title', 'Consulta #' . $ticket->id . ': ' . $ticket->subject);
+	}
+
+	/**
+	* Shows all tickets
+	*
+	* @access	public
+	*/
+	public function get_all() {
+		$tickets	= Ticket::order_by('id', 'desc')->get();
+		$users		= User::all();
+
+		return View::make('ticket.all')
+		->with('tickets', $tickets)
+		->with('users', $users)
+		->with('title', 'Todas las consultas');
 	}
 
 	/**

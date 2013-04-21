@@ -1,4 +1,16 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Constants definitions
+|--------------------------------------------------------------------------
+|
+| Laravel has no built-in method of storing and retrieving constants, so
+| we're going to define them here at application-level.
+|
+*/
+
+// application version
+define('APP_VERSION', '0.5a');
 
 /*
 |--------------------------------------------------------------------------

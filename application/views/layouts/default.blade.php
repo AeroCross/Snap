@@ -119,7 +119,7 @@
 
 				<p class="muted credit">
 
-				<strong>Snap</strong> versión <strong>0.5a</strong> — Sistema Automatizado de Asistencia Virtual<br />
+				<strong>Snap</strong> versión <strong>{{ APP_VERSION }}</strong> — Sistema Automatizado de Asistencia Virtual<br />
 				Copyright 2012-2013 &copy; {{ HTML::link('http://mariocuba.net', 'Mario Cuba') }} — Todos los derechos reservados.
 
 				</p>

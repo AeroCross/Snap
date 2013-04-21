@@ -1,4 +1,4 @@
-<p>{{ HTML::mailto($reporter->email, $reporter->firstname . ' ' . $reporter->lastname) }} le ha asignado una nueva consulta:</p>
+<p>{{ HTML::mailto($from->email, $from->firstname . ' ' . $from->lastname) }} le ha asignado una nueva consulta:</p>
 
 <blockquote>
 	

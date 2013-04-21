@@ -11,7 +11,7 @@
 
 	</div>
 	
-	<p>Su número de consulta es el <strong>#{{ $ticket }}</strong> — este es su número identificador para que pueda hacerle seguimiento luego mediante el {{ HTML::link('tickets', 'listado') }}.</p>
+	<p>Su número de consulta es el <strong>#{{ $ticket->id }}</strong> — este es su número identificador para que pueda hacerle seguimiento luego mediante el {{ HTML::link('tickets', 'listado') }}.</p>
 
 	<p>Recibirá una notificación a su correo electrónico en el momento en que sea respondida.</p>
 

@@ -113,13 +113,26 @@ class Ticket_Controller extends Base_Controller {
 		// create an email for the assigned person
 		if (isset($input['assigned_to'])) {
 			$subject	= 'Asignación de Consulta #' . $ticket . ': ' . $input['subject'];
-			$body		= View::make('messages.ticket.assigned')->with('input', $input)->with('reporter', $reporter)->with('ticket', $ticket);
+			$view			= 'messages.ticket.assigned'; 
 
 		// or for the whole department
 		} else {
 			$subject	= 'Consulta #' . $ticket . ': ' . $input['subject'];
-			$body		= View::make('messages.ticket.created')->with('input', $input)->with('reporter', $reporter)->with('ticket', $ticket);
+			$view			= 'messages.ticket.created';
 		}
+
+		// prepare the data for the view
+		$from				=& $reporter;												// needed
+		$content		= $input['content'];								// needed
+		$id					= $ticket;
+		$ticket			= json_decode(json_encode($input)); // needed
+		$ticket->id	= $id;
+		unset($id); // since it's not needed anymore
+
+		$body	= View::make($view)
+		->with('from', $from)
+		->with('content', $content)
+		->with('ticket', $ticket);
 
 		// send the mail
 		$mailer		= IoC::resolve('mailer');

@@ -6,20 +6,24 @@
 	
 	<div class="btn-toolbar">
 
-		<div class="btn-group">
+		{{ Form::open('ticket/all', 'PUT', array('class' => '')) }}
 
-			<button type="submit" class="btn" value="open">{{ Helper::icon('ok-sign') }} Solo cerradas</button>
-			<button type="submit" class="btn" value="open">{{ Helper::icon('time') }} Solo en espera</button>
-			<button type="submit" class="btn" value="open">{{ Helper::icon('exclamation-sign') }} Solo abiertas</button>
+			<div class="btn-group">
 
-		</div>
+				<button type="submit" class="btn" value="open">{{ Helper::icon('ok-sign') }} Solo cerradas</button>
+				<button type="submit" class="btn" value="open">{{ Helper::icon('time') }} Solo en espera</button>
+				<button type="submit" class="btn" value="open">{{ Helper::icon('exclamation-sign') }} Solo abiertas</button>
 
-		<div class="input-append pull-right">
+			</div>
 
-			<input type="text" placeholder="Consulta #" />
-			<button type="submit" class="btn btn-primary">{{ Helper::icon('search') }}</button>
+			<div class="input-append pull-right">
 
-		</div>
+				<input type="text" placeholder="Consulta #" />
+				<button type="submit" class="btn btn-primary">{{ Helper::icon('search') }}</button>
+
+			</div>
+
+		{{ Form::close() }}
 
 	</div>
 

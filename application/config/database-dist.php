@@ -68,13 +68,14 @@ return array(
 		),
 
 		'mysql' => array(
-			'driver'   => 'mysql',
-			'host'     => 'localhost',
-			'database' => 'saav',
-			'username' => 'saav',
-			'password' => 'saav',
-			'charset'  => 'utf8',
-			'prefix'   => '',
+			'driver'   		=> 'mysql',
+			'host'     		=> 'localhost',
+			'database' 		=> '',
+			'username' 		=> '',
+			'password' 		=> '',
+			'charset'  		=> 'utf8',
+			'prefix'   		=> '',
+			'unix_socket'	=> ''
 		),
 
 		'pgsql' => array(

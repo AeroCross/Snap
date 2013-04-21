@@ -66,6 +66,16 @@ a:hover {cursor: pointer;}
 
 /* ticket view */
 .form-status {margin: 0; position: relative; top: 20px;}
+.table-tickets td {
+	vertical-align: middle;
+}
+
+.table-tickets td:nth-child(1),
+.table-tickets td:last-child,
+.table-tickets th:nth-child(1),
+.table-tickets th:last-child {
+	text-align: center;
+}
 
 /* fixes */
 /* correct alignment of icons in dropdowns */

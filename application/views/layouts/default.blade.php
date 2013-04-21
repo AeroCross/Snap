@@ -51,20 +51,18 @@
 
 									<li class="nav-header">Consultas</li>
 
-									<li><a href="#">Todas las Consultas</a></li>
+									<li>{{ HTML::link('ticket/all', 'Todas las Consultas') }}</li>
 
 										<li class="divider"></li>
 										<li class="nav-header">Usuarios</li>
 
 										<li><a href="#">Agregar Usuario</a></li>
 										<li><a href="#">Asignar Roles</a></li>
-										<li><a href="#">Compañías</a></li>
 
 										<li class="divider"></li>
 										<li class="nav-header">Sistema</li>
 
 										<li>{{ HTML::link('settings', 'Configuración') }}</li>
-										<li><a href="#">Actualizar</a></li>
 									
 								</ul>
 

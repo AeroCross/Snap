@@ -27,32 +27,36 @@
 			@foreach($tickets as $ticket)
 
 				<?php 
-					$user = $users[$ticket->reported_by];
-						
-					// information about the current reporter
-					$reported = new StdClass;
-					$reported->name		= $user->firstname . ' ' . $user->lastname;
-					$reported->email	= $user->email;
+					foreach($users as $user) {
+						if ($user->id == $ticket->reported_by) {
+							$reported = $user;
+						}
+					}
+
+					// to prevent conflicts with next loop
+					unset($user);
 
 					if (!empty($ticket->assigned_to)) {
-						$user = $users[$ticket->assigned_to];
-
-						// information about the assigned person
-						$assigned = new StdClass;
-						$assigned->name		= $user->firstname . ' ' . $user->lastname;
-						$assigned->email	= $user->email;
+						foreach($users as $user) {
+							if ($user->id == $ticket->assigned_to) {
+								$assigned = $user;
+							}
+						}
 					}
+
+					// for consistency
+					unset($user);
 				?>
 
 				<tr>
 
 					<td>{{ $ticket->id }}</td>
 					<td>{{ HTML::link('ticket/' . $ticket->id, $ticket->subject) }}</td>
-					<td>{{ $reported->name }}</td>
+					<td>{{ $reported->firstname . ' ' . $reported->lastname }}</td>
 
 					{{-- show nothing if noone's assigned --}}
 					@if (isset($assigned))
-						<td>{{ $assigned->name }}</td>
+						<td>{{ $assigned->firstname . ' ' . $assigned->lastname }}</td>
 					@else
 						<td><span class="muted">Nadie</span></td>
 					@endif

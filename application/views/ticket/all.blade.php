@@ -49,12 +49,26 @@
 
 					// for consistency
 					unset($user);
+
+					switch($ticket->status) {
+						case 'open':	$type = 'warning'; break;
+						case 'hold':	$type = 'info'; break;
+						case 'closed':	$type = ''; break;
+					}
 				?>
 
-				<tr>
+				<tr class="{{ $type }}">
 
 					<td>{{ $ticket->id }}</td>
-					<td><p>{{ HTML::link('ticket/' . $ticket->id, $ticket->subject) }}</p><small><strong>Creado:</strong>{{ $ticket->created_at }}</small><br /><small><strong>Última actualización:</strong> {{ $ticket->updated_at }}</small></td>
+
+					<td>
+
+						<p>{{ HTML::link('ticket/' . $ticket->id, $ticket->subject) }}</p>
+						<small><strong>Creado:</strong>{{ $ticket->created_at }}</small><br />
+						<small><strong>Última actualización:</strong> {{ $ticket->updated_at }}</small>
+
+					</td>
+
 					<td>{{ $reported->name }}</td>
 					<td>{{ $assigned->name }}</td>
 					<td>{{ Helper::status($ticket->status) }}</td>

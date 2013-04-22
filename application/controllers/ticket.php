@@ -70,6 +70,38 @@ class Ticket_Controller extends Base_Controller {
 	}
 
 	/**
+	* Searches for specific tickets
+	* @param	string	- the type of search to perform
+	* @param	string	- the value of the search
+	* @access	public
+	*/
+	public function put_search() {
+		$type	= Input::get('type');
+		$value	= Input::get('value');
+
+		// check if the value is mixed (for both type and value)
+		if (empty($type)) {
+			$parts = explode('|', $value, 2);
+			if (count($parts) === 2) {
+				$type	= $parts[0];
+				$value	= $parts[1];
+			}
+		}
+
+		if (empty($type) or empty($value)) {
+			return Redirect::to('tickets');
+		}
+
+		$tickets	= Ticket::where($type, '=', $value)->order_by('id', 'desc')->get();
+		$users		= User::all();
+
+		return View::make('ticket.all')
+		->with('tickets', $tickets)
+		->with('users', $users)
+		->with('title', 'Búsqueda');
+	}
+
+	/**
 	* Adds a new ticket
 	*
 	* @access	public

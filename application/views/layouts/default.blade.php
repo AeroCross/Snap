@@ -51,7 +51,7 @@
 
 									<li class="nav-header">Consultas</li>
 
-									<li>{{ HTML::link('ticket/all', 'Todas las Consultas') }}</li>
+									<li>{{ HTML::link('tickets', 'Todas las Consultas') }}</li>
 
 										<li class="divider"></li>
 										<li class="nav-header">Usuarios</li>

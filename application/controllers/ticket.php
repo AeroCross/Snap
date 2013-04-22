@@ -61,6 +61,7 @@ class Ticket_Controller extends Base_Controller {
 	*/
 	public function get_all() {
 		$tickets	= Ticket::order_by('id', 'desc')->get();
+		$tickets	= DB::table('tickets')->order_by('id', 'desc')->paginate(50); // @TODO: pagination comes from settings
 		$users		= User::all();
 
 		return View::make('ticket.all')
@@ -92,7 +93,8 @@ class Ticket_Controller extends Base_Controller {
 			return Redirect::to('tickets');
 		}
 
-		$tickets	= Ticket::where($type, '=', $value)->order_by('id', 'desc')->get();
+		// @TODO: pagination comes from settings
+		$tickets	= DB::table('tickets')->where($type, '=', $value)->order_by('id', 'desc')->paginate(50);
 		$users		= User::all();
 
 		return View::make('ticket.all')

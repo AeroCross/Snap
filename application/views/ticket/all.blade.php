@@ -60,7 +60,7 @@
 			<!-- all found tickets -->
 			<tbody>
 
-				@foreach($tickets as $ticket)
+				@foreach($tickets->results as $ticket)
 
 					<?php 
 						foreach($users as $user) {
@@ -121,6 +121,8 @@
 
 		</table>
 		<!-- end tickets table -->
+
+		{{ $tickets->links() }}
 
 		{{-- if no tickets are found or they don't match any query --}}
 		@else

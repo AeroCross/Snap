@@ -129,7 +129,7 @@
 					type: 'area'
 				},
 				title: {
-					text: 'Total de Consultas (Últimos 7 días)',
+					text: 'Consultas (Últimos 7 días)',
 				},
 				xAxis: {
 					title: {
@@ -155,10 +155,10 @@
 		jQuery(document).ready(function() {
 			$('#graph-people').highcharts({
 				chart: {
-					type: 'column'
+					type: 'bar'
 				},
 				title: {
-					text: 'Cantidad de Consultas por Persona',
+					text: 'Total de Consultas',
 				},
 				xAxis: {
 					title: {

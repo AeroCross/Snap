@@ -26,10 +26,30 @@ class Dashboard_Controller extends Base_Controller {
 		Asset::add('charts', 'js/charts/highcharts.js');
 		Asset::add('charts-more','js/charts/highcharts-more.js');
 
+		$tickets				= new StdClass;
+		$tickets->users	= User::all(); 
+
+		foreach($tickets->users as $user) {
+
+			$ticket_amount	= Ticket::where_reported_by($user->id)->count();
+
+			if (!empty($ticket_amount)) {
+				$json_tickets[]	= $ticket_amount;
+				$json_users[]		= $user->firstname;
+			}
+		}
+
+		$tickets->users = json_encode($json_users);
+		$tickets->total = json_encode($json_tickets, JSON_NUMERIC_CHECK);
+
+
 		// what badge should we display in assigned?
 		if ($data->totalAssigned == 0): $data->badge = 'success'; else: $data->badge = 'important'; endif;
 
-		// output view and send all the data
-		return View::make('dashboard.index')->with('data', $data)->with('title', 'Dashboard');
+		return View::make('dashboard.index')
+		->with('data', $data) // split!
+		->with('title', 'Dashboard')
+		->with('tickets_users', $tickets->users)
+		->with('tickets_total', $tickets->total);
 	}
 }

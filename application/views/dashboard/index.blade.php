@@ -162,9 +162,9 @@
 				},
 				xAxis: {
 					title: {
-						text: 'Días'
+						text: 'Personas'
 					},
-					categories: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+					categories: {{ $tickets_users }},
 				},
 				yAxis: {
 					title: {
@@ -172,11 +172,8 @@
 					}
 				},
 				series: [{ // people and amount of tickets
-					name: 'Mario',
-					data: [4, 17, 50, 17, 2, 22, 2]
-				}, {
-					name: 'Juliet',
-					data: [1, 10, 4, 1, 5, 11, 32]
+					name: '# Consultas',
+					data: {{ $tickets_total }}
 				}]
 			});
 		});

@@ -129,6 +129,8 @@
 
 		{{ Asset::scripts(); }}
 
+		@yield('postscripts')
+
 	</body>
 
 </html>

@@ -101,6 +101,85 @@
 	</div>
 	<!-- end tabsgroup -->
 
+	<!-- graphs -->
+	<div class="span6 offset1">
+
+		<div class="row" id="graph-week">
+
+		</div>
+
+		<div class="row" id="graph-people">
+
+		</div>
+
+
+	</div>
+	<!-- end graphs -->
+	
 </div>
 
+@endsection
+
+@section('postscripts')
+	<script>
+
+		jQuery(document).ready(function() {
+			$('#graph-week').highcharts({
+				chart: {
+					type: 'area'
+				},
+				title: {
+					text: 'Total de Consultas (Últimos 7 días)',
+				},
+				xAxis: {
+					title: {
+						text: 'Días'
+					},
+					categories: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+				},
+				yAxis: {
+					title: {
+						text: 'Consultas'
+					}
+				},
+				series: [{ // people and amount of tickets
+					name: 'Mario',
+					data: [4, 17, 50, 17, 2, 22, 2]
+				}, {
+					name: 'Juliet',
+					data: [1, 10, 4, 1, 5, 11, 32]
+				}]
+			});
+		});
+
+		jQuery(document).ready(function() {
+			$('#graph-people').highcharts({
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Cantidad de Consultas por Persona',
+				},
+				xAxis: {
+					title: {
+						text: 'Días'
+					},
+					categories: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+				},
+				yAxis: {
+					title: {
+						text: 'Consultas'
+					}
+				},
+				series: [{ // people and amount of tickets
+					name: 'Mario',
+					data: [4, 17, 50, 17, 2, 22, 2]
+				}, {
+					name: 'Juliet',
+					data: [1, 10, 4, 1, 5, 11, 32]
+				}]
+			});
+		});
+
+	</script>
 @endsection

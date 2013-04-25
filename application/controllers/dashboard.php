@@ -15,13 +15,16 @@ class Dashboard_Controller extends Base_Controller {
 		$data = new StdClass;
 
 		// data
-		$data->assigned			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(10)->order_by('id', 'desc')->get();
+		$data->assigned		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(10)->order_by('id', 'desc')->get();
 		$data->latest			= Ticket::take(10)->order_by('id', 'desc')->get();
 
 		// numbers
 		$data->totalAssigned	= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
 		$data->total			= Ticket::count();
 		$data->open				= Ticket::where_status('open')->count();
+
+		Asset::add('charts', 'js/charts/highcharts.js');
+		Asset::add('charts-more','js/charts/highcharts-more.js');
 
 		// what badge should we display in assigned?
 		if ($data->totalAssigned == 0): $data->badge = 'success'; else: $data->badge = 'important'; endif;

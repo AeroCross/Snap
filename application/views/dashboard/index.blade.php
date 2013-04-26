@@ -112,7 +112,7 @@
 
 		<div class="page-header">
 
-			<h4>Estadísticas <small>sobre actividad reciente</small><a href="#" class="btn pull-right" title="Más estadísticas" data-placement="left">{{ Helper::icon('signal') }}</a></h4>
+			<h4>Estadísticas <small>sobre actividad reciente</small><a href="#" class="btn pull-right" title="Más estadísticas" data-placement="bottom">{{ Helper::icon('signal') }}</a></h4>
 
 		</div>
 

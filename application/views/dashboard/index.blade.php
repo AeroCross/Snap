@@ -9,7 +9,7 @@
 
 		<div class="page-header">
 
-			<h4>Consultas <small>más recientes y asignadas</small></h4>
+			<h4>Consultas <small>más recientes y asignadas</small><a href="{{ URL::to('tickets') }}" class="btn pull-right" title="Todas las Consultas" data-placement="bottom">{{ Helper::icon('list') }}</a></h4>
 
 		</div>
 		
@@ -146,7 +146,7 @@
 					title: {
 						text: 'Días'
 					},
-					categories: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+					categories: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // days
 				},
 				yAxis: {
 					title: {
@@ -154,11 +154,8 @@
 					}
 				},
 				series: [{ // people and amount of tickets
-					name: 'Mario',
+					name: '# de Consultas',
 					data: [4, 17, 50, 17, 2, 22, 2]
-				}, {
-					name: 'Juliet',
-					data: [1, 10, 4, 1, 5, 11, 32]
 				}]
 			});
 		});
@@ -183,7 +180,7 @@
 					}
 				},
 				series: [{ // people and amount of tickets
-					name: '# Consultas',
+					name: '# de Consultas',
 					data: {{ $tickets_total }}
 				}]
 			});

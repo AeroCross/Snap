@@ -2,6 +2,9 @@ jQuery(document).ready(function() {
 	// enable alerts
 	jQuery('.alert').alert();
 
+	// enable tootips
+	jQuery('a[title]').tooltip();
+
 	// disable dead links
 	jQuery('a[href$="#"]').on('click', function(e) {
 		e.preventDefault();

@@ -2,10 +2,16 @@
 
 @section('content')
 
-<div class="row padded">
+<div class="row">
 	
 	<!-- tabsgroup -->
 	<div class="span5">
+
+		<div class="page-header">
+
+			<h4>Consultas <small>más recientes y asignadas</small></h4>
+
+		</div>
 		
 		<!-- tabs -->
 		<div class="tabbable">
@@ -104,6 +110,12 @@
 	<!-- graphs -->
 	<div class="span6 offset1">
 
+		<div class="page-header">
+
+			<h4>Estadísticas <small>sobre actividad reciente</small><a href="#" class="btn pull-right" title="Más estadísticas" data-placement="left">{{ Helper::icon('signal') }}</a></h4>
+
+		</div>
+
 		<div class="row" id="graph-week">
 
 		</div>
@@ -111,7 +123,6 @@
 		<div class="row" id="graph-people">
 
 		</div>
-
 
 	</div>
 	<!-- end graphs -->

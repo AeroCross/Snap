@@ -83,11 +83,6 @@ a:hover {cursor: pointer;}
 	margin-top: -1px;
 }
 
-/* not enough space in button icons */
-[class^="icon-"] {
-	margin: 6px 6px 0 0;
-}
-
 /* dropdowns have incorrect top and bottom padding */
 .dropdown-menu {
 	padding: 8px 0;

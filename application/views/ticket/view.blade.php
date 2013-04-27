@@ -133,7 +133,7 @@
 
 					<div class="controls">
 
-						<select name="status" class="input-large">
+						<select name="status" class="input-large" id="status">
 
 							<option value="closed">Cerrado</option>
 							<option value="open">Abierto</option>
@@ -147,13 +147,16 @@
 				<!-- end status -->
 
 				<!-- file -->
-				<div class="hidden control-group" id="file-field">
+				<div class="control-group hidden" id="file-field">
+					
+					<!-- hax -->
+					<br />
 
 					<label for="file" class="control-label">Enviar un Archivo</label>
 
 					<div class="controls">
 
-						{{ Form::file('file') }}<span class="help-inline"><strong>Tamaño máximo:</strong> {{ ini_get('upload_max_filesize') }}B</span><br /><span class="help-block">Si tiene que subir más de un archivo, comprímalo primero.</span>
+						{{ Form::file('file', array('id' => 'file')) }}<span class="help-inline"><strong>Tamaño máximo:</strong> {{ ini_get('upload_max_filesize') }}B</span><br /><span class="help-block">Si tiene que subir más de un archivo, comprímalo primero.</span>
 
 					</div>
 
@@ -245,4 +248,17 @@
 	<!-- end responses -->
 
 </div>
+
+@endsection
+
+@section('postscripts')
+	
+	<script>
+
+		jQuery('#file-field-show').on('click', function() {
+			jQuery('#file-field').fadeIn(300);
+		});
+
+	</script>
+
 @endsection

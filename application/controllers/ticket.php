@@ -166,7 +166,7 @@ class Ticket_Controller extends Base_Controller {
 		$reporter	= User::find(Session::get('id'));
 
 		// try to upload the file
-		$path	= path('base') . 'files/tickets/' . Session::get('id') . '/' . $ticket->id . '/';
+		$path	= path('base') . 'files/tickets/' . $ticket->id . '/' . Session::get('id') . '/';
 		$fs		= IoC::resolve('gaufrette', array($path, true));
 		// ensure directory exists
 		$fs->keys();
@@ -348,7 +348,7 @@ class Ticket_Controller extends Base_Controller {
 		$ticket->save();
 		
 		// try to upload the file
-		$path	= path('base') . 'files/tickets/' . Session::get('id') . '/' . $ticket->id . '/';
+		$path	= path('base') . 'files/tickets/' . $ticket->id . '/' . Session::get('id') . '/';
 		$fs		= IoC::resolve('gaufrette', array($path, true));
 		// ensure directory exists
 		$fs->keys();

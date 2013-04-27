@@ -140,13 +140,13 @@
 					type: 'area'
 				},
 				title: {
-					text: 'Consultas (Últimos 7 días)',
+					text: 'Consultas en los últimos 7 días',
 				},
 				xAxis: {
 					title: {
 						text: 'Días'
 					},
-					categories: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // days
+					categories: {{ $week_days }},
 				},
 				yAxis: {
 					title: {
@@ -154,8 +154,8 @@
 					}
 				},
 				series: [{ // people and amount of tickets
-					name: '# de Consultas',
-					data: [4, 17, 50, 17, 2, 22, 2]
+					name: 'Consultas',
+					data: {{ $week_tickets }}
 				}]
 			});
 		});
@@ -166,7 +166,7 @@
 					type: 'bar'
 				},
 				title: {
-					text: 'Total de Consultas',
+					text: 'Total de consultas por Usuario',
 				},
 				xAxis: {
 					title: {

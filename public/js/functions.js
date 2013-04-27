@@ -3,7 +3,7 @@ jQuery(document).ready(function() {
 	jQuery('.alert').alert();
 
 	// enable tootips
-	jQuery('a[title]').tooltip();
+	jQuery('a[title], button[title]').tooltip({container: 'body'}); // issue #5687
 
 	// disable dead links
 	jQuery('a[href$="#"]').on('click', function(e) {

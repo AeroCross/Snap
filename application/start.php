@@ -122,15 +122,15 @@ Autoloader::namespaces(array(
 use Gaufrette\Filesystem;
 use Gaufrette\Adapter\Local as LocalAdapter;
 
-IoC::register('gaufrette', function($path) {
-	$adapter		= new LocalAdapter($path);
+IoC::register('gaufrette', function($path, $create = false) {
+	$adapter		= new LocalAdapter($path, $create);
 	$filesystem 	= new Filesystem($adapter);
 
 	return $filesystem;
 });
 
-IoC::register('upload', function($name, $path) {
-	$storage	= new \Upload\Storage\FileSystem($path);
+IoC::register('upload', function($name, $path, $overwrite = false) {
+	$storage	= new \Upload\Storage\FileSystem($path, $overwrite);
 	$file		= new \Upload\File($name, $storage);
 
 	return $file;

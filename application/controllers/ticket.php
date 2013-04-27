@@ -165,6 +165,22 @@ class Ticket_Controller extends Base_Controller {
 		$ticket		= Ticket::create($ticket);
 		$reporter	= User::find(Session::get('id'));
 
+		// try to upload the file
+		$path	= path('base') . 'files/tickets/' . Session::get('id') . '/' . $ticket->id . '/';
+		$fs		= IoC::resolve('gaufrette', array($path, true));
+		// ensure directory exists
+		$fs->keys();
+
+		$upload = IoC::resolve('upload', array('file', $path , true));
+
+		try {
+			$upload->upload();
+
+		// @TODO: implement error handling
+		} catch (\Exception $e){
+			dd($upload->getErrors());
+		}
+
 		// create an email for the assigned person
 		if (isset($input['assigned_to'])) {
 			$subject	= 'Asignación de Consulta #' . $ticket->id . ': ' . $input['subject'];
@@ -249,7 +265,7 @@ class Ticket_Controller extends Base_Controller {
 		*/
 
 		// who replied to the ticket
-		$replier						= User::find($ticket->reported_by);
+		$replier			= User::find($ticket->reported_by);
 		$replier->fullname	= $replier->firstname . ' ' . $replier->lastname;
 
 		/**
@@ -282,10 +298,10 @@ class Ticket_Controller extends Base_Controller {
 		// create the message
 		Load::library('markdown/markdown');
 
-	$body = View::make('messages.ticket.updated')
-	->with('ticket', $ticket)
-	->with('from', $replier)
-	->with('content', Markdown($data['content']));
+		$body = View::make('messages.ticket.updated')
+		->with('ticket', $ticket)
+		->with('from', $replier)
+		->with('content', Markdown($data['content']));
 
 		// send the message
 		$mailer		= IoC::resolve('mailer');
@@ -330,6 +346,22 @@ class Ticket_Controller extends Base_Controller {
 
 		// save changes
 		$ticket->save();
+		
+		// try to upload the file
+		$path	= path('base') . 'files/tickets/' . Session::get('id') . '/' . $ticket->id . '/';
+		$fs		= IoC::resolve('gaufrette', array($path, true));
+		// ensure directory exists
+		$fs->keys();
+
+		$upload = IoC::resolve('upload', array('file', $path , true));
+
+		try {
+			$upload->upload();
+
+		// @TODO: implement error handling
+		} catch (\Exception $e){
+			dd($upload->getErrors());
+		}
 
 		return $redirect->with('notification', 'message_add_success');
 	}

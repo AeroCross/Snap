@@ -12,34 +12,35 @@ class Dashboard_Controller extends Base_Controller {
 	public $restful	= true;
 
 	public function get_index() {
+		// add required assets
+		Asset::add('charts', 'js/charts/highcharts.js');
+		Asset::add('charts-more','js/charts/highcharts-more.js');
+
+		// prevent errors creating default objects
 		$assigned	= new StdClass;
 		$latest		= new StdClass;
 		$total		= new StdClass;
 
-		// data
+		// tickets
 		$assigned->tickets		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
 		$latest->tickets		= Ticket::take(13)->order_by('id', 'desc')->get();
 
-		// numbers
+		// stats
 		$assigned->open			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
 		$assigned->total		= Ticket::where_assigned_to(Session::get('id'))->count();
 		$total->amount			= Ticket::count();
 		$total->open			= Ticket::where_status('open')->count();
 
-		Asset::add('charts', 'js/charts/highcharts.js');
-		Asset::add('charts-more','js/charts/highcharts-more.js');
-
 		// chart: total of tickets
-		$tickets				= new StdClass;
+		$tickets		= new StdClass;
 		$tickets->users	= User::all(); 
 
 		foreach($tickets->users as $user) {
-
 			$ticket_amount	= Ticket::where_reported_by($user->id)->count();
 
 			if (!empty($ticket_amount)) {
 				$json_tickets[]	= $ticket_amount;
-				$json_users[]		= $user->firstname;
+				$json_users[]	= $user->firstname;
 			}
 		}
 

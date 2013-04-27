@@ -31,22 +31,30 @@ class Dashboard_Controller extends Base_Controller {
 		$total->amount			= Ticket::count();
 		$total->open			= Ticket::where_status('open')->count();
 
-		// chart: total of tickets
-		$tickets		= new StdClass;
-		$tickets->users	= User::all(); 
+		$tickets	= $this->chartTotalTickets();
+		$week		= $this->chartWeeklyTickets();
+		
 
-		foreach($tickets->users as $user) {
-			$ticket_amount	= Ticket::where_reported_by($user->id)->count();
+		// what badge should we display in assigned?
+		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
 
-			if (!empty($ticket_amount)) {
-				$json_tickets[]	= $ticket_amount;
-				$json_users[]	= $user->firstname;
-			}
-		}
+		return View::make('dashboard.index')
+		->with('assigned', $assigned)
+		->with('latest', $latest)
+		->with('total', $total)
+		->with('tickets', $tickets)
+		->with('week', $week)
+		->with('badge', $badge)
+		->with('title', 'Dashboard');
+	}
 
-		$tickets->users = json_encode($json_users);
-		$tickets->total = json_encode($json_tickets, JSON_NUMERIC_CHECK);
-
+	/**
+	* Generates data for a "tickets in the last 7 days" graph
+	*
+	* @return	object	- days, tickets per day and total tickets in week in json format
+	* @access	private
+	*/
+	private function chartWeeklyTickets() {
 		// chart: tickets this week
 		$week = new StdClass;
 		
@@ -79,34 +87,45 @@ class Dashboard_Controller extends Base_Controller {
 		// now, get the 7 day ticket count
 		$max = time();
 		$min = time() - (DAY_SECS * 6);
-
-		function sqltime($timestamp) {
-			return date('Y-m-d', $timestamp);
-		}
 		
-		$bindings		= array(sqltime($min), sqltime($max));
+		$bindings		= array(Helper::sqltime($min), Helper::sqltime($max));
 		$week->count	= DB::first('SELECT COUNT(`id`) as `total` FROM tickets WHERE created_at BETWEEN ? AND ?', $bindings)->total;
 
-		$date = sqltime($min);
+		$date = Helper::sqltime($min);
 
 		for ($x = 1; $x <= 7; $x++) {
 			$bindings		= array($date, $date);
 			$day_tickets[]	= DB::first('SELECT COUNT(`id`) as `total` FROM tickets WHERE created_at BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)', $bindings)->total;
-			$date			= sqltime($min + (DAY_SECS * $x));
+			$date			= Helper::sqltime($min + (DAY_SECS * $x));
 		}
 
 		$week->tickets = json_encode($day_tickets, JSON_NUMERIC_CHECK);
 
-		// what badge should we display in assigned?
-		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
+		return $week;
+	}
 
-		return View::make('dashboard.index')
-		->with('assigned', $assigned)
-		->with('latest', $latest)
-		->with('total', $total)
-		->with('tickets', $tickets)
-		->with('week', $week)
-		->with('badge', $badge)
-		->with('title', 'Dashboard');
+	/**
+	* Generates the data for a "total tickets per user" graph
+	*
+	* @return	object	- users and the amount of tickets they've made in json format
+	* @access	private
+	*/
+	private function chartTotalTickets() {
+		$tickets		= new StdClass;
+		$tickets->users	= User::all(); 
+
+		foreach($tickets->users as $user) {
+			$ticket_amount	= Ticket::where_reported_by($user->id)->count();
+
+			if (!empty($ticket_amount)) {
+				$json_tickets[]	= $ticket_amount;
+				$json_users[]	= $user->firstname;
+			}
+		}
+
+		$tickets->users = json_encode($json_users);
+		$tickets->total = json_encode($json_tickets, JSON_NUMERIC_CHECK);
+
+		return $tickets;
 	}
 }

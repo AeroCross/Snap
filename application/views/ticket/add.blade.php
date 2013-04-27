@@ -68,13 +68,18 @@
 		<!-- end subject -->
 
 		<!-- content -->
-		<div class="control-group">
+		<div class="wmd-panel">
 
-			<label for="content" class="control-label">Contenido</label>
+			<div class="control-group">
 
-			<div class="controls">
+				<!-- no label in here -->
+				<div class="controls">
 
-				<textarea name="content" id="content" cols="8" rows="10" class="span4"></textarea><span class="help-block">Indique la situación que presenta — mientras más detalle, mejor.</span>
+					<div id="wmd-button-bar"></div>
+
+					<textarea name="content" id="wmd-input" cols="8" rows="10" class="span4 wmd-input"></textarea><span class="help-block">Indique la situación que presenta — mientras más detalle, mejor.</span>
+
+				</div>
 
 			</div>
 

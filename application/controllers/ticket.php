@@ -17,6 +17,11 @@ class Ticket_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function get_add() {
+		// load markdown editor
+		Asset::add('markdown-converter', 'js/markdown/Markdown.Converter.js', 'jquery');
+		Asset::add('markdown-sanitizer', 'js/markdown/Markdown.Sanitizer.js', array('jquery', 'markdown-converter'));
+		Asset::add('markdown-editor', 'js/markdown/Markdown.Editor.js', array('jquery', 'markdown-converter', 'markdown-sanitizer'));
+		
 		// display the form
 		return View::make('ticket/add')->with('title', 'Nueva Consulta');
 	}

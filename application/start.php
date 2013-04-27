@@ -92,6 +92,43 @@ Autoloader::directories(array(
 
 /*
 |--------------------------------------------------------------------------
+| Auto-Loader Namespaces
+|--------------------------------------------------------------------------
+|
+| Many third-party libraries use the PSR-0 standard for their structure.
+| PSR-0 states that class names should match their file names, and
+| directory structure is indicated by namespaces. If you are using a 
+| PSR-0 library, just register it's root namespace and directory with 
+| the auto-loader:
+|
+*/
+
+Autoloader::namespaces(array(
+	'Gaufrette' => path('base').'vendor/knplabs/gaufrette/src/Gaufrette',
+));
+
+/*
+|--------------------------------------------------------------------------
+| IoC Container Registration
+|--------------------------------------------------------------------------
+|
+| Using Inversion of Control and Singleton Patterns, the Objects provided
+| by classes can be resolved back to the controller, preventing repetitive
+| configuration.
+|
+*/
+use Gaufrette\Filesystem;
+use Gaufrette\Adapter\Local as LocalAdapter;
+
+IoC::register('gaufrette', function($path) {
+	$adapter		= new LocalAdapter($path);
+	$filesystem 	= new Filesystem($adapter);
+
+	return $filesystem;
+});
+
+/*
+|--------------------------------------------------------------------------
 | Laravel View Loader
 |--------------------------------------------------------------------------
 |

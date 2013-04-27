@@ -1,0 +1,5 @@
+{
+	"require": {
+		"knplabs/gaufrette": "v0.1.4"
+	}
+}

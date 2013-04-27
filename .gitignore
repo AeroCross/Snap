@@ -1,14 +1,5 @@
 # ignore server generated files
 cgi-bin/
 
-# ignore uploaded files
-/files/
-
-# ignore logs
-/application/logs/
-
-# ignore uploads
-/application/uploads/
-
-# temporarily ignore extension icons
-application/views/assets/img/extensions/
+# ignore composer vendor files
+/vendor/

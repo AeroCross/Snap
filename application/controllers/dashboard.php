@@ -15,8 +15,8 @@ class Dashboard_Controller extends Base_Controller {
 		$data = new StdClass;
 
 		// data
-		$data->assigned			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(10)->order_by('id', 'desc')->get();
-		$data->latest			= Ticket::take(10)->order_by('id', 'desc')->get();
+		$data->assigned			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
+		$data->latest			= Ticket::take(13)->order_by('id', 'desc')->get();
 
 		// numbers
 		$data->totalAssigned	= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();

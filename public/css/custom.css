@@ -55,20 +55,22 @@ a:hover {cursor: pointer;}
 
 /* tickets list */
 .nav.nav-stacked li.open {
-	border-left: 3px solid #dd4b39;
+	border-left: 3px solid #f89406;
 	color: #333;
 	font-weight: bold;
 }
 
-.nav.nav-stacked li.open small {
-	font-weight: normal;
+.nav.nav-stacked li.hold {
+	border-left: 3px solid #3a87ad;
+	color: #333;
+	font-weight: bold;
 }
+
+.nav.nav-stacked li.open small {font-weight: normal;}
 
 /* ticket view */
 .form-status {margin: 0; position: relative; top: 20px;}
-.table-tickets td {
-	vertical-align: middle;
-}
+.table-tickets td {vertical-align: middle;}
 
 .table-tickets td:nth-child(1),
 .table-tickets td:last-child,

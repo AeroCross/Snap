@@ -16,9 +16,9 @@
 
 			<div class="btn-group">
 
-				<button class="btn btn-small" name="status" value="closed">{{ Helper::icon('ok-sign') }} Cerrar</button>
-				<button class="btn btn-small" name="status" value="open">{{ Helper::icon('exclamation-sign') }} Reabrir</button>
-				<button class="btn btn-small" name="status" value="hold">{{ Helper::icon('time') }} En espera</button>
+				<button class="btn btn-small" name="status" value="closed" title="Cerrar">{{ Helper::icon('ok-sign') }}</button>
+				<button class="btn btn-small" name="status" value="open" title="Reabrir">{{ Helper::icon('exclamation-sign') }}</button>
+				<button class="btn btn-small" name="status" value="hold" title="En espera">{{ Helper::icon('time') }}</button>
 
 			</div>
 
@@ -182,7 +182,7 @@
 	<!-- end initial thread -->
 
 	<!-- responses -->
-	<div class="span7">
+	<div class="span6 offset1">
 
 		<div class="tabbable">
 

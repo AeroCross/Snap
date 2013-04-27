@@ -19,7 +19,7 @@
 			<ul class="nav nav-tabs">
 				
 				<li class="active"><a href="#latest" data-toggle="tab">Recientes</a></li>
-				<li><a href="#assigned" data-toggle="tab">Asignadas <span class="badge badge-{{ $data->badge }}">{{ $data->totalAssigned }}</span></a></li>
+				<li><a href="#assigned" data-toggle="tab">Asignadas <span class="badge badge-{{ $badge }}">{{ $assigned->open }}</span></a></li>
 
 			</ul>
 			
@@ -29,7 +29,7 @@
 				<!-- latest -->
 				<div class="tab-pane active" id="latest">
 
-					@if (empty($data->latest))
+					@if (empty($latest->tickets))
 
 					<div class="alert alert-info">
 
@@ -41,7 +41,7 @@
 
 						<ul class="nav nav-tabs nav-stacked">
 
-							@foreach($data->latest as $ticket)
+							@foreach($latest->tickets as $ticket)
 
 								<li class="{{ $ticket->status }}">
 								
@@ -56,7 +56,7 @@
 
 						</ul>
 
-						<small class="pull-right"><strong>Consultas:</strong> {{ $data->total }} — <strong>Abiertas:</strong> {{ $data->open }}</small>
+						<small class="pull-right"><strong>Consultas:</strong> {{ $total->amount }} — <strong>Abiertas:</strong> {{ $total->open }}</small>
 
 					@endif
 
@@ -66,7 +66,7 @@
 				<!-- assigned -->
 				<div class="tab-pane" id="assigned">
 
-					@if (empty($data->assigned))
+					@if (empty($assigned->tickets))
 					
 						<div class="alert alert-info">
 
@@ -78,7 +78,7 @@
 
 						<ul class="nav nav-tabs nav-stacked">
 
-							@foreach($data->assigned as $ticket)
+							@foreach($assigned->tickets as $ticket)
 
 								<li class="{{ $ticket->status }}">
 
@@ -94,6 +94,8 @@
 						</ul>
 
 					@endif
+
+					<small class="pull-right"><strong>Consultas asignadas:</strong> {{ $assigned->total }} — <strong>Abiertas:</strong> {{ $assigned->open }}</small>
 
 				</div>
 				<!-- end assigned -->

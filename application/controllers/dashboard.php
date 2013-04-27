@@ -12,16 +12,19 @@ class Dashboard_Controller extends Base_Controller {
 	public $restful	= true;
 
 	public function get_index() {
-		$data = new StdClass;
+		$assigned	= new StdClass;
+		$latest		= new StdClass;
+		$total		= new StdClass;
 
 		// data
-		$data->assigned			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
-		$data->latest			= Ticket::take(13)->order_by('id', 'desc')->get();
+		$assigned->tickets		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
+		$latest->tickets		= Ticket::take(13)->order_by('id', 'desc')->get();
 
 		// numbers
-		$data->totalAssigned	= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
-		$data->total			= Ticket::count();
-		$data->open				= Ticket::where_status('open')->count();
+		$assigned->open			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
+		$assigned->total		= Ticket::where_assigned_to(Session::get('id'))->count();
+		$total->amount			= Ticket::count();
+		$total->open			= Ticket::where_status('open')->count();
 
 		Asset::add('charts', 'js/charts/highcharts.js');
 		Asset::add('charts-more','js/charts/highcharts-more.js');
@@ -94,12 +97,15 @@ class Dashboard_Controller extends Base_Controller {
 		$week->tickets = json_encode($day_tickets, JSON_NUMERIC_CHECK);
 
 		// what badge should we display in assigned?
-		if ($data->totalAssigned == 0): $data->badge = 'success'; else: $data->badge = 'important'; endif;
+		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
 
 		return View::make('dashboard.index')
-		->with('data', $data) // split!
-		->with('title', 'Dashboard')
+		->with('assigned', $assigned)
+		->with('latest', $latest)
+		->with('total', $total)
 		->with('tickets', $tickets)
-		->with('week', $week);
+		->with('week', $week)
+		->with('badge', $badge)
+		->with('title', 'Dashboard');
 	}
 }

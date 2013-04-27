@@ -50,12 +50,43 @@ class Ticket_Controller extends Base_Controller {
 		Asset::add('markdown-sanitizer', 'js/markdown/Markdown.Sanitizer.js', array('jquery', 'markdown-converter'));
 		Asset::add('markdown-editor', 'js/markdown/Markdown.Editor.js', array('jquery', 'markdown-converter', 'markdown-sanitizer'));
 
+		// get files, if any
+		// @TODO: helper, method, something
+		$path	= path('base') . 'files/tickets/' . $ticket->id . '/';
+		$fs		= IoC::resolve('gaufrette', array($path));
+		$files	= $fs->listKeys();
+		$files	= $files['keys'];
+		
+		// for the $fileinfo array
+		$x = 0;
+
+		// get the file information for every file
+		foreach ($files as $file) {
+			// [0] = who it belongs
+			// [1] = name of file
+			$fileinfo[$x] = explode('/', $file, 2);
+
+			if (count($fileinfo[$x]) !== 2 or preg_match('/^\./', $fileinfo[$x][1])) {
+				unset($fileinfo[$x]);
+			} else {
+				// get the file information and 
+				$fileinfo[$x] = array(
+					'user' => $fileinfo[$x][0],
+					'name' => $fileinfo[$x][1],
+					'info' => stat($path . $file),
+				);
+			}
+
+			$x++;
+		}
+
 		return View::make('ticket/view')
 		->with('ticket', $ticket)
 		->with('messages', $messages)
 		->with('reporter', $reporter)
 		->with('assigned', $assigned)
 		->with('department', $department)
+		->with('files', $fileinfo)
 		->with('title', 'Consulta #' . $ticket->id . ': ' . $ticket->subject);
 	}
 

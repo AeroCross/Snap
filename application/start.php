@@ -105,6 +105,7 @@ Autoloader::directories(array(
 
 Autoloader::namespaces(array(
 	'Gaufrette' => path('base').'vendor/knplabs/gaufrette/src/Gaufrette',
+	'Upload' => path('base').'vendor/codeguy/upload/src/Upload',
 ));
 
 /*
@@ -117,6 +118,7 @@ Autoloader::namespaces(array(
 | configuration.
 |
 */
+
 use Gaufrette\Filesystem;
 use Gaufrette\Adapter\Local as LocalAdapter;
 
@@ -125,6 +127,13 @@ IoC::register('gaufrette', function($path) {
 	$filesystem 	= new Filesystem($adapter);
 
 	return $filesystem;
+});
+
+IoC::register('upload', function($name, $path) {
+	$storage	= new \Upload\Storage\FileSystem($path);
+	$file		= new \Upload\File($name, $storage);
+
+	return $file;
 });
 
 /*

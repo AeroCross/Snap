@@ -80,15 +80,15 @@ class Dashboard_Controller extends Base_Controller {
 			return date('Y-m-d', $timestamp);
 		}
 		
-		$bindings	= array(sqltime($min), sqltime($max));
-		$count		= DB::first('SELECT COUNT(`id`) as `total` FROM tickets WHERE created_at BETWEEN ? AND ?', $bindings);
+		$bindings		= array(sqltime($min), sqltime($max));
+		$week->count	= DB::first('SELECT COUNT(`id`) as `total` FROM tickets WHERE created_at BETWEEN ? AND ?', $bindings)->total;
 
 		$date = sqltime($min);
 
 		for ($x = 1; $x <= 7; $x++) {
-			$bindings = array($date, $date);
-			$day_tickets[] = DB::first('SELECT COUNT(`id`) as `total` FROM tickets WHERE created_at BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)', $bindings)->total;
-			$date = sqltime($min + (DAY_SECS * $x));
+			$bindings		= array($date, $date);
+			$day_tickets[]	= DB::first('SELECT COUNT(`id`) as `total` FROM tickets WHERE created_at BETWEEN ? AND DATE_ADD(?, INTERVAL 1 DAY)', $bindings)->total;
+			$date			= sqltime($min + (DAY_SECS * $x));
 		}
 
 		$week->tickets = json_encode($day_tickets, JSON_NUMERIC_CHECK);
@@ -99,9 +99,7 @@ class Dashboard_Controller extends Base_Controller {
 		return View::make('dashboard.index')
 		->with('data', $data) // split!
 		->with('title', 'Dashboard')
-		->with('tickets_users', $tickets->users)
-		->with('tickets_total', $tickets->total)
-		->with('week_days', $week->days)
-		->with('week_tickets', $week->tickets);
+		->with('tickets', $tickets)
+		->with('week', $week);
 	}
 }

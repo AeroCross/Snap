@@ -120,7 +120,9 @@
 
 		</div>
 
-		<div class="row" id="graph-people">
+		<p><small><strong>Total de Consultas:</strong> {{ $week->count }} — <strong>Abiertas:</strong> 0</small></p>
+
+		<div class="row padded" id="graph-people">
 
 		</div>
 
@@ -146,7 +148,7 @@
 					title: {
 						text: 'Días'
 					},
-					categories: {{ $week_days }},
+					categories: {{ $week->days }},
 				},
 				yAxis: {
 					title: {
@@ -155,7 +157,7 @@
 				},
 				series: [{ // people and amount of tickets
 					name: 'Consultas',
-					data: {{ $week_tickets }}
+					data: {{ $week->tickets }}
 				}]
 			});
 		});
@@ -172,7 +174,7 @@
 					title: {
 						text: 'Personas'
 					},
-					categories: {{ $tickets_users }},
+					categories: {{ $tickets->users }},
 				},
 				yAxis: {
 					title: {
@@ -181,7 +183,7 @@
 				},
 				series: [{ // people and amount of tickets
 					name: '# de Consultas',
-					data: {{ $tickets_total }}
+					data: {{ $tickets->total }}
 				}]
 			});
 		});

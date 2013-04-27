@@ -120,7 +120,7 @@
 
 		</div>
 
-		<p><small><strong>Total de Consultas:</strong> {{ $week->count }} — <strong>Abiertas:</strong> 0</small></p>
+		<p class="center"><small><strong>Total de Consultas:</strong> {{ $week->count }} — <strong>Abiertas:</strong> 0</small></p>
 
 		<div class="row padded" id="graph-people">
 
@@ -134,6 +134,7 @@
 @endsection
 
 @section('postscripts')
+
 	<script>
 
 		jQuery(document).ready(function() {
@@ -146,7 +147,8 @@
 				},
 				xAxis: {
 					title: {
-						text: 'Días'
+						text: 'Días',
+						margin: 20
 					},
 					categories: {{ $week->days }},
 				},
@@ -158,7 +160,13 @@
 				series: [{ // people and amount of tickets
 					name: 'Consultas',
 					data: {{ $week->tickets }}
-				}]
+				}],
+				credits: {
+					enabled: false
+				},
+				legend: {
+					enabled: false
+				}
 			});
 		});
 
@@ -172,19 +180,26 @@
 				},
 				xAxis: {
 					title: {
-						text: 'Personas'
+						text: 'Personas',
 					},
 					categories: {{ $tickets->users }},
 				},
 				yAxis: {
 					title: {
-						text: 'Consultas'
+						text: 'Consultas',
+						margin: 20
 					}
 				},
 				series: [{ // people and amount of tickets
-					name: '# de Consultas',
+					name: 'Consultas',
 					data: {{ $tickets->total }}
-				}]
+				}],
+				credits: {
+					enabled: false
+				},
+				legend: {
+					enabled: false
+				}
 			});
 		});
 

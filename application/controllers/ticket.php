@@ -68,6 +68,7 @@ class Ticket_Controller extends Base_Controller {
 				// [1] = name of file
 				$fileinfo[$x] = explode('/', $file, 2);
 
+				// if it's a file in the root directory or if it's a hidden file
 				if (count($fileinfo[$x]) !== 2 or preg_match('/^\./', $fileinfo[$x][1])) {
 					unset($fileinfo[$x]);
 				} else {
@@ -87,6 +88,19 @@ class Ticket_Controller extends Base_Controller {
 			$fileinfo = null;
 		}
 
+		$users = array();
+
+		// get all users that have files
+		if (!empty($fileinfo)) {
+			foreach($fileinfo as $fu) {
+				if ($fu['user'] != array_key_exists($fu['user'], $users)) {
+					$users[$fu['user']] = User::find($fu['user']);
+				}
+			}	
+		} else {
+
+		}
+
 		return View::make('ticket/view')
 		->with('ticket', $ticket)
 		->with('messages', $messages)
@@ -94,6 +108,7 @@ class Ticket_Controller extends Base_Controller {
 		->with('assigned', $assigned)
 		->with('department', $department)
 		->with('files', $fileinfo)
+		->with('users', $users)
 		->with('title', 'Consulta #' . $ticket->id . ': ' . $ticket->subject);
 	}
 

@@ -263,9 +263,9 @@
 							?>
 								<tr>
 
-									<td>{{ HTML::link('file/download/' . base64_encode($ticket->id . '/' . $user . '/' . $name), $name) }}</td>
-									<td>{{ $size }}</td>
+									<td>{{ HTML::link('file/download/' . base64_encode($ticket->id . '/' . $user . '/' . $name), $name) }}<br /><small>{{ $size }}</small></td>
 									<td>{{ $time }}</td>
+									<td>{{ HTML::mailto($users[$user]->email, $users[$user]->firstname . ' ' . $users[$user]->lastname)  }}</td>
 
 								</tr>
 

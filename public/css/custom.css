@@ -54,13 +54,13 @@ a:hover {cursor: pointer;}
 .highlight.highlight-info {color: #3a87ad;}
 
 /* tickets list */
-.nav.nav-stacked li.open {
+.nav.nav-stacked .open {
 	border-left: 3px solid #f89406;
 	color: #333;
 	font-weight: bold;
 }
 
-.nav.nav-stacked li.hold {
+.nav.nav-stacked .hold {
 	border-left: 3px solid #3a87ad;
 	color: #333;
 	font-weight: bold;
@@ -78,6 +78,13 @@ a:hover {cursor: pointer;}
 .table-tickets th:last-child {
 	text-align: center;
 }
+
+.table-files td {font-size: 88%; vertical-align: middle;}
+.table-files td p {font-size: 100%;}
+.table-files th:nth-child(2),
+.table-files td:nth-child(2),
+.table-files th:nth-child(3),
+.table-files td:nth-child(3) {text-align: center}
 
 /* fixes */
 /* correct alignment of icons in dropdowns */

@@ -3,3 +3,6 @@ cgi-bin/
 
 # ignore composer vendor files
 /vendor/
+
+# ignore uploaded files
+/files/

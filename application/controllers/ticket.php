@@ -50,12 +50,64 @@ class Ticket_Controller extends Base_Controller {
 		Asset::add('markdown-sanitizer', 'js/markdown/Markdown.Sanitizer.js', array('jquery', 'markdown-converter'));
 		Asset::add('markdown-editor', 'js/markdown/Markdown.Editor.js', array('jquery', 'markdown-converter', 'markdown-sanitizer'));
 
+		// get files, if any
+		// @TODO: helper, method, something
+		$path	= path('base') . 'files/tickets/' . $ticket->id . '/';
+		$fs		= IoC::resolve('gaufrette', array($path, true));
+		$files	= $fs->listKeys();
+		$files	= $files['keys'];
+		
+		if (!empty($files)) {
+
+			// for the $fileinfo array
+			$x = 0;
+
+			// get the file information for every file
+			foreach ($files as $file) {
+				// [0] = who it belongs
+				// [1] = name of file
+				$fileinfo[$x] = explode('/', $file, 2);
+
+				// if it's a file in the root directory or if it's a hidden file
+				if (count($fileinfo[$x]) !== 2 or preg_match('/^\./', $fileinfo[$x][1])) {
+					unset($fileinfo[$x]);
+				} else {
+					// get the file information and 
+					$fileinfo[$x] = array(
+						'user'	=> $fileinfo[$x][0],
+						'name'	=> $fileinfo[$x][1],
+						'ext'	=> File::extension($file),
+						'info'	=> stat($path . $file),
+					);
+				}
+
+				$x++;
+			}
+
+		} else {
+			// no files
+			$fileinfo = null;
+		}
+
+		// get all users that have files
+		$users = array();
+
+		if (!empty($fileinfo)) {
+			foreach($fileinfo as $fu) {
+				if ($fu['user'] != array_key_exists($fu['user'], $users)) {
+					$users[$fu['user']] = User::find($fu['user']);
+				}
+			}	
+		}
+
 		return View::make('ticket/view')
 		->with('ticket', $ticket)
 		->with('messages', $messages)
 		->with('reporter', $reporter)
 		->with('assigned', $assigned)
 		->with('department', $department)
+		->with('files', $fileinfo)
+		->with('users', $users)
 		->with('title', 'Consulta #' . $ticket->id . ': ' . $ticket->subject);
 	}
 
@@ -165,6 +217,22 @@ class Ticket_Controller extends Base_Controller {
 		$ticket		= Ticket::create($ticket);
 		$reporter	= User::find(Session::get('id'));
 
+		// try to upload the file
+		$path	= path('base') . 'files/tickets/' . $ticket->id . '/' . Session::get('id') . '/';
+		$fs		= IoC::resolve('gaufrette', array($path, true));
+		// ensure directory exists
+		$fs->keys();
+
+		$upload = IoC::resolve('upload', array('file', $path , true));
+
+		try {
+			$upload->upload();
+
+		// @TODO: implement error handling
+		} catch (\Exception $e){
+			dd($upload->getErrors());
+		}
+
 		// create an email for the assigned person
 		if (isset($input['assigned_to'])) {
 			$subject	= 'Asignación de Consulta #' . $ticket->id . ': ' . $input['subject'];
@@ -249,7 +317,7 @@ class Ticket_Controller extends Base_Controller {
 		*/
 
 		// who replied to the ticket
-		$replier						= User::find($ticket->reported_by);
+		$replier			= User::find($ticket->reported_by);
 		$replier->fullname	= $replier->firstname . ' ' . $replier->lastname;
 
 		/**
@@ -282,10 +350,10 @@ class Ticket_Controller extends Base_Controller {
 		// create the message
 		Load::library('markdown/markdown');
 
-	$body = View::make('messages.ticket.updated')
-	->with('ticket', $ticket)
-	->with('from', $replier)
-	->with('content', Markdown($data['content']));
+		$body = View::make('messages.ticket.updated')
+		->with('ticket', $ticket)
+		->with('from', $replier)
+		->with('content', Markdown($data['content']));
 
 		// send the message
 		$mailer		= IoC::resolve('mailer');
@@ -330,6 +398,22 @@ class Ticket_Controller extends Base_Controller {
 
 		// save changes
 		$ticket->save();
+		
+		// try to upload the file
+		$path	= path('base') . 'files/tickets/' . $ticket->id . '/' . Session::get('id') . '/';
+		$fs		= IoC::resolve('gaufrette', array($path, true));
+		// ensure directory exists
+		$fs->keys();
+
+		$upload = IoC::resolve('upload', array('file', $path , true));
+
+		try {
+			$upload->upload();
+
+		// @TODO: implement error handling
+		} catch (\Exception $e){
+			dd($upload->getErrors());
+		}
 
 		return $redirect->with('notification', 'message_add_success');
 	}

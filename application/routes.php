@@ -59,4 +59,7 @@ Route::group(array('before' => 'auth'), function() {
 	// settings
 	Route::get('settings', 'settings@index');
 	Route::put('settings', 'settings@index');
+
+	// files
+	Route::get('file/download/(:any)', 'file@download');
 });

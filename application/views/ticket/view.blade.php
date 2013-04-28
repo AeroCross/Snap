@@ -133,7 +133,7 @@
 
 					<div class="controls">
 
-						<select name="status" class="input-large">
+						<select name="status" class="input-large" id="status">
 
 							<option value="closed">Cerrado</option>
 							<option value="open">Abierto</option>
@@ -147,13 +147,16 @@
 				<!-- end status -->
 
 				<!-- file -->
-				<div class="hidden control-group" id="file-field">
+				<div class="control-group hidden" id="file-field">
+					
+					<!-- hax -->
+					<br />
 
 					<label for="file" class="control-label">Enviar un Archivo</label>
 
 					<div class="controls">
 
-						{{ Form::file('file') }}<span class="help-inline"><strong>Tamaño máximo:</strong> {{ ini_get('upload_max_filesize') }}B</span><br /><span class="help-block">Si tiene que subir más de un archivo, comprímalo primero.</span>
+						{{ Form::file('file', array('id' => 'file')) }}<span class="help-inline"><strong>Tamaño máximo:</strong> {{ ini_get('upload_max_filesize') }}B</span><br /><span class="help-block">Si tiene que subir más de un archivo, comprímalo primero.</span>
 
 					</div>
 
@@ -189,7 +192,7 @@
 			<ul class="nav nav-tabs nav-tabs-google">
 
 				<li class="active"><a href="#messages" data-toggle="tab">{{ Helper::icon('comments-alt') }} Mensajes</a></li>
-				<li><a href="#files" data-toggle="tab">{{ Helper::icon('folder-open') }} Archivos</a></li>
+				<li><a href="#files" data-toggle="tab">{{ Helper::icon('folder-open') }} Archivos <span class="badge badge-important">{{ count($files) }}</span></a></li>
 
 			</ul>
 
@@ -231,11 +234,61 @@
 
 			<div class="tab-pane" id="files">
 
-					<div class="alert alert-info">
+				@if (!empty($files))
 
-						<span class="block center">No se han subido archivos a la consulta</span>
+					<table class="table table-bordered table-striped table-files">
+
+						<thead>
+
+							<tr>
+
+								<th>Nombre</th>
+								<th>Enviado</th>
+
+							</tr>
+
+						</thead>
+
+						<tbody>
+
+							@foreach($files as $file) 
+
+							<?php
+								// all of this must be in a helper function or something
+								$user = $file['user'];
+								$name = $file['name'];
+								$size = number_format((($file['info']['size'] / 1024) / 1024), 2, ',', '.') . ' MB';
+								$time = date('Y-m-d G:i:s', $file['info']['mtime']);
+							?>
+								<tr>
+
+									<td>
+
+										<strong>{{ HTML::link('file/download/' . base64_encode($ticket->id . '/' . $user . '/' . $name), $name) }}</strong><br />
+										<img src="{{ Helper::fileicon($file['ext']) }}" alt="" /> <small>{{ Helper::filetype($file['ext']) }}</small> <br/ >
+										<small>{{ $size }}</small>
+
+									</td>
+
+									<td>{{ HTML::mailto($users[$user]->email, $users[$user]->firstname . ' ' . $users[$user]->lastname)  }}<br />{{ $time }}</td>
+
+								</tr>
+
+							@endforeach
+
+						</tbody>
+
+					</table>
+
+				@else
+
+					<div class="alert alert-info center">
+
+						No se han subido archivos a la consulta
 
 					</div>
+
+				@endif
 
 			</div>
 
@@ -245,4 +298,17 @@
 	<!-- end responses -->
 
 </div>
+
+@endsection
+
+@section('postscripts')
+	
+	<script>
+
+		jQuery('#file-field-show').on('click', function() {
+			jQuery('#file-field').fadeIn(300);
+		});
+
+	</script>
+
 @endsection

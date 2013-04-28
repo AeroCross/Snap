@@ -1339,7 +1339,7 @@
                 button.id = id + postfix;
                 button.appendChild(buttonImage);
                 button.title = title;
-                //$(button).tooltip({placement: 'bottom'})
+                $(button).tooltip({placement: 'top', container: 'body'});
                 if (textOp)
                     button.textOp = textOp;
                 setupButton(button, true);
@@ -1404,7 +1404,7 @@
                 helpButton.id = "wmd-help-button" + postfix;
                 helpButton.isHelp = true;
                 helpButton.title = helpOptions.title || defaultHelpHoverTitle;
-                $(helpButton).tooltip({placement: 'bottom'})
+                $(helpButton).tooltip({placement: 'top', container: 'body'})
                 helpButton.onclick = helpOptions.handler;
 
                 setupButton(helpButton, true);

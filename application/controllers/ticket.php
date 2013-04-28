@@ -53,31 +53,38 @@ class Ticket_Controller extends Base_Controller {
 		// get files, if any
 		// @TODO: helper, method, something
 		$path	= path('base') . 'files/tickets/' . $ticket->id . '/';
-		$fs		= IoC::resolve('gaufrette', array($path));
+		$fs		= IoC::resolve('gaufrette', array($path, true));
 		$files	= $fs->listKeys();
 		$files	= $files['keys'];
 		
-		// for the $fileinfo array
-		$x = 0;
+		if (!empty($files)) {
 
-		// get the file information for every file
-		foreach ($files as $file) {
-			// [0] = who it belongs
-			// [1] = name of file
-			$fileinfo[$x] = explode('/', $file, 2);
+			// for the $fileinfo array
+			$x = 0;
 
-			if (count($fileinfo[$x]) !== 2 or preg_match('/^\./', $fileinfo[$x][1])) {
-				unset($fileinfo[$x]);
-			} else {
-				// get the file information and 
-				$fileinfo[$x] = array(
-					'user' => $fileinfo[$x][0],
-					'name' => $fileinfo[$x][1],
-					'info' => stat($path . $file),
-				);
+			// get the file information for every file
+			foreach ($files as $file) {
+				// [0] = who it belongs
+				// [1] = name of file
+				$fileinfo[$x] = explode('/', $file, 2);
+
+				if (count($fileinfo[$x]) !== 2 or preg_match('/^\./', $fileinfo[$x][1])) {
+					unset($fileinfo[$x]);
+				} else {
+					// get the file information and 
+					$fileinfo[$x] = array(
+						'user' => $fileinfo[$x][0],
+						'name' => $fileinfo[$x][1],
+						'info' => stat($path . $file),
+					);
+				}
+
+				$x++;
 			}
 
-			$x++;
+		} else {
+			// no files
+			$fileinfo = null;
 		}
 
 		return View::make('ticket/view')

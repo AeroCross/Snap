@@ -234,44 +234,56 @@
 
 			<div class="tab-pane" id="files">
 
-				<table class="table table-bordered table-striped">
+				@if (!empty($files))
 
-					<thead>
+					<table class="table table-bordered table-striped">
 
-						<tr>
+						<thead>
 
-							<th>Nombre</th>
-							<th>Tamaño</th>
-							<th>Enviado</th>
-
-						</tr>
-
-					</thead>
-
-					<tbody>
-
-						@foreach($files as $file) 
-
-						<?php
-							// all of this must be in a helper function or something
-							$user = $file['user'];
-							$name = $file['name'];
-							$size = number_format((($file['info']['size'] / 1024) / 1024), 2, ',', '.') . ' MB';
-							$time = date('Y-m-d G:i:s', $file['info']['mtime']);
-						?>
 							<tr>
 
-								<td>{{ HTML::link('file/get/' . base64_encode($user . '/' . $name), $name) }}</td>
-								<td>{{ $size }}</td>
-								<td>{{ $time }}</td>
+								<th>Nombre</th>
+								<th>Tamaño</th>
+								<th>Enviado</th>
 
 							</tr>
 
-						@endforeach
+						</thead>
 
-					</tbody>
+						<tbody>
 
-				</table>
+							@foreach($files as $file) 
+
+							<?php
+								// all of this must be in a helper function or something
+								$user = $file['user'];
+								$name = $file['name'];
+								$size = number_format((($file['info']['size'] / 1024) / 1024), 2, ',', '.') . ' MB';
+								$time = date('Y-m-d G:i:s', $file['info']['mtime']);
+							?>
+								<tr>
+
+									<td>{{ HTML::link('file/get/' . base64_encode($user . '/' . $name), $name) }}</td>
+									<td>{{ $size }}</td>
+									<td>{{ $time }}</td>
+
+								</tr>
+
+							@endforeach
+
+						</tbody>
+
+					</table>
+
+				@else
+
+					<div class="alert alert-info center">
+
+						No se han subido archivos a la consulta
+
+					</div>
+
+				@endif
 
 			</div>
 

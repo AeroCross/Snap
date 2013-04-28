@@ -259,6 +259,15 @@
 								$name = $file['name'];
 								$size = number_format((($file['info']['size'] / 1024) / 1024), 2, ',', '.') . ' MB';
 								$time = date('Y-m-d G:i:s', $file['info']['mtime']);
+
+								// just in case someone's being funny and tries to upload to a user folder who doesn't exist
+								if (!isset($users[$user])) {
+									$users[$user]				= new StdClass;
+									$users[$user]->found		= false;
+									$users[$user]->email		= '';
+									$users[$user]->firstname	= 'Usuario';
+									$users[$user]->lastname		= 'no encontrado';
+								}
 							?>
 								<tr>
 
@@ -270,7 +279,11 @@
 
 									</td>
 
-									<td>{{ HTML::mailto($users[$user]->email, $users[$user]->firstname . ' ' . $users[$user]->lastname)  }}<br />{{ $time }}</td>
+									@if ($users[$user]->found === false)
+										<td><span class="muted">{{ $users[$user]->firstname . ' ' . $users[$user]->lastname  }}</span><br />{{ $time }}</td>
+									@else
+										<td>{{ HTML::mailto($users[$user]->email, $users[$user]->firstname . ' ' . $users[$user]->lastname)  }}<br />{{ $time }}</td>
+									@endif
 
 								</tr>
 

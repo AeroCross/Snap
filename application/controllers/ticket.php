@@ -74,9 +74,10 @@ class Ticket_Controller extends Base_Controller {
 				} else {
 					// get the file information and 
 					$fileinfo[$x] = array(
-						'user' => $fileinfo[$x][0],
-						'name' => $fileinfo[$x][1],
-						'info' => stat($path . $file),
+						'user'	=> $fileinfo[$x][0],
+						'name'	=> $fileinfo[$x][1],
+						'ext'	=> File::extension($file),
+						'info'	=> stat($path . $file),
 					);
 				}
 
@@ -88,17 +89,15 @@ class Ticket_Controller extends Base_Controller {
 			$fileinfo = null;
 		}
 
+		// get all users that have files
 		$users = array();
 
-		// get all users that have files
 		if (!empty($fileinfo)) {
 			foreach($fileinfo as $fu) {
 				if ($fu['user'] != array_key_exists($fu['user'], $users)) {
 					$users[$fu['user']] = User::find($fu['user']);
 				}
 			}	
-		} else {
-
 		}
 
 		return View::make('ticket/view')

@@ -192,7 +192,7 @@
 			<ul class="nav nav-tabs nav-tabs-google">
 
 				<li class="active"><a href="#messages" data-toggle="tab">{{ Helper::icon('comments-alt') }} Mensajes</a></li>
-				<li><a href="#files" data-toggle="tab">{{ Helper::icon('folder-open') }} Archivos</a></li>
+				<li><a href="#files" data-toggle="tab">{{ Helper::icon('folder-open') }} Archivos <span class="badge badge-important">{{ count($files) }}</span></a></li>
 
 			</ul>
 
@@ -236,14 +236,13 @@
 
 				@if (!empty($files))
 
-					<table class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped table-files">
 
 						<thead>
 
 							<tr>
 
 								<th>Nombre</th>
-								<th>Tamaño</th>
 								<th>Enviado</th>
 
 							</tr>
@@ -263,9 +262,15 @@
 							?>
 								<tr>
 
-									<td>{{ HTML::link('file/download/' . base64_encode($ticket->id . '/' . $user . '/' . $name), $name) }}<br /><small>{{ $size }}</small></td>
-									<td>{{ $time }}</td>
-									<td>{{ HTML::mailto($users[$user]->email, $users[$user]->firstname . ' ' . $users[$user]->lastname)  }}</td>
+									<td>
+
+										<strong>{{ HTML::link('file/download/' . base64_encode($ticket->id . '/' . $user . '/' . $name), $name) }}</strong><br />
+										<img src="{{ Helper::fileicon($file['ext']) }}" alt="" /> <small>{{ Helper::filetype($file['ext']) }}</small> <br/ >
+										<small>{{ $size }}</small>
+
+									</td>
+
+									<td>{{ HTML::mailto($users[$user]->email, $users[$user]->firstname . ' ' . $users[$user]->lastname)  }}<br />{{ $time }}</td>
 
 								</tr>
 

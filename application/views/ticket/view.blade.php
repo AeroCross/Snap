@@ -263,7 +263,7 @@
 							?>
 								<tr>
 
-									<td>{{ HTML::link('file/get/' . base64_encode($user . '/' . $name), $name) }}</td>
+									<td>{{ HTML::link('file/download/' . base64_encode($ticket->id . '/' . $user . '/' . $name), $name) }}</td>
 									<td>{{ $size }}</td>
 									<td>{{ $time }}</td>
 

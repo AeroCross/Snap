@@ -62,4 +62,7 @@ Route::group(array('before' => 'auth'), function() {
 
 	// files
 	Route::get('file/download/(:any)', 'file@download');
+
+	// admin
+	Route::get('admin/users', 'admin.users@index');
 });

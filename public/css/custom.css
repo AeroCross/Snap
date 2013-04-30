@@ -29,6 +29,7 @@
 		padding-right: 20px;
 	}
 }
+table.table td {vertical-align: middle;}
 
 /* custom */
 button:hover,

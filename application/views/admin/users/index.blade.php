@@ -161,7 +161,7 @@
 
 			<tbody>
 
-				@foreach($users as $user)
+				@foreach($users->results as $user)
 
 				<tr>
 
@@ -182,6 +182,8 @@
 			</tbody>
 
 		</table>
+
+		{{ $users->links() }}
 
 	</div>	
 

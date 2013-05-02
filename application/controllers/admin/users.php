@@ -12,7 +12,7 @@ class Admin_Users_Controller extends Base_Controller {
 	public $restful = true;
 
 	public function get_index() {
-		$users = User::order_by('id', 'desc')->get();
+		$users = User::order_by('id', 'desc')->paginate(10);
 		return View::make('admin.users.index')
 		->with('title', 'Usuarios')
 		->with('users', $users);

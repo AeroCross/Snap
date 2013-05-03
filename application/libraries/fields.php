@@ -63,4 +63,23 @@ class Fields {
 		// no need to return
 		echo $field;
 	}
+
+	/**
+	* Generates the option values for all companies
+	*
+	* @access	public
+	*/
+	public static function companies() {
+		// the field starts empty
+		$field = '<option></option>';
+
+		$companies = Company::all();
+
+		foreach($companies as $company) {
+			$field .= '<option value="' . $company->id . '">' . $company->name . '</option>';
+		}
+		
+		// no need to return
+		echo $field;
+	}
 }

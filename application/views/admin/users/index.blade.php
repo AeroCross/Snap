@@ -8,11 +8,14 @@
 
 		<div class="page-header">
 
-			<h4>Nuevo Usuario</h4>
+			<h4>Nuevo Usuario » <small class="highlight highlight-error">todos los campos son obligatorios</small></h4>
 
 		</div>
 
-		{{ Form::open('admin/users/add', 'POST', array('class' => 'form-horizontal')) }}
+		{{ Form::open('admin/users/new', 'POST', array('class' => 'form-horizontal')) }}
+
+			<!-- notifications -->
+			{{ Notification::show() }}
 
 			<!-- firstname -->
 			<div class="control-group">
@@ -49,7 +52,8 @@
 
 				<div class="controls">
 
-					<input type="text" name="email" id="email" />
+					<input type="text" name="email" id="email" placeholder="usuario@dominio.com" />
+					<span class="help-block"><small class="muted">Debe ser una dirección válida y activa</small></span>
 
 				</div>
 
@@ -68,6 +72,7 @@
 					<div class="controls">
 
 						<input type="text" name="username" id="username" />
+						<span class="help-block"><small class="muted">Debe ser único — con esto iniciará sesión</small></span>
 
 					</div>
 
@@ -81,7 +86,7 @@
 
 					<div class="controls">
 
-						<input type="text" name="password" id="password" />
+						<input type="password" name="password" id="password" />
 
 					</div>
 
@@ -95,7 +100,8 @@
 
 					<div class="controls">
 
-						<input type="text" name="repassword" id="repassword" />
+						<input type="password" name="repassword" id="repassword" />
+						<span class="help-block"><small class="muted">Las dos contraseñas deben coincidir</small></span>
 
 					</div>
 
@@ -111,7 +117,7 @@
 
 						<select name="company" id="company" class="input-large">
 
-							<option value=""></option>
+							{{ Fields::companies() }}
 
 						</select>
 

@@ -46,11 +46,12 @@ class Admin_Users_Controller extends Base_Controller {
 			'firstname'	=> $input['firstname'],
 			'lastname'	=> $input['lastname'],
 			'username'	=> $input['username'],
-			'password'	=> $input['password'],
+			'password'	=> Hash::make($input['password']),
 			'email'		=> $input['email'],
 		));
 
-		// save the data
+		$user->company()->insert(array('company_id' => $input['company']));
+
 		if ($user != false) {
 			return Redirect::to('admin/users')->with('notification', 'user_add_success');
 		} else {

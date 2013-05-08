@@ -25,4 +25,12 @@ class User extends Eloquent {
 	public function messages() {
 		return $this->has_many('Message');
 	}
+
+	/**
+	* An user can only be part of one company, but the
+	* company can have unlimited users
+	*/
+	public function company() {
+		return $this->has_one('Company_User');
+	}
 }

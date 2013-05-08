@@ -144,14 +144,14 @@ class Notification {
 			break;
 
 			// users
-			case 'users_add_success':
+			case 'user_add_success':
 				return array(
 					'message'	=> 'Usuario creado',
 					'type'		=> 'success'
 				);
 			break;
 
-			case 'users_add_failure':
+			case 'user_add_failure':
 				return array(
 					'message'	=> 'No se pudo crear el usuario por un error desconocido',
 					'type'		=> 'success'

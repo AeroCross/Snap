@@ -42,18 +42,16 @@ class Admin_Users_Controller extends Base_Controller {
 			return $redirect->with_input('only', array('firstname', 'lastname', 'username', 'email'));
 		}
 
-		$user = new User();
-
-		// data to add
-		$user->firstname	= $input->firstname;
-		$user->lastname	= $input->lastname;
-		$user->username	= $input->username;
-		$user->password	= $input->password;
-		$user->email		= $input->email;
-		$user->company		= $input->company;
+		$user = User::create(array(
+			'firstname'	=> $input['firstname'],
+			'lastname'	=> $input['lastname'],
+			'username'	=> $input['username'],
+			'password'	=> $input['password'],
+			'email'		=> $input['email'],
+		));
 
 		// save the data
-		if ($user->save()) {
+		if ($user != false) {
 			return Redirect::to('admin/users')->with('notification', 'user_add_success');
 		} else {
 			return Redirect::to('admin/users')->with('notification', 'user_add_failure');

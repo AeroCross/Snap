@@ -36,8 +36,11 @@
 
 								<ul class="dropdown-menu">
 
+									<li class="nav-header">Propias</li>
+
 									<li>{{ HTML::link('ticket/add', 'Nueva consulta') }}</li>
 									<li><a href="#">Mis consultas</a></li>
+									<li><a href="#">Consultas asignadas</a></li>
 
 								</ul>
 
@@ -54,15 +57,17 @@
 									<li>{{ HTML::link('tickets', 'Todas las Consultas') }}</li>
 
 										<li class="divider"></li>
-										<li class="nav-header">Usuarios</li>
-
-										<li><a href="#">Agregar Usuario</a></li>
-										<li><a href="#">Asignar Roles</a></li>
-
-										<li class="divider"></li>
 										<li class="nav-header">Sistema</li>
 
-										<li>{{ HTML::link('settings', 'Configuración') }}</li>
+										<li>{{ HTML::link('admin/users', 'Usuarios') }}</li>
+										<li><a href="#">Roles</a></li>
+										<li><a href="#">Departamentos</a></li>
+										<li><a href="#">Compañías</a></li>
+
+										<li class="divider"></li>
+										<li class="nav-header">Configuración</li>
+
+										<li>{{ HTML::link('settings', 'Opciones Generales') }}</li>
 									
 								</ul>
 

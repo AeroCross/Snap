@@ -40,6 +40,21 @@ class Admin_Users_Controller extends Base_Controller {
 			$redirect =& $validated; // redirect 
 			return $redirect;
 		}
+
+		$user = new User();
+
+		$user->firstname = $input->firstname;
+		$user->lastname = $input->lastname;
+		$user->username = $input->username;
+		$user->password = $input->password;
+		$user->email = $input->email;
+		$user->company = $input->company;
+
+		if ($user->save()) {
+			return Redirect::to('admin/users')->with('notification', 'user_add_success');
+		} else {
+			return Redirect::to('admin/users')->with('notification', 'user_add_failure');
+		}
 	}
 
 	/**
@@ -53,44 +68,53 @@ class Admin_Users_Controller extends Base_Controller {
 		$rules = array(
 			'firstname' 	=> 'required',
 			'lastname'		=> 'required',
-			'email'  		=> 'required|email',
+			'email'  		=> 'required',
 			'username'		=> 'required',
 			'password'		=> 'required',
-			'repassword'	=> 'required|same:repassword',
+			'repassword'	=> 'required',
 			'company'		=> 'required'
 		);
 
+		// all fields required
 		$validation	= Validator::make($input, $rules);
 		$redirect	= Redirect::to('admin/users');
 
 		if ($validation->fails()) {
-			// fill this array with all the required fields to check if there was
-			// a field that wasn't filled. array_search will return false if 
-			// everything is clear
-			$required = array(
-				$validation->errors->has('firstname'),
-				$validation->errors->has('lastname'),
-				$validation->errors->has('email'),
-				$validation->errors->has('username'),
-				$validation->errors->has('password'),
-				$validation->errors->has('repassword'),
-				$validation->errors->has('company'),
-			);
+			return $redirect->with('notification', 'form_required');
+		}
 
-			// all fields required
-			if (array_search(true, $required) !== false) {
-				return $redirect->with('notification', 'form_required');
+		// email must be valid
+		$rules = array('email' => 'email');
+		$validation = Validator::make($input, $rules);
 
-			// email must be valid
-			} elseif ($validation->errors->has('email')) {
-				return $redirect->with('notification', 'form_email');
+		if ($validation->fails()) {
+			return $redirect->with('notification', 'form_email_invalid');
+		}
 
-			// passwords must match
-			} elseif ($validation->errors->has('repassword')) {
-				return $redirect->with('notification', 'form_repassword');
-			}
+		// email must be unique
+		$rules = array('email' => 'unique:users');
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->fails()) {
+			return $redirect->with('notification', 'form_email_exists');
 		}
 		
+		// username must be unique
+		$rules = array('username' => 'unique:users');
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->fails()) {
+			return $redirect->with('notification', 'form_user_exists');
+		}
+
+		// passwords must matcj
+		$rules = array('repassword' => 'same:password');
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->fails()) {
+			return $redirect->with('notification', 'form_passwords_must_match');
+		}
+
 		return true;
 	}
 }

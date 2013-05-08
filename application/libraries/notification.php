@@ -64,6 +64,34 @@ class Notification {
 				);
 			break;
 
+			case 'form_email_invalid':
+				return array(
+					'message' => 'Dirección de correo electrónico inválida',
+					'type'	=> 'warning'
+				);
+			break;
+
+			case 'form_email_exists':
+				return array(
+					'message' => 'La dirección de correo ya está registrada',
+					'type'	=> 'warning'
+				);
+			break;
+
+			case 'form_user_exists':
+				return array(
+					'message' => 'El nombre de usuario ya está registrado',
+					'type'	=> 'warning'
+				);
+			break;
+
+			case 'form_passwords_must_match':
+				return array(
+					'message' => 'Los campos de contraseña deben coincidir',
+					'type'	=> 'warning'
+				);
+			break;
+
 			// authentication messages
 			case 'auth_logout':
 				return array(
@@ -111,6 +139,21 @@ class Notification {
 			case 'settings_success':
 				return array(
 					'message'	=> 'Configuración actualizada',
+					'type'		=> 'success'
+				);
+			break;
+
+			// users
+			case 'users_add_success':
+				return array(
+					'message'	=> 'Usuario creado',
+					'type'		=> 'success'
+				);
+			break;
+
+			case 'users_add_failure':
+				return array(
+					'message'	=> 'No se pudo crear el usuario por un error desconocido',
 					'type'		=> 'success'
 				);
 			break;

@@ -176,8 +176,8 @@
 					<td>{{ HTML::mailto($user->email) }}</td>
 					<td>
 						<div class="btn-group">
-							<button class="btn" title="Editar">{{ Helper::icon('user') }}</button>
-							<button class="btn" title="Eliminar">{{ Helper::icon('ban-circle') }}</button>
+							<a href="users/edit/{{ $user->id }}" class="btn" title="Editar">{{ Helper::icon('user') }}</a>
+							<a href="users/delete/{{ $user->id }}" class="btn" title="Eliminar">{{ Helper::icon('ban-circle') }}</a>
 						</div>
 					</td>
 

@@ -24,7 +24,7 @@
 
 				<div class="controls">
 
-					<input type="text" name="firstname" id="firstname" />
+					<input type="text" name="firstname" id="firstname" value="{{ Input::old('firstname') }}" />
 
 				</div>
 
@@ -38,7 +38,7 @@
 
 				<div class="controls">
 
-					<input type="text" name="lastname" id="lastname" />
+					<input type="text" name="lastname" id="lastname" value="{{ Input::old('lastname') }}" />
 
 				</div>
 
@@ -52,7 +52,7 @@
 
 				<div class="controls">
 
-					<input type="text" name="email" id="email" placeholder="usuario@dominio.com" />
+					<input type="text" name="email" id="email" placeholder="usuario@dominio.com" value="{{ Input::old('email') }}" />
 					<span class="help-block"><small class="muted">Debe ser una dirección válida y activa</small></span>
 
 				</div>
@@ -71,7 +71,7 @@
 
 					<div class="controls">
 
-						<input type="text" name="username" id="username" />
+						<input type="text" name="username" id="username" value="{{ Input::old('username') }}" />
 						<span class="help-block"><small class="muted">Debe ser único — con esto iniciará sesión</small></span>
 
 					</div>

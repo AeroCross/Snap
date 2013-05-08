@@ -32,13 +32,14 @@ class Admin_Users_Controller extends Base_Controller {
 	* @return Redirect
 	*/
 	public function post_new() {
+		// get all the information and validate it
 		$input = Input::all();
-		
 		$validated = $this->validate($input);
 
+		// validation not passed, redirect
 		if ($validated !== true) {
 			$redirect =& $validated; // redirect 
-			return $redirect;
+			return $redirect->with_input('only', array('firstname', 'lastname', 'username', 'email'));
 		}
 
 		$user = new User();

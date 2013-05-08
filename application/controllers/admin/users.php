@@ -43,13 +43,15 @@ class Admin_Users_Controller extends Base_Controller {
 
 		$user = new User();
 
-		$user->firstname = $input->firstname;
-		$user->lastname = $input->lastname;
-		$user->username = $input->username;
-		$user->password = $input->password;
-		$user->email = $input->email;
-		$user->company = $input->company;
+		// data to add
+		$user->firstname	= $input->firstname;
+		$user->lastname	= $input->lastname;
+		$user->username	= $input->username;
+		$user->password	= $input->password;
+		$user->email		= $input->email;
+		$user->company		= $input->company;
 
+		// save the data
 		if ($user->save()) {
 			return Redirect::to('admin/users')->with('notification', 'user_add_success');
 		} else {
@@ -84,23 +86,23 @@ class Admin_Users_Controller extends Base_Controller {
 		}
 
 		// email must be valid
-		$rules = array('email' => 'email');
-		$validation = Validator::make($input, $rules);
+		$rules		= array('email' => 'email');
+		$validation	= Validator::make($input, $rules);
 
 		if ($validation->fails()) {
 			return $redirect->with('notification', 'form_email_invalid');
 		}
 
 		// email must be unique
-		$rules = array('email' => 'unique:users');
+		$rules		= array('email' => 'unique:users');
 		$validation = Validator::make($input, $rules);
 
 		if ($validation->fails()) {
 			return $redirect->with('notification', 'form_email_exists');
 		}
-		
+
 		// username must be unique
-		$rules = array('username' => 'unique:users');
+		$rules		= array('username' => 'unique:users');
 		$validation = Validator::make($input, $rules);
 
 		if ($validation->fails()) {
@@ -108,7 +110,7 @@ class Admin_Users_Controller extends Base_Controller {
 		}
 
 		// passwords must matcj
-		$rules = array('repassword' => 'same:password');
+		$rules		= array('repassword' => 'same:password');
 		$validation = Validator::make($input, $rules);
 
 		if ($validation->fails()) {

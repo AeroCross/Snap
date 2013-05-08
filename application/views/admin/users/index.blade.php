@@ -175,9 +175,10 @@
 					<td>{{ $user->firstname . ' ' . $user->lastname }}<br /><small class="muted">{{ $user->username }}</small></td>
 					<td>{{ HTML::mailto($user->email) }}</td>
 					<td>
-						<div class="btn-group">
+						<div class="btn-group block center">
 							<a href="users/edit/{{ $user->id }}" class="btn" title="Editar">{{ Helper::icon('user') }}</a>
 							<a href="users/delete/{{ $user->id }}" class="btn" title="Eliminar">{{ Helper::icon('ban-circle') }}</a>
+							<a href="users/password/{{ $user->id }}" class="btn" title="Cambiar contraseña">{{ Helper::icon('key') }}</a>
 						</div>
 					</td>
 

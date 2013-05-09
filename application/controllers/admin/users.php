@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Mmanages users and roles in the system
+* Mmnages users and roles in the system
 *
 * @package		SAAV
 * @subpackage	Controllers

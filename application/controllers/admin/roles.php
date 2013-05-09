@@ -39,4 +39,23 @@ class Admin_Roles_Controller extends Base_Controller {
 			->with('supports', $supports)
 			->with('regulars', $regulars);
 	}
+
+	/**
+	* Updates roles for users
+	*
+	* @return	Redirect
+	*/
+	public function put_update() {
+		$input = Input::all();
+		$rules = array(
+			'users'	=> 'required',
+			'action'	=> 'required'
+		);
+
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->fails()) {
+			return Redirect::to('admin/roles')->with('notification', 'form_required');
+		}
+	}
 }

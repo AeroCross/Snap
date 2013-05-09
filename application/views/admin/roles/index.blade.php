@@ -13,7 +13,7 @@
 	<!-- assign roles -->
 	<div class="span6">
 
-		{{ Form::open('admin/roles/update', 'POST', array('class' => 'form-horizontal')) }}
+		{{ Form::open('admin/roles/update', 'PUT', array('class' => 'form-horizontal')) }}
 
 			<!-- notifications -->
 			{{ Notification::show() }}
@@ -42,9 +42,9 @@
 
 				<div class="btn-group">
 
-					<button type="submit" value="1" class="btn btn-warning">Administrador</button>
-					<button type="submit" value="2" class="btn">Soporte Técnico</button>
-					<button type="submit" value="3" class="btn">Usuario</button>
+					<button type="submit" name="action" value="1" class="btn btn-warning">Administrador</button>
+					<button type="submit" name="action" value="2" class="btn">Soporte Técnico</button>
+					<button type="submit" name="action" value="3" class="btn">Usuario</button>
 
 				</div>
 

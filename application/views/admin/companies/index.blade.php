@@ -14,6 +14,9 @@
 
         {{ Form::open('admin/companies/new', 'POST') }}
 
+            <!-- notifications -->
+            {{ Notification::show() }}
+
             <div class="input-append">
                 
                 <input type="text" id="name" name="name" placeholder="Nueva compañía" />

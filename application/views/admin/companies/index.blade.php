@@ -16,7 +16,7 @@
 
             <div class="input-append">
                 
-                <input type="text" id="name" name="name" placeholder="Nombre de Compañía" />
+                <input type="text" id="name" name="name" placeholder="Nueva compañía" />
                 <button class="btn btn-success">{{ Helper::icon('plus-sign') }}</button>
 
             </div>

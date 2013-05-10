@@ -26,4 +26,27 @@ class Admin_Companies_Controller extends Base_Controller {
         ->with('companies', $companies)
         ->with('users', $users);
     }
+
+    /**
+    * Creates a new company
+    *
+    * @return   Redirect
+    * @access   public
+    */
+    public function post_new() {
+        $name       = Input::get('name');
+        $company    = Company::create(array('name' => $name));
+
+        return Redirect::to('admin/companies')->with('notification', 'company_added');
+    }
+
+    /**
+    * Adds users to a company
+    *
+    * @return   Redirect
+    * @access   public
+    */
+    public function put_update() {
+        
+    }
 }

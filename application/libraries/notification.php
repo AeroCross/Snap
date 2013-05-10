@@ -164,6 +164,15 @@ class Notification {
 					'message'	=> 'Roles asignados',
 					'type'		=> 'success'
 				);
+			break;
+
+			// companies
+			case 'company_added':
+				return array(
+					'message'	=> 'Nueva compañía agregada',
+					'type'		=> 'success'
+				);
+			break;
 		}
 	}
 }

@@ -157,6 +157,20 @@ class Notification {
 					'type'		=> 'success'
 				);
 			break;
+
+			// roles
+			case 'roles_assigned':
+				return array(
+					'message'	=> 'Roles asignados',
+					'type'		=> 'success'
+				);
+
+			// default
+			default:
+				return array(
+					'message'	=> 'Mensaje de error <strong>' . $notification . '</strong> no definido',
+					'type'		=> 'error'
+				);
 		}
 	}
 }

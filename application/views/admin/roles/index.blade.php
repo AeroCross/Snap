@@ -24,7 +24,7 @@
 
 				<div class="controls">
 
-					<select name="users" id="users" class="input-xlarge" multiple>
+					<select name="users[]" id="users" class="input-xlarge" multiple>
 
 						@foreach ($users as $user)
 

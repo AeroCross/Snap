@@ -57,5 +57,22 @@ class Admin_Roles_Controller extends Base_Controller {
 		if ($validation->fails()) {
 			return Redirect::to('admin/roles')->with('notification', 'form_required');
 		}
+
+		DB::transaction(function() use ($input) {
+			// remove all role assignments
+			$users = implode("','", $input['users']);
+			$users = "('" . $users . "')";
+			$sql = DB::table('role_assignments')->where('user_id', 'IN', DB::raw($users))->delete();
+
+			// add new role assignments
+			foreach ($input['users'] as $user) {
+				$assignment = new Role_Assignment;
+				$assignment->role_id = $input['action'];
+				$assignment->user_id = $user;
+				$assignment->save();
+			}
+		});
+
+		return Redirect::to('admin/roles')->with('notification', 'roles_assigned');
 	}
 }

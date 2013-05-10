@@ -66,6 +66,6 @@ Route::group(array('before' => 'auth'), function() {
 	// admin
 	Route::get('admin/users', 'admin.users@index');
 	Route::post('admin/users/new', 'admin.users@new');
+	Route::get('admin/companies', 'admin.companies@index');
 	Route::get('admin/roles', 'admin.roles@index');
-	Route::put('admin/roles/update', 'admin.roles@update');
-});
+	Route::put('admin/roles/update', 'admin.roles@update');});

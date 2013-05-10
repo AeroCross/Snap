@@ -60,9 +60,9 @@
 										<li class="nav-header">Sistema</li>
 
 										<li>{{ HTML::link('admin/users', 'Usuarios') }}</li>
-										<li><a href="#">Roles</a></li>
+										<li>{{ HTML::link('admin/roles', 'Roles') }}</li>
 										<li><a href="#">Departamentos</a></li>
-										<li><a href="#">Compañías</a></li>
+										<li>{{ HTML::link('admin/companies', 'Compañías'); }}</li>
 
 										<li class="divider"></li>
 										<li class="nav-header">Configuración</li>

@@ -61,7 +61,7 @@
 
 										<li>{{ HTML::link('admin/users', 'Usuarios') }}</li>
 										<li>{{ HTML::link('admin/roles', 'Roles') }}</li>
-										<li><a href="#">Departamentos</a></li>
+										<li>{{ HTML::link('admin/departments', 'Departamentos') }}</li>
 										<li>{{ HTML::link('admin/companies', 'Compañías'); }}</li>
 
 										<li class="divider"></li>

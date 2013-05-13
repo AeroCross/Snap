@@ -56,18 +56,23 @@
 
 									<li>{{ HTML::link('tickets', 'Todas las Consultas') }}</li>
 
-										<li class="divider"></li>
-										<li class="nav-header">Sistema</li>
+										{{-- admins only --}}
+										@if (Session::get('role') == 1)
 
-										<li>{{ HTML::link('admin/users', 'Usuarios') }}</li>
-										<li>{{ HTML::link('admin/roles', 'Roles') }}</li>
-										<li>{{ HTML::link('admin/departments', 'Departamentos') }}</li>
-										<li>{{ HTML::link('admin/companies', 'Compañías'); }}</li>
+											<li class="divider"></li>
+											<li class="nav-header">Sistema</li>
 
-										<li class="divider"></li>
-										<li class="nav-header">Configuración</li>
+											<li>{{ HTML::link('admin/users', 'Usuarios') }}</li>
+											<li>{{ HTML::link('admin/roles', 'Roles') }}</li>
+											<li>{{ HTML::link('admin/departments', 'Departamentos') }}</li>
+											<li>{{ HTML::link('admin/companies', 'Compañías'); }}</li>
 
-										<li>{{ HTML::link('settings', 'Opciones Generales') }}</li>
+											<li class="divider"></li>
+											<li class="nav-header">Configuración</li>
+
+											<li>{{ HTML::link('settings', 'Opciones Generales') }}</li>
+
+										@endif
 									
 								</ul>
 

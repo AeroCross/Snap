@@ -173,6 +173,12 @@ class Notification {
 					'type'		=> 'success'
 				);
 			break;
+
+			case 'company_users_updated':
+				return array(
+					'message'	=> 'Usuarios de la compañía actualizados',
+					'type'		=> 'success'
+				);
 		}
 	}
 }

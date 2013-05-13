@@ -72,5 +72,7 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('admin/roles', 'admin.roles@index');
 	Route::put('admin/roles/update', 'admin.roles@update');
+
+	Route::put('admin/companies/update/users', 'admin.companies@update');
 });
 	

@@ -12,10 +12,10 @@
 
         </div>
 
-        {{ Form::open('admin/companies/new', 'POST') }}
+        <!-- notifications -->
+        {{ Notification::show() }}
 
-            <!-- notifications -->
-            {{ Notification::show() }}
+        {{ Form::open('admin/companies/new', 'POST') }}
 
             <div class="input-append">
                 
@@ -46,16 +46,15 @@
     </div> 
 
     <!-- company members -->
-
     <div class="span8">
 
         <div class="page-header">
 
-            <h4>Agregar a compañía</h4>
+            <h4>Modificar Usuarios</h4>
 
         </div>
 
-        {{ Form::open('admin/companies/edit', 'PUT', array('class' => 'form-horizontal')) }}
+        {{ Form::open('admin/companies/update/users', 'PUT', array('class' => 'form-horizontal')) }}
 
             <!-- companies to add users -->
             <div class="control-group">
@@ -86,7 +85,7 @@
 
                 <div class="controls">
 
-                    <select id="users" name="users" class="input-xlarge" multiple>
+                    <select id="users" name="users[]" class="input-xlarge" multiple>
 
                         @foreach($users as $user) 
 

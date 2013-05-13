@@ -53,7 +53,7 @@
 
                 <div class="controls">
 
-                    <select id="to" name="to" class="input-xlarge">
+                    <select id="to" name="to" class="input-xlarge" multiple>
 
                         @foreach($departments as $department) 
 
@@ -86,6 +86,7 @@
                         @endforeach
 
                     </select>
+                    <span class="help-block"><small class="muted"><strong>Aviso:</strong> Se sobreescribirán todas las asignaciones a departamentos</small></span>
 
                 </div>
 

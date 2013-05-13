@@ -33,4 +33,11 @@ class User extends Eloquent {
 	public function company() {
 		return $this->has_one('Company_User');
 	}
+
+	/**
+	* An user can have only one role
+	*/
+	public function role() {
+		return $this->has_one('Role_Assignment', 'user_id');
+	}
 }

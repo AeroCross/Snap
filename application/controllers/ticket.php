@@ -224,13 +224,17 @@ class Ticket_Controller extends Base_Controller {
 		$fs->keys();
 
 		$upload = IoC::resolve('upload', array('file', $path , true));
-
-		try {
+		$file = Input::file('file');
+		
+		// there's a file uploaded
+		if ($file['error'] != '4') {
+			try {
 			$upload->upload();
 
-		// @TODO: implement error handling
-		} catch (\Exception $e){
-			dd($upload->getErrors());
+			// @TODO: implement error handling
+			} catch (\Exception $e){
+				dd($upload->getErrors());
+			}
 		}
 
 		// create an email for the assigned person
@@ -406,13 +410,17 @@ class Ticket_Controller extends Base_Controller {
 		$fs->keys();
 
 		$upload = IoC::resolve('upload', array('file', $path , true));
+		$file = Input::file('file');
 
-		try {
+		// there's a file uploaded
+		if ($file['error'] != '4') {
+			try {
 			$upload->upload();
 
-		// @TODO: implement error handling
-		} catch (\Exception $e){
-			dd($upload->getErrors());
+			// @TODO: implement error handling
+			} catch (\Exception $e){
+				dd($upload->getErrors());
+			}
 		}
 
 		return $redirect->with('notification', 'message_add_success');

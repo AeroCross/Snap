@@ -36,6 +36,22 @@ class Base_Controller extends Controller {
 		Asset::add('theme',			'css/theme.css');
 		Asset::add('select',		'css/select.css');
 		Asset::add('custom',		'css/custom.css');
+
+		// keep updated the information of the logged in user
+		$id = Session::get('id');
+
+		if (!empty($id)) {
+
+			$user = User::find($id);
+			$role = User::find($id)->role()->first()->role_id;
+
+			Session::put('firstname', $user->firstname);
+			Session::put('lastname', $user->lastname);
+			Session::put('fullname', $user->fullname);
+			Session::put('email', $user->email);
+			Session::put('role', $role);
+			Session::put('deleted', $user->deleted);
+		}
 	}
 
 }

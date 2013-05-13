@@ -64,17 +64,24 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('file/download/(:any)', 'file@download');
 
 	// admin
-	Route::get('admin/users', 'admin.users@index');
-	Route::post('admin/users/new', 'admin.users@new');
+	if (Session::get('role') == '1') {
+		Route::get('admin/users', 'admin.users@index');
+		Route::post('admin/users/new', 'admin.users@new');
+		
+		Route::get('admin/companies', 'admin.companies@index');
+		Route::post('admin/companies/new', 'admin.companies@new');
+
+		Route::get('admin/roles', 'admin.roles@index');
+		Route::put('admin/roles/update', 'admin.roles@update');
+
+		Route::put('admin/companies/update/users', 'admin.companies@update');
+
+		Route::get('admin/departments', 'admin.departments@index');
+
+	// yes, implement a better way
+	} else {
+		Route::any('/admin/(:any)', 'auth@logout');
+	}
 	
-	Route::get('admin/companies', 'admin.companies@index');
-	Route::post('admin/companies/new', 'admin.companies@new');
-
-	Route::get('admin/roles', 'admin.roles@index');
-	Route::put('admin/roles/update', 'admin.roles@update');
-
-	Route::put('admin/companies/update/users', 'admin.companies@update');
-
-	Route::get('admin/departments', 'admin.departments@index');
 });
 	

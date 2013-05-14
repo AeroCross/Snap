@@ -23,19 +23,20 @@ class Base_Controller extends Controller {
 		$this->data	= new StdClass;
 
 		// javascript files
-		Asset::add('jquery',	'js/jquery.js');
+		Asset::add('jquery',		'js/jquery.js');
 		Asset::add('bootstrap',	'js/bootstrap.js');
+		Asset::add('select',		'js/select.js');
+		Asset::add('select',		'js/holder.js');
 		Asset::add('functions',	'js/functions.js');
-		Asset::add('select',	'js/select.js');
 
 		// styles
-		Asset::add('styles',		'css/styles.css');
+		Asset::add('styles',			'css/styles.css');
 		Asset::add('responsive',	'css/responsive.css');
 		Asset::add('icons',			'css/icons.css');
 		Asset::add('icons-ie7',		'css/icons-ie7.css');
 		Asset::add('theme',			'css/theme.css');
-		Asset::add('select',		'css/select.css');
-		Asset::add('custom',		'css/custom.css');
+		Asset::add('select',			'css/select.css');
+		Asset::add('custom',			'css/custom.css');
 
 		// keep updated the information of the logged in user
 		$id = Session::get('id');

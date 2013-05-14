@@ -63,6 +63,10 @@ Route::group(array('before' => 'auth'), function() {
 	// files
 	Route::get('file/download/(:any)', 'file@download');
 
+	// profile
+	Route::get('profile', 'profile@index');
+	Route::post('profile/update/password', 'profile@update_password');
+
 	// admin
 	if (!Request::cli()) {
 		if (Session::get('role') == '1') {

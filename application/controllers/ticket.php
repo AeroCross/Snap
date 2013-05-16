@@ -249,12 +249,14 @@ class Ticket_Controller extends Base_Controller {
 		}
 
 		// prepare the data for the view
+		Load::library('markdown/markdown');
+		
 		$from			=& $reporter;
 		$content		= $ticket->content;
 	
 		$body	= View::make($view)
 		->with('from', $from)
-		->with('content', $content)
+		->with('content', Markdown($content))
 		->with('ticket', $ticket);
 
 		// send the mail
@@ -285,7 +287,7 @@ class Ticket_Controller extends Base_Controller {
 		);
 		
 		// save the status of the update
-		$message	= Message::add($ticket, $data);
+		$message		= Message::add($ticket, $data);
 		$redirect	= Redirect::to('ticket/' . $ticket);
 		$ticket		= Ticket::find($ticket);
 		$status		= Input::get('status');

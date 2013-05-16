@@ -26,7 +26,7 @@ class Base_Controller extends Controller {
 		Asset::add('jquery',		'js/jquery.js');
 		Asset::add('bootstrap',	'js/bootstrap.js');
 		Asset::add('select',		'js/select.js');
-		Asset::add('select',		'js/holder.js');
+		Asset::add('holder',		'js/holder.js');
 		Asset::add('functions',	'js/functions.js');
 
 		// styles

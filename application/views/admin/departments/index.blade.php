@@ -12,6 +12,9 @@
 
 		</div>
 
+        <!-- notifications -->
+        {{ Notification::show() }}
+        
 		<!-- new department -->
 		{{ Form::open('admin/departments/new', 'POST') }}
 
@@ -44,7 +47,7 @@
 
 		</div>
 
-		{{ Form::open('admin/department/update/users', 'PUT', array('class' => 'form-horizontal')) }}
+		{{ Form::open('admin/departments/update/users', 'PUT', array('class' => 'form-horizontal')) }}
 
             <!-- departments to add users -->
             <div class="control-group">

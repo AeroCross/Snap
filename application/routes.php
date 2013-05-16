@@ -82,6 +82,7 @@ Route::group(array('before' => 'auth'), function() {
 			Route::put('admin/companies/update/users', 'admin.companies@update');
 
 			Route::get('admin/departments', 'admin.departments@index');
+			Route::put('admin/departments/update/users', 'admin.departments@update_users');
 
 		// yes, implement a better way
 		} else {

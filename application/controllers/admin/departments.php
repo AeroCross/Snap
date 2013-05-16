@@ -26,4 +26,40 @@ class Admin_Departments_Controller extends Base_Controller {
 			->with('departments', $departments)
 			->with('users', $users);
 	}
+
+	/**
+	* Updates the department members
+	*
+	* @access	public
+	* @return	View
+	*/
+	public function put_update_users() {
+		$users	= Input::get('users');
+		$to		= Input::get('to');
+		$rules	= array(
+			'users'	=> 'required',
+			'to'		=> 'required'
+		);
+
+		$validation = Validator::make(Input::all(), $rules);
+
+		if ($validation->fails()) {
+			return Redirect::to('admin/departments')->with('notification', 'form_required');
+		}
+
+		DB::transaction(function() use ($users, $to) {
+			// remove previous assignments
+			$users_string = implode("','", $users);
+			$users_string = "('" . $users_string . "')";
+
+			DB::table('department_members')->where('user_id', 'IN', DB::raw($users_string))->delete();
+
+			// assign new memberships
+			foreach($users as $user) {
+				Department_Member::create(array('user_id' => $user, 'department_id' => $to));
+			}
+		});
+
+		return Redirect::to('admin/departments')->with('notification', 'department_members_updated');
+	}
 }

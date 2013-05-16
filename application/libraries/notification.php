@@ -179,6 +179,15 @@ class Notification {
 					'message'	=> 'Usuarios de la compañía actualizados',
 					'type'		=> 'success'
 				);
+			break;
+
+			// departments
+			case 'department_members_updated':
+				return array(
+					'message'	=> 'Miembros del departamento actualizados',
+					'type'		=> 'success'
+				);
+			break;
 		}
 	}
 }

@@ -31,7 +31,7 @@
 		<h5>{{ $ticket->subject }}</h5>
 
 		<!-- reporter details -->
-		<p>{{ HTML::link('user/' . $ticket->reported_by, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
+		<p>{{ HTML::mailto($reporter->email, $reporter->fullname) }} • <small>{{ $ticket->created_at }}</small></p>
 
 		<!-- separation of info -->
 		<br />
@@ -218,7 +218,7 @@
 							$sender->fullname	= $sender->firstname . ' ' . $sender->lastname;
 						?>
 
-						{{ HTML::link('user/' . $message->user_id, $sender->fullname) }} • <small>{{ $message->created_at }}</small>
+						{{ HTML::mailto($sender->email, $sender->fullname) }} • <small>{{ $message->created_at }}</small>
 
 						{{ Markdown($message->content) }}
 

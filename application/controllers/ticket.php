@@ -293,6 +293,10 @@ class Ticket_Controller extends Base_Controller {
 		$replier					= User::find(Session::get('id'));
 		$replier->fullname	= $replier->firstname . ' ' . $replier->lastname;
 
+		// who made the ticket
+		$reporter				= User::find($ticket->reported_by);
+		$reporter->fullname	= $reporter->firstname . ' ' . $reporter->lastname;
+
 		/**
 		* c: person who replyed is the person who reported it
 		* d: notify the department if there's noone assigned, or the person assigned
@@ -316,6 +320,11 @@ class Ticket_Controller extends Base_Controller {
 		* d: notify only the reporter
 		*/
 		elseif (Session::get('id') != $ticket->reported_by) {
+			// assign this person if there's noone assigned
+			if (empty($ticket->assigned_to)) {
+				$ticket->assigned_to = $replier->id;
+			}
+
 			$reporter					= User::find($ticket->reported_by);
 			$bcc[$reporter->email]	= $reporter->firstname . ' ' . $reporter->lastname;
 		}

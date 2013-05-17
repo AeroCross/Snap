@@ -101,14 +101,14 @@ class Ticket_Controller extends Base_Controller {
 		}
 
 		return View::make('ticket/view')
-		->with('ticket', $ticket)
-		->with('messages', $messages)
-		->with('reporter', $reporter)
-		->with('assigned', $assigned)
-		->with('department', $department)
-		->with('files', $fileinfo)
-		->with('users', $users)
-		->with('title', 'Consulta #' . $ticket->id . ': ' . $ticket->subject);
+			->with('ticket', $ticket)
+			->with('messages', $messages)
+			->with('reporter', $reporter)
+			->with('assigned', $assigned)
+			->with('department', $department)
+			->with('files', $fileinfo)
+			->with('users', $users)
+			->with('title', 'Consulta #' . $ticket->id . ': ' . $ticket->subject);
 	}
 
 	/**
@@ -122,9 +122,9 @@ class Ticket_Controller extends Base_Controller {
 		$users		= User::all();
 
 		return View::make('ticket.all')
-		->with('tickets', $tickets)
-		->with('users', $users)
-		->with('title', 'Todas las consultas');
+			->with('tickets', $tickets)
+			->with('users', $users)
+			->with('title', 'Todas las consultas');
 	}
 
 	/**
@@ -222,17 +222,17 @@ class Ticket_Controller extends Base_Controller {
 		$content		= $ticket->content;
 	
 		$body	= View::make($view)
-		->with('from', $from)
-		->with('content', Markdown($content))
-		->with('ticket', $ticket);
+			->with('from', $from)
+			->with('content', Markdown($content))
+			->with('ticket', $ticket);
 
 		// send the mail
 		$mailer		= IoC::resolve('mailer');
 		$message	= Swift_Message::newInstance($subject)
-		->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
-		->setBcc($bcc)
-		->setBody($body, 'text/html')
-		->addPart($input['content'], 'text/plain');
+			->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
+			->setBcc($bcc)
+			->setBody($body, 'text/html')
+			->addPart($input['content'], 'text/plain');
 
 		// send the email
 		$sent = $mailer->send($message);
@@ -316,7 +316,7 @@ class Ticket_Controller extends Base_Controller {
 		* d: notify only the reporter
 		*/
 		elseif (Session::get('id') != $ticket->reported_by) {
-			$reporter				= User::find($ticket->reported_by);
+			$reporter					= User::find($ticket->reported_by);
 			$bcc[$reporter->email]	= $reporter->firstname . ' ' . $reporter->lastname;
 		}
 
@@ -324,17 +324,17 @@ class Ticket_Controller extends Base_Controller {
 		Load::library('markdown/markdown');
 
 		$body = View::make('messages.ticket.updated')
-		->with('ticket', $ticket)
-		->with('from', $replier)
-		->with('content', Markdown($data['content']));
+			->with('ticket', $ticket)
+			->with('from', $replier)
+			->with('content', Markdown($data['content']));
 
 		// send the message
 		$mailer		= IoC::resolve('mailer');
 		$message	= Swift_Message::newInstance($replier->fullname . ' ha actualizado la Consulta #' . $ticket->id . ': ' . $ticket->subject)
-		->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
-		->setBcc($bcc)
-		->setBody($body, 'text/html')
-		->addPart($data['content'], 'text/plain');
+			->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
+			->setBcc($bcc)
+			->setBody($body, 'text/html')
+			->addPart($data['content'], 'text/plain');
 
 		// send this message
 		$sent = $mailer->send($message);
@@ -352,15 +352,15 @@ class Ticket_Controller extends Base_Controller {
 
 			// create the message
 			$body = View::make('messages.ticket.assigned')
-			->with('ticket', $ticket)
-			->with('from', $replier)
-			->with('content', Markdown($data['content']));
+				->with('ticket', $ticket)
+				->with('from', $replier)
+				->with('content', Markdown($data['content']));
 
 			$message = Swift_Message::newInstance($replier->fullname . ' le ha asignado una la consulta #' . $ticket->id . ': ' . $ticket->subject)
-			->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
-			->setBcc($bcc)
-			->setBody($body, 'text/html')
-			->addPart($data['content'], 'text/plain');
+				->setFrom(array('soporte@ingenium-dv.com' => 'Soporte'))	// @TODO: take from settings
+				->setBcc($bcc)
+				->setBody($body, 'text/html')
+				->addPart($data['content'], 'text/plain');
 
 			// send this message
 			$sent = $mailer->send($message);
@@ -438,9 +438,9 @@ class Ticket_Controller extends Base_Controller {
 		$users		= User::all();
 
 		return View::make('ticket.all')
-		->with('tickets', $tickets)
-		->with('users', $users)
-		->with('title', 'Búsqueda');
+			->with('tickets', $tickets)
+			->with('users', $users)
+			->with('title', 'Búsqueda');
 	}
 
 }

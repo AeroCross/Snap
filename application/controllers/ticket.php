@@ -290,7 +290,7 @@ class Ticket_Controller extends Base_Controller {
 		*/
 
 		// who replied to the ticket
-		$replier			= User::find($ticket->reported_by);
+		$replier					= User::find(Session::get('id'));
 		$replier->fullname	= $replier->firstname . ' ' . $replier->lastname;
 
 		/**

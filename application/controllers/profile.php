@@ -72,6 +72,11 @@ class Profile_Controller extends Base_Controller {
 			return Response::json(array('message' => 'Contraseña anterior no coincide', 'type' => 'warning'));
 		}
 
+		// all validation passed
+		$user = User::find(Session::get('id'));
+		$user->password = Hash::make($new);
+		$user->save();
+
 		return Response::json(array('message' => 'Contraseña actualizada', 'type' => 'success'));
 	}
 }

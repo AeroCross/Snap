@@ -92,8 +92,8 @@
 
 								<ul class="dropdown-menu">
 
-									<li><a href="#"><i class="icon-edit"></i> Editar Perfil</a></li>
-									<li><a href="{{ URL::to('logout') }}"><i class="icon-signout"></i> Cerrar Sesión</a></li>
+									<li>{{ HTML::decode(HTML::link('profile', Helper::icon('edit') . ' Editar Perfil')) }}</li>
+									<li>{{ HTML::decode(HTML::link('logout', Helper::icon('signout') . ' Cerrar Sesión')) }}</li>
 
 								</ul>
 

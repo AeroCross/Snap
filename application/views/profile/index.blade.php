@@ -21,7 +21,7 @@
 		<div class="btn-group">
 
 			<button type="button" class="btn" data-toggle="tooltip" title="Cambiar contraseña" data-placement="bottom" id="show-change-password">{{ Helper::icon('key') }}</button>
-			<button type="button" class="btn" data-toggle="tooltip" title="Cambiar correo electrónico" data-placement="bottom">{{ Helper::icon('envelope-alt') }}</button>
+			<button type="button" class="btn" data-toggle="tooltip" title="Cambiar correo electrónico" data-placement="bottom" id="show-change-email">{{ Helper::icon('envelope-alt') }}</button>
 			<button type="button" class="btn" data-toggle="tooltip" title="Modificar perfil" data-placement="bottom">{{ Helper::icon('user') }}</button>
 
 		</div>
@@ -63,11 +63,11 @@
 
 			<div class="control-group">
 
-				<label class="control-label" for="new">Nueva contraseña</label>
+				<label class="control-label" for="new-password">Nueva contraseña</label>
 
 				<div class="controls">
 
-					<input type="password" name="password" id="new" />
+					<input type="password" name="password" id="new-password" />
 
 				</div>
 
@@ -75,11 +75,11 @@
 
 			<div class="control-group">
 
-				<label class="control-label" for="repeat">Repetir contraseña</label>
+				<label class="control-label" for="repeat-password">Repetir contraseña</label>
 
 				<div class="controls">
 
-					<input type="password" name="password" id="repeat" />
+					<input type="password" name="password" id="repeat-password" />
 
 				</div>
 
@@ -97,6 +97,73 @@
 
 </div>
 <!-- end change password -->
+
+<!-- change email -->
+<div class="modal hide fade" id="modal-change-email">
+
+	<div class="modal-header">
+
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+		<h4>Cambiar correo electrónico</h4>
+
+	</div>
+
+	<div class="modal-body">
+
+		{{ Form::open('profile/update/email', 'PUT', array('class' => 'form-horizontal')) }}
+
+			<div class="alert hide" id="alert-change-email"></div>
+
+			<div class="control-group">
+
+				<label class="control-label" for="password-change-email">Contraseña</label>
+
+				<div class="controls">
+
+					<input type="password" name="password" id="password-change-email" />
+					<span class="help-block"><small class="muted">Si no recuerda su contraseña, {{ HTML::link('password/forget', 'recupérela') }}</small></span>
+
+				</div>
+
+			</div>
+
+			<div class="control-group">
+
+				<label class="control-label" for="new-email">Nueva dirección</label>
+
+				<div class="controls">
+
+					<input type="email" name="new" id="new-email" />
+
+				</div>
+
+			</div>
+
+			<div class="control-group">
+
+				<label class="control-label" for="repeat-email">Repetir dirección</label>
+
+				<div class="controls">
+
+					<input type="email" name="repeat" id="repeat-email" />
+
+				</div>
+
+			</div>
+
+		{{ Form::close() }}
+
+	</div>
+
+	<div class="modal-footer">
+
+		<a href="#" class="btn btn-primary" id="send-change-email">{{ Helper::icon('ok-sign') }} Cambiar correo electrónico</a>
+
+	</div>
+
+</div>
+<!-- end change email -->
 <!-- end modals -->
 
 @endsection
@@ -109,6 +176,7 @@
 // base url
 var base = '{{ URL::base() }}';
 
+// change password
 $('#show-change-password').on('click', function() {
 	$('#modal-change-password').modal('show');
 });
@@ -120,14 +188,19 @@ $('#send-change-password').on('click', function() {
 		url: base + '/profile/update/password',
 		data: {
 			old: $('#old').val(),
-			new: $('#new').val(),
-			repeat: $('#repeat').val()	
+			new: $('#new-password').val(),
+			repeat: $('#repeat-password').val()	
 		},
 		success: function(data) {
 			$('#alert-change-password').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 		},
 		dataType: 'json'
 	});
+});
+
+// change email
+$('#show-change-email').on('click', function() {
+	$('#modal-change-email').modal('show');
 });
 
 </script>

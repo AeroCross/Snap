@@ -16,9 +16,10 @@
 
 			<div class="btn-group">
 
-				<button class="btn btn-small" name="status" value="closed" title="Cerrar">{{ Helper::icon('ok-sign') }}</button>
-				<button class="btn btn-small" name="status" value="open" title="Reabrir">{{ Helper::icon('exclamation-sign') }}</button>
+				<button class="btn btn-small" name="status" value="closed" title="Cerrar">{{ Helper::icon('ok') }}</button>
+				<button class="btn btn-small" name="status" value="open" title="Reabrir">{{ Helper::icon('refresh') }}</button>
 				<button class="btn btn-small" name="status" value="hold" title="En espera">{{ Helper::icon('time') }}</button>
+				<button class="btn btn-small" name="status" value="in-progress" title="En proceso">{{ Helper::icon('star-half-empty') }}</button>
 
 			</div>
 
@@ -138,6 +139,7 @@
 							<option value="closed">Cerrado</option>
 							<option value="open">Abierto</option>
 							<option value="hold">En espera</option>
+							<option value="in-progress">En proceso</option>
 
 						</select>
 

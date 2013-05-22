@@ -53,8 +53,10 @@ a:hover {cursor: pointer;}
 .highlight.highlight-error {color: #dd4b39;}
 .highlight.highlight-warning {color: #f89406;}
 .highlight.highlight-info {color: #3a87ad;}
+.highlight.highlight-neutral {color: #999;}
 
 /* tickets list */
+/* @TODO: optimize with SASS */
 .nav.nav-stacked .open {
 	border-left: 3px solid #f89406;
 	color: #333;
@@ -63,6 +65,12 @@ a:hover {cursor: pointer;}
 
 .nav.nav-stacked .hold {
 	border-left: 3px solid #3a87ad;
+	color: #333;
+	font-weight: bold;
+}
+
+.nav.nav-stacked .in-progress {
+	border-left: 3px solid #999;
 	color: #333;
 	font-weight: bold;
 }

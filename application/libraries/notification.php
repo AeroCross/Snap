@@ -190,4 +190,15 @@ class Notification {
 			break;
 		}
 	}
+
+	/**
+	* Alias of $this->notifications()
+	*
+	* @param		string	- the notification to fetch
+	* @return	Array
+	* @access	public
+	*/
+	public static function get($notification) {
+		return self::notifications($notification);
+	}
 }

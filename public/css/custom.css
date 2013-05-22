@@ -105,3 +105,13 @@ a:hover {cursor: pointer;}
 .dropdown-menu {
 	padding: 8px 0;
 }
+
+/* TODC bootstrap messes icons inside dropdowns */
+.dropdown-menu li > a i {
+	position: static;
+	padding-right: 7px;
+}
+
+.dropdown-menu > li > a {
+	padding: 3px 20px;
+}

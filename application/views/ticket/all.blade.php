@@ -15,9 +15,10 @@
 
 			<div class="btn-group">
 
-				<button type="submit" class="btn" name="value" value="status|closed" form="form-status">{{ Helper::icon('ok-sign') }} Solo cerradas</button>
-				<button type="submit" class="btn" name="value" value="status|hold" form="form-status">{{ Helper::icon('time') }} Solo en espera</button>
-				<button type="submit" class="btn" name="value" value="status|open" form="form-status">{{ Helper::icon('exclamation-sign') }} Solo abiertas</button>
+				<button type="submit" class="btn" name="value" value="status|closed" form="form-status">{{ Helper::icon('ok') }} Cerradas</button>
+				<button type="submit" class="btn" name="value" value="status|open" form="form-status">{{ Helper::icon('exclamation') }} Abiertas</button>
+				<button type="submit" class="btn" name="value" value="status|hold" form="form-status">{{ Helper::icon('time') }} En espera</button>
+				<button type="submit" class="btn" name="value" value="status|in-progress" form="form-status">{{ Helper::icon('star-half-empty') }} En proceso</button>
 				<a href="{{ URL::to('tickets') }}" class="btn">{{ Helper::icon('list') }} Mostrar todas</a>
 
 			</div>
@@ -89,9 +90,10 @@
 						unset($user);
 
 						switch($ticket->status) {
-							case 'open':	$type = 'warning'; break;
-							case 'hold':	$type = 'info'; break;
-							case 'closed':	$type = ''; break;
+							case 'open':			$type = 'warning'; break;
+							case 'hold':			$type = 'info'; break;
+							case 'closed':			$type = ''; break;
+							case 'in-progress':	$type = 'default'; break;
 						}
 					?>
 

@@ -75,7 +75,7 @@ a:hover {cursor: pointer;}
 	font-weight: bold;
 }
 
-.nav.nav-stacked li.open small {font-weight: normal;}
+.nav.nav-stacked li small {font-weight: normal;}
 
 /* ticket view */
 .form-status {margin: 0; position: relative; top: 20px;}
@@ -104,4 +104,14 @@ a:hover {cursor: pointer;}
 /* dropdowns have incorrect top and bottom padding */
 .dropdown-menu {
 	padding: 8px 0;
+}
+
+/* TODC bootstrap messes icons inside dropdowns */
+.dropdown-menu li > a i {
+	position: static;
+	padding-right: 7px;
+}
+
+.dropdown-menu > li > a {
+	padding: 3px 20px;
 }

@@ -33,7 +33,7 @@ class Profile_Controller extends Base_Controller {
 	* Changes the user password
 	* 
 	* @access	public
-	* @return	Response::json
+	* @return	json
 	*/
 	public function post_update_password() {
 		$old		= Input::get('old');
@@ -51,7 +51,7 @@ class Profile_Controller extends Base_Controller {
 
 		// all fields required
 		if ($validation->fails()) {
-			return Response::json(array('message' => 'Todos los campos son requeridos', 'type' => 'warning'));
+			return Response::json(Notification::get('form_required'));
 		}
 
 		$rules = array(
@@ -62,14 +62,14 @@ class Profile_Controller extends Base_Controller {
 
 		// password mismatch
 		if ($validation->fails()) {
-			return Response::json(array('message' => 'Las contraseñas no coinciden', 'type' => 'warning'));
+			return Response::json(Notification::get('form_passwords_must_match'));
 		}
 
 		$user = User::find(Session::get('id'))->first();
 		
 		// password does not match
 		if (!Hash::check($old, $user->password)) {
-			return Response::json(array('message' => 'Contraseña anterior no coincide', 'type' => 'warning'));
+			return Response::json(Notification::get('form_password_invalid'));
 		}
 
 		// all validation passed
@@ -77,6 +77,76 @@ class Profile_Controller extends Base_Controller {
 		$user->password = Hash::make($new);
 		$user->save();
 
-		return Response::json(array('message' => 'Contraseña actualizada', 'type' => 'success'));
+		return Response::json(Notification::get('profile_password_updated'));
+	}
+
+	/**
+	* Changes the email address of the user
+	*
+	* @return	json
+	* @access	public
+	*/
+	public function post_update_email() {
+		$password	= Input::get('password');
+		$new			= Input::get('new');
+		$repeat		= Input::get('repeat');
+		$all			= Input::all();
+
+		// all fields required
+		$rules = array(
+			'password'	=> 'required',
+			'new'			=> 'required',
+			'repeat'		=> 'required'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('form_required'));
+		}
+
+		// emails must be valid
+		$rules = array(
+			'new'		=> 'email',
+			'repeat'	=> 'email'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('form_email_invalid'));
+		}
+
+		// emails must match
+		$rules = array(
+			'repeat' => 'same:new'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('form_emails_must_match'));
+		}
+
+		// check if past password isn't good
+		// @TODO: DRY up
+		$user = User::find(Session::get('id'))->first();
+		if (!Hash::check($password, $user->password)) {
+			return Response::json(Notification::get('form_password_invalid'));
+		}
+
+		// email exists
+		$email = User::where_email($new)->first();
+
+		if (!empty($email)) {
+			return Response::json(Notification::get('form_email_exists'));
+		}
+
+		// change email
+		$user = User::find(Session::get('id'));
+		$user->email = $new;
+		$user->save();
+
+		return Response::json(Notification::get('profile_email_updated'));
 	}
 }

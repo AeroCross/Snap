@@ -44,7 +44,7 @@
 
 	<div class="modal-body">
 
-		{{ Form::open('profile/update/password', 'PUT', array('class' => 'form-horizontal')) }}
+		{{ Form::open('profile/update/password', 'PUT', array('class' => 'form-horizontal', 'id' => 'form-change-password')) }}
 
 			<div class="alert hide" id="alert-change-password"></div>
 
@@ -111,7 +111,7 @@
 
 	<div class="modal-body">
 
-		{{ Form::open('profile/update/email', 'PUT', array('class' => 'form-horizontal')) }}
+		{{ Form::open('profile/update/email', 'PUT', array('class' => 'form-horizontal', 'id' => 'form-change-email')) }}
 
 			<div class="alert hide" id="alert-change-email"></div>
 
@@ -177,6 +177,8 @@
 var base = '{{ URL::base() }}';
 
 // change password
+// @TODO: DRY up?
+// @TODO: Cache-up!
 $('#show-change-password').on('click', function() {
 	$('#modal-change-password').modal('show');
 });
@@ -193,6 +195,11 @@ $('#send-change-password').on('click', function() {
 		},
 		success: function(data) {
 			$('#alert-change-password').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+
+			// clear the form data when everything's done
+			if (data.type == 'success') {
+				$('#form-change-password').find('input').val('');
+			}
 		},
 		dataType: 'json'
 	});
@@ -201,6 +208,29 @@ $('#send-change-password').on('click', function() {
 // change email
 $('#show-change-email').on('click', function() {
 	$('#modal-change-email').modal('show');
+});
+
+$('#send-change-email').on('click', function() {
+	$('#alert-change-email').removeClass().addClass('alert hide');
+
+	$.ajax({
+		type: 'POST',
+		url: base + '/profile/update/email',
+		data: {
+			password: $('#password-change-email').val(),
+			new: $('#new-email').val(),
+			repeat: $('#repeat-email').val()	
+		},
+		success: function(data) {
+			$('#alert-change-email').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+
+			// clear the form data when everything's done
+			if (data.type == 'success') {
+				$('#form-change-email').find('input').val('');
+			}
+		},
+		dataType: 'json'
+	});
 });
 
 </script>

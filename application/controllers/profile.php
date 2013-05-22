@@ -33,7 +33,7 @@ class Profile_Controller extends Base_Controller {
 	* Changes the user password
 	* 
 	* @access	public
-	* @return	Response::json
+	* @return	json
 	*/
 	public function post_update_password() {
 		$old		= Input::get('old');
@@ -78,5 +78,74 @@ class Profile_Controller extends Base_Controller {
 		$user->save();
 
 		return Response::json(array('message' => 'Contraseña actualizada', 'type' => 'success'));
+	}
+
+	/**
+	* Changes the email address of the user
+	*
+	* @return	json
+	* @access	public
+	*/
+	public function post_update_email() {
+		$password	= Input::get('password');
+		$new			= Input::get('new');
+		$repeat		= Input::get('repeat');
+		$all			= Input::all();
+
+		// all fields required
+		$rules = array(
+			'password'	=> 'required',
+			'new'			=> 'required',
+			'repeat'		=> 'required'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(array('message' => 'Todos los campos son requeridos', 'type' => 'warning'));
+		}
+
+		// emails must be valid
+		$rules = array(
+			'new'		=> 'email',
+			'repeat'	=> 'email'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(array('message' => 'Dirección de email inválida', 'type' => 'warning'));
+		}
+
+		// emails must match
+		$rules = array(
+			'repeat' => 'same:new'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(array('message' => 'La nueva dirección no coincide', 'type' => 'warning'));
+		}
+
+		// check if past password isn't good
+		// @TODO: DRY up
+		$user = User::find(Session::get('id'))->first();
+		if (!Hash::check($password, $user->password)) {
+			return Response::json(array('message' => 'Contraseña incorrecta', 'type' => 'warning'));
+		}
+
+		// email exists
+		$email = User::where_email($new)->first();
+
+		if (!empty($email)) {
+			return Response::json(array('message' => 'La dirección de correo ya existe', 'type' => 'warning'));
+		}
+
+		$user = User::find(Session::get('id'));
+		$user->email = $new;
+		$user->save();
+
+		return Response::json(array('message' => 'Dirección de correo electrónico actualizada', 'type' => 'success'));
 	}
 }

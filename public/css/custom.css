@@ -75,7 +75,7 @@ a:hover {cursor: pointer;}
 	font-weight: bold;
 }
 
-.nav.nav-stacked li.open small {font-weight: normal;}
+.nav.nav-stacked li small {font-weight: normal;}
 
 /* ticket view */
 .form-status {margin: 0; position: relative; top: 20px;}

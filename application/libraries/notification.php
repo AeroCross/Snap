@@ -92,6 +92,20 @@ class Notification {
 				);
 			break;
 
+			case 'form_password_invalid':
+				return array(
+					'message' => 'Contraseña inválida',
+					'type'	=> 'warning'
+				);
+			break;
+
+			case 'form_emails_must_match':
+				return array(
+					'message' => 'Las direcciones de correo deben coincidir',
+					'type'	=> 'warning'
+				);
+			break;
+
 			// authentication messages
 			case 'auth_logout':
 				return array(
@@ -185,6 +199,21 @@ class Notification {
 			case 'department_members_updated':
 				return array(
 					'message'	=> 'Miembros del departamento actualizados',
+					'type'		=> 'success'
+				);
+			break;
+
+			// profile
+			case 'profile_password_updated':
+				return array(
+					'message'	=> 'Contraseña actualizada',
+					'type'		=> 'success'
+				);
+			break;
+
+			case 'profile_email_updated':
+				return array(
+					'message'	=> 'Dirección de correo actualizada',
 					'type'		=> 'success'
 				);
 			break;

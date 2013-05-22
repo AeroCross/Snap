@@ -51,7 +51,7 @@ class Profile_Controller extends Base_Controller {
 
 		// all fields required
 		if ($validation->fails()) {
-			return Response::json(array('message' => 'Todos los campos son requeridos', 'type' => 'warning'));
+			return Response::json(Notification::get('form_required'));
 		}
 
 		$rules = array(
@@ -62,14 +62,14 @@ class Profile_Controller extends Base_Controller {
 
 		// password mismatch
 		if ($validation->fails()) {
-			return Response::json(array('message' => 'Las contraseñas no coinciden', 'type' => 'warning'));
+			return Response::json(Notification::get('form_passwords_must_match'));
 		}
 
 		$user = User::find(Session::get('id'))->first();
 		
 		// password does not match
 		if (!Hash::check($old, $user->password)) {
-			return Response::json(array('message' => 'Contraseña anterior no coincide', 'type' => 'warning'));
+			return Response::json(Notification::get('form_password_invalid'));
 		}
 
 		// all validation passed
@@ -77,7 +77,7 @@ class Profile_Controller extends Base_Controller {
 		$user->password = Hash::make($new);
 		$user->save();
 
-		return Response::json(array('message' => 'Contraseña actualizada', 'type' => 'success'));
+		return Response::json(Notification::get('profile_password_updated'));
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Profile_Controller extends Base_Controller {
 		$validation = Validator::make($all, $rules);
 
 		if ($validation->fails()) {
-			return Response::json(array('message' => 'Todos los campos son requeridos', 'type' => 'warning'));
+			return Response::json(Notification::get('form_required'));
 		}
 
 		// emails must be valid
@@ -114,7 +114,7 @@ class Profile_Controller extends Base_Controller {
 		$validation = Validator::make($all, $rules);
 
 		if ($validation->fails()) {
-			return Response::json(array('message' => 'Dirección de email inválida', 'type' => 'warning'));
+			return Response::json(Notification::get('form_email_invalid'));
 		}
 
 		// emails must match
@@ -125,27 +125,28 @@ class Profile_Controller extends Base_Controller {
 		$validation = Validator::make($all, $rules);
 
 		if ($validation->fails()) {
-			return Response::json(array('message' => 'La nueva dirección no coincide', 'type' => 'warning'));
+			return Response::json(Notification::get('form_emails_must_match'));
 		}
 
 		// check if past password isn't good
 		// @TODO: DRY up
 		$user = User::find(Session::get('id'))->first();
 		if (!Hash::check($password, $user->password)) {
-			return Response::json(array('message' => 'Contraseña incorrecta', 'type' => 'warning'));
+			return Response::json(Notification::get('form_password_invalid'));
 		}
 
 		// email exists
 		$email = User::where_email($new)->first();
 
 		if (!empty($email)) {
-			return Response::json(array('message' => 'La dirección de correo ya existe', 'type' => 'warning'));
+			return Response::json(Notification::get('form_email_exists'));
 		}
 
+		// change email
 		$user = User::find(Session::get('id'));
 		$user->email = $new;
 		$user->save();
 
-		return Response::json(array('message' => 'Dirección de correo electrónico actualizada', 'type' => 'success'));
+		return Response::json(Notification::get('profile_email_updated'));
 	}
 }

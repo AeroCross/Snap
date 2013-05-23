@@ -225,6 +225,13 @@ class Notification {
 				);
 			break;
 
+			case 'profile_user_invalid':
+				return array(
+					'message'	=> 'Nombre de usuario acepta solo letras, números, y "_"',
+					'type'		=> 'success'
+				);
+			break;
+
 			case 'profile_updated':
 				return array(
 					'message'	=> 'Información actualizada',

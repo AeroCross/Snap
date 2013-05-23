@@ -181,7 +181,6 @@ class Profile_Controller extends Base_Controller {
 		// only alpha characters on names
 		$rules = array(
 			'firstname' => 'alpha',
-			'firstname' => 'alpha',
 			'lastname'	=> 'alpha'
 		);
 
@@ -189,6 +188,17 @@ class Profile_Controller extends Base_Controller {
 
 		if ($validation->fails()) {
 			return Response::json(Notification::get('profile_names_alpha_only'));
+		}
+
+		// username must be alphanumeric with dashes
+		$rules = array(
+			'username' => 'alpha_dash',
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('profile_user_invalid'));
 		}
 
 		// password mismatch

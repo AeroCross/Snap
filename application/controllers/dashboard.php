@@ -11,41 +11,18 @@ class Dashboard_Controller extends Base_Controller {
 
 	public $restful	= true;
 
+	/**
+	* Shows the dashboard
+	*
+	* @return	View
+	* @access	public
+	*/
 	public function get_index() {
-		// add required assets
-		Asset::add('charts', 'js/charts/highcharts.js');
-		Asset::add('charts-more','js/charts/highcharts-more.js');
-
-		// prevent errors creating default objects
-		$assigned	= new StdClass;
-		$latest		= new StdClass;
-		$total		= new StdClass;
-
-		// tickets
-		$assigned->tickets		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
-		$latest->tickets		= Ticket::take(13)->order_by('id', 'desc')->get();
-
-		// stats
-		$assigned->open			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
-		$assigned->total		= Ticket::where_assigned_to(Session::get('id'))->count();
-		$total->amount			= Ticket::count();
-		$total->open			= Ticket::where_status('open')->count();
-
-		$tickets	= $this->chartTotalTickets();
-		$week		= $this->chartWeeklyTickets();
-		
-
-		// what badge should we display in assigned?
-		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
-
-		return View::make('dashboard.index')
-		->with('assigned', $assigned)
-		->with('latest', $latest)
-		->with('total', $total)
-		->with('tickets', $tickets)
-		->with('week', $week)
-		->with('badge', $badge)
-		->with('title', 'Dashboard');
+		if (Session::get('role') != 3) {
+			return $this->loadAdminDashboard();
+		} else {
+			return $this->loadUserDashboard();
+		}
 	}
 
 	/**
@@ -127,5 +104,78 @@ class Dashboard_Controller extends Base_Controller {
 		$tickets->total = json_encode($json_tickets, JSON_NUMERIC_CHECK);
 
 		return $tickets;
+	}
+
+	/**
+	* Generates all the information for the admin dashboard
+	*
+	* @return	View
+	* @access	private
+	*/
+	private function loadAdminDashboard() {
+		// add required assets
+		Asset::add('charts', 'js/charts/highcharts.js');
+		Asset::add('charts-more','js/charts/highcharts-more.js');
+
+		// prevent errors creating default objects
+		$assigned	= new StdClass;
+		$latest		= new StdClass;
+		$total		= new StdClass;
+
+		// tickets
+		$assigned->tickets	= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
+		$latest->tickets		= Ticket::take(13)->order_by('id', 'desc')->get();
+
+		// stats
+		$assigned->open		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
+		$assigned->total		= Ticket::where_assigned_to(Session::get('id'))->count();
+		$total->amount			= Ticket::count();
+		$total->open			= Ticket::where_status('open')->count();
+
+		$tickets	= $this->chartTotalTickets();
+		$week		= $this->chartWeeklyTickets();
+
+		// what badge should we display in assigned?
+		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
+
+		return View::make('dashboard.index')
+				->with('assigned', $assigned)
+				->with('latest', $latest)
+				->with('total', $total)
+				->with('tickets', $tickets)
+				->with('week', $week)
+				->with('badge', $badge)
+				->with('title', 'Dashboard');
+	}
+
+	/**
+	* Generates all the information for the user dashboard
+	*
+	* @return	View
+	* @access	private
+	*/
+	private function loadUserDashboard() {
+		$tickets			= DB::table('tickets')->where_reported_by(Session::get('id'))->order_by('id', 'desc')->paginate(25);
+		$users			= User::all();
+		$departments	= Department::all();
+
+		// departments and users
+		$d = array();
+		$u = array();
+
+		foreach ($departments as $department) {
+			$d[$department->id] = $department->name;
+		}
+
+		foreach ($users as $user) {
+			$u[$user->id]['name']	= $user->firstname . ' ' . $user->lastname;
+			$u[$user->id]['email']	= $user->email;
+		}
+		
+		return View::make('dashboard.user')
+				->with('title', 'Dashboard')
+				->with('tickets', $tickets)
+				->with('users', $u)
+				->with('departments', $d);
 	}
 }

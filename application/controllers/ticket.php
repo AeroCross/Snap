@@ -34,6 +34,12 @@ class Ticket_Controller extends Base_Controller {
 	*/
 	public function get_view($ticket) {
 		$ticket		= Ticket::find($ticket);
+
+		// if normal user and not his ticket, redirect
+		if (Session::get('role') == 3 and $ticket->reported_by != Session::get('id')) {
+			return Redirect::to('dashboard');
+		}
+
 		$messages	= $ticket->messages()->get();
 
 		// ticket details

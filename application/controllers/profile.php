@@ -21,8 +21,7 @@ class Profile_Controller extends Base_Controller {
 		$user		= User::find(Session::get('id'));
 		$company	= $user->company()->first();
 		$company = Company::find($company->company_id);
-		$user		= $user->first();
-
+		
 		return View::make('profile.index')
 			->with('title', 'Perfil de Usuario')
 			->with('user', $user)
@@ -65,7 +64,7 @@ class Profile_Controller extends Base_Controller {
 			return Response::json(Notification::get('form_passwords_must_match'));
 		}
 
-		$user = User::find(Session::get('id'))->first();
+		$user = User::find(Session::get('id'));
 		
 		// password does not match
 		if (!Hash::check($old, $user->password)) {
@@ -130,7 +129,7 @@ class Profile_Controller extends Base_Controller {
 
 		// check if past password isn't good
 		// @TODO: DRY up
-		$user = User::find(Session::get('id'))->first();
+		$user = User::find(Session::get('id'));
 		if (!Hash::check($password, $user->password)) {
 			return Response::json(Notification::get('form_password_invalid'));
 		}
@@ -202,7 +201,7 @@ class Profile_Controller extends Base_Controller {
 		}
 
 		// password mismatch
-		$user = User::find(Session::get('id'))->first();
+		$user = User::find(Session::get('id'));
 		if (!Hash::check($password, $user->password)) {
 			return Response::json(Notification::get('form_password_invalid'));
 		}
@@ -216,7 +215,7 @@ class Profile_Controller extends Base_Controller {
 		}
 
 		// all good, update
-		$user = User::find(Session::get('id'))->first();
+		$user = User::find(Session::get('id'));
 		$user->username	= $username;
 		$user->firstname	= $firstname;
 		$user->lastname	= $lastname;

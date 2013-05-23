@@ -48,6 +48,7 @@ class Base_Controller extends Controller {
 
 			Session::put('firstname', $user->firstname);
 			Session::put('lastname', $user->lastname);
+			Session::put('username', $user->username);
 			Session::put('fullname', $user->fullname);
 			Session::put('email', $user->email);
 			Session::put('role', $role);

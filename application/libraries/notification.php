@@ -217,6 +217,20 @@ class Notification {
 					'type'		=> 'success'
 				);
 			break;
+
+			case 'profile_names_alpha_only':
+				return array(
+					'message'	=> 'Nombres tienen que ser únicamente letras',
+					'type'		=> 'warning'
+				);
+			break;
+
+			case 'profile_updated':
+				return array(
+					'message'	=> 'Información actualizada',
+					'type'		=> 'success'
+				);
+			break;
 		}
 	}
 

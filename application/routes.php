@@ -67,6 +67,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('profile', 'profile@index');
 	Route::post('profile/update/password', 'profile@update_password');
 	Route::post('profile/update/email', 'profile@update_email');
+	Route::post('profile/update/user', 'profile@update_user');
 
 	// admin
 	if (!Request::cli()) {

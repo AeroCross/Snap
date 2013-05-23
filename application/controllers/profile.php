@@ -136,6 +136,7 @@ class Profile_Controller extends Base_Controller {
 		}
 
 		// email exists
+		// @TODO: this can be methodized
 		$email = User::where_email($new)->first();
 
 		if (!empty($email)) {
@@ -148,5 +149,69 @@ class Profile_Controller extends Base_Controller {
 		$user->save();
 
 		return Response::json(Notification::get('profile_email_updated'));
+	}
+
+	/**
+	* Changes the user information of an user
+	*
+	* @return	json
+	* @access	public
+	*/
+	public function post_update_user() {
+		$all			= Input::all();
+		$password	= Input::get('password');
+		$firstname	= Input::get('firstname');
+		$lastname	= Input::get('lastname');
+		$username	= Input::get('username');
+
+		// all fields required
+		$rules = array(
+			'password' => 'required',
+			'firstname' => 'required',
+			'lastname' => 'required',
+			'username' => 'required',
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('form_required'));
+		}
+
+		// only alpha characters on names
+		$rules = array(
+			'firstname' => 'alpha',
+			'firstname' => 'alpha',
+			'lastname'	=> 'alpha'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('profile_names_alpha_only'));
+		}
+
+		// password mismatch
+		$user = User::find(Session::get('id'))->first();
+		if (!Hash::check($password, $user->password)) {
+			return Response::json(Notification::get('form_password_invalid'));
+		}
+
+		// user exists
+		// @TODO: this can be methodized
+		$user = User::where_username($username)->first();
+
+		if (!empty($user)) {
+			return Response::json(Notification::get('form_user_exists'));
+		}
+
+		// all good, update
+		$user = User::find(Session::get('id'))->first();
+		$user->username	= $username;
+		$user->firstname	= $firstname;
+		$user->lastname	= $lastname;
+		$user->save();
+
+		return Response::json(Notification::get('profile_updated'));
 	}
 }

@@ -131,7 +131,7 @@
 	</div>
 	<!-- end graphs -->
 
-	@if (!empty($alert->message))
+	@if ($show == true)
 
 		<!-- system message modal -->
 		<div class="modal hide fade" id="system-message">

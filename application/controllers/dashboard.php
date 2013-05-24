@@ -153,12 +153,21 @@ class Dashboard_Controller extends Base_Controller {
 		$week		= $this->chartWeeklyTickets();
 
 		// system messages
-		$alert = Cookie::get('hide-alert');
+		// this will have a md5 hash of the message or null
+		$show		= true;
+		$alert	= Cookie::get('hide-alert');
 
-		if (empty($alert)) {
-			$alert				= new StdClass;
-			$alert->message	= Setting::where_name('system_message')->first()->value;
-			$alert->title		= Setting::where_name('system_message_title')->first()->value;
+		// if there's data, check if the data is the same as the message
+		$hash					= $alert;
+		$alert				= new StdClass;
+		$alert->message	= Setting::where_name('system_message')->first()->value;
+		$alert->title		= Setting::where_name('system_message_title')->first()->value;
+
+		// the cookie matches the hash of the current message? hide the alert
+		if (md5($alert->message) != $hash) {
+			$show = true;
+		} else {
+			$show = false;
 		}
 		
 		// what badge should we display in assigned?
@@ -175,6 +184,7 @@ class Dashboard_Controller extends Base_Controller {
 				->with('week', $week)
 				->with('badge', $badge)
 				->with('alert', $alert)
+				->with('show', $show)
 				->with('title', 'Dashboard');
 	}
 

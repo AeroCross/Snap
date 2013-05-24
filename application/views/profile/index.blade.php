@@ -22,7 +22,7 @@
 
 			<button type="button" class="btn" data-toggle="tooltip" title="Cambiar contraseña" data-placement="bottom" id="show-change-password">{{ Helper::icon('key') }}</button>
 			<button type="button" class="btn" data-toggle="tooltip" title="Cambiar correo electrónico" data-placement="bottom" id="show-change-email">{{ Helper::icon('envelope-alt') }}</button>
-			<button type="button" class="btn" data-toggle="tooltip" title="Modificar perfil" data-placement="bottom">{{ Helper::icon('user') }}</button>
+			<button type="button" class="btn" data-toggle="tooltip" title="Modificar perfil" data-placement="bottom" id="show-change-info">{{ Helper::icon('user') }}</button>
 
 		</div>
 
@@ -164,6 +164,87 @@
 
 </div>
 <!-- end change email -->
+
+<!-- change user information -->
+<div class="modal hide fade" id="modal-change-info">
+
+	<div class="modal-header">
+
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+		<h4>Actualizar información de usuario</h4>
+
+	</div>
+
+	<div class="modal-body">
+
+		{{ Form::open('profile/update/user', 'PUT', array('class' => 'form-horizontal', 'id' => 'form-change-info')) }}
+
+			<div class="alert hide" id="alert-change-info"></div>
+
+			<div class="control-group">
+
+				<label class="control-label" for="password-change-info">Contraseña</label>
+
+				<div class="controls">
+
+					<input type="password" name="password" id="password-change-info" />
+					<span class="help-block"><small class="muted">Si no recuerda su contraseña, {{ HTML::link('password/forget', 'recupérela') }}</small></span>
+
+				</div>
+
+			</div>
+
+			<div class="control-group">
+
+				<label class="control-label" for="new-username">Usuario</label>
+
+				<div class="controls">
+
+					<input type="text" name="username" id="new-username" value="{{ Session::get('username') }}" />
+					<span class="help-block"><small class="muted">Con este nombre de usuario iniciará sesión</span></small>
+
+				</div>
+
+			</div>
+
+			<div class="control-group">
+
+				<label class="control-label" for="new-firstname">Nombre</label>
+
+				<div class="controls">
+
+					<input type="text" name="firstname" id="new-firstname" value="{{ Session::get('firstname') }}" />
+
+				</div>
+
+			</div>
+
+			<div class="control-group">
+
+				<label class="control-label" for="new-lastname">Apellido</label>
+
+				<div class="controls">
+
+					<input type="text" name="lastname" id="new-lastname" value="{{ Session::get('lastname') }}" />
+					<span class="help-block"><small class="muted">Su nombre y apellido aparecerá en los emails y en los listados</span></small>
+
+				</div>
+
+			</div>
+
+		{{ Form::close() }}
+
+	</div>
+
+	<div class="modal-footer">
+
+		<a href="#" class="btn btn-primary" id="send-change-info">{{ Helper::icon('ok-sign') }} Actualizar información</a>
+
+	</div>
+
+</div>
+<!-- end change user information -->
 <!-- end modals -->
 
 @endsection
@@ -228,6 +309,30 @@ $('#send-change-email').on('click', function() {
 			if (data.type == 'success') {
 				$('#form-change-email').find('input').val('');
 			}
+		},
+		dataType: 'json'
+	});
+});
+
+// change user information
+$('#show-change-info').on('click', function() {
+	$('#modal-change-info').modal('show');
+});
+
+$('#send-change-info').on('click', function() {
+	$('#alert-change-info').removeClass().addClass('alert hide');
+
+	$.ajax({
+		type: 'POST',
+		url: base + '/profile/update/user',
+		data: {
+			password:	$('#password-change-info').val(),
+			username:	$('#new-username').val(),
+			firstname:	$('#new-firstname').val(),
+			lastname:	$('#new-lastname').val(),
+		},
+		success: function(data) {
+			$('#alert-change-info').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 		},
 		dataType: 'json'
 	});

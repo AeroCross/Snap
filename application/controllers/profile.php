@@ -21,8 +21,7 @@ class Profile_Controller extends Base_Controller {
 		$user		= User::find(Session::get('id'));
 		$company	= $user->company()->first();
 		$company = Company::find($company->company_id);
-		$user		= $user->first();
-
+		
 		return View::make('profile.index')
 			->with('title', 'Perfil de Usuario')
 			->with('user', $user)
@@ -65,7 +64,7 @@ class Profile_Controller extends Base_Controller {
 			return Response::json(Notification::get('form_passwords_must_match'));
 		}
 
-		$user = User::find(Session::get('id'))->first();
+		$user = User::find(Session::get('id'));
 		
 		// password does not match
 		if (!Hash::check($old, $user->password)) {
@@ -130,12 +129,13 @@ class Profile_Controller extends Base_Controller {
 
 		// check if past password isn't good
 		// @TODO: DRY up
-		$user = User::find(Session::get('id'))->first();
+		$user = User::find(Session::get('id'));
 		if (!Hash::check($password, $user->password)) {
 			return Response::json(Notification::get('form_password_invalid'));
 		}
 
 		// email exists
+		// @TODO: this can be methodized
 		$email = User::where_email($new)->first();
 
 		if (!empty($email)) {
@@ -148,5 +148,79 @@ class Profile_Controller extends Base_Controller {
 		$user->save();
 
 		return Response::json(Notification::get('profile_email_updated'));
+	}
+
+	/**
+	* Changes the user information of an user
+	*
+	* @return	json
+	* @access	public
+	*/
+	public function post_update_user() {
+		$all			= Input::all();
+		$password	= Input::get('password');
+		$firstname	= Input::get('firstname');
+		$lastname	= Input::get('lastname');
+		$username	= Input::get('username');
+
+		// all fields required
+		$rules = array(
+			'password' => 'required',
+			'firstname' => 'required',
+			'lastname' => 'required',
+			'username' => 'required',
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('form_required'));
+		}
+
+		// only alpha characters on names
+		$rules = array(
+			'firstname' => 'alpha',
+			'lastname'	=> 'alpha'
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('profile_names_alpha_only'));
+		}
+
+		// username must be alphanumeric with dashes
+		$rules = array(
+			'username' => 'alpha_dash',
+		);
+
+		$validation = Validator::make($all, $rules);
+
+		if ($validation->fails()) {
+			return Response::json(Notification::get('profile_user_invalid'));
+		}
+
+		// password mismatch
+		$user = User::find(Session::get('id'));
+		if (!Hash::check($password, $user->password)) {
+			return Response::json(Notification::get('form_password_invalid'));
+		}
+
+		// user exists
+		// @TODO: this can be methodized
+		$user = User::where_username($username)->first();
+
+		if (!empty($user)) {
+			return Response::json(Notification::get('form_user_exists'));
+		}
+
+		// all good, update
+		$user = User::find(Session::get('id'));
+		$user->username	= $username;
+		$user->firstname	= $firstname;
+		$user->lastname	= $lastname;
+		$user->save();
+
+		return Response::json(Notification::get('profile_updated'));
 	}
 }

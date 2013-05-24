@@ -40,13 +40,14 @@ Route::get('logout',	'auth@logout');
 // locked areas
 Route::group(array('before' => 'auth'), function() {
 	Route::controller('dashboard');
+	Route::post('dashboard/hide/alerts', 'dashboard@hide_alerts');
 	
 	// tickets
 	Route::get('ticket/(:num)',			'ticket@view');	
-	Route::get('ticket/add',			'ticket@add');
-	Route::get('ticket/all',			'ticket@all');
-	Route::get('tickets',				'ticket@all');
-	Route::post('ticket/add',			'ticket@add');
+	Route::get('ticket/add',				'ticket@add');
+	Route::get('ticket/all',				'ticket@all');
+	Route::get('tickets',					'ticket@all');
+	Route::post('ticket/add',				'ticket@add');
 	Route::post('ticket/update/(:num)',	'ticket@update');
 	Route::put('ticket/search',			'ticket@search');
 	Route::put('ticket/status/(:num)',	'ticket@status');
@@ -67,6 +68,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('profile', 'profile@index');
 	Route::post('profile/update/password', 'profile@update_password');
 	Route::post('profile/update/email', 'profile@update_email');
+	Route::post('profile/update/user', 'profile@update_user');
 
 	// admin
 	if (!Request::cli()) {

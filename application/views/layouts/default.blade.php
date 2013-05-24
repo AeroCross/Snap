@@ -46,37 +46,42 @@
 
 							</li>
 
-							<li class="dropdown">
+							{{-- only support and admins can see the administration menu--}}
+							@if (Session::get('role') != 3)
 
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración <b class="caret"></b></a>
+								<li class="dropdown">
 
-								<ul class="dropdown-menu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración <b class="caret"></b></a>
 
-									<li class="nav-header">Consultas</li>
+									<ul class="dropdown-menu">
 
-									<li>{{ HTML::link('tickets', 'Todas las Consultas') }}</li>
+										<li class="nav-header">Consultas</li>
 
-										{{-- admins only --}}
-										@if (Session::get('role') == 1)
+										<li>{{ HTML::link('tickets', 'Todas las Consultas') }}</li>
 
-											<li class="divider"></li>
-											<li class="nav-header">Sistema</li>
+											{{-- admins only --}}
+											@if (Session::get('role') == 1)
 
-											<li>{{ HTML::link('admin/users', 'Usuarios') }}</li>
-											<li>{{ HTML::link('admin/roles', 'Roles') }}</li>
-											<li>{{ HTML::link('admin/departments', 'Departamentos') }}</li>
-											<li>{{ HTML::link('admin/companies', 'Compañías'); }}</li>
+												<li class="divider"></li>
+												<li class="nav-header">Sistema</li>
 
-											<li class="divider"></li>
-											<li class="nav-header">Configuración</li>
+												<li>{{ HTML::link('admin/users', 'Usuarios') }}</li>
+												<li>{{ HTML::link('admin/roles', 'Roles') }}</li>
+												<li>{{ HTML::link('admin/departments', 'Departamentos') }}</li>
+												<li>{{ HTML::link('admin/companies', 'Compañías'); }}</li>
 
-											<li>{{ HTML::link('settings', 'Opciones Generales') }}</li>
+												<li class="divider"></li>
+												<li class="nav-header">Configuración</li>
 
-										@endif
-									
-								</ul>
+												<li>{{ HTML::link('settings', 'Opciones Generales') }}</li>
 
-							</li>
+											@endif
+										
+									</ul>
+
+								</li>
+
+							@endif
 
 							<li class="divider-vertical"></li>
 

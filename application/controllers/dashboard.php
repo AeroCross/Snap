@@ -11,41 +11,35 @@ class Dashboard_Controller extends Base_Controller {
 
 	public $restful	= true;
 
+	/**
+	* Shows the dashboard
+	*
+	* @return	View
+	* @access	public
+	*/
 	public function get_index() {
-		// add required assets
-		Asset::add('charts', 'js/charts/highcharts.js');
-		Asset::add('charts-more','js/charts/highcharts-more.js');
+		if (Session::get('role') != 3) {
+			return $this->loadAdminDashboard();
+		} else {
+			return $this->loadUserDashboard();
+		}
+	}
 
-		// prevent errors creating default objects
-		$assigned	= new StdClass;
-		$latest		= new StdClass;
-		$total		= new StdClass;
+	/**
+	* Sets a cookie so the alerts won't show up again
+	*
+	* @return	json
+	* @access	public
+	*/
+	public function post_hide_alerts() {
+		$hide = Input::get('hide');
 
-		// tickets
-		$assigned->tickets		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
-		$latest->tickets		= Ticket::take(13)->order_by('id', 'desc')->get();
+		if (!empty($hide)) {
+			$hash = md5(Setting::where_name('system_message')->first()->value);
+			Cookie::forever('hide-alert', $hash);
+		}
 
-		// stats
-		$assigned->open			= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
-		$assigned->total		= Ticket::where_assigned_to(Session::get('id'))->count();
-		$total->amount			= Ticket::count();
-		$total->open			= Ticket::where_status('open')->count();
-
-		$tickets	= $this->chartTotalTickets();
-		$week		= $this->chartWeeklyTickets();
-		
-
-		// what badge should we display in assigned?
-		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
-
-		return View::make('dashboard.index')
-		->with('assigned', $assigned)
-		->with('latest', $latest)
-		->with('total', $total)
-		->with('tickets', $tickets)
-		->with('week', $week)
-		->with('badge', $badge)
-		->with('title', 'Dashboard');
+		return Response::json(array('success' => true));
 	}
 
 	/**
@@ -127,5 +121,101 @@ class Dashboard_Controller extends Base_Controller {
 		$tickets->total = json_encode($json_tickets, JSON_NUMERIC_CHECK);
 
 		return $tickets;
+	}
+
+	/**
+	* Generates all the information for the admin dashboard
+	*
+	* @return	View
+	* @access	private
+	*/
+	private function loadAdminDashboard() {
+		// add required assets
+		Asset::add('charts', 'js/charts/highcharts.js');
+		Asset::add('charts-more','js/charts/highcharts-more.js');
+
+		// prevent errors creating default objects
+		$assigned	= new StdClass;
+		$latest		= new StdClass;
+		$total		= new StdClass;
+
+		// tickets
+		$assigned->tickets	= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
+		$latest->tickets		= Ticket::take(13)->order_by('id', 'desc')->get();
+
+		// stats
+		$assigned->open		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
+		$assigned->total		= Ticket::where_assigned_to(Session::get('id'))->count();
+		$total->amount			= Ticket::count();
+		$total->open			= Ticket::where_status('open')->count();
+
+		$tickets	= $this->chartTotalTickets();
+		$week		= $this->chartWeeklyTickets();
+
+		// system messages
+		// this will have a md5 hash of the message or null
+		$show		= true;
+		$alert	= Cookie::get('hide-alert');
+
+		// if there's data, check if the data is the same as the message
+		$hash					= $alert;
+		$alert				= new StdClass;
+		$alert->message	= Setting::where_name('system_message')->first()->value;
+		$alert->title		= Setting::where_name('system_message_title')->first()->value;
+
+		// the cookie matches the hash of the current message? hide the alert
+		if (md5($alert->message) != $hash) {
+			$show = true;
+		} else {
+			$show = false;
+		}
+		
+		// what badge should we display in assigned?
+		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
+
+		// load markdown
+		Load::library('markdown/markdown');
+
+		return View::make('dashboard.index')
+				->with('assigned', $assigned)
+				->with('latest', $latest)
+				->with('total', $total)
+				->with('tickets', $tickets)
+				->with('week', $week)
+				->with('badge', $badge)
+				->with('alert', $alert)
+				->with('show', $show)
+				->with('title', 'Dashboard');
+	}
+
+	/**
+	* Generates all the information for the user dashboard
+	*
+	* @return	View
+	* @access	private
+	*/
+	private function loadUserDashboard() {
+		$tickets			= DB::table('tickets')->where_reported_by(Session::get('id'))->order_by('id', 'desc')->paginate(25);
+		$users			= User::all();
+		$departments	= Department::all();
+
+		// departments and users
+		$d = array();
+		$u = array();
+
+		foreach ($departments as $department) {
+			$d[$department->id] = $department->name;
+		}
+
+		foreach ($users as $user) {
+			$u[$user->id]['name']	= $user->firstname . ' ' . $user->lastname;
+			$u[$user->id]['email']	= $user->email;
+		}
+		
+		return View::make('dashboard.user')
+				->with('title', 'Dashboard')
+				->with('tickets', $tickets)
+				->with('users', $u)
+				->with('departments', $d);
 	}
 }

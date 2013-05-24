@@ -160,7 +160,8 @@
 
 			<div class="modal-footer">
 
-				<a href="#" class="btn">Close</a>
+				<a href="#" class="btn">{{ Helper::icon('ok') }} Cerrar</a>
+				<a href="#" class="btn">{{ Helper::icon('remove') }} Cerrar y no mostrar de nuevo</a>
 			
 			</div>
 

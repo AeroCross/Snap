@@ -1,16 +1,4 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Constants definitions
-|--------------------------------------------------------------------------
-|
-| Laravel has no built-in method of storing and retrieving constants, so
-| we're going to define them here at application-level.
-|
-*/
-
-// application version
-define('APP_VERSION', '0.6.1');
 
 /*
 |--------------------------------------------------------------------------
@@ -110,34 +98,6 @@ Autoloader::namespaces(array(
 
 /*
 |--------------------------------------------------------------------------
-| IoC Container Registration
-|--------------------------------------------------------------------------
-|
-| Using Inversion of Control and Singleton Patterns, the Objects provided
-| by classes can be resolved back to the controller, preventing repetitive
-| configuration.
-|
-*/
-
-use Gaufrette\Filesystem;
-use Gaufrette\Adapter\Local as LocalAdapter;
-
-IoC::register('gaufrette', function($path, $create = false) {
-	$adapter		= new LocalAdapter($path, $create);
-	$filesystem 	= new Filesystem($adapter);
-
-	return $filesystem;
-});
-
-IoC::register('upload', function($name, $path, $overwrite = false) {
-	$storage	= new \Upload\Storage\FileSystem($path, $overwrite);
-	$file		= new \Upload\File($name, $storage);
-
-	return $file;
-});
-
-/*
-|--------------------------------------------------------------------------
 | Laravel View Loader
 |--------------------------------------------------------------------------
 |
@@ -229,3 +189,43 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 {
 	Session::load();
 }
+
+/*
+|--------------------------------------------------------------------------
+| Constants definitions
+|--------------------------------------------------------------------------
+|
+| Laravel has no built-in method of storing and retrieving constants, so
+| we're going to define them here at application-level.
+|
+*/
+
+define('APP_VERSION', '0.6.1');
+
+/*
+|--------------------------------------------------------------------------
+| IoC Container Registration
+|--------------------------------------------------------------------------
+|
+| Using Inversion of Control and Singleton Patterns, the Objects provided
+| by classes can be resolved back to the controller, preventing repetitive
+| configuration.
+|
+*/
+
+use Gaufrette\Filesystem;
+use Gaufrette\Adapter\Local as LocalAdapter;
+
+IoC::register('gaufrette', function($path, $create = false) {
+	$adapter			= new LocalAdapter($path, $create);
+	$filesystem		= new Filesystem($adapter);
+
+	return $filesystem;
+});
+
+IoC::register('upload', function($name, $path, $overwrite = false) {
+	$storage	= new \Upload\Storage\FileSystem($path, $overwrite);
+	$file		= new \Upload\File($name, $storage);
+
+	return $file;
+});

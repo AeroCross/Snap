@@ -39,13 +39,15 @@ class Settings_Controller extends Base_Controller {
 	*/
 	public function put_index() {
 		$settings = array(
-			'per_page'		=> Input::get('per_page'),
-			'smtp_host'		=> Input::get('smtp_host'),
-			'smtp_port'		=> Input::get('smtp_port'),
-			'smtp_user'		=> Input::get('smtp_user'),
-			'smtp_pass'		=> Input::get('smtp_pass'),
-			'smtp_name'		=> Input::get('smtp_name'),
-			'smtp_crypto'	=> Input::get('smtp_crypto')
+			'per_page'					=> Input::get('per_page'),
+			'smtp_host'					=> Input::get('smtp_host'),
+			'smtp_port'					=> Input::get('smtp_port'),
+			'smtp_user'					=> Input::get('smtp_user'),
+			'smtp_pass'					=> Input::get('smtp_pass'),
+			'smtp_name'					=> Input::get('smtp_name'),
+			'smtp_crypto'				=> Input::get('smtp_crypto'),
+			'system_message_title'	=> Input::get('system_message_title'),
+			'system_message'			=> Input::get('system_message')
 		);
 
 		foreach ($settings as $setting => $value) {

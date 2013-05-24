@@ -135,8 +135,16 @@ class Dashboard_Controller extends Base_Controller {
 		$tickets	= $this->chartTotalTickets();
 		$week		= $this->chartWeeklyTickets();
 
+		// system messages
+		$alert				= new StdClass;
+		$alert->message	= Setting::where_name('system_message')->first()->value;
+		$alert->title		= Setting::where_name('system_message_title')->first()->value;
+		
 		// what badge should we display in assigned?
 		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
+
+		// load markdown
+		Load::library('markdown/markdown');
 
 		return View::make('dashboard.index')
 				->with('assigned', $assigned)
@@ -145,6 +153,7 @@ class Dashboard_Controller extends Base_Controller {
 				->with('tickets', $tickets)
 				->with('week', $week)
 				->with('badge', $badge)
+				->with('alert', $alert)
 				->with('title', 'Dashboard');
 	}
 

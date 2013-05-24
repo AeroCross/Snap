@@ -130,7 +130,45 @@
 
 	</div>
 	<!-- end graphs -->
-	
+
+	@if (!empty($alert->message))
+
+		<!-- system message modal -->
+		<div class="modal hide fade" id="system-message">
+
+			@if (!empty($alert->title))
+
+				<div class="modal-header">
+				
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			
+					<h3>{{ $alert->title}}</h3>
+
+				</div>
+
+			@else
+
+				<br />
+
+			@endif
+
+			<div class="modal-body">
+			
+				{{ Markdown($alert->message) }}
+			
+			</div>
+
+			<div class="modal-footer">
+
+				<a href="#" class="btn">Close</a>
+			
+			</div>
+
+		</div>
+		<!-- end system message modal -->
+
+	@endif
+
 </div>
 
 @endsection
@@ -139,6 +177,7 @@
 
 	<script>
 
+		// tickets in the last 7 days graph
 		jQuery(document).ready(function() {
 			$('#graph-week').highcharts({
 				chart: {
@@ -172,6 +211,7 @@
 			});
 		});
 
+		// total tickets by person graph
 		jQuery(document).ready(function() {
 			$('#graph-people').highcharts({
 				chart: {
@@ -205,5 +245,10 @@
 			});
 		});
 
+		jQuery(document).ready(function () {
+			$('#system-message').modal({show: true, backdrop: 'static'});
+		});
+
 	</script>
+
 @endsection

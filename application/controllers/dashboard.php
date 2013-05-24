@@ -26,6 +26,23 @@ class Dashboard_Controller extends Base_Controller {
 	}
 
 	/**
+	* Sets a cookie so the alerts won't show up again
+	*
+	* @return	json
+	* @access	public
+	*/
+	public function post_hide_alerts() {
+		$hide = Input::get('hide');
+
+		if (!empty($hide)) {
+			$hash = md5(Setting::where_name('system_message')->first()->value);
+			Cookie::forever('hide-alert', $hash);
+		}
+
+		return Response::json(array('success' => true));
+	}
+
+	/**
 	* Generates data for a "tickets in the last 7 days" graph
 	*
 	* @return	object	- days, tickets per day and total tickets in week in json format
@@ -136,9 +153,13 @@ class Dashboard_Controller extends Base_Controller {
 		$week		= $this->chartWeeklyTickets();
 
 		// system messages
-		$alert				= new StdClass;
-		$alert->message	= Setting::where_name('system_message')->first()->value;
-		$alert->title		= Setting::where_name('system_message_title')->first()->value;
+		$alert = Cookie::get('hide-alert');
+
+		if (empty($alert)) {
+			$alert				= new StdClass;
+			$alert->message	= Setting::where_name('system_message')->first()->value;
+			$alert->title		= Setting::where_name('system_message_title')->first()->value;
+		}
 		
 		// what badge should we display in assigned?
 		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;

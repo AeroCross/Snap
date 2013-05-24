@@ -160,8 +160,8 @@
 
 			<div class="modal-footer">
 
-				<a href="#" class="btn">{{ Helper::icon('remove') }} Cerrar y no mostrar de nuevo</a>
-				<a href="#" class="btn">{{ Helper::icon('ok') }} Cerrar</a>
+				<a href="#" class="btn" id="alert-close-forever">{{ Helper::icon('remove') }} Cerrar y no mostrar de nuevo</a>
+				<a href="#" class="btn" id="alert-close">{{ Helper::icon('ok') }} Cerrar</a>
 			
 			</div>
 
@@ -177,6 +177,8 @@
 @section('postscripts')
 
 	<script>
+
+		var base = '{{ URL::base() }}';
 
 		// tickets in the last 7 days graph
 		jQuery(document).ready(function() {
@@ -248,6 +250,25 @@
 
 		jQuery(document).ready(function () {
 			$('#system-message').modal({show: true, backdrop: 'static'});
+
+			$('#alert-close').on('click', function() {
+				$('#system-message').modal('hide');
+			});
+
+			// set cookie that prevent this of being loaded again
+			$('#alert-close-forever').on('click', function() {
+				$.ajax({
+					url: base + '/dashboard/hide/alerts',
+					type: 'POST',
+					data: {
+						hide: true
+					},
+					success: function() {
+						$('#system-message').modal('hide');
+					},
+					dataType: 'json'
+				});
+			});
 		});
 
 	</script>

@@ -10,13 +10,13 @@ class Add_System_Message {
 	public function up()
 	{
 		$settings = new Setting();
-		$settings->name	= 'system-message';
+		$settings->name	= 'system_message';
 		$settings->value	= null;
 
 		$settings->save();
 
 		$settings = new Setting();
-		$settings->name	= 'system-message-title';
+		$settings->name	= 'system_message_title';
 		$settings->value	= null;
 
 		$settings->save();
@@ -29,8 +29,8 @@ class Add_System_Message {
 	 */
 	public function down()
 	{
-		DB::table('settings')->where_name('system-message-title')->delete();
-		DB::table('settings')->where_name('system-message')->delete();
+		DB::table('settings')->where_name('system_message_title')->delete();
+		DB::table('settings')->where_name('system_message')->delete();
 	}
 
 }

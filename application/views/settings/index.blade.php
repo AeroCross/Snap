@@ -43,11 +43,11 @@
 	<!-- title -->
 	<div class="control-group">
 
-		<label for="system-message-title" class="control-label">Título</label>
+		<label for="system_message_title" class="control-label">Título</label>
 
 		<div class="controls">
 
-			<input type="text" name="system-message-title" id="system-message-title" />
+			<input type="text" name="system_message_title" id="system_message_title" value="{{ $setting->system_message_title }}" />
 			<span class="help-block"> Aunque este campo no es necesario para el mensaje del sistema, es recomendado</span>
 
 		</div>
@@ -65,7 +65,7 @@
 
 				<div id="wmd-button-bar"></div>
 
-				<textarea name="system-message" id="wmd-input" cols="10" rows="10" class="span6 wmd-input"></textarea><span class="help-block">Este mensaje le aparecerá a todos los usuarios al iniciar sesión</span>
+				<textarea name="system_message" id="wmd-input" cols="10" rows="10" class="span6 wmd-input">{{ $setting->system_message }}</textarea><span class="help-block">Este mensaje le aparecerá a todos los usuarios al iniciar sesión</span>
 
 			</div>
 

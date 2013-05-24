@@ -18,9 +18,9 @@ class Ticket_Controller extends Base_Controller {
 	*/
 	public function get_add() {
 		// load markdown editor
-		Asset::add('markdown-converter', 'js/markdown/Markdown.Converter.js', 'jquery');
-		Asset::add('markdown-sanitizer', 'js/markdown/Markdown.Sanitizer.js', array('jquery', 'markdown-converter'));
-		Asset::add('markdown-editor', 'js/markdown/Markdown.Editor.js', array('jquery', 'markdown-converter', 'markdown-sanitizer'));
+		Asset::add('markdown-converter',	'js/markdown/Markdown.Converter.js',	'jquery');
+		Asset::add('markdown-sanitizer',	'js/markdown/Markdown.Sanitizer.js',	array('jquery', 'markdown-converter'));
+		Asset::add('markdown-editor',		'js/markdown/Markdown.Editor.js',		array('jquery', 'markdown-converter', 'markdown-sanitizer'));
 		
 		// display the form
 		return View::make('ticket/add')->with('title', 'Nueva Consulta');
@@ -33,7 +33,7 @@ class Ticket_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function get_view($ticket) {
-		$ticket		= Ticket::find($ticket);
+		$ticket = Ticket::find($ticket);
 
 		// if normal user and not his ticket, redirect
 		if (Session::get('role') == 3 and $ticket->reported_by != Session::get('id')) {
@@ -43,18 +43,18 @@ class Ticket_Controller extends Base_Controller {
 		$messages	= $ticket->messages()->get();
 
 		// ticket details
-		$reporter			= User::find($ticket->reported_by);
-		$reporter->fullname = $reporter->firstname . ' ' . $reporter->lastname;
-		$department			= Department::find($ticket->department);
-		$assigned			= User::find($ticket->assigned_to);
+		$reporter				= User::find($ticket->reported_by);
+		$reporter->fullname	= $reporter->firstname . ' ' . $reporter->lastname;
+		$department				= Department::find($ticket->department);
+		$assigned				= User::find($ticket->assigned_to);
 
 		// markdown enabled view
 		Load::library('markdown/markdown');
 
 		// load markdown editor
-		Asset::add('markdown-converter', 'js/markdown/Markdown.Converter.js', 'jquery');
-		Asset::add('markdown-sanitizer', 'js/markdown/Markdown.Sanitizer.js', array('jquery', 'markdown-converter'));
-		Asset::add('markdown-editor', 'js/markdown/Markdown.Editor.js', array('jquery', 'markdown-converter', 'markdown-sanitizer'));
+		Asset::add('markdown-converter',	'js/markdown/Markdown.Converter.js',	'jquery');
+		Asset::add('markdown-sanitizer',	'js/markdown/Markdown.Sanitizer.js',	array('jquery', 'markdown-converter'));
+		Asset::add('markdown-editor',		'js/markdown/Markdown.Editor.js',		array('jquery', 'markdown-converter', 'markdown-sanitizer'));
 
 		// get files, if any
 		// @TODO: helper, method, something
@@ -82,7 +82,7 @@ class Ticket_Controller extends Base_Controller {
 					$fileinfo[$x] = array(
 						'user'	=> $fileinfo[$x][0],
 						'name'	=> $fileinfo[$x][1],
-						'ext'	=> File::extension($file),
+						'ext'		=> File::extension($file),
 						'info'	=> stat($path . $file),
 					);
 				}

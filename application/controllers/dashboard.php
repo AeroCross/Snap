@@ -26,6 +26,23 @@ class Dashboard_Controller extends Base_Controller {
 	}
 
 	/**
+	* Sets a cookie so the alerts won't show up again
+	*
+	* @return	json
+	* @access	public
+	*/
+	public function post_hide_alerts() {
+		$hide = Input::get('hide');
+
+		if (!empty($hide)) {
+			$hash = md5(Setting::where_name('system_message')->first()->value);
+			Cookie::forever('hide-alert', $hash);
+		}
+
+		return Response::json(array('success' => true));
+	}
+
+	/**
 	* Generates data for a "tickets in the last 7 days" graph
 	*
 	* @return	object	- days, tickets per day and total tickets in week in json format
@@ -135,8 +152,29 @@ class Dashboard_Controller extends Base_Controller {
 		$tickets	= $this->chartTotalTickets();
 		$week		= $this->chartWeeklyTickets();
 
+		// system messages
+		// this will have a md5 hash of the message or null
+		$show		= true;
+		$alert	= Cookie::get('hide-alert');
+
+		// if there's data, check if the data is the same as the message
+		$hash					= $alert;
+		$alert				= new StdClass;
+		$alert->message	= Setting::where_name('system_message')->first()->value;
+		$alert->title		= Setting::where_name('system_message_title')->first()->value;
+
+		// the cookie matches the hash of the current message? hide the alert
+		if (md5($alert->message) != $hash) {
+			$show = true;
+		} else {
+			$show = false;
+		}
+		
 		// what badge should we display in assigned?
 		if ($assigned->total == 0): $badge = 'success'; else: $badge = 'important'; endif;
+
+		// load markdown
+		Load::library('markdown/markdown');
 
 		return View::make('dashboard.index')
 				->with('assigned', $assigned)
@@ -145,6 +183,8 @@ class Dashboard_Controller extends Base_Controller {
 				->with('tickets', $tickets)
 				->with('week', $week)
 				->with('badge', $badge)
+				->with('alert', $alert)
+				->with('show', $show)
 				->with('title', 'Dashboard');
 	}
 

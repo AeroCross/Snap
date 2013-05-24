@@ -130,7 +130,46 @@
 
 	</div>
 	<!-- end graphs -->
-	
+
+	@if ($show == true)
+
+		<!-- system message modal -->
+		<div class="modal hide fade" id="system-message">
+
+			@if (!empty($alert->title))
+
+				<div class="modal-header">
+				
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			
+					<h3>{{ $alert->title}}</h3>
+
+				</div>
+
+			@else
+
+				<br />
+
+			@endif
+
+			<div class="modal-body">
+			
+				{{ Markdown($alert->message) }}
+			
+			</div>
+
+			<div class="modal-footer">
+
+				<a href="#" class="btn" id="alert-close-forever">{{ Helper::icon('remove') }} Cerrar y no mostrar de nuevo</a>
+				<a href="#" class="btn" id="alert-close">{{ Helper::icon('ok') }} Cerrar</a>
+			
+			</div>
+
+		</div>
+		<!-- end system message modal -->
+
+	@endif
+
 </div>
 
 @endsection
@@ -139,6 +178,9 @@
 
 	<script>
 
+		var base = '{{ URL::base() }}';
+
+		// tickets in the last 7 days graph
 		jQuery(document).ready(function() {
 			$('#graph-week').highcharts({
 				chart: {
@@ -172,6 +214,7 @@
 			});
 		});
 
+		// total tickets by person graph
 		jQuery(document).ready(function() {
 			$('#graph-people').highcharts({
 				chart: {
@@ -205,5 +248,29 @@
 			});
 		});
 
+		jQuery(document).ready(function () {
+			$('#system-message').modal({show: true, backdrop: 'static'});
+
+			$('#alert-close').on('click', function() {
+				$('#system-message').modal('hide');
+			});
+
+			// set cookie that prevent this of being loaded again
+			$('#alert-close-forever').on('click', function() {
+				$.ajax({
+					url: base + '/dashboard/hide/alerts',
+					type: 'POST',
+					data: {
+						hide: true
+					},
+					success: function() {
+						$('#system-message').modal('hide');
+					},
+					dataType: 'json'
+				});
+			});
+		});
+
 	</script>
+
 @endsection

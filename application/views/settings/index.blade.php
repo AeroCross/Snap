@@ -13,7 +13,8 @@
 
 <!-- settings form -->
 {{ Form::open('settings', 'PUT', array('class' => 'form-horizontal')) }}
-
+	
+	<!-- per page -->
 	<div class="control-group">
 
 		<label for="per_page" class="control-label">Resultados por Página</label>
@@ -26,6 +27,56 @@
 		</div>
 
 	</div>
+	<!-- end per page -->
+
+	<!-- hax -->
+	<br />
+	<!-- end hax -->
+
+	<!-- system message -->
+	<div class="page-header">
+
+		<h4>Mensaje del Sistema</h4>
+
+	</div>
+
+	<!-- title -->
+	<div class="control-group">
+
+		<label for="system_message_title" class="control-label">Título</label>
+
+		<div class="controls">
+
+			<input type="text" name="system_message_title" id="system_message_title" value="{{ $setting->system_message_title }}" />
+			<span class="help-block"> Aunque este campo no es necesario para el mensaje del sistema, es recomendado</span>
+
+		</div>
+
+	</div>
+	<!-- end title -->
+
+	<!-- content -->
+	<div class="wmd-panel">
+
+		<div class="control-group">
+
+			<!-- no label in here -->
+			<div class="controls">
+
+				<div id="wmd-button-bar"></div>
+
+				<textarea name="system_message" id="wmd-input" cols="10" rows="10" class="span6 wmd-input">{{ $setting->system_message }}</textarea><span class="help-block">Este mensaje le aparecerá a todos los usuarios al iniciar sesión</span>
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- end system message -->
+
+	<!-- hax -->
+	<br />
+	<!-- end hax -->
 
 	<!-- email settings -->
 	<div class="page-header">

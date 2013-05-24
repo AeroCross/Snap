@@ -27,6 +27,8 @@ class Settings_Controller extends Base_Controller {
 		// cast the array as an object, for ease of access
 		$data = (object) $data;
 
+		Load::markdown();
+		
 		return View::make('settings.index')->with('setting', $data)->with('title', 'Configuración');
 	}
 

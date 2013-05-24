@@ -26,17 +26,6 @@ Swift::registerAutoload();
 // load the init script to set up dependency injection
 require dirname(__FILE__) . '/library/swift_init.php';
 
-// get smtp settings
-$settings	= Setting::all();
-$data			= array();
-
-foreach ($settings as $setting) {
-	$data[$setting->name] = $setting->value;
-}
-
-// into an object
-$settings = json_decode(json_encode($data));
-
 // Register a mailer in the IoC container
 Laravel\IoC::singleton('mailer', function()
 {
@@ -48,7 +37,18 @@ Laravel\IoC::singleton('mailer', function()
 // Register a transporter in the IoC container
 Laravel\IoC::register('mailer.transport', function()
 {
+	// get smtp settings
+	$settings	= Setting::all();
+	$data			= array();
+
+	foreach ($settings as $setting) {
+		$data[$setting->name] = $setting->value;
+	}
+
+	// into an object
+	$settings = json_decode(json_encode($data));
+
 	return Swift_SmtpTransport::newInstance($settings->smtp_host, $settings->smtp_port)
 		->setUsername($settings->smtp_user)
-		->setPassword($settings->smtp_password);
+		->setPassword($settings->smtp_pass);
 });

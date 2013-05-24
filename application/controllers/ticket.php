@@ -381,12 +381,12 @@ class Ticket_Controller extends Base_Controller {
 		
 		// try to upload the file
 		$path	= path('base') . 'files/tickets/' . $ticket->id . '/' . Session::get('id') . '/';
-		$fs		= IoC::resolve('gaufrette', array($path, true));
+		$fs	= IoC::resolve('gaufrette', array($path, true));
 		// ensure directory exists
 		$fs->keys();
 
-		$upload = IoC::resolve('upload', array('file', $path , true));
-		$file = Input::file('file');
+		$upload	= IoC::resolve('upload', array('file', $path , true));
+		$file		= Input::file('file');
 
 		// there's a file uploaded
 		if ($file['error'] != '4') {
@@ -424,7 +424,7 @@ class Ticket_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function put_search() {
-		$type	= Input::get('type');
+		$type		= Input::get('type');
 		$value	= Input::get('value');
 
 		// check if the value is mixed (for both type and value)
@@ -440,7 +440,7 @@ class Ticket_Controller extends Base_Controller {
 			return Redirect::to('tickets');
 		}
 
-		$tickets	= DB::table('tickets')->where($type, '=', $value)->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
+		$tickets		= DB::table('tickets')->where($type, '=', $value)->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
 		$users		= User::all();
 
 		return View::make('ticket.all')

@@ -17,13 +17,10 @@ class Ticket_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function get_add() {
-		// load markdown editor
-		Asset::add('markdown-converter',	'js/markdown/Markdown.Converter.js',	'jquery');
-		Asset::add('markdown-sanitizer',	'js/markdown/Markdown.Sanitizer.js',	array('jquery', 'markdown-converter'));
-		Asset::add('markdown-editor',		'js/markdown/Markdown.Editor.js',		array('jquery', 'markdown-converter', 'markdown-sanitizer'));
-		
-		// display the form
-		return View::make('ticket/add')->with('title', 'Nueva Consulta');
+		Load::markdown();
+
+		return View::make('ticket/add')
+			->with('title', 'Nueva Consulta');
 	}
 
 	/**
@@ -49,12 +46,7 @@ class Ticket_Controller extends Base_Controller {
 		$assigned				= User::find($ticket->assigned_to);
 
 		// markdown enabled view
-		Load::library('markdown/markdown');
-
-		// load markdown editor
-		Asset::add('markdown-converter',	'js/markdown/Markdown.Converter.js',	'jquery');
-		Asset::add('markdown-sanitizer',	'js/markdown/Markdown.Sanitizer.js',	array('jquery', 'markdown-converter'));
-		Asset::add('markdown-editor',		'js/markdown/Markdown.Editor.js',		array('jquery', 'markdown-converter', 'markdown-sanitizer'));
+		Load::markdown();
 
 		// get files, if any
 		// @TODO: helper, method, something
@@ -417,9 +409,9 @@ class Ticket_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function put_status($ticket) {
-		$redirect		= Redirect::to('ticket/' . $ticket);
-		$ticket			= Ticket::find($ticket);
-		$ticket->status = Input::get('status');
+		$redirect			= Redirect::to('ticket/' . $ticket);
+		$ticket				= Ticket::find($ticket);
+		$ticket->status	= Input::get('status');
 		$ticket->save();
 
 		return $redirect->with('notification', 'ticket_status_changed');

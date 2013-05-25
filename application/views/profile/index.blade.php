@@ -91,7 +91,7 @@
 
 	<div class="modal-footer">
 
-		<button class="btn btn-primary" id="send-change-password">{{ Helper::icon('ok-sign') }} Cambiar contraseña</button>
+		<button class="btn btn-primary" id="send-change-password" data-loading-text="Procesando...">{{ Helper::icon('ok-sign') }} Cambiar contraseña</button>
 
 	</div>
 
@@ -158,7 +158,7 @@
 
 	<div class="modal-footer">
 
-		<button class="btn btn-primary" id="send-change-email">{{ Helper::icon('ok-sign') }} Cambiar correo electrónico</button>
+		<button class="btn btn-primary" id="send-change-email" data-loading-text="Procesando...">{{ Helper::icon('ok-sign') }} Cambiar correo electrónico</button>
 
 	</div>
 
@@ -239,7 +239,7 @@
 
 	<div class="modal-footer">
 
-		<button class="btn btn-primary" id="send-change-info">{{ Helper::icon('ok-sign') }} Actualizar información</button>
+		<button class="btn btn-primary" id="send-change-info" data-loading-text="Procesando...">{{ Helper::icon('ok-sign') }} Actualizar información</button>
 
 	</div>
 
@@ -266,9 +266,6 @@ $(document).keypress(function(e) {
 		
 		// no submits found
 		if (submitBtn.length === 0 && submitInput.length === 0) {
-			// just checking...
-			console.log(form.attr('id'));
-
 			switch (form.attr('id')) {
 				case 'form-change-password': ajaxChangePassword(); break;
 				case 'form-change-email': ajaxChangeEmail(); break;
@@ -281,7 +278,13 @@ $(document).keypress(function(e) {
 // change password
 // @TODO: DRY up and chache this baby
 function ajaxChangePassword() {
-	var alert = $('#alert-change-password');
+	var alert	= $('#alert-change-password');
+	var form	= $('#form-change-password');
+	var send	= $('#send-change-password');
+
+	// start process
+	send.button('loading');
+
 	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
@@ -292,11 +295,12 @@ function ajaxChangePassword() {
 			repeat: $('#repeat-password').val()	
 		},
 		success: function(data) {
+			send.button('reset');
 			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 
 			// clear the form data when everything's done
 			if (data.type == 'success') {
-				$('#form-change-password').find('input').val('');
+				form.find('input').val('');
 			}
 		},
 		dataType: 'json'
@@ -313,7 +317,12 @@ $('#send-change-password').on('click', function() {
 
 // change email
 function ajaxChangeEmail() {
-	var alert = $('#alert-change-email');
+	var alert	= $('#alert-change-email');
+	var form	= $('#form-change-email');
+	var send	= $('#send-change-email');
+
+	send.button('loading');
+
 	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
@@ -324,6 +333,7 @@ function ajaxChangeEmail() {
 			repeat: $('#repeat-email').val()	
 		},
 		success: function(data) {
+			send.button('reset');
 			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 
 			// clear the form data when everything's done
@@ -345,7 +355,12 @@ $('#send-change-email').on('click', function() {
 
 // change user information
 function ajaxChangeInfo() {
-	var alert = $('#alert-change-info');
+	var alert	= $('#alert-change-info');
+	var form	= $('#form-change-info');
+	var send	= $('#send-change-info');
+
+	send.button('loading');
+
 	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
@@ -357,6 +372,7 @@ function ajaxChangeInfo() {
 			lastname:	$('#new-lastname').val(),
 		},
 		success: function(data) {
+			send.button('reset');
 			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 		},
 		dataType: 'json'
@@ -368,7 +384,7 @@ $('#show-change-info').on('click', function() {
 });
 
 $('#send-change-info').on('click', function() {
-	ajaxUpdateUser();
+	ajaxChangeInfo();
 });
 
 </script>

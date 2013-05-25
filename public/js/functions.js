@@ -13,6 +13,9 @@ jQuery(document).ready(function() {
 	// start Select2 with an empty placeholder as a default
 	jQuery('select').select2({placeholder: ''});
 
+	// enable bootstrap button functionality to buttons
+	jQuery('button').button();
+
 	// markdown editor
 	if (typeof Markdown != 'undefined') {
 		var converter	= Markdown.getSanitizingConverter();

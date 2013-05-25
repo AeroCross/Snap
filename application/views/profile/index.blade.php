@@ -257,14 +257,30 @@
 // base url
 var base = '{{ URL::base() }}';
 
-// change password
-// @TODO: DRY up?
-// @TODO: Cache-up!
-$('#show-change-password').on('click', function() {
-	$('#modal-change-password').modal('show');
+// submit forms with enter
+$(document).keypress(function(e) {
+	if (e.which === 13) {
+		var form	=  $(document.activeElement).closest('form');
+		submitBtn	= form.find('button[type=submit]');
+		submitInput	= form.find('input[type=submit]');
+		
+		// no submits found
+		if (submitBtn.length === 0 && submitInput.length === 0) {
+			// just checking...
+			console.log(form.attr('id'));
+
+			switch (form.attr('id')) {
+				case 'form-change-password':	ajaxChangePassword();	break;
+				case 'form-change-email':		ajaxChangeEmail();		break;
+				case 'form-change-info':		ajaxChangeInfo();		break;
+			}
+		}
+	}
 });
 
-$('#send-change-password').on('click', function() {
+// change password
+// @TODO: DRY up and chache this baby
+function ajaxChangePassword() {
 	$('#alert-change-password').removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
@@ -284,16 +300,19 @@ $('#send-change-password').on('click', function() {
 		},
 		dataType: 'json'
 	});
+}
+
+$('#show-change-password').on('click', function() {
+	$('#modal-change-password').modal('show');
+});
+
+$('#send-change-password').on('click', function() {
+	ajaxChangePassword();
 });
 
 // change email
-$('#show-change-email').on('click', function() {
-	$('#modal-change-email').modal('show');
-});
-
-$('#send-change-email').on('click', function() {
+function ajaxChangeEmail() {
 	$('#alert-change-email').removeClass().addClass('alert hide');
-
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/email',
@@ -312,16 +331,19 @@ $('#send-change-email').on('click', function() {
 		},
 		dataType: 'json'
 	});
+}
+
+$('#show-change-email').on('click', function() {
+	$('#modal-change-email').modal('show');
 });
 
-// change user information
-$('#show-change-info').on('click', function() {
-	$('#modal-change-info').modal('show');
+$('#send-change-email').on('click', function() {
+	ajaxChangeEmail();
 });
 
-$('#send-change-info').on('click', function() {
+// update user information
+function ajaxChangeInfo() {
 	$('#alert-change-info').removeClass().addClass('alert hide');
-
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/user',
@@ -336,6 +358,14 @@ $('#send-change-info').on('click', function() {
 		},
 		dataType: 'json'
 	});
+}
+
+$('#show-change-info').on('click', function() {
+	$('#modal-change-info').modal('show');
+});
+
+$('#send-change-info').on('click', function() {
+	ajaxUpdateUser();
 });
 
 </script>

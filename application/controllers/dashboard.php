@@ -141,31 +141,35 @@ class Dashboard_Controller extends Base_Controller {
 
 		// tickets
 		$assigned->tickets	= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
-		$latest->tickets		= Ticket::take(13)->order_by('id', 'desc')->get();
+		$latest->tickets	= Ticket::take(13)->order_by('id', 'desc')->get();
 
 		// stats
 		$assigned->open		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
-		$assigned->total		= Ticket::where_assigned_to(Session::get('id'))->count();
-		$total->amount			= Ticket::count();
-		$total->open			= Ticket::where_status('open')->count();
+		$assigned->total	= Ticket::where_assigned_to(Session::get('id'))->count();
+		$total->amount		= Ticket::count();
+		$total->open		= Ticket::where_status('open')->count();
 
 		$tickets	= $this->chartTotalTickets();
 		$week		= $this->chartWeeklyTickets();
 
 		// system messages
 		// this will have a md5 hash of the message or null
-		$show		= true;
+		$show	= true;
 		$alert	= Cookie::get('hide-alert');
 
 		// if there's data, check if the data is the same as the message
-		$hash					= $alert;
+		$hash				= $alert;
 		$alert				= new StdClass;
-		$alert->message	= Setting::where_name('system_message')->first()->value;
+		$alert->message		= Setting::where_name('system_message')->first()->value;
 		$alert->title		= Setting::where_name('system_message_title')->first()->value;
-
-		// the cookie matches the hash of the current message? hide the alert
-		if (md5($alert->message) != $hash) {
-			$show = true;
+		
+		// there's a message? the message can't match the cookie for it to show
+		if ($alert->message) {
+			if (md5($alert->message) != $hash) {
+				$show = true;
+			} else {
+				$show = false;
+			}
 		} else {
 			$show = false;
 		}

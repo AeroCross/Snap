@@ -270,9 +270,9 @@ $(document).keypress(function(e) {
 			console.log(form.attr('id'));
 
 			switch (form.attr('id')) {
-				case 'form-change-password':	ajaxChangePassword();	break;
-				case 'form-change-email':		ajaxChangeEmail();		break;
-				case 'form-change-info':		ajaxChangeInfo();		break;
+				case 'form-change-password': ajaxChangePassword(); break;
+				case 'form-change-email': ajaxChangeEmail(); break;
+				case 'form-change-info': ajaxChangeInfo(); break;
 			}
 		}
 	}
@@ -281,7 +281,8 @@ $(document).keypress(function(e) {
 // change password
 // @TODO: DRY up and chache this baby
 function ajaxChangePassword() {
-	$('#alert-change-password').removeClass().addClass('alert hide');
+	var alert = $('#alert-change-password');
+	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/password',
@@ -291,7 +292,7 @@ function ajaxChangePassword() {
 			repeat: $('#repeat-password').val()	
 		},
 		success: function(data) {
-			$('#alert-change-password').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 
 			// clear the form data when everything's done
 			if (data.type == 'success') {
@@ -312,7 +313,8 @@ $('#send-change-password').on('click', function() {
 
 // change email
 function ajaxChangeEmail() {
-	$('#alert-change-email').removeClass().addClass('alert hide');
+	var alert = $('#alert-change-email');
+	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/email',
@@ -322,7 +324,7 @@ function ajaxChangeEmail() {
 			repeat: $('#repeat-email').val()	
 		},
 		success: function(data) {
-			$('#alert-change-email').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 
 			// clear the form data when everything's done
 			if (data.type == 'success') {
@@ -341,9 +343,10 @@ $('#send-change-email').on('click', function() {
 	ajaxChangeEmail();
 });
 
-// update user information
+// change user information
 function ajaxChangeInfo() {
-	$('#alert-change-info').removeClass().addClass('alert hide');
+	var alert = $('#alert-change-info');
+	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/user',
@@ -354,7 +357,7 @@ function ajaxChangeInfo() {
 			lastname:	$('#new-lastname').val(),
 		},
 		success: function(data) {
-			$('#alert-change-info').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 		},
 		dataType: 'json'
 	});

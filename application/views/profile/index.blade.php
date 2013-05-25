@@ -91,7 +91,7 @@
 
 	<div class="modal-footer">
 
-		<a href="#" class="btn btn-primary" id="send-change-password">{{ Helper::icon('ok-sign') }} Cambiar contraseña</a>
+		<button class="btn btn-primary" id="send-change-password">{{ Helper::icon('ok-sign') }} Cambiar contraseña</button>
 
 	</div>
 
@@ -158,7 +158,7 @@
 
 	<div class="modal-footer">
 
-		<a href="#" class="btn btn-primary" id="send-change-email">{{ Helper::icon('ok-sign') }} Cambiar correo electrónico</a>
+		<button class="btn btn-primary" id="send-change-email">{{ Helper::icon('ok-sign') }} Cambiar correo electrónico</button>
 
 	</div>
 
@@ -176,9 +176,9 @@
 
 	</div>
 
-	<div class="modal-body">
+	{{ Form::open('profile/update/user', 'PUT', array('class' => 'form-horizontal', 'id' => 'form-change-info')) }}
 
-		{{ Form::open('profile/update/user', 'PUT', array('class' => 'form-horizontal', 'id' => 'form-change-info')) }}
+		<div class="modal-body">
 
 			<div class="alert hide" id="alert-change-info"></div>
 
@@ -202,7 +202,7 @@
 				<div class="controls">
 
 					<input type="text" name="username" id="new-username" value="{{ Session::get('username') }}" />
-					<span class="help-block"><small class="muted">Con este nombre de usuario iniciará sesión</span></small>
+					<span class="help-block"><small class="muted">Con este nombre de usuario iniciará sesión</small></span>
 
 				</div>
 
@@ -227,19 +227,19 @@
 				<div class="controls">
 
 					<input type="text" name="lastname" id="new-lastname" value="{{ Session::get('lastname') }}" />
-					<span class="help-block"><small class="muted">Su nombre y apellido aparecerá en los emails y en los listados</span></small>
+					<span class="help-block"><small class="muted">Su nombre y apellido aparecerá en los emails y en los listados</small></span>
 
 				</div>
 
 			</div>
 
-		{{ Form::close() }}
+		</div>
 
-	</div>
+	{{ Form::close() }}
 
 	<div class="modal-footer">
 
-		<a href="#" class="btn btn-primary" id="send-change-info">{{ Helper::icon('ok-sign') }} Actualizar información</a>
+		<button class="btn btn-primary" id="send-change-info">{{ Helper::icon('ok-sign') }} Actualizar información</button>
 
 	</div>
 

@@ -23,14 +23,18 @@ class Ticket_Controller extends Base_Controller {
 			->with('title', 'Nueva Consulta');
 	}
 
-	public function get_mine($filter = null) {
-		$tickets	= DB::table('tickets')->where_reported_by(Session::get('id'))->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
-		$users		= User::all();
+	public function get_mine($search = null) {
+		$tickets = DB::table('tickets')->where_reported_by(Session::get('id'));
+		$this->searchTickets($search, $tickets);
+		$tickets = $tickets->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
+
+		$users = User::all();
 
 		return View::make('ticket/all')
 			->with('title', 'Mis consultas')
 			->with('tickets', $tickets)
-			->with('users', $users);
+			->with('users', $users)
+			->with('url', 'tickets/mine/');
 	}
 
 	/**
@@ -124,15 +128,17 @@ class Ticket_Controller extends Base_Controller {
 	*
 	* @access	public
 	*/
-	public function get_all() {
-		$tickets	= Ticket::order_by('id', 'desc')->get();
-		$tickets	= DB::table('tickets')->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
+	public function get_all($search = null) {
+		$tickets	= DB::table('tickets')->order_by('id', 'desc');
+		$this->searchTickets($search, $tickets);
+		$tickets	= $tickets->paginate(Setting::where_name('per_page')->first()->value);
 		$users		= User::all();
 
 		return View::make('ticket.all')
 			->with('tickets', $tickets)
 			->with('users', $users)
-			->with('title', 'Todas las consultas');
+			->with('title', 'Todas las consultas')
+			->with('url', 'tickets/');
 	}
 
 	/**
@@ -419,8 +425,8 @@ class Ticket_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function put_status($ticket) {
-		$redirect			= Redirect::to('ticket/' . $ticket);
-		$ticket				= Ticket::find($ticket);
+		$redirect		= Redirect::to('ticket/' . $ticket);
+		$ticket			= Ticket::find($ticket);
 		$ticket->status	= Input::get('status');
 		$ticket->save();
 
@@ -429,34 +435,39 @@ class Ticket_Controller extends Base_Controller {
 
 	/**
 	* Searches for specific tickets
-	* @param	string	- the type of search to perform
-	* @param	string	- the value of the search
+	*
+	* @return	Redirect
 	* @access	public
 	*/
 	public function put_search() {
-		$type		= Input::get('type');
 		$value	= Input::get('value');
+		$url	= Input::get('url');
 
-		// check if the value is mixed (for both type and value)
-		if (empty($type)) {
-			$parts = explode('|', $value, 2);
-			if (count($parts) === 2) {
-				$type	= $parts[0];
-				$value	= $parts[1];
+		if (is_numeric($value)) {
+			return Redirect::to($url . $value);
+		} else {
+			return Redirect::to($url);
+		}
+	}
+
+	/**
+	* Gets a search parameter and appends it to the query
+	*
+	* @param	mixed
+	* @param	Laravel\Database\Query
+	* @return	Laravel\Database\Query
+	* @access	public
+	*/
+	private function searchTickets($search, Laravel\Database\Query $tickets) {
+		if (!empty($search)) {
+
+			// search either by id or by status
+			if (is_numeric($search)) {
+				return $tickets->where_id($search);
+			} else {
+				return $tickets->where_status($search);
 			}
 		}
-
-		if (empty($type) or empty($value)) {
-			return Redirect::to('tickets');
-		}
-
-		$tickets		= DB::table('tickets')->where($type, '=', $value)->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
-		$users		= User::all();
-
-		return View::make('ticket.all')
-			->with('tickets', $tickets)
-			->with('users', $users)
-			->with('title', 'Búsqueda');
 	}
 
 }

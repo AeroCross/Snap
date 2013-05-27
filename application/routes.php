@@ -47,7 +47,9 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('ticket/add',			'ticket@add');
 	Route::get('ticket/all',			'ticket@all');
 	Route::get('tickets',				'ticket@all');
+	Route::get('tickets/(:any)',		'ticket@all');
 	Route::get('tickets/mine',			'ticket@mine');
+	Route::get('tickets/mine/(:any)',	'ticket@mine');
 	Route::post('ticket/add',			'ticket@add');
 	Route::post('ticket/update/(:num)',	'ticket@update');
 	Route::put('ticket/search',			'ticket@search');

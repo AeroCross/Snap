@@ -43,11 +43,12 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('dashboard/hide/alerts', 'dashboard@hide_alerts');
 	
 	// tickets
-	Route::get('ticket/(:num)',			'ticket@view');	
-	Route::get('ticket/add',				'ticket@add');
-	Route::get('ticket/all',				'ticket@all');
-	Route::get('tickets',					'ticket@all');
-	Route::post('ticket/add',				'ticket@add');
+	Route::get('ticket/(:num)',			'ticket@view');
+	Route::get('ticket/add',			'ticket@add');
+	Route::get('ticket/all',			'ticket@all');
+	Route::get('tickets',				'ticket@all');
+	Route::get('tickets/mine',			'ticket@mine');
+	Route::post('ticket/add',			'ticket@add');
 	Route::post('ticket/update/(:num)',	'ticket@update');
 	Route::put('ticket/search',			'ticket@search');
 	Route::put('ticket/status/(:num)',	'ticket@status');

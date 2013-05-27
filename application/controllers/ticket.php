@@ -23,6 +23,16 @@ class Ticket_Controller extends Base_Controller {
 			->with('title', 'Nueva Consulta');
 	}
 
+	public function get_mine($filter = null) {
+		$tickets	= DB::table('tickets')->where_reported_by(Session::get('id'))->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
+		$users		= User::all();
+
+		return View::make('ticket/all')
+			->with('title', 'Mis consultas')
+			->with('tickets', $tickets)
+			->with('users', $users);
+	}
+
 	/**
 	* Shows detailed information about a ticket
 	*
@@ -117,7 +127,7 @@ class Ticket_Controller extends Base_Controller {
 	public function get_all() {
 		$tickets	= Ticket::order_by('id', 'desc')->get();
 		$tickets	= DB::table('tickets')->order_by('id', 'desc')->paginate(Setting::where_name('per_page')->first()->value);
-		$users	= User::all();
+		$users		= User::all();
 
 		return View::make('ticket.all')
 			->with('tickets', $tickets)

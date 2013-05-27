@@ -140,12 +140,12 @@ class Dashboard_Controller extends Base_Controller {
 		$total		= new StdClass;
 
 		// tickets
-		$assigned->tickets	= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->take(13)->order_by('id', 'desc')->get();
+		$assigned->tickets	= Ticket::where_assigned_to(Session::get('id'))->where('status', '<>', 'closed')->take(13)->order_by('id', 'desc')->get();
 		$latest->tickets	= Ticket::take(13)->order_by('id', 'desc')->get();
 
 		// stats
 		$assigned->open		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
-		$assigned->total	= Ticket::where_assigned_to(Session::get('id'))->count();
+		$assigned->total	= count($assigned->tickets);
 		$total->amount		= Ticket::count();
 		$total->open		= Ticket::where_status('open')->count();
 
@@ -199,7 +199,7 @@ class Dashboard_Controller extends Base_Controller {
 	* @access	private
 	*/
 	private function loadUserDashboard() {
-		$tickets			= DB::table('tickets')->where_reported_by(Session::get('id'))->order_by('id', 'desc')->paginate(25);
+		$tickets		= DB::table('tickets')->where_reported_by(Session::get('id'))->order_by('id', 'desc')->paginate(25);
 		$users			= User::all();
 		$departments	= Department::all();
 

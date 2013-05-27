@@ -19,7 +19,7 @@
 			<ul class="nav nav-tabs">
 				
 				<li class="active"><a href="#latest" data-toggle="tab">Recientes</a></li>
-				<li><a href="#assigned" data-toggle="tab">Asignadas <span class="badge badge-{{ $badge }}">{{ $assigned->open }}</span></a></li>
+				<li><a href="#assigned" data-toggle="tab">Asignadas <span class="badge badge-{{ $badge }}">{{ $assigned->total }}</span></a></li>
 
 			</ul>
 			
@@ -33,7 +33,7 @@
 
 					<div class="alert alert-info">
 
-						<p>No hay consultas abiertas asignadas.</p>
+						<p>No existen consultas abiertas. ¿Desea {{ HTML::link('ticket/add', 'crear una nueva') }}?</p>
 
 					</div>
 
@@ -70,7 +70,7 @@
 					
 						<div class="alert alert-info">
 
-							No hay consultas abiertas asignadas.
+							No hay consultas asignadas por procesar
 
 						</div>
 
@@ -131,7 +131,7 @@
 	</div>
 	<!-- end graphs -->
 
-	@if ($show == true)
+	@if ($show == true and !empty($alert->message))
 
 		<!-- system message modal -->
 		<div class="modal hide fade" id="system-message">

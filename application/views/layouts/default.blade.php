@@ -39,7 +39,7 @@
 									<li class="nav-header">Propias</li>
 
 									<li>{{ HTML::link('ticket/add', 'Nueva consulta') }}</li>
-									<li><a href="#">Mis consultas</a></li>
+									<li>{{ HTML::link('tickets/mine', 'Mis consultas') }}</li>
 									<li><a href="#">Consultas asignadas</a></li>
 
 								</ul>

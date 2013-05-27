@@ -7,24 +7,22 @@
 	<!-- toolbar -->
 	<div class="btn-toolbar">
 
-		{{ Form::open('ticket/search', 'PUT', array('id' => 'form-status', 'class' => 'hidden')) }}
-		{{ Form::close() }}
-
 		{{-- for search form --}}
-		{{ Form::open('ticket/search', 'PUT', array('id' => 'form-id')) }}
+		{{ Form::open('ticket/search', 'PUT', array('id' => 'search-form')) }}
 
 			<div class="btn-group">
 
-				<button type="submit" class="btn" name="value" value="status|closed" form="form-status">{{ Helper::icon('ok') }} Cerradas</button>
-				<button type="submit" class="btn" name="value" value="status|open" form="form-status">{{ Helper::icon('exclamation') }} Abiertas</button>
-				<button type="submit" class="btn" name="value" value="status|hold" form="form-status">{{ Helper::icon('time') }} En espera</button>
-				<button type="submit" class="btn" name="value" value="status|in-progress" form="form-status">{{ Helper::icon('star-half-empty') }} En proceso</button>
-				<a href="{{ URL::to('tickets') }}" class="btn">{{ Helper::icon('list') }} Mostrar todas</a>
+				<a href="{{ URL::to($url . 'closed') }}" class="btn">{{ Helper::icon('ok') }} Cerradas</a>
+				<a href="{{ URL::to($url . 'open') }}" class="btn">{{ Helper::icon('exclamation') }} Abiertas</a>
+				<a href="{{ URL::to($url . 'hold') }}" class="btn">{{ Helper::icon('time') }} En espera</a>
+				<a href="{{ URL::to($url . 'in-progress') }}" class="btn">{{ Helper::icon('star-half-empty') }} En proceso</a>
+				<a href="{{ URL::to($url) }}" class="btn">{{ Helper::icon('list') }} Mostrar todas</a>
 
 			</div>
 
 			<div class="input-append pull-right">
 
+				<input type="hidden" name="url" value="{{ $url }}" />
 				<input type="text" name="value" value="" placeholder="Consulta #" />
 				<button type="submit" class="btn btn-primary" name="type" value="id">{{ Helper::icon('search') }}</button>
 
@@ -139,4 +137,16 @@
 
 </div>
 
+@endsection
+
+@section('postscripts')
+
+<script>
+
+var form = $('#search-form');
+var formAction = 'tickets/mine/';
+
+$()
+
+</script>
 @endsection

@@ -35,8 +35,8 @@ class Profile_Controller extends Base_Controller {
 	* @return	json
 	*/
 	public function post_update_password() {
-		$old		= Input::get('old');
-		$new		= Input::get('new');
+		$old	= Input::get('old');
+		$new	= Input::get('new');
 		$repeat	= Input::get('repeat');
 		$input	= Input::all();
 
@@ -87,9 +87,9 @@ class Profile_Controller extends Base_Controller {
 	*/
 	public function post_update_email() {
 		$password	= Input::get('password');
-		$new			= Input::get('new');
+		$new		= Input::get('new');
 		$repeat		= Input::get('repeat');
-		$all			= Input::all();
+		$all		= Input::all();
 
 		// all fields required
 		$rules = array(
@@ -157,7 +157,7 @@ class Profile_Controller extends Base_Controller {
 	* @access	public
 	*/
 	public function post_update_user() {
-		$all			= Input::all();
+		$all		= Input::all();
 		$password	= Input::get('password');
 		$firstname	= Input::get('firstname');
 		$lastname	= Input::get('lastname');

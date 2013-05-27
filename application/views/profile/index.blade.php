@@ -91,7 +91,7 @@
 
 	<div class="modal-footer">
 
-		<a href="#" class="btn btn-primary" id="send-change-password">{{ Helper::icon('ok-sign') }} Cambiar contraseña</a>
+		<button class="btn btn-primary" id="send-change-password" data-loading-text="Procesando...">{{ Helper::icon('ok-sign') }} Cambiar contraseña</button>
 
 	</div>
 
@@ -158,7 +158,7 @@
 
 	<div class="modal-footer">
 
-		<a href="#" class="btn btn-primary" id="send-change-email">{{ Helper::icon('ok-sign') }} Cambiar correo electrónico</a>
+		<button class="btn btn-primary" id="send-change-email" data-loading-text="Procesando...">{{ Helper::icon('ok-sign') }} Cambiar correo electrónico</button>
 
 	</div>
 
@@ -176,9 +176,9 @@
 
 	</div>
 
-	<div class="modal-body">
+	{{ Form::open('profile/update/user', 'PUT', array('class' => 'form-horizontal', 'id' => 'form-change-info')) }}
 
-		{{ Form::open('profile/update/user', 'PUT', array('class' => 'form-horizontal', 'id' => 'form-change-info')) }}
+		<div class="modal-body">
 
 			<div class="alert hide" id="alert-change-info"></div>
 
@@ -202,7 +202,7 @@
 				<div class="controls">
 
 					<input type="text" name="username" id="new-username" value="{{ Session::get('username') }}" />
-					<span class="help-block"><small class="muted">Con este nombre de usuario iniciará sesión</span></small>
+					<span class="help-block"><small class="muted">Con este nombre de usuario iniciará sesión</small></span>
 
 				</div>
 
@@ -227,19 +227,19 @@
 				<div class="controls">
 
 					<input type="text" name="lastname" id="new-lastname" value="{{ Session::get('lastname') }}" />
-					<span class="help-block"><small class="muted">Su nombre y apellido aparecerá en los emails y en los listados</span></small>
+					<span class="help-block"><small class="muted">Su nombre y apellido aparecerá en los emails y en los listados</small></span>
 
 				</div>
 
 			</div>
 
-		{{ Form::close() }}
+		</div>
 
-	</div>
+	{{ Form::close() }}
 
 	<div class="modal-footer">
 
-		<a href="#" class="btn btn-primary" id="send-change-info">{{ Helper::icon('ok-sign') }} Actualizar información</a>
+		<button class="btn btn-primary" id="send-change-info" data-loading-text="Procesando...">{{ Helper::icon('ok-sign') }} Actualizar información</button>
 
 	</div>
 
@@ -257,15 +257,35 @@
 // base url
 var base = '{{ URL::base() }}';
 
-// change password
-// @TODO: DRY up?
-// @TODO: Cache-up!
-$('#show-change-password').on('click', function() {
-	$('#modal-change-password').modal('show');
+// submit forms with enter
+$(document).keypress(function(e) {
+	if (e.which === 13) {
+		var form	=  $(document.activeElement).closest('form');
+		submitBtn	= form.find('button[type=submit]');
+		submitInput	= form.find('input[type=submit]');
+		
+		// no submits found
+		if (submitBtn.length === 0 && submitInput.length === 0) {
+			switch (form.attr('id')) {
+				case 'form-change-password': ajaxChangePassword(); break;
+				case 'form-change-email': ajaxChangeEmail(); break;
+				case 'form-change-info': ajaxChangeInfo(); break;
+			}
+		}
+	}
 });
 
-$('#send-change-password').on('click', function() {
-	$('#alert-change-password').removeClass().addClass('alert hide');
+// change password
+// @TODO: DRY up and chache this baby
+function ajaxChangePassword() {
+	var alert	= $('#alert-change-password');
+	var form	= $('#form-change-password');
+	var send	= $('#send-change-password');
+
+	// start process
+	send.button('loading');
+
+	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/password',
@@ -275,25 +295,35 @@ $('#send-change-password').on('click', function() {
 			repeat: $('#repeat-password').val()	
 		},
 		success: function(data) {
-			$('#alert-change-password').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+			send.button('reset');
+			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 
 			// clear the form data when everything's done
 			if (data.type == 'success') {
-				$('#form-change-password').find('input').val('');
+				form.find('input').val('');
 			}
 		},
 		dataType: 'json'
 	});
+}
+
+$('#show-change-password').on('click', function() {
+	$('#modal-change-password').modal('show');
+});
+
+$('#send-change-password').on('click', function() {
+	ajaxChangePassword();
 });
 
 // change email
-$('#show-change-email').on('click', function() {
-	$('#modal-change-email').modal('show');
-});
+function ajaxChangeEmail() {
+	var alert	= $('#alert-change-email');
+	var form	= $('#form-change-email');
+	var send	= $('#send-change-email');
 
-$('#send-change-email').on('click', function() {
-	$('#alert-change-email').removeClass().addClass('alert hide');
+	send.button('loading');
 
+	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/email',
@@ -303,7 +333,8 @@ $('#send-change-email').on('click', function() {
 			repeat: $('#repeat-email').val()	
 		},
 		success: function(data) {
-			$('#alert-change-email').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+			send.button('reset');
+			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 
 			// clear the form data when everything's done
 			if (data.type == 'success') {
@@ -312,16 +343,25 @@ $('#send-change-email').on('click', function() {
 		},
 		dataType: 'json'
 	});
+}
+
+$('#show-change-email').on('click', function() {
+	$('#modal-change-email').modal('show');
+});
+
+$('#send-change-email').on('click', function() {
+	ajaxChangeEmail();
 });
 
 // change user information
-$('#show-change-info').on('click', function() {
-	$('#modal-change-info').modal('show');
-});
+function ajaxChangeInfo() {
+	var alert	= $('#alert-change-info');
+	var form	= $('#form-change-info');
+	var send	= $('#send-change-info');
 
-$('#send-change-info').on('click', function() {
-	$('#alert-change-info').removeClass().addClass('alert hide');
+	send.button('loading');
 
+	alert.removeClass().addClass('alert hide');
 	$.ajax({
 		type: 'POST',
 		url: base + '/profile/update/user',
@@ -332,10 +372,19 @@ $('#send-change-info').on('click', function() {
 			lastname:	$('#new-lastname').val(),
 		},
 		success: function(data) {
-			$('#alert-change-info').html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
+			send.button('reset');
+			alert.html(data.message).addClass('alert-' + data.type).fadeIn(200).removeClass('hide');
 		},
 		dataType: 'json'
 	});
+}
+
+$('#show-change-info').on('click', function() {
+	$('#modal-change-info').modal('show');
+});
+
+$('#send-change-info').on('click', function() {
+	ajaxChangeInfo();
 });
 
 </script>

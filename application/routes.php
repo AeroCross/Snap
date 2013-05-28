@@ -43,17 +43,19 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('dashboard/hide/alerts', 'dashboard@hide_alerts');
 	
 	// tickets
-	Route::get('ticket/(:num)',			'ticket@view');
-	Route::get('ticket/add',			'ticket@add');
-	Route::get('ticket/all',			'ticket@all');
-	Route::get('tickets',				'ticket@all');
-	Route::get('tickets/(:any)',		'ticket@all');
-	Route::get('tickets/mine',			'ticket@mine');
-	Route::get('tickets/mine/(:any)',	'ticket@mine');
-	Route::post('ticket/add',			'ticket@add');
-	Route::post('ticket/update/(:num)',	'ticket@update');
-	Route::put('ticket/search',			'ticket@search');
-	Route::put('ticket/status/(:num)',	'ticket@status');
+	Route::get('ticket/(:num)',				'ticket@view');
+	Route::get('ticket/add',				'ticket@add');
+	Route::get('ticket/all',				'ticket@all');
+	Route::get('tickets',					'ticket@all');
+	Route::get('tickets/assigned',			'ticket@assigned');
+	Route::get('tickets/assigned/(:any)',	'ticket@assigned');
+	Route::get('tickets/(:any)',			'ticket@all');
+	Route::get('tickets/mine',				'ticket@mine');
+	Route::get('tickets/mine/(:any)',		'ticket@mine');
+	Route::post('ticket/add',				'ticket@add');
+	Route::post('ticket/update/(:num)',		'ticket@update');
+	Route::put('ticket/search',				'ticket@search');
+	Route::put('ticket/status/(:num)',		'ticket@status');
 
 	// alias
 	Route::get('ticket', function() {

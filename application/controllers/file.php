@@ -16,10 +16,14 @@ class File_Controller extends Base_Controller {
 		$ticket = $data[0];
 		$user	= $data[1];
 		$name	= $data[2];
+		$ext	= File::extension($name);
 		$file	= path('base') . 'files/tickets/' . $ticket . '/' . $user . '/' . $name;
 
+		// filename cannot have %
+		$name	= preg_replace('/\%/', '', $name);
+		
 		if (file_exists($file)) {
-			return Response::download($file, Str::slug($name));
+			return Response::download($file, $name);
 		}
 	}
 }

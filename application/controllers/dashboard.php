@@ -145,6 +145,7 @@ class Dashboard_Controller extends Base_Controller {
 
 		// stats
 		$assigned->open		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
+		$assigned->all		= Ticket::where_assigned_to(Session::get('id'))->count();
 		$assigned->total	= count($assigned->tickets);
 		$total->amount		= Ticket::count();
 		$total->open		= Ticket::where_status('open')->count();
@@ -199,27 +200,6 @@ class Dashboard_Controller extends Base_Controller {
 	* @access	private
 	*/
 	private function loadUserDashboard() {
-		$tickets		= DB::table('tickets')->where_reported_by(Session::get('id'))->order_by('id', 'desc')->paginate(25);
-		$users			= User::all();
-		$departments	= Department::all();
-
-		// departments and users
-		$d = array();
-		$u = array();
-
-		foreach ($departments as $department) {
-			$d[$department->id] = $department->name;
-		}
-
-		foreach ($users as $user) {
-			$u[$user->id]['name']	= $user->firstname . ' ' . $user->lastname;
-			$u[$user->id]['email']	= $user->email;
-		}
-		
-		return View::make('dashboard.user')
-				->with('title', 'Dashboard')
-				->with('tickets', $tickets)
-				->with('users', $u)
-				->with('departments', $d);
+		return Redirect::to('tickets/mine');
 	}
 }

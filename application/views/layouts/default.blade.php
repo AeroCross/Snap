@@ -40,7 +40,12 @@
 
 									<li>{{ HTML::link('ticket/add', 'Nueva consulta') }}</li>
 									<li>{{ HTML::link('tickets/mine', 'Mis consultas') }}</li>
-									<li><a href="#">Consultas asignadas</a></li>
+									
+									@if (Session::get('role') != 3)
+
+										<li>{{ HTML::link('tickets/assigned', 'Consultas asignadas') }}</li>
+
+									@endif
 
 								</ul>
 

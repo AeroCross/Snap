@@ -46,7 +46,7 @@ class Settings_Controller extends Base_Controller {
 			'smtp_pass'					=> Input::get('smtp_pass'),
 			'smtp_name'					=> Input::get('smtp_name'),
 			'smtp_crypto'				=> Input::get('smtp_crypto'),
-			'system_message_title'	=> Input::get('system_message_title'),
+			'system_message_title'		=> Input::get('system_message_title'),
 			'system_message'			=> Input::get('system_message')
 		);
 

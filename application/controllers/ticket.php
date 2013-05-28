@@ -23,6 +23,13 @@ class Ticket_Controller extends Base_Controller {
 			->with('title', 'Nueva Consulta');
 	}
 
+	/**
+	* Shows only logged-in user tickets
+	*
+	* @param	string	- the status or id filter
+	* @return	View
+	* @access	public
+	*/
 	public function get_mine($search = null) {
 		$tickets = DB::table('tickets')->where_reported_by(Session::get('id'));
 		$this->searchTickets($search, $tickets);
@@ -35,6 +42,27 @@ class Ticket_Controller extends Base_Controller {
 			->with('tickets', $tickets)
 			->with('users', $users)
 			->with('url', 'tickets/mine/');
+	}
+
+	/**
+	* Shows only tickets assigned to the logged-in user
+	*
+	* @param	string	- the status or id filter
+	* @return	View
+	* @access	public
+	*/
+	public function get_assigned($search = null) {
+		$tickets = DB::table('tickets')->where_assigned_to(Session::get('id'));
+		$this->searchTickets($search, $tickets);
+		$tickets = $tickets->paginate(Setting::where_name('per_page')->first()->value);
+
+		$users = User::all();
+
+		return View::make('ticket/all')
+			->with('title', 'Consultas asignadas')
+			->with('tickets', $tickets)
+			->with('users', $users)
+			->with('url', 'tickets/assigned/');
 	}
 
 	/**

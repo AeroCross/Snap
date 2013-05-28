@@ -47,11 +47,18 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('ticket/add',				'ticket@add');
 	Route::get('ticket/all',				'ticket@all');
 	Route::get('tickets',					'ticket@all');
-	Route::get('tickets/assigned',			'ticket@assigned');
-	Route::get('tickets/assigned/(:any)',	'ticket@assigned');
+	
+	// normal users can't see assigned tickets
+	if (Session::get('role') != 3) {
+		Route::get('tickets/assigned',			'ticket@assigned');
+		Route::get('tickets/assigned/(:any)',	'ticket@assigned');	
+	}
+	
 	Route::get('tickets/(:any)',			'ticket@all');
 	Route::get('tickets/mine',				'ticket@mine');
 	Route::get('tickets/mine/(:any)',		'ticket@mine');
+
+	// requests
 	Route::post('ticket/add',				'ticket@add');
 	Route::post('ticket/update/(:num)',		'ticket@update');
 	Route::put('ticket/search',				'ticket@search');

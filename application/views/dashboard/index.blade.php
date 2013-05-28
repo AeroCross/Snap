@@ -184,7 +184,7 @@
 		jQuery(document).ready(function() {
 			$('#graph-week').highcharts({
 				chart: {
-					type: 'area'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Consultas en los últimos 7 días',

@@ -200,7 +200,7 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 |
 */
 
-define('APP_VERSION', '0.7');
+define('APP_VERSION', '0.7.1');
 
 /*
 |--------------------------------------------------------------------------

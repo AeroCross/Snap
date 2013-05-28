@@ -95,7 +95,7 @@
 
 					@endif
 
-					<small class="pull-right"><strong>Consultas asignadas:</strong> {{ $assigned->total }} — <strong>Abiertas:</strong> {{ $assigned->open }}</small>
+					<small class="pull-right"><strong>Consultas asignadas:</strong> {{ $assigned->all }} — <strong>Abiertas:</strong> {{ $assigned->open }}</small>
 
 				</div>
 				<!-- end assigned -->

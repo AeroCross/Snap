@@ -145,6 +145,7 @@ class Dashboard_Controller extends Base_Controller {
 
 		// stats
 		$assigned->open		= Ticket::where_assigned_to(Session::get('id'))->where_status('open')->count();
+		$assigned->all		= Ticket::where_assigned_to(Session::get('id'))->count();
 		$assigned->total	= count($assigned->tickets);
 		$total->amount		= Ticket::count();
 		$total->open		= Ticket::where_status('open')->count();

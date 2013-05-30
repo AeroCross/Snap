@@ -9,6 +9,10 @@
 */
 class Helper {
 
+    // for safe base64
+    public static $unallowedChars      =  array('+', '/');
+    public static $replacementChars    =  array('_', '-');
+
     /**
     * Creates the markup for an icon
     *
@@ -160,5 +164,25 @@ class Helper {
         } else {
             return $types[$ext];
         }
+    }
+
+    /**
+    * Makes base64 strings url-safe
+    *
+    * @param    string  - base64 string
+    * @return   string  - the base64 string with replacements
+    */
+    public static function encode_safe_base64($string) {
+        return str_replace(self::$unallowedChars, self::$replacementChars, base64_encode($string));
+    }
+
+    /**
+    * Reverts an URL-safe string back to its original state
+    *
+    * @param    string  - safe base64 string
+    * @return   string  - the original base64 string
+    */
+    public static function decode_safe_base64($string) {
+        return base64_decode(str_replace(self::$replacementChars, self::$unallowedChars, $string));
     }
 }

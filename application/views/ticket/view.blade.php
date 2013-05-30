@@ -275,7 +275,7 @@
 
 									<td>
 
-										<strong>{{ HTML::link('file/download/' . base64_encode($ticket->id . '/' . $user . '/' . $name), $name) }}</strong><br />
+										<strong>{{ HTML::link('file/download/' . Helper::encode_safe_base64($ticket->id . '/' . $user . '/' . $name), $name) }}</strong><br />
 										<img src="{{ Helper::fileicon($file['ext']) }}" alt="" /> <small>{{ Helper::filetype($file['ext']) }}</small> <br/ >
 										<small>{{ $size }}</small>
 

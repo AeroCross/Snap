@@ -8,7 +8,7 @@
 
 		<div class="page-header">
 
-			<h4>Nuevo Usuario » <small class="highlight highlight-error">todos los campos son obligatorios</small></h4>
+			<h4>Nuevo Usuario</h4>
 
 		</div>
 

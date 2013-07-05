@@ -24,7 +24,29 @@ class Admin_Departments_Controller extends Base_Controller {
 		return View::make('admin.departments.index')
 			->with('title', 'Departamentos')
 			->with('departments', $departments)
-			->with('users', $users);
+			->with('users', $users)
+			->with('members', $members);
+	}
+
+	/**
+	* Adds a new department
+	*
+	* @access	public
+	*/
+	public function post_add() {
+		$department = Input::get('department');
+
+		if (empty($department)) {
+			return Redirect::to('admin/departments')
+				->with('notification', 'form_required');
+		}
+
+		$department = Department::create(array('name' => $department));
+
+		if ($department != false) {
+			return Redirect::to('admin/departments')
+				->with('notification', 'department_added');
+		}
 	}
 
 	/**

@@ -16,7 +16,7 @@
         {{ Notification::show() }}
         
 		<!-- new department -->
-		{{ Form::open('admin/departments/new', 'POST') }}
+		{{ Form::open('admin/departments/add', 'POST') }}
 
 			<div class="input-append">
 
@@ -31,7 +31,7 @@
 
 			@foreach($departments as $department)
 
-			<li><a href="#">{{ $department->name }}<br /><small class="muted"><strong>Miembros:</strong> 0</small></a></li>
+			<li><a class="null">{{ $department->name }}<br /><small class="muted"><strong>Miembros:</strong> {{ $members[$department->id] }}</small></a></li>
 
 			@endforeach
 

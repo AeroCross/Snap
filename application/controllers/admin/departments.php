@@ -20,6 +20,18 @@ class Admin_Departments_Controller extends Base_Controller {
 	public function get_index() {
 		$departments	= Department::all();
 		$users			= User::all();
+		
+		// calculate the amount of users each department has
+		foreach ($departments as $d) {
+			$members[$d->id] = array();
+		}
+
+		// yo, it's easier to modify the array this way!
+		$dm =& $members;
+
+		foreach ($members as $key => $m) {
+			$dm[$key] = count(Department_Member::where_department_id($key)->get());
+		}
 
 		return View::make('admin.departments.index')
 			->with('title', 'Departamentos')

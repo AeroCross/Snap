@@ -43,6 +43,7 @@ a:hover {cursor: pointer;}
 }
 
 .block {display: block;}
+.null:hover {cursor: default;}
 
 .form-actions {
 	border: none;

@@ -14,6 +14,8 @@ You should be all set. Before starting, you may want to change the usernames, de
 
 **Note:** be sure that, if you're not using a MySQL sock file, you delete the `unix_file` key from the database configuration. It can get messy.
 
+The default username is `admin` and the password is `admin`.
+
 ## Like it?
 
 Fork it! Make PR's! I don't mind. It's for everyone to use :)

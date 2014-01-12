@@ -203,6 +203,13 @@ class Notification {
 				);
 			break;
 
+			case 'department_added':
+				return array(
+					'message'	=> 'Nuevo departamento agregado',
+					'type'		=> 'success'
+				);
+			break;
+
 			// profile
 			case 'profile_password_updated':
 				return array(

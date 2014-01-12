@@ -20,11 +20,45 @@ class Admin_Departments_Controller extends Base_Controller {
 	public function get_index() {
 		$departments	= Department::all();
 		$users			= User::all();
+		
+		// calculate the amount of users each department has
+		foreach ($departments as $d) {
+			$members[$d->id] = array();
+		}
+
+		// yo, it's easier to modify the array this way!
+		$dm =& $members;
+
+		foreach ($members as $key => $m) {
+			$dm[$key] = count(Department_Member::where_department_id($key)->get());
+		}
 
 		return View::make('admin.departments.index')
 			->with('title', 'Departamentos')
 			->with('departments', $departments)
-			->with('users', $users);
+			->with('users', $users)
+			->with('members', $members);
+	}
+
+	/**
+	* Adds a new department
+	*
+	* @access	public
+	*/
+	public function post_add() {
+		$department = Input::get('department');
+
+		if (empty($department)) {
+			return Redirect::to('admin/departments')
+				->with('notification', 'form_required');
+		}
+
+		$department = Department::create(array('name' => $department));
+
+		if ($department != false) {
+			return Redirect::to('admin/departments')
+				->with('notification', 'department_added');
+		}
 	}
 
 	/**

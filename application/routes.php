@@ -49,9 +49,11 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('tickets',					'ticket@all');
 	
 	// normal users can't see assigned tickets
-	if (Session::get('role') != 3) {
-		Route::get('tickets/assigned',			'ticket@assigned');
-		Route::get('tickets/assigned/(:any)',	'ticket@assigned');	
+	if (!Request::cli()) {
+		if (Session::get('role') != 3) {
+			Route::get('tickets/assigned',			'ticket@assigned');
+			Route::get('tickets/assigned/(:any)',	'ticket@assigned');	
+		}
 	}
 	
 	Route::get('tickets/(:any)',			'ticket@all');

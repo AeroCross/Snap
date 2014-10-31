@@ -28,7 +28,7 @@ class File_Controller extends Base_Controller {
 
 		$headers = array(
 			'Content-Type'			=> 'application/octet-stream',
-			'Content-Disposition'	=> 'attachment; filename=' . $name,
+			'Content-Disposition'	=> 'attachment; filename="' . $name .'"',
 			'Content-Length'		=> filesize($file),
 			'Pragma'				=> 'no-cache',
 		);
